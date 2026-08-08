@@ -24,6 +24,38 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+
+      - name: Add Tate author portrait
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import base64, json, os, urllib.request
+          from pathlib import Path
+
+          blob_url = "https://api.github.com/repos/tatethrondson/answers-for-a-broken-heart/git/blobs/034035f0e585996fb9fbb130cda5631bb32f9448"
+          req = urllib.request.Request(
+              blob_url,
+              headers={
+                  "Authorization": f"Bearer {os.environ['GH_TOKEN']}",
+                  "Accept": "application/vnd.github+json",
+                  "X-GitHub-Api-Version": "2022-11-28",
+              },
+          )
+          with urllib.request.urlopen(req) as response:
+              payload = json.load(response)
+          Path("author-tate.jpg").write_bytes(base64.b64decode(payload["content"]))
+
+          index = Path("index.html")
+          html = index.read_text()
+          old = '<div class="bookMock" style="transform:none"><div class="mini">Pastor · Author</div><div class="title" style="font-size:2.4rem">TATE<br>THRONDSON</div><div class="sub">Castle Rock, Colorado</div></div>'
+          new = '<div style="max-width:390px;margin:auto"><img src="author-tate.jpg" alt="Tate Throndson, pastor and author of Answers for a Broken Heart" style="width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 28%;display:block;border-radius:7px;box-shadow:0 20px 50px rgba(30,52,39,.16)"></div>'
+          count = html.count(old)
+          if count != 2:
+              raise SystemExit(f"Expected 2 author placeholders, found {count}")
+          index.write_text(html.replace(old, new))
+          PY
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
