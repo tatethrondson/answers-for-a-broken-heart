@@ -24,6 +24,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+      - name: Use actual author portrait
+        run: sed -i 's#https://avatars.githubusercontent.com/u/314793130?v=4#author-tate.jpg#g' index.html
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
