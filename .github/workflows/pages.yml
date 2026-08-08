@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -25,7 +25,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Inline Tate author portrait
+      - name: Permanently embed Tate author portrait
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -35,12 +35,30 @@ jobs:
           portrait = Path('author-tate.jpg')
           html = index.read_text()
           marker = 'const AUTHOR="author-tate.jpg";'
-          if marker not in html:
-              raise SystemExit('Author portrait marker not found in index.html')
-          encoded = base64.b64encode(portrait.read_bytes()).decode('ascii')
-          html = html.replace(marker, f'const AUTHOR="data:image/jpeg;base64,{encoded}";')
-          index.write_text(html)
+          already = 'const AUTHOR="data:image/jpeg;base64,'
+
+          if marker in html:
+              encoded = base64.b64encode(portrait.read_bytes()).decode('ascii')
+              html = html.replace(marker, f'const AUTHOR="data:image/jpeg;base64,{encoded}";')
+              index.write_text(html)
+              print('Embedded portrait directly into index.html')
+          elif already in html:
+              print('Portrait is already embedded in index.html')
+          else:
+              raise SystemExit('Could not find author portrait reference in index.html')
           PY
+
+      - name: Commit embedded portrait to main
+        run: |
+          if ! git diff --quiet -- index.html; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "Embed Tate author portrait in homepage"
+            git push
+          else
+            echo "No source change needed"
+          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
