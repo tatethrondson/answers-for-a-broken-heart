@@ -77,15 +77,34 @@ jobs:
       - name: Wire Contact Tate page
         run: python scripts/contact.py
 
-      - name: Pin author portrait to JPEG endpoint
+      - name: Build and pin static author JPEG
         run: |
           python - <<'PY'
           from pathlib import Path
+          import base64
           import re
 
+          # Decode the checked-in portrait source, extracting the real JPEG if
+          # the legacy source is wrapped in SVG.
+          parts = sorted(Path('portrait-hires').glob('part*.b64'))
+          if not parts:
+              raise SystemExit('No portrait source parts found')
+          decoded = base64.b64decode(''.join(p.read_text().strip() for p in parts))
+          jpeg = decoded
+          if not jpeg.startswith(b'\xff\xd8'):
+              wrapper = decoded.decode('utf-8')
+              match = re.search(r'data:image/jpeg;base64,([^"\'\s<]+)', wrapper, re.I)
+              if not match:
+                  raise SystemExit('Embedded JPEG not found in portrait source')
+              jpeg = base64.b64decode(match.group(1))
+          if not jpeg.startswith(b'\xff\xd8'):
+              raise SystemExit('Decoded author portrait is not a JPEG')
+          Path('author-tate.jpg').write_bytes(jpeg)
+
+          # Keep the site boring and reliable: point the img directly at the file.
           index = Path('index.html')
           html = index.read_text()
-          html = re.sub(r'const AUTHOR="[^"]*";', 'const AUTHOR="/api/author-photo";', html, count=1)
+          html = re.sub(r'const AUTHOR="[^"]*";', 'const AUTHOR="/author-tate.jpg?v=3";', html, count=1)
           html = re.sub(
               r'/\* AUTHOR-PORTRAIT-LOADER-START \*/.*?/\* AUTHOR-PORTRAIT-LOADER-END \*/\s*',
               '',
@@ -101,11 +120,11 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add index.html what-hurts-today.html contact.html answer-*.html sitemap.xml robots.txt
-            git commit -m "Publish site discovery contact portrait and analytics updates"
+            git add index.html what-hurts-today.html contact.html answer-*.html sitemap.xml robots.txt author-tate.jpg
+            git commit -m "Publish static author portrait and site updates"
             git push
           else
-            echo "SEO, crawlable hub, contact, launch status, portrait, analytics, and domain layer are already current"
+            echo "SEO, crawlable hub, contact, launch status, static portrait, analytics, and domain layer are already current"
           fi
 
       - name: Setup Pages
