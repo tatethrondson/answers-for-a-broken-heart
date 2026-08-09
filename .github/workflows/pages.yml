@@ -25,7 +25,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Wire expanded answer pages into the site
+      - name: Keep all 24 expanded answers wired
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -34,14 +34,12 @@ jobs:
           index = Path('index.html')
           html = index.read_text()
 
-          # Standalone expanded pages must use normal browser navigation.
           html = html.replace(
               'if(href&&!href.startsWith("#")){e.preventDefault();go(href)}',
               'if(href&&!href.startsWith("#")&&!href.startsWith("/answer-")){e.preventDefault();go(href)}',
               1,
           )
 
-          # Every one of the 24 answers now has a standalone expanded page.
           if 'function answerHref(n)' not in html:
               html = html.replace(
                   'function go(url){',
@@ -55,7 +53,6 @@ jobs:
               count=1,
           )
 
-          # Point library cards and dynamic next links at expanded pages.
           html = html.replace(
               'href="?answer=${String(a.n).padStart(2,"0")}"',
               'href="${answerHref(a.n)}"',
@@ -66,29 +63,21 @@ jobs:
           )
           html = html.replace('href="?answer=04"', 'href="/answer-04"')
           index.write_text(html)
-
-          # Keep standalone reading transitions on standalone pages.
-          transitions = {
-              'answer-10.html': ('href="/?answer=11"', 'href="/answer-11"'),
-              'answer-14.html': ('href="/?answer=15"', 'href="/answer-15"'),
-              'answer-19.html': ('href="/?answer=20"', 'href="/answer-20"'),
-          }
-          for filename, (old, new) in transitions.items():
-              path = Path(filename)
-              if path.exists():
-                  path.write_text(path.read_text().replace(old, new))
           PY
 
-      - name: Commit navigation changes
+      - name: Generate SEO and discovery layer
+        run: python scripts/seo.py
+
+      - name: Commit generated site improvements
         run: |
-          if ! git diff --quiet -- index.html answer-10.html answer-14.html answer-19.html; then
+          if ! git diff --quiet; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add index.html answer-10.html answer-14.html answer-19.html
-            git commit -m "Link all 24 expanded answers"
+            git add index.html answer-*.html sitemap.xml robots.txt
+            git commit -m "Generate SEO metadata and related answers"
             git push
           else
-            echo "All 24 expanded answer links are already wired"
+            echo "SEO and discovery layer is already current"
           fi
 
       - name: Setup Pages
