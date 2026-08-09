@@ -68,16 +68,19 @@ jobs:
       - name: Generate SEO and discovery layer
         run: python scripts/seo.py
 
+      - name: Synchronize crawlable What Hurts Today hub
+        run: python scripts/hub.py
+
       - name: Commit generated site improvements
         run: |
           if ! git diff --quiet; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add index.html answer-*.html sitemap.xml robots.txt
-            git commit -m "Generate SEO metadata and related answers"
+            git add index.html what-hurts-today.html answer-*.html sitemap.xml robots.txt
+            git commit -m "Generate crawlable hub and discovery links"
             git push
           else
-            echo "SEO and discovery layer is already current"
+            echo "SEO, crawlable hub, and discovery layer are already current"
           fi
 
       - name: Setup Pages
