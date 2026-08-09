@@ -5,36 +5,61 @@ CSS_START = "/* FREE-GUIDES-HOME-START */"
 CSS_END = "/* FREE-GUIDES-HOME-END */"
 HTML_START = "<!-- FREE-GUIDES-HOME-START -->"
 HTML_END = "<!-- FREE-GUIDES-HOME-END -->"
+BRIDGE_START = "<!-- BOOK-BRIDGE-HOME-START -->"
+BRIDGE_END = "<!-- BOOK-BRIDGE-HOME-END -->"
 
 CSS = f'''{CSS_START}
-.freeGuidesHome{{padding:58px 0;background:#fbf8f2;border-top:1px solid #eee7db}}
+.freeGuidesHome{{padding:64px 0 58px;background:#fbf8f2;border-top:1px solid #eee7db}}
 .freeGuidesHead{{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:25px}}
-.freeGuidesHome h2{{font:2.55rem/1.05 Georgia,"Times New Roman",serif;font-weight:400;color:#183024;margin:0 0 7px}}
-.freeGuidesHome .guideIntro{{margin:0;color:#667068;max-width:650px;font-size:.88rem}}
+.freeGuidesHome h2{{font:2.65rem/1.05 Georgia,"Times New Roman",serif;font-weight:400;color:#183024;margin:0 0 9px}}
+.freeGuidesHome .guideIntro{{margin:0;color:#667068;max-width:680px;font-size:.9rem;line-height:1.62}}
 .guideCards{{display:grid;grid-template-columns:1fr 1fr;gap:15px}}
-.guideCard{{display:block;text-decoration:none;background:#fff;border:1px solid #ded8cd;padding:28px;min-height:225px;box-shadow:0 12px 30px rgba(30,44,35,.06);transition:.2s ease}}
+.guideCard{{display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1px solid #ded8cd;padding:29px;min-height:236px;box-shadow:0 12px 30px rgba(30,44,35,.06);transition:.2s ease}}
 .guideCard:hover{{transform:translateY(-2px);box-shadow:0 15px 34px rgba(30,44,35,.10)}}
 .guideCard small{{display:block;text-transform:uppercase;letter-spacing:.13em;color:#8b6939;font-weight:800;font-size:.65rem;margin-bottom:8px}}
-.guideCard strong{{display:block;font:1.75rem/1.12 Georgia,"Times New Roman",serif;font-weight:400;color:#183024;margin-bottom:10px}}
-.guideCard span{{display:block;color:#657068;font-size:.83rem;line-height:1.55}}
-.guideCard b{{display:block;margin-top:18px;color:#294533;font-size:.74rem;letter-spacing:.04em;text-transform:uppercase}}
+.guideCard strong{{display:block;font:1.78rem/1.12 Georgia,"Times New Roman",serif;font-weight:400;color:#183024;margin-bottom:10px}}
+.guideCard span{{display:block;color:#657068;font-size:.84rem;line-height:1.58}}
+.guideCard b{{display:block;margin-top:auto;padding-top:20px;color:#294533;font-size:.74rem;letter-spacing:.04em;text-transform:uppercase}}
+.guideCard.featured{{border-top:3px solid #b69258}}
 .freeGuidesAll{{font-size:.73rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#294533;text-decoration:none;white-space:nowrap}}
-@media(max-width:760px){{.freeGuidesHead{{align-items:start;flex-direction:column}}.guideCards{{grid-template-columns:1fr}}}}
+.homeNote{{margin-top:18px;background:#183024;color:#fff;padding:34px 36px;display:grid;grid-template-columns:1fr .92fr;gap:44px;align-items:center}}
+.homeNote .eyebrow{{color:#d8bd87;margin-bottom:8px}}
+.homeNote h3{{font:2rem/1.06 Georgia,"Times New Roman",serif;font-weight:400;color:#fff;margin:0 0 8px}}
+.homeNote p{{margin:0;color:rgba(255,255,255,.8);font-size:.83rem;line-height:1.58;max-width:590px}}
+.homeNoteForm{{display:grid;grid-template-columns:1fr 146px;gap:8px;align-items:start}}
+.homeNoteForm input[type="email"]{{width:100%;border:0;background:white;color:#28332d;padding:13px 14px;font-size:.86rem;min-height:47px}}
+.homeNoteForm button{{border:1px solid #d8bd87;background:#d8bd87;color:#183024;padding:12px 13px;min-height:47px;font-size:.69rem;letter-spacing:.06em;text-transform:uppercase;font-weight:800;cursor:pointer}}
+.homeNoteForm button:hover{{background:#ead9b7}}
+.homeNotePrivacy{{grid-column:1/-1;font-size:.64rem;line-height:1.45;color:rgba(255,255,255,.65)}}
+.homeNoteHoney{{position:absolute!important;left:-5000px!important;width:1px!important;height:1px!important;overflow:hidden!important}}
+.bookBridgeHome{{background:#f0ece4;border-top:1px solid #ded8cd;border-bottom:1px solid #ded8cd;padding:46px 0}}
+.bookBridgeInner{{display:grid;grid-template-columns:150px 1fr auto;gap:30px;align-items:center}}
+.bookBridgeKicker{{text-transform:uppercase;letter-spacing:.16em;font-size:.66rem;font-weight:800;color:#8b6939}}
+.bookBridgeCopy h2{{font:2.15rem/1.08 Georgia,"Times New Roman",serif;font-weight:400;color:#183024;margin:0 0 8px}}
+.bookBridgeCopy p{{margin:0;color:#5f6862;font-size:.86rem;line-height:1.58;max-width:670px}}
+.bookBridgeActions{{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}}
+.bookBridgeActions a{{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:11px 16px;text-transform:uppercase;letter-spacing:.055em;font-size:.68rem;font-weight:800;white-space:nowrap}}
+.bookBridgeActions .bookPrimary{{background:#294533;color:#fff;border:1px solid #294533}}
+.bookBridgeActions .bookSecondary{{background:transparent;color:#294533;border:1px solid #294533}}
+@media(max-width:900px){{.homeNote{{grid-template-columns:1fr;gap:22px}}.bookBridgeInner{{grid-template-columns:1fr;gap:12px}}.bookBridgeActions{{justify-content:flex-start;margin-top:5px}}}}
+@media(max-width:760px){{.freeGuidesHead{{align-items:start;flex-direction:column}}.guideCards{{grid-template-columns:1fr}}.homeNote{{padding:29px 25px}}.homeNoteForm{{grid-template-columns:1fr}}.homeNoteForm button{{width:100%}}}}
 {CSS_END}'''
 
-HOME = f'''{HTML_START}<section class="freeGuidesHome"><div class="wrap"><div class="freeGuidesHead"><div><p class="eyebrow">Free Resources</p><h2>Guides for the hard days.</h2><p class="guideIntro">Short, pastoral resources you can read right now, print for later, or share with someone who needs a little hope.</p></div><a class="freeGuidesAll" href="/free-guides">View All Free Guides →</a></div><div class="guideCards"><a class="guideCard" href="/2am-guide"><small>Printable · 7 Scriptures</small><strong>The 2:00 A.M. Guide</strong><span>Something true to hold onto when the room is quiet, your thoughts are loud, and you do not know what else to do.</span><b>Read the guide →</b></a><a class="guideCard" href="/can-christians-be-depressed"><small>A Note from Tate · Depression</small><strong>Can Christians Be Depressed?</strong><span>A biblical answer for the Christian who feels low—and then feels guilty for feeling low. Includes three practical steps for this week.</span><b>Read the guide →</b></a></div></div></section>{HTML_END}'''
+HOME = f'''{HTML_START}<section class="freeGuidesHome"><div class="wrap"><div class="freeGuidesHead"><div><p class="eyebrow">Free Resources</p><h2>Start with something useful.</h2><p class="guideIntro">You do not have to buy anything to find help here. These short pastoral guides are designed for the hard moment you are in right now—read one, print one, or send one to somebody you love.</p></div><a class="freeGuidesAll" href="/free-guides">View All Free Guides →</a></div><div class="guideCards"><a class="guideCard featured" href="/2am-guide"><small>Best place to start tonight · 7 Scriptures</small><strong>The 2:00 A.M. Guide</strong><span>Something true to hold onto when the room is quiet, your thoughts are loud, and you do not know what else to do.</span><b>Read the free guide →</b></a><a class="guideCard" href="/can-christians-be-depressed"><small>A Note from Tate · Depression</small><strong>Can Christians Be Depressed?</strong><span>A gentle biblical answer for the Christian who feels low—and then feels guilty for feeling low. Includes three practical steps for this week.</span><b>Read the free guide →</b></a></div><div class="homeNote"><div><p class="eyebrow">A Note from Tate</p><h3>Get the next helpful guide in your inbox.</h3><p>Every so often, I’ll send a short pastoral note for a question people are actually carrying—grief, doubt, depression, unanswered prayer, forgiveness, and more. I’ll also let you know when <em>Answers for a Broken Heart</em> is ready.</p></div><form class="homeNoteForm" action="https://formsubmit.co/tatethrondson@gmail.com" method="POST"><input type="email" name="email" placeholder="Your email address" aria-label="Your email address" autocomplete="email" required><input type="text" name="_honey" class="homeNoteHoney" tabindex="-1" autocomplete="off"><input type="hidden" name="_subject" value="New Answers for a Broken Heart homepage signup"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_next" value="https://answersforabrokenheart.com/hope-thanks"><input type="hidden" name="interest" value="A Note from Tate + free guides + book release updates"><input type="hidden" name="source" value="Homepage Free Guides"><button type="submit">Send Me the Next Note</button><div class="homeNotePrivacy">No daily emails. Just occasional pastoral encouragement, new free guides, and book-release updates.</div></form></div></div></section>{HTML_END}'''
+
+BRIDGE = f'''{BRIDGE_START}<section class="bookBridgeHome"><div class="wrap bookBridgeInner"><div class="bookBridgeKicker">The deeper journey</div><div class="bookBridgeCopy"><h2>The guides help with one hard moment. The book goes deeper.</h2><p><em>Answers for a Broken Heart</em> walks through 24 questions people ask when pain makes easy answers feel too small. A website can help you find the question. The book is being written to walk with you through it.</p></div><div class="bookBridgeActions"><a class="bookPrimary" href="?view=book">Explore the Book</a><a class="bookSecondary" href="/answer-04">Read a Sample</a></div></div></section>{BRIDGE_END}'''
 
 
 def patch_index(path):
     text = path.read_text()
+
     text = re.sub(re.escape(CSS_START) + r".*?" + re.escape(CSS_END) + r"\s*", "", text, flags=re.S)
     text = re.sub(re.escape(HTML_START) + r".*?" + re.escape(HTML_END), "", text, flags=re.S)
+    text = re.sub(re.escape(BRIDGE_START) + r".*?" + re.escape(BRIDGE_END), "", text, flags=re.S)
     text = text.replace("</style>", CSS + "\n</style>", 1)
 
-    # Give Resources a real destination instead of sending people back to the question hub.
     text = text.replace('<a href="/what-hurts-today">Resources</a>', '<a href="/free-guides">Free Guides</a>')
 
-    # Static resource pages must bypass the SPA router.
     if '!href.startsWith("/free-guides")' not in text:
         text = text.replace(
             '&&!href.startsWith("/contact")){',
@@ -42,19 +67,30 @@ def patch_index(path):
             1,
         )
 
-    # Works whether the older newsletter or the newer Hope conversion band is present.
     anchors = [
         '<section class="hopeBand" id="newsletter">',
         '<section class="newsletter" id="newsletter">',
     ]
-    inserted = False
     for anchor in anchors:
         if anchor in text:
             text = text.replace(anchor, HOME + anchor, 1)
-            inserted = True
             break
 
-    # Do not insert into the empty SPA mount; if neither anchor exists, leave the page unchanged.
+    text = re.sub(
+        r'<section class="newsletter" id="newsletter">.*?</section>`}',
+        BRIDGE + '`}',
+        text,
+        count=1,
+        flags=re.S,
+    )
+    text = re.sub(
+        r'<section class="hopeBand" id="newsletter">.*?</section>`}',
+        BRIDGE + '`}',
+        text,
+        count=1,
+        flags=re.S,
+    )
+
     path.write_text(text)
 
 
@@ -88,4 +124,4 @@ def patch_sitemap(path):
 patch_index(Path('index.html'))
 patch_thanks(Path('hope-thanks.html'))
 patch_sitemap(Path('sitemap.xml'))
-print('Free Guides integration complete: homepage cards, resource nav, thank-you path, and sitemap are current.')
+print('Homepage conversion layer current: free-guide capture, pastoral list invitation, book bridge, nav, thank-you path, and sitemap.')
