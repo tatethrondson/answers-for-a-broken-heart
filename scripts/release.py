@@ -47,10 +47,44 @@ PORTRAIT_CSS_START = "/* AUTHOR-PORTRAIT-START */"
 PORTRAIT_CSS_END = "/* AUTHOR-PORTRAIT-END */"
 PORTRAIT_CSS = f'''{PORTRAIT_CSS_START}
 .authorInner{{grid-template-columns:180px 1fr;gap:30px;align-items:start}}
-.authorPhoto{{width:180px;height:220px;border-radius:5px;object-fit:cover;object-position:center 18%;box-shadow:0 10px 28px rgba(33,47,38,.14);border:1px solid rgba(41,69,51,.08)}}
-.authorPage img{{width:100%;max-width:350px;height:auto;object-fit:contain;object-position:center;border-radius:5px;box-shadow:var(--shadow)}}
+.authorPhoto{{width:180px;height:220px;border-radius:5px;object-fit:cover;object-position:center 18%;box-shadow:0 10px 28px rgba(33,47,38,.14);border:1px solid rgba(41,69,51,.08);background:#eee9df}}
+.authorPage img{{width:100%;max-width:350px;height:auto;object-fit:contain;object-position:center;border-radius:5px;box-shadow:var(--shadow);background:#eee9df}}
 @media(max-width:760px){{.authorInner{{grid-template-columns:1fr;gap:20px}}.authorPhoto{{width:160px;height:196px;object-position:center 18%}}.authorPage img{{max-width:320px}}}}
 {PORTRAIT_CSS_END}'''
+
+PORTRAIT_LOADER_START = "/* AUTHOR-PORTRAIT-LOADER-START */"
+PORTRAIT_LOADER_END = "/* AUTHOR-PORTRAIT-LOADER-END */"
+PORTRAIT_PLACEHOLDER = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+PORTRAIT_LOADER = f'''{PORTRAIT_LOADER_START}
+let authorPortraitUrl = null;
+let authorPortraitPromise = null;
+async function getAuthorPortraitUrl() {{
+  if (authorPortraitUrl) return authorPortraitUrl;
+  if (!authorPortraitPromise) {{
+    authorPortraitPromise = (async () => {{
+      const names = ["01","02","03","04","05","06","07","08"];
+      const parts = await Promise.all(names.map(async n => {{
+        const response = await fetch(`/portrait-hires/part${{n}}.b64`, {{cache:"force-cache"}});
+        if (!response.ok) throw new Error(`Portrait part ${{n}} failed to load`);
+        return (await response.text()).trim();
+      }}));
+      const binary = atob(parts.join("").replace(/\\s/g, ""));
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      authorPortraitUrl = URL.createObjectURL(new Blob([bytes], {{type:"image/jpeg"}}));
+      return authorPortraitUrl;
+    }})();
+  }}
+  return authorPortraitPromise;
+}}
+function applyAuthorPortrait() {{
+  const images = document.querySelectorAll("[data-author-photo]");
+  if (!images.length) return;
+  getAuthorPortraitUrl().then(url => images.forEach(img => {{ img.src = url; }})).catch(err => console.error("Author portrait failed:", err));
+}}
+new MutationObserver(applyAuthorPortrait).observe(document.getElementById("app"), {{childList:true, subtree:true}});
+applyAuthorPortrait();
+{PORTRAIT_LOADER_END}'''
 
 BOOK_UPDATES_CSS_START = "/* BOOK-UPDATES-START */"
 BOOK_UPDATES_CSS_END = "/* BOOK-UPDATES-END */"
@@ -89,80 +123,45 @@ def inject_analytics(text):
 
 
 def inject_start_here(text):
-    text = re.sub(
-        re.escape(START_HERE_CSS_START) + r".*?" + re.escape(START_HERE_CSS_END) + r"\s*",
-        "",
-        text,
-        flags=re.S,
-    )
-    text = re.sub(
-        re.escape(START_HERE_HTML_START) + r".*?" + re.escape(START_HERE_HTML_END),
-        "",
-        text,
-        flags=re.S,
-    )
+    text = re.sub(re.escape(START_HERE_CSS_START) + r".*?" + re.escape(START_HERE_CSS_END) + r"\s*", "", text, flags=re.S)
+    text = re.sub(re.escape(START_HERE_HTML_START) + r".*?" + re.escape(START_HERE_HTML_END), "", text, flags=re.S)
     if "</style>" in text:
         text = text.replace("</style>", START_HERE_CSS + "\n</style>", 1)
-    text = text.replace(
-        '<a class="btn primary" href="/what-hurts-today">What Hurts Today?</a>',
-        '<a class="btn primary" href="/what-hurts-today">Start Here — What Hurts Today?</a>',
-        1,
-    )
-    text = text.replace(
-        '</section><section class="section hurts">',
-        '</section>' + START_HERE_HTML + '<section class="section hurts">',
-        1,
-    )
+    text = text.replace('<a class="btn primary" href="/what-hurts-today">What Hurts Today?</a>', '<a class="btn primary" href="/what-hurts-today">Start Here — What Hurts Today?</a>', 1)
+    text = text.replace('</section><section class="section hurts">', '</section>' + START_HERE_HTML + '<section class="section hurts">', 1)
     return text
 
 
 def inject_badge(text):
-    text = re.sub(
-        re.escape(BADGE_CSS_START) + r".*?" + re.escape(BADGE_CSS_END) + r"\s*",
-        "",
-        text,
-        flags=re.S,
-    )
+    text = re.sub(re.escape(BADGE_CSS_START) + r".*?" + re.escape(BADGE_CSS_END) + r"\s*", "", text, flags=re.S)
     if "</style>" in text:
         text = text.replace("</style>", BADGE_CSS + "\n</style>", 1)
-    text = re.sub(
-        r'<div class="badge">.*?</div>',
-        BADGE_HTML,
-        text,
-        count=1,
-        flags=re.S,
-    )
+    text = re.sub(r'<div class="badge">.*?</div>', BADGE_HTML, text, count=1, flags=re.S)
     return text
 
 
 def inject_portrait_styles(text):
-    text = re.sub(
-        re.escape(PORTRAIT_CSS_START) + r".*?" + re.escape(PORTRAIT_CSS_END) + r"\s*",
-        "",
-        text,
-        flags=re.S,
-    )
+    text = re.sub(re.escape(PORTRAIT_CSS_START) + r".*?" + re.escape(PORTRAIT_CSS_END) + r"\s*", "", text, flags=re.S)
     if "</style>" in text:
         text = text.replace("</style>", PORTRAIT_CSS + "\n</style>", 1)
     return text
 
 
+def inject_portrait_loader(text):
+    text = re.sub(re.escape(PORTRAIT_LOADER_START) + r".*?" + re.escape(PORTRAIT_LOADER_END) + r"\s*", "", text, flags=re.S)
+    text = text.replace('<img class="authorPhoto" src="${AUTHOR}" alt="Tate Throndson">', '<img class="authorPhoto" data-author-photo src="${AUTHOR}" alt="Tate Throndson">')
+    text = text.replace('<div class="wrap authorPage"><img src="${AUTHOR}" alt="Tate Throndson">', '<div class="wrap authorPage"><img data-author-photo src="${AUTHOR}" alt="Tate Throndson">')
+    script_end = text.rfind("</script>")
+    if script_end != -1:
+        text = text[:script_end] + PORTRAIT_LOADER + "\n" + text[script_end:]
+    return text
+
+
 def inject_book_updates(text):
-    text = re.sub(
-        re.escape(BOOK_UPDATES_CSS_START) + r".*?" + re.escape(BOOK_UPDATES_CSS_END) + r"\s*",
-        "",
-        text,
-        flags=re.S,
-    )
-    text = re.sub(
-        re.escape(BOOK_UPDATES_HTML_START) + r".*?" + re.escape(BOOK_UPDATES_HTML_END),
-        "",
-        text,
-        flags=re.S,
-    )
+    text = re.sub(re.escape(BOOK_UPDATES_CSS_START) + r".*?" + re.escape(BOOK_UPDATES_CSS_END) + r"\s*", "", text, flags=re.S)
+    text = re.sub(re.escape(BOOK_UPDATES_HTML_START) + r".*?" + re.escape(BOOK_UPDATES_HTML_END), "", text, flags=re.S)
     if "</style>" in text:
         text = text.replace("</style>", BOOK_UPDATES_CSS + "\n</style>", 1)
-
     anchor = '<div class="salesCard"><p class="eyebrow">Churches</p><h3>Church & bulk reservations</h3><p>Quantity options are being prepared for pastors, counseling ministries, small groups, conferences, and churches.</p><strong>Bulk preorder details are coming soon.</strong></div></div></div></section>'
     replacement = '<div class="salesCard"><p class="eyebrow">Churches</p><h3>Church & bulk reservations</h3><p>Quantity options are being prepared for pastors, counseling ministries, small groups, conferences, and churches.</p><strong>Bulk preorder details are coming soon.</strong></div></div>' + BOOK_UPDATES_HTML + '</div></section>'
     text = text.replace(anchor, replacement, 1)
@@ -173,51 +172,25 @@ def patch_index(path):
     text = path.read_text()
     text = text.replace(OLD_BASE, NEW_BASE)
 
-    # Keep Tate's real uploaded portrait inline so browsers receive a valid JPEG
-    # without relying on a separately served image path. Prefer the higher-
-    # resolution chunked copy for a crisp Retina rendering.
-    portrait_parts = sorted(Path("portrait-hires").glob("part*.b64"))
-    if portrait_parts:
-        portrait = "".join(part.read_text().strip() for part in portrait_parts)
-    else:
-        portrait = Path("portrait-inline.b64").read_text().strip()
-    author_value = f'data:image/jpeg;base64,{portrait}'
-    text = re.sub(
-        r'const AUTHOR="[^"]*";',
-        lambda _: f'const AUTHOR="{author_value}";',
-        text,
-        count=1,
-    )
+    # Keep the page source small and rebuild-safe. The high-resolution portrait
+    # is reconstructed in the browser from the static chunk files.
+    text = re.sub(r'const AUTHOR="[^"]*";', lambda _: f'const AUTHOR="{PORTRAIT_PLACEHOLDER}";', text, count=1)
 
-    text = text.replace(
-        '<p class="eyebrow">About the book</p>',
-        '<p class="eyebrow">Coming Soon · About the book</p>',
-    )
-    text = text.replace(
-        '<p class="eyebrow">Answers for a Broken Heart</p><h1>A book written for the person who is hurting at 2:00 a.m.</h1>',
-        '<p class="eyebrow">Coming Soon · Answers for a Broken Heart</p><h1>A book written for the person who is hurting at 2:00 a.m.</h1>',
-    )
+    text = text.replace('<p class="eyebrow">About the book</p>', '<p class="eyebrow">Coming Soon · About the book</p>')
+    text = text.replace('<p class="eyebrow">Answers for a Broken Heart</p><h1>A book written for the person who is hurting at 2:00 a.m.</h1>', '<p class="eyebrow">Coming Soon · Answers for a Broken Heart</p><h1>A book written for the person who is hurting at 2:00 a.m.</h1>')
 
     text = text.replace(PUBLICATION_STATUS, "")
     text = text.replace(BOOK_BRIDGE, BOOK_BRIDGE + PUBLICATION_STATUS, 1)
 
-    text = text.replace(
-        '<div class="salesCard"><p class="eyebrow">Amazon</p><h3>Buy on Amazon</h3><p>Best for launch-week support, reviews, Prime convenience, Kindle, and standard retail purchasing.</p><strong>Activates when the Amazon listing is live.</strong></div>',
-        '<div class="salesCard"><p class="eyebrow">Amazon</p><h3>Kindle preorder — coming soon</h3><p>The Kindle edition can open for preorder before release. The link will appear here as soon as the Amazon listing is ready.</p><strong>Preorders are not open yet.</strong></div>',
-    )
-    text = text.replace(
-        '<div class="salesCard"><p class="eyebrow">Direct</p><h3>Signed copies</h3><p>Order directly for signed copies and future special bundles.</p><strong>Checkout activates before release.</strong></div>',
-        '<div class="salesCard"><p class="eyebrow">Direct</p><h3>Signed-copy preorder — coming soon</h3><p>A direct preorder option for signed print copies and future special bundles is being prepared.</p><strong>Direct print preorders will open before release.</strong></div>',
-    )
-    text = text.replace(
-        '<div class="salesCard"><p class="eyebrow">Churches</p><h3>Church & bulk orders</h3><p>Quantity options for pastors, counseling ministries, small groups, conferences, and churches.</p><strong>Bulk ordering is being prepared.</strong></div>',
-        '<div class="salesCard"><p class="eyebrow">Churches</p><h3>Church & bulk reservations</h3><p>Quantity options are being prepared for pastors, counseling ministries, small groups, conferences, and churches.</p><strong>Bulk preorder details are coming soon.</strong></div>',
-    )
+    text = text.replace('<div class="salesCard"><p class="eyebrow">Amazon</p><h3>Buy on Amazon</h3><p>Best for launch-week support, reviews, Prime convenience, Kindle, and standard retail purchasing.</p><strong>Activates when the Amazon listing is live.</strong></div>', '<div class="salesCard"><p class="eyebrow">Amazon</p><h3>Kindle preorder — coming soon</h3><p>The Kindle edition can open for preorder before release. The link will appear here as soon as the Amazon listing is ready.</p><strong>Preorders are not open yet.</strong></div>')
+    text = text.replace('<div class="salesCard"><p class="eyebrow">Direct</p><h3>Signed copies</h3><p>Order directly for signed copies and future special bundles.</p><strong>Checkout activates before release.</strong></div>', '<div class="salesCard"><p class="eyebrow">Direct</p><h3>Signed-copy preorder — coming soon</h3><p>A direct preorder option for signed print copies and future special bundles is being prepared.</p><strong>Direct print preorders will open before release.</strong></div>')
+    text = text.replace('<div class="salesCard"><p class="eyebrow">Churches</p><h3>Church & bulk orders</h3><p>Quantity options for pastors, counseling ministries, small groups, conferences, and churches.</p><strong>Bulk ordering is being prepared.</strong></div>', '<div class="salesCard"><p class="eyebrow">Churches</p><h3>Church & bulk reservations</h3><p>Quantity options are being prepared for pastors, counseling ministries, small groups, conferences, and churches.</p><strong>Bulk preorder details are coming soon.</strong></div>')
 
     text = inject_start_here(text)
     text = inject_badge(text)
     text = inject_portrait_styles(text)
     text = inject_book_updates(text)
+    text = inject_portrait_loader(text)
     path.write_text(inject_analytics(text))
 
 
@@ -241,4 +214,4 @@ for path in Path(".").glob("*.html"):
 patch_text_file(Path("sitemap.xml"))
 patch_text_file(Path("robots.txt"))
 
-print("Release pass complete: custom domain, coming-soon messaging, high-resolution author portrait, book release signup, Start Here pathway, refined hero badge, and Vercel Web Analytics added.")
+print("Release pass complete: custom domain, coming-soon messaging, rebuild-safe high-resolution author portrait, book release signup, Start Here pathway, refined hero badge, and Vercel Web Analytics added.")
