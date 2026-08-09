@@ -45,7 +45,7 @@ CSS = f'''{CSS_START}
 @media(max-width:760px){{.freeGuidesHead{{align-items:start;flex-direction:column}}.guideCards{{grid-template-columns:1fr}}.homeNote{{padding:29px 25px}}.homeNoteForm{{grid-template-columns:1fr}}.homeNoteForm button{{width:100%}}}}
 {CSS_END}'''
 
-HOME = f'''{HTML_START}<section class="freeGuidesHome"><div class="wrap"><div class="freeGuidesHead"><div><p class="eyebrow">Free Resources</p><h2>Start with something useful.</h2><p class="guideIntro">You do not have to buy anything to find help here. These short pastoral guides are designed for the hard moment you are in right now—read one, print one, or send one to somebody you love.</p></div><a class="freeGuidesAll" href="/free-guides">View All Free Guides →</a></div><div class="guideCards"><a class="guideCard featured" href="/2am-guide"><small>Best place to start tonight · 7 Scriptures</small><strong>The 2:00 A.M. Guide</strong><span>Something true to hold onto when the room is quiet, your thoughts are loud, and you do not know what else to do.</span><b>Read the free guide →</b></a><a class="guideCard" href="/can-christians-be-depressed"><small>A Note from Pastor Tate · Depression</small><strong>Can Christians Be Depressed?</strong><span>A gentle biblical answer for the Christian who feels low—and then feels guilty for feeling low. Includes three practical steps for this week.</span><b>Read the free guide →</b></a></div><div class="homeNote"><div><p class="eyebrow">A Note from Pastor Tate</p><h3>Get the next note from Pastor Tate.</h3><p>Every so often, I’ll send a short pastoral note for a question people are actually carrying—grief, doubt, depression, unanswered prayer, forgiveness, and more. I’ll also let you know when <em>Answers for a Broken Heart</em> is ready.</p></div><form class="homeNoteForm" action="https://formsubmit.co/tatethrondson@gmail.com" method="POST"><input type="email" name="email" placeholder="Your email address" aria-label="Your email address" autocomplete="email" required><input type="text" name="_honey" class="homeNoteHoney" tabindex="-1" autocomplete="off"><input type="hidden" name="_subject" value="New Answers for a Broken Heart homepage signup"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_next" value="https://answersforabrokenheart.com/hope-thanks"><input type="hidden" name="interest" value="A Note from Pastor Tate + free guides + book release updates"><input type="hidden" name="source" value="Homepage Free Guides"><button type="submit">Send Me the Next Note</button><div class="homeNotePrivacy">No daily emails. Just occasional pastoral encouragement, new free guides, and book-release updates.</div></form></div></div></section>{HTML_END}'''
+HOME = f'''{HTML_START}<section class="freeGuidesHome"><div class="wrap"><div class="freeGuidesHead"><div><p class="eyebrow">Free Help</p><h2>Start with something useful.</h2><p class="guideIntro">You do not have to buy anything to find help here. These short pastoral guides are designed for the hard moment you are in right now—read one, print one, or send one to somebody you love.</p></div><a class="freeGuidesAll" href="/free-guides">View All Free Guides →</a></div><div class="guideCards"><a class="guideCard featured" href="/2am-guide"><small>Best place to start tonight · 7 Scriptures</small><strong>The 2:00 A.M. Guide</strong><span>Something true to hold onto when the room is quiet, your thoughts are loud, and you do not know what else to do.</span><b>Read the free guide →</b></a><a class="guideCard" href="/can-christians-be-depressed"><small>A Note from Pastor Tate · Depression</small><strong>Can Christians Be Depressed?</strong><span>A gentle biblical answer for the Christian who feels low—and then feels guilty for feeling low. Includes three practical steps for this week.</span><b>Read the free guide →</b></a></div><div class="homeNote"><div><p class="eyebrow">A Note from Pastor Tate</p><h3>Get the next note from Pastor Tate.</h3><p>Every so often, I’ll send a short pastoral note for a question people are actually carrying—grief, doubt, depression, unanswered prayer, forgiveness, and more. I’ll also let you know when <em>Answers for a Broken Heart</em> is ready.</p></div><form class="homeNoteForm" action="https://formsubmit.co/tatethrondson@gmail.com" method="POST"><input type="email" name="email" placeholder="Your email address" aria-label="Your email address" autocomplete="email" required><input type="text" name="_honey" class="homeNoteHoney" tabindex="-1" autocomplete="off"><input type="hidden" name="_subject" value="New Answers for a Broken Heart homepage signup"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_next" value="https://answersforabrokenheart.com/hope-thanks"><input type="hidden" name="interest" value="A Note from Pastor Tate + free guides + book release updates"><input type="hidden" name="source" value="Homepage Free Guides"><button type="submit">Send Me the Next Note</button><div class="homeNotePrivacy">No daily emails. Just occasional pastoral encouragement, new free guides, and book-release updates.</div></form></div></div></section>{HTML_END}'''
 
 BRIDGE = f'''{BRIDGE_START}<section class="bookBridgeHome"><div class="wrap bookBridgeInner"><div class="bookBridgeKicker">The deeper journey</div><div class="bookBridgeCopy"><h2>The guides help with one hard moment. The book goes deeper.</h2><p><em>Answers for a Broken Heart</em> walks through 24 questions people ask when pain makes easy answers feel too small. A website can help you find the question. The book is being written to walk with you through it.</p></div><div class="bookBridgeActions"><a class="bookPrimary" href="?view=book">Explore the Book</a><a class="bookSecondary" href="/answer-04">Read a Sample</a></div></div></section>{BRIDGE_END}'''
 
@@ -53,7 +53,7 @@ BRIDGE = f'''{BRIDGE_START}<section class="bookBridgeHome"><div class="wrap book
 def patch_index(path):
     text = path.read_text()
 
-    # Remove only our previously generated blocks, then rebuild them in one stable place.
+    # Remove only our previously generated blocks, then rebuild them in stable places.
     text = re.sub(re.escape(CSS_START) + r".*?" + re.escape(CSS_END) + r"\s*", "", text, flags=re.S)
     text = re.sub(re.escape(HTML_START) + r".*?" + re.escape(HTML_END), "", text, flags=re.S)
     text = re.sub(re.escape(BRIDGE_START) + r".*?" + re.escape(BRIDGE_END), "", text, flags=re.S)
@@ -68,10 +68,17 @@ def patch_index(path):
             1,
         )
 
-    # The homepage is a JS template literal. Insert immediately before its stable function boundary.
+    # Help comes before promotion: place the free-help block immediately before the book band.
+    book_anchor = '<section class="bookBand">'
+    if book_anchor in text:
+        text = text.replace(book_anchor, HOME + book_anchor, 1)
+    else:
+        raise RuntimeError('Could not find homepage book band; refusing to publish a partial integration.')
+
+    # Keep a gentle book bridge at the end of the homepage journey.
     boundary = '`}\nfunction hurts(){'
     if boundary in text:
-        text = text.replace(boundary, HOME + BRIDGE + boundary, 1)
+        text = text.replace(boundary, BRIDGE + boundary, 1)
     else:
         raise RuntimeError('Could not find homepage function boundary; refusing to publish a partial integration.')
 
@@ -108,4 +115,4 @@ def patch_sitemap(path):
 patch_index(Path('index.html'))
 patch_thanks(Path('hope-thanks.html'))
 patch_sitemap(Path('sitemap.xml'))
-print('Homepage conversion layer current: free-guide capture, Pastor Tate invitation, book bridge, nav, thank-you path, and sitemap.')
+print('Homepage conversion layer current: free help precedes book promotion; Pastor Tate invitation, book bridge, nav, thank-you path, and sitemap are current.')
