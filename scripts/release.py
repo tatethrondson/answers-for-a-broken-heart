@@ -1,4 +1,5 @@
 from pathlib import Path
+import base64
 import re
 
 # Vercel Web Analytics enabled in the project dashboard; this commit refreshes production tracking.
@@ -55,7 +56,6 @@ PORTRAIT_CSS = f'''{PORTRAIT_CSS_START}
 # Kept only so old browser-loader code can be removed from index.html during migration.
 PORTRAIT_LOADER_START = "/* AUTHOR-PORTRAIT-LOADER-START */"
 PORTRAIT_LOADER_END = "/* AUTHOR-PORTRAIT-LOADER-END */"
-PORTRAIT_URL = "/api/author-photo"
 
 BOOK_UPDATES_CSS_START = "/* BOOK-UPDATES-START */"
 BOOK_UPDATES_CSS_END = "/* BOOK-UPDATES-END */"
@@ -79,6 +79,28 @@ BOOK_UPDATES_HTML = f'''{BOOK_UPDATES_HTML_START}<div id="book-updates" class="b
 
 PUBLICATION_STATUS = '<p><strong>Publication status:</strong> The book is not yet released. It is currently in final preparation, with preorder options opening before publication.</p>'
 BOOK_BRIDGE = '<p>The site and the book work together: read an answer here, then go deeper in the full book.</p>'
+
+
+def load_author_data_uri():
+    """Return the real high-resolution JPEG as a self-contained data URI."""
+    parts = sorted(Path("portrait-hires").glob("part*.b64"))
+    if not parts:
+        raise FileNotFoundError("No author portrait source found")
+
+    outer = base64.b64decode("".join(part.read_text().strip() for part in parts))
+    if outer.startswith(b"\xff\xd8"):
+        jpeg = outer
+    else:
+        wrapper = outer.decode("utf-8")
+        match = re.search(r'data:image/jpeg;base64,([^"<]+)', wrapper, re.I)
+        if not match:
+            raise ValueError("Embedded JPEG not found in portrait source")
+        jpeg = base64.b64decode(match.group(1))
+
+    if not jpeg.startswith(b"\xff\xd8"):
+        raise ValueError("Decoded author portrait is not a JPEG")
+
+    return "data:image/jpeg;base64," + base64.b64encode(jpeg).decode("ascii")
 
 
 def inject_analytics(text):
@@ -144,8 +166,15 @@ def patch_index(path):
     text = path.read_text()
     text = text.replace(OLD_BASE, NEW_BASE)
 
-    # Serve Tate's portrait from a Vercel function that returns real JPEG bytes.
-    text = re.sub(r'const AUTHOR="[^"]*";', f'const AUTHOR="{PORTRAIT_URL}";', text, count=1)
+    # Embed the real high-resolution JPEG directly in the page. No API request,
+    # redirect, MIME guessing, or browser-side reconstruction is involved.
+    author_value = load_author_data_uri()
+    text = re.sub(
+        r'const AUTHOR="[^"]*";',
+        lambda _: f'const AUTHOR="{author_value}";',
+        text,
+        count=1,
+    )
     text = remove_old_portrait_loader(text)
 
     text = text.replace('<p class="eyebrow">About the book</p>', '<p class="eyebrow">Coming Soon · About the book</p>')
@@ -185,4 +214,4 @@ for path in Path(".").glob("*.html"):
 patch_text_file(Path("sitemap.xml"))
 patch_text_file(Path("robots.txt"))
 
-print("Release pass complete: custom domain, coming-soon messaging, reliable author photo endpoint, book release signup, Start Here pathway, refined hero badge, and Vercel Web Analytics added.")
+print("Release pass complete: custom domain, coming-soon messaging, embedded high-resolution author JPEG, book release signup, Start Here pathway, refined hero badge, and Vercel Web Analytics added.")
