@@ -1,0 +1,41 @@
+name: Publish Free Guides
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/guides.py'
+      - 'free-guides.html'
+      - 'can-christians-be-depressed.html'
+      - '.github/workflows/guides.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: free-guides-publisher
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Integrate Free Guides
+        run: python scripts/guides.py
+
+      - name: Commit generated guide integration
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html hope-thanks.html sitemap.xml
+            git commit -m "Integrate Free Guides into site"
+            git push
+          else
+            echo "Free Guides integration is already current"
+          fi
