@@ -60,6 +60,7 @@ def patch_index(path):
     text = text.replace("</style>", CSS + "\n</style>", 1)
 
     text = text.replace('<a href="/what-hurts-today">Resources</a>', '<a href="/free-guides">Free Guides</a>')
+    text = text.replace('const AUTHOR="/api/author-photo";', 'const AUTHOR="/author-tate.jpg?v=3";')
 
     if '!href.startsWith("/free-guides")' not in text:
         text = text.replace(
@@ -115,4 +116,4 @@ def patch_sitemap(path):
 patch_index(Path('index.html'))
 patch_thanks(Path('hope-thanks.html'))
 patch_sitemap(Path('sitemap.xml'))
-print('Homepage conversion layer current: free help precedes book promotion; Pastor Tate invitation, book bridge, nav, thank-you path, and sitemap are current.')
+print('Homepage conversion layer current: free help precedes book promotion; Pastor Tate invitation, book bridge, nav, thank-you path, sitemap, and static author portrait are current.')
