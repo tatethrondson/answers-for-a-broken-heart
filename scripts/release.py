@@ -31,6 +31,9 @@ START_HERE_HTML_START = "<!-- START-HERE-CTA-START -->"
 START_HERE_HTML_END = "<!-- START-HERE-CTA-END -->"
 START_HERE_HTML = f'''{START_HERE_HTML_START}<section class="startHere"><div class="wrap startHereInner"><div class="startHereLabel">Start Here</div><div class="startHereCopy"><h2>What hurts today?</h2><p>You don’t need to read this site in order. Start with the question that sounds closest to what you’re carrying, and begin there.</p></div><a class="startBtn" href="/what-hurts-today">Find My Question →</a></div></section>{START_HERE_HTML_END}'''
 
+PUBLICATION_STATUS = '<p><strong>Publication status:</strong> The book is not yet released. It is currently in final preparation, with preorder options opening before publication.</p>'
+BOOK_BRIDGE = '<p>The site and the book work together: read an answer here, then go deeper in the full book.</p>'
+
 
 def inject_analytics(text):
     text = re.sub(
@@ -103,10 +106,11 @@ def patch_index(path):
         '<p class="eyebrow">Answers for a Broken Heart</p><h1>A book written for the person who is hurting at 2:00 a.m.</h1>',
         '<p class="eyebrow">Coming Soon · Answers for a Broken Heart</p><h1>A book written for the person who is hurting at 2:00 a.m.</h1>',
     )
-    text = text.replace(
-        '<p>The site and the book work together: read an answer here, then go deeper in the full book.</p>',
-        '<p>The site and the book work together: read an answer here, then go deeper in the full book.</p><p><strong>Publication status:</strong> The book is not yet released. It is currently in final preparation, with preorder options opening before publication.</p>',
-    )
+
+    # Normalize the status paragraph so repeated deployments never duplicate it.
+    text = text.replace(PUBLICATION_STATUS, "")
+    text = text.replace(BOOK_BRIDGE, BOOK_BRIDGE + PUBLICATION_STATUS, 1)
+
     text = text.replace(
         '<div class="salesCard"><p class="eyebrow">Amazon</p><h3>Buy on Amazon</h3><p>Best for launch-week support, reviews, Prime convenience, Kindle, and standard retail purchasing.</p><strong>Activates when the Amazon listing is live.</strong></div>',
         '<div class="salesCard"><p class="eyebrow">Amazon</p><h3>Kindle preorder — coming soon</h3><p>The Kindle edition can open for preorder before release. The link will appear here as soon as the Amazon listing is ready.</p><strong>Preorders are not open yet.</strong></div>',
