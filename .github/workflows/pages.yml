@@ -25,42 +25,55 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Embed exact Tate portrait directly in homepage
+      - name: Wire expanded answer pages into the site
         run: |
           python - <<'PY'
           from pathlib import Path
-          import re, base64
-
-          encoded = Path('portrait-inline.b64').read_text().strip()
-          raw = base64.b64decode(encoded, validate=True)
-          if not (raw.startswith(b'\xff\xd8\xff') and raw.endswith(b'\xff\xd9')):
-              raise SystemExit('portrait-inline.b64 is not a complete JPEG')
-          print(f'Verified exact portrait JPEG: {len(raw)} bytes')
 
           index = Path('index.html')
           html = index.read_text()
-          replacement = f'const AUTHOR="data:image/jpeg;base64,{encoded}";'
-          html2, count = re.subn(
-              r'const AUTHOR="[^"]*";',
-              replacement,
-              html,
-              count=1,
+
+          # Do not let the SPA intercept clicks to the real standalone answer pages.
+          html = html.replace(
+              'if(href&&!href.startsWith("#")){e.preventDefault();go(href)}',
+              'if(href&&!href.startsWith("#")&&!href.startsWith("/answer-")){e.preventDefault();go(href)}',
+              1,
           )
-          if count != 1:
-              raise SystemExit(f'Expected one AUTHOR declaration, changed {count}')
-          index.write_text(html2)
+
+          # Add one central URL helper for expanded answers 04-10.
+          if 'function answerHref(n)' not in html:
+              html = html.replace(
+                  'function go(url){',
+                  'function answerHref(n){const s=String(n).padStart(2,"0");return n>=4&&n<=10?`/answer-${s}`:`?answer=${s}`}function go(url){',
+                  1,
+              )
+
+          # Point the What Hurts Today cards and dynamic next links at expanded pages when available.
+          html = html.replace(
+              'href="?answer=${String(a.n).padStart(2,"0")}"',
+              'href="${answerHref(a.n)}"',
+          )
+          html = html.replace(
+              'href="?answer=${String(next.n).padStart(2,"0")}"',
+              'href="${answerHref(next.n)}"',
+          )
+
+          # The homepage sample should open the full Answer 04 page.
+          html = html.replace('href="?answer=04"', 'href="/answer-04"')
+
+          index.write_text(html)
           PY
 
-      - name: Commit embedded portrait
+      - name: Commit navigation changes
         run: |
           if ! git diff --quiet -- index.html; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add index.html
-            git commit -m "Embed exact Tate portrait directly in homepage"
+            git commit -m "Link expanded answers 04 through 10"
             git push
           else
-            echo "Portrait is already embedded"
+            echo "Expanded answer links are already wired"
           fi
 
       - name: Setup Pages
