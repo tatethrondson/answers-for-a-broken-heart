@@ -31,6 +31,18 @@ START_HERE_HTML_START = "<!-- START-HERE-CTA-START -->"
 START_HERE_HTML_END = "<!-- START-HERE-CTA-END -->"
 START_HERE_HTML = f'''{START_HERE_HTML_START}<section class="startHere"><div class="wrap startHereInner"><div class="startHereLabel">Start Here</div><div class="startHereCopy"><h2>What hurts today?</h2><p>You don’t need to read this site in order. Start with the question that sounds closest to what you’re carrying, and begin there.</p></div><a class="startBtn" href="/what-hurts-today">Find My Question →</a></div></section>{START_HERE_HTML_END}'''
 
+BADGE_CSS_START = "/* HERO-BADGE-START */"
+BADGE_CSS_END = "/* HERO-BADGE-END */"
+BADGE_CSS = f'''{BADGE_CSS_START}
+.hero .badge{{right:-5px;top:146px;width:158px;height:158px;padding:24px 20px 22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;font-family:Georgia,"Times New Roman",serif;line-height:1.12}}
+.hero .badgeKicker{{display:block;font:800 .56rem/1.1 Arial,Helvetica,sans-serif;letter-spacing:.17em;text-transform:uppercase;color:#e6d2a8;margin-bottom:4px}}
+.hero .badgeText{{display:block;max-width:112px;font:1rem/1.16 Georgia,"Times New Roman",serif;color:#fff}}
+.hero .badgeTime{{display:block;font:700 1.28rem/1 Georgia,"Times New Roman",serif;color:#fff;margin-top:6px;letter-spacing:-.02em}}
+@media(max-width:760px){{.hero .badge{{right:2px;top:132px;width:136px;height:136px;padding:20px 16px}}.hero .badgeKicker{{font-size:.49rem}}.hero .badgeText{{font-size:.89rem;max-width:98px}}.hero .badgeTime{{font-size:1.1rem;margin-top:4px}}}}
+{BADGE_CSS_END}'''
+
+BADGE_HTML = '<div class="badge"><span class="badgeKicker">A book for</span><span class="badgeText">the person hurting at</span><span class="badgeTime">2:00 a.m.</span></div>'
+
 PUBLICATION_STATUS = '<p><strong>Publication status:</strong> The book is not yet released. It is currently in final preparation, with preorder options opening before publication.</p>'
 BOOK_BRIDGE = '<p>The site and the book work together: read an answer here, then go deeper in the full book.</p>'
 
@@ -82,6 +94,27 @@ def inject_start_here(text):
     return text
 
 
+def inject_badge(text):
+    # Replace any previous badge enhancement and re-add it cleanly.
+    text = re.sub(
+        re.escape(BADGE_CSS_START) + r".*?" + re.escape(BADGE_CSS_END) + r"\s*",
+        "",
+        text,
+        flags=re.S,
+    )
+    if "</style>" in text:
+        text = text.replace("</style>", BADGE_CSS + "\n</style>", 1)
+
+    text = re.sub(
+        r'<div class="badge">.*?</div>',
+        BADGE_HTML,
+        text,
+        count=1,
+        flags=re.S,
+    )
+    return text
+
+
 def patch_index(path):
     text = path.read_text()
     text = text.replace(OLD_BASE, NEW_BASE)
@@ -125,6 +158,7 @@ def patch_index(path):
     )
 
     text = inject_start_here(text)
+    text = inject_badge(text)
     path.write_text(inject_analytics(text))
 
 
@@ -148,4 +182,4 @@ for path in Path(".").glob("*.html"):
 patch_text_file(Path("sitemap.xml"))
 patch_text_file(Path("robots.txt"))
 
-print("Release pass complete: custom domain, coming-soon messaging, author portrait, Start Here pathway, and Vercel Web Analytics added.")
+print("Release pass complete: custom domain, coming-soon messaging, author portrait, Start Here pathway, refined hero badge, and Vercel Web Analytics added.")
