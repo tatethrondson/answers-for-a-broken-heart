@@ -1,4 +1,5 @@
 name: Publish Free Guides
+# merge-trigger: publish the resource library through a normal main-branch merge
 
 on:
   push:
