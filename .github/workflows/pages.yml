@@ -25,17 +25,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Normalize Tate portrait to static asset
+      - name: Embed verified Tate portrait directly in homepage
         run: |
           python - <<'PY'
           from pathlib import Path
-          import re
+          import re, base64
+
+          source = Path('api/portrait-final.mjs').read_text()
+          match = re.search(r'const IMAGE = "([A-Za-z0-9+/=]+)";', source)
+          if not match:
+              raise SystemExit('Portrait base64 not found in api/portrait-final.mjs')
+
+          encoded = match.group(1)
+          raw = base64.b64decode(encoded, validate=True)
+          if not (raw.startswith(b'\xff\xd8\xff') and raw.endswith(b'\xff\xd9')):
+              raise SystemExit('Portrait data is not a complete JPEG')
+          print(f'Verified portrait JPEG: {len(raw)} bytes')
 
           index = Path('index.html')
           html = index.read_text()
+          replacement = f'const AUTHOR="data:image/jpeg;base64,{encoded}";'
           html2, count = re.subn(
-              r'const AUTHOR="(?:data:image/jpeg;base64,[^"]+|author-tate\.jpg|/author-tate\.jpg)";',
-              'const AUTHOR="/author-tate.jpg";',
+              r'const AUTHOR="[^"]*";',
+              replacement,
               html,
               count=1,
           )
@@ -44,16 +56,16 @@ jobs:
           index.write_text(html2)
           PY
 
-      - name: Commit portrait source fix
+      - name: Commit embedded portrait
         run: |
           if ! git diff --quiet -- index.html; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add index.html
-            git commit -m "Use static Tate author portrait asset"
+            git commit -m "Embed verified Tate portrait directly in homepage"
             git push
           else
-            echo "No source change needed"
+            echo "Portrait is already embedded"
           fi
 
       - name: Setup Pages
