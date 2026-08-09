@@ -14,6 +14,23 @@ ANALYTICS = f'''{ANALYTICS_START}
 <script defer src="/_vercel/insights/script.js"></script>
 {ANALYTICS_END}'''
 
+START_HERE_CSS_START = "/* START-HERE-CTA-START */"
+START_HERE_CSS_END = "/* START-HERE-CTA-END */"
+START_HERE_CSS = f'''{START_HERE_CSS_START}
+.startHere{{background:#183024;color:white;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}}
+.startHereInner{{min-height:150px;display:grid;grid-template-columns:140px 1fr auto;gap:30px;align-items:center;padding:24px 0}}
+.startHereLabel{{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:#d8bd87}}
+.startHereCopy h2{{font-size:2rem;line-height:1.05;color:white;margin:0 0 7px}}
+.startHereCopy p{{font-size:.88rem;line-height:1.55;color:rgba(255,255,255,.82);margin:0;max-width:650px}}
+.startHere .startBtn{{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;white-space:nowrap;background:white;color:#183024;border:1px solid white;padding:13px 20px;text-transform:uppercase;letter-spacing:.07em;font-size:.72rem;font-weight:800}}
+.startHere .startBtn:hover{{background:#f5f0e7}}
+@media(max-width:760px){{.startHereInner{{grid-template-columns:1fr;gap:10px;padding:27px 0 30px}}.startHereCopy h2{{font-size:1.85rem}}.startHere .startBtn{{justify-self:start;margin-top:5px}}}}
+{START_HERE_CSS_END}'''
+
+START_HERE_HTML_START = "<!-- START-HERE-CTA-START -->"
+START_HERE_HTML_END = "<!-- START-HERE-CTA-END -->"
+START_HERE_HTML = f'''{START_HERE_HTML_START}<section class="startHere"><div class="wrap startHereInner"><div class="startHereLabel">Start Here</div><div class="startHereCopy"><h2>What hurts today?</h2><p>You don’t need to read this site in order. Start with the question that sounds closest to what you’re carrying, and begin there.</p></div><a class="startBtn" href="/what-hurts-today">Find My Question →</a></div></section>{START_HERE_HTML_END}'''
+
 
 def inject_analytics(text):
     text = re.sub(
@@ -24,6 +41,41 @@ def inject_analytics(text):
     )
     if "</head>" in text:
         text = text.replace("</head>", ANALYTICS + "\n</head>", 1)
+    return text
+
+
+def inject_start_here(text):
+    # Keep the homepage pathway idempotent across generated deployments.
+    text = re.sub(
+        re.escape(START_HERE_CSS_START) + r".*?" + re.escape(START_HERE_CSS_END) + r"\s*",
+        "",
+        text,
+        flags=re.S,
+    )
+    text = re.sub(
+        re.escape(START_HERE_HTML_START) + r".*?" + re.escape(START_HERE_HTML_END),
+        "",
+        text,
+        flags=re.S,
+    )
+
+    # Add the CTA styling to the main stylesheet.
+    if "</style>" in text:
+        text = text.replace("</style>", START_HERE_CSS + "\n</style>", 1)
+
+    # Strengthen the hero CTA language.
+    text = text.replace(
+        '<a class="btn primary" href="/what-hurts-today">What Hurts Today?</a>',
+        '<a class="btn primary" href="/what-hurts-today">Start Here — What Hurts Today?</a>',
+        1,
+    )
+
+    # Place a second, unmistakable pathway immediately below the hero.
+    text = text.replace(
+        '</section><section class="section hurts">',
+        '</section>' + START_HERE_HTML + '<section class="section hurts">',
+        1,
+    )
     return text
 
 
@@ -68,6 +120,7 @@ def patch_index(path):
         '<div class="salesCard"><p class="eyebrow">Churches</p><h3>Church & bulk reservations</h3><p>Quantity options are being prepared for pastors, counseling ministries, small groups, conferences, and churches.</p><strong>Bulk preorder details are coming soon.</strong></div>',
     )
 
+    text = inject_start_here(text)
     path.write_text(inject_analytics(text))
 
 
@@ -91,4 +144,4 @@ for path in Path(".").glob("*.html"):
 patch_text_file(Path("sitemap.xml"))
 patch_text_file(Path("robots.txt"))
 
-print("Release pass complete: custom domain, coming-soon messaging, author portrait, and Vercel Web Analytics added.")
+print("Release pass complete: custom domain, coming-soon messaging, author portrait, Start Here pathway, and Vercel Web Analytics added.")
