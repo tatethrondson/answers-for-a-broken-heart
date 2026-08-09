@@ -53,6 +53,7 @@ BRIDGE = f'''{BRIDGE_START}<section class="bookBridgeHome"><div class="wrap book
 def patch_index(path):
     text = path.read_text()
 
+    # Remove only our previously generated blocks, then rebuild them in one stable place.
     text = re.sub(re.escape(CSS_START) + r".*?" + re.escape(CSS_END) + r"\s*", "", text, flags=re.S)
     text = re.sub(re.escape(HTML_START) + r".*?" + re.escape(HTML_END), "", text, flags=re.S)
     text = re.sub(re.escape(BRIDGE_START) + r".*?" + re.escape(BRIDGE_END), "", text, flags=re.S)
@@ -67,29 +68,12 @@ def patch_index(path):
             1,
         )
 
-    anchors = [
-        '<section class="hopeBand" id="newsletter">',
-        '<section class="newsletter" id="newsletter">',
-    ]
-    for anchor in anchors:
-        if anchor in text:
-            text = text.replace(anchor, HOME + anchor, 1)
-            break
-
-    text = re.sub(
-        r'<section class="newsletter" id="newsletter">.*?</section>`}',
-        BRIDGE + '`}',
-        text,
-        count=1,
-        flags=re.S,
-    )
-    text = re.sub(
-        r'<section class="hopeBand" id="newsletter">.*?</section>`}',
-        BRIDGE + '`}',
-        text,
-        count=1,
-        flags=re.S,
-    )
+    # The homepage is a JS template literal. Insert immediately before its stable function boundary.
+    boundary = '`}\nfunction hurts(){'
+    if boundary in text:
+        text = text.replace(boundary, HOME + BRIDGE + boundary, 1)
+    else:
+        raise RuntimeError('Could not find homepage function boundary; refusing to publish a partial integration.')
 
     path.write_text(text)
 
@@ -124,4 +108,4 @@ def patch_sitemap(path):
 patch_index(Path('index.html'))
 patch_thanks(Path('hope-thanks.html'))
 patch_sitemap(Path('sitemap.xml'))
-print('Homepage conversion layer current: free-guide capture, pastoral list invitation, book bridge, nav, thank-you path, and sitemap.')
+print('Homepage conversion layer current: free-guide capture, Pastor Tate invitation, book bridge, nav, thank-you path, and sitemap.')
