@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://answers-for-a-broken-heart.vercel.app/sitemap.xml
+Sitemap: https://answersforabrokenheart.com/sitemap.xml
