@@ -94,16 +94,19 @@ jobs:
       - name: Wire Contact Tate page
         run: python scripts/contact.py
 
+      - name: Build hope conversion layer
+        run: python scripts/conversion.py
+
       - name: Commit generated site improvements
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add index.html what-hurts-today.html contact.html answer-*.html sitemap.xml robots.txt
-            git commit -m "Publish static author portrait and site updates"
+            git add index.html what-hurts-today.html contact.html answer-*.html 2am-guide.html hope-thanks.html sitemap.xml robots.txt
+            git commit -m "Publish hope signup and guide pathway"
             git push
           else
-            echo "SEO, crawlable hub, contact, launch status, static portrait, analytics, and domain layer are already current"
+            echo "SEO, crawlable hub, contact, launch status, portrait, hope conversion layer, analytics, and domain layer are already current"
           fi
 
       - name: Setup Pages
