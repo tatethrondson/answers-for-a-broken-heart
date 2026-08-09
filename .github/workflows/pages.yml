@@ -25,36 +25,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Permanently embed Tate author portrait
+      - name: Normalize Tate portrait to static asset
         run: |
           python - <<'PY'
           from pathlib import Path
-          import base64
+          import re
 
           index = Path('index.html')
-          portrait = Path('author-tate.jpg')
           html = index.read_text()
-          marker = 'const AUTHOR="author-tate.jpg";'
-          already = 'const AUTHOR="data:image/jpeg;base64,'
-
-          if marker in html:
-              encoded = base64.b64encode(portrait.read_bytes()).decode('ascii')
-              html = html.replace(marker, f'const AUTHOR="data:image/jpeg;base64,{encoded}";')
-              index.write_text(html)
-              print('Embedded portrait directly into index.html')
-          elif already in html:
-              print('Portrait is already embedded in index.html')
-          else:
-              raise SystemExit('Could not find author portrait reference in index.html')
+          html2, count = re.subn(
+              r'const AUTHOR="(?:data:image/jpeg;base64,[^"]+|author-tate\.jpg|/author-tate\.jpg)";',
+              'const AUTHOR="/author-tate.jpg";',
+              html,
+              count=1,
+          )
+          if count != 1:
+              raise SystemExit(f'Expected one AUTHOR declaration, changed {count}')
+          index.write_text(html2)
           PY
 
-      - name: Commit embedded portrait to main
+      - name: Commit portrait source fix
         run: |
           if ! git diff --quiet -- index.html; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add index.html
-            git commit -m "Embed Tate author portrait in homepage"
+            git commit -m "Use static Tate author portrait asset"
             git push
           else
             echo "No source change needed"
