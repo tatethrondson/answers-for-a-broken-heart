@@ -77,12 +77,31 @@ jobs:
       - name: Wire Contact Tate page
         run: python scripts/contact.py
 
+      - name: Pin author portrait to correctly typed SVG
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          index = Path('index.html')
+          html = index.read_text()
+          html = re.sub(r'const AUTHOR="[^"]*";', 'const AUTHOR="/author-tate.svg";', html, count=1)
+          html = re.sub(
+              r'/\* AUTHOR-PORTRAIT-LOADER-START \*/.*?/\* AUTHOR-PORTRAIT-LOADER-END \*/\s*',
+              '',
+              html,
+              flags=re.S,
+          )
+          html = html.replace(' data-author-photo', '')
+          index.write_text(html)
+          PY
+
       - name: Commit generated site improvements
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add index.html what-hurts-today.html contact.html answer-*.html sitemap.xml robots.txt author-tate.jpg
+            git add index.html what-hurts-today.html contact.html answer-*.html sitemap.xml robots.txt author-tate.jpg author-tate.svg
             git commit -m "Publish site discovery contact portrait and analytics updates"
             git push
           else
