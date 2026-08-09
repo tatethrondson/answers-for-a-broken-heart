@@ -1,6 +1,7 @@
 from pathlib import Path
 import re
 
+# Vercel Web Analytics enabled in the project dashboard; this commit refreshes production tracking.
 OLD_BASE = "https://answers-for-a-broken-heart.vercel.app"
 NEW_BASE = "https://answersforabrokenheart.com"
 
