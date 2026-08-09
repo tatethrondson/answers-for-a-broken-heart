@@ -97,16 +97,19 @@ jobs:
       - name: Build hope conversion layer
         run: python scripts/conversion.py
 
+      - name: Integrate Free Guides library
+        run: python scripts/guides.py
+
       - name: Commit generated site improvements
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add index.html what-hurts-today.html contact.html answer-*.html 2am-guide.html hope-thanks.html sitemap.xml robots.txt
-            git commit -m "Publish hope signup and guide pathway"
+            git add index.html what-hurts-today.html contact.html answer-*.html 2am-guide.html hope-thanks.html free-guides.html can-christians-be-depressed.html sitemap.xml robots.txt
+            git commit -m "Publish free guides and hope pathway"
             git push
           else
-            echo "SEO, crawlable hub, contact, launch status, portrait, hope conversion layer, analytics, and domain layer are already current"
+            echo "SEO, crawlable hub, contact, launch status, portrait, hope conversion layer, free guides, analytics, and domain layer are already current"
           fi
 
       - name: Setup Pages
