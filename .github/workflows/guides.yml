@@ -1,5 +1,6 @@
 name: Publish Free Guides
 # merge-trigger: publish the resource library through a normal main-branch merge
+# production-refresh: 2026-08-09
 
 on:
   push:
