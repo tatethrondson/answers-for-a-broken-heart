@@ -2,10 +2,11 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
+  "redirects": [
     {
       "source": "/author-tate.jpg",
-      "destination": "/api/author-tate"
+      "destination": "/author-tate.svg",
+      "permanent": false
     }
   ],
   "headers": [
