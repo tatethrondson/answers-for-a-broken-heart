@@ -2,24 +2,16 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
+  "redirects": [
     {
       "source": "/api/author-photo",
-      "destination": "/author-tate.jpg"
+      "destination": "/author-tate.jpg?v=20260809-1",
+      "permanent": false
     }
   ],
   "headers": [
     {
       "source": "/author-tate.jpg",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-store, max-age=0"
-        }
-      ]
-    },
-    {
-      "source": "/api/author-photo",
       "headers": [
         {
           "key": "Cache-Control",
