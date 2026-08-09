@@ -2,20 +2,13 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
-  "headers": [
+  "rewrites": [
     {
       "source": "/author-tate.jpg",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "image/svg+xml; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "no-store, max-age=0"
-        }
-      ]
-    },
+      "destination": "/api/author-tate"
+    }
+  ],
+  "headers": [
     {
       "source": "/(.*)",
       "headers": [
