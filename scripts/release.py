@@ -43,6 +43,15 @@ BADGE_CSS = f'''{BADGE_CSS_START}
 
 BADGE_HTML = '<div class="badge"><span class="badgeKicker">A book for</span><span class="badgeText">the person hurting at</span><span class="badgeTime">2:00 a.m.</span></div>'
 
+PORTRAIT_CSS_START = "/* AUTHOR-PORTRAIT-START */"
+PORTRAIT_CSS_END = "/* AUTHOR-PORTRAIT-END */"
+PORTRAIT_CSS = f'''{PORTRAIT_CSS_START}
+.authorInner{{grid-template-columns:180px 1fr;gap:30px;align-items:start}}
+.authorPhoto{{width:180px;height:220px;border-radius:5px;object-fit:cover;object-position:center 18%;box-shadow:0 10px 28px rgba(33,47,38,.14);border:1px solid rgba(41,69,51,.08)}}
+.authorPage img{{width:100%;max-width:350px;height:auto;object-fit:contain;object-position:center;border-radius:5px;box-shadow:var(--shadow)}}
+@media(max-width:760px){{.authorInner{{grid-template-columns:1fr;gap:20px}}.authorPhoto{{width:160px;height:196px;object-position:center 18%}}.authorPage img{{max-width:320px}}}}
+{PORTRAIT_CSS_END}'''
+
 PUBLICATION_STATUS = '<p><strong>Publication status:</strong> The book is not yet released. It is currently in final preparation, with preorder options opening before publication.</p>'
 BOOK_BRIDGE = '<p>The site and the book work together: read an answer here, then go deeper in the full book.</p>'
 
@@ -60,7 +69,6 @@ def inject_analytics(text):
 
 
 def inject_start_here(text):
-    # Keep the homepage pathway idempotent across generated deployments.
     text = re.sub(
         re.escape(START_HERE_CSS_START) + r".*?" + re.escape(START_HERE_CSS_END) + r"\s*",
         "",
@@ -73,19 +81,13 @@ def inject_start_here(text):
         text,
         flags=re.S,
     )
-
-    # Add the CTA styling to the main stylesheet.
     if "</style>" in text:
         text = text.replace("</style>", START_HERE_CSS + "\n</style>", 1)
-
-    # Strengthen the hero CTA language.
     text = text.replace(
         '<a class="btn primary" href="/what-hurts-today">What Hurts Today?</a>',
         '<a class="btn primary" href="/what-hurts-today">Start Here — What Hurts Today?</a>',
         1,
     )
-
-    # Place a second, unmistakable pathway immediately below the hero.
     text = text.replace(
         '</section><section class="section hurts">',
         '</section>' + START_HERE_HTML + '<section class="section hurts">',
@@ -95,7 +97,6 @@ def inject_start_here(text):
 
 
 def inject_badge(text):
-    # Replace any previous badge enhancement and re-add it cleanly.
     text = re.sub(
         re.escape(BADGE_CSS_START) + r".*?" + re.escape(BADGE_CSS_END) + r"\s*",
         "",
@@ -104,7 +105,6 @@ def inject_badge(text):
     )
     if "</style>" in text:
         text = text.replace("</style>", BADGE_CSS + "\n</style>", 1)
-
     text = re.sub(
         r'<div class="badge">.*?</div>',
         BADGE_HTML,
@@ -115,12 +115,24 @@ def inject_badge(text):
     return text
 
 
+def inject_portrait_styles(text):
+    text = re.sub(
+        re.escape(PORTRAIT_CSS_START) + r".*?" + re.escape(PORTRAIT_CSS_END) + r"\s*",
+        "",
+        text,
+        flags=re.S,
+    )
+    if "</style>" in text:
+        text = text.replace("</style>", PORTRAIT_CSS + "\n</style>", 1)
+    return text
+
+
 def patch_index(path):
     text = path.read_text()
     text = text.replace(OLD_BASE, NEW_BASE)
 
-    # Use Tate's actual uploaded portrait as an inline JPEG so Safari/Vercel
-    # cannot misidentify the file type or serve a stale/broken image path.
+    # Keep Tate's real uploaded portrait inline so browsers receive a valid JPEG
+    # without relying on a separately served image path.
     portrait = Path("portrait-inline.b64").read_text().strip()
     author_value = f'data:image/jpeg;base64,{portrait}'
     text = re.sub(
@@ -130,7 +142,6 @@ def patch_index(path):
         count=1,
     )
 
-    # Make publication status unmistakable everywhere the book is featured.
     text = text.replace(
         '<p class="eyebrow">About the book</p>',
         '<p class="eyebrow">Coming Soon · About the book</p>',
@@ -140,7 +151,6 @@ def patch_index(path):
         '<p class="eyebrow">Coming Soon · Answers for a Broken Heart</p><h1>A book written for the person who is hurting at 2:00 a.m.</h1>',
     )
 
-    # Normalize the status paragraph so repeated deployments never duplicate it.
     text = text.replace(PUBLICATION_STATUS, "")
     text = text.replace(BOOK_BRIDGE, BOOK_BRIDGE + PUBLICATION_STATUS, 1)
 
@@ -159,6 +169,7 @@ def patch_index(path):
 
     text = inject_start_here(text)
     text = inject_badge(text)
+    text = inject_portrait_styles(text)
     path.write_text(inject_analytics(text))
 
 
