@@ -1,7 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "python3 scripts/build_author_photo.py",
-  "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
@@ -10,7 +8,7 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=300"
+          "value": "no-store, max-age=0"
         }
       ]
     },
