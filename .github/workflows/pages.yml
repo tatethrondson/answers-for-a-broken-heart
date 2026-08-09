@@ -41,21 +41,21 @@ jobs:
               1,
           )
 
-          # All published answer pages 04-24 now use standalone URLs.
+          # Every one of the 24 answers now has a standalone expanded page.
           if 'function answerHref(n)' not in html:
               html = html.replace(
                   'function go(url){',
-                  'function answerHref(n){const s=String(n).padStart(2,"0");return n>=4&&n<=24?`/answer-${s}`:`?answer=${s}`}function go(url){',
+                  'function answerHref(n){const s=String(n).padStart(2,"0");return n>=1&&n<=24?`/answer-${s}`:`?answer=${s}`}function go(url){',
                   1,
               )
           html = re.sub(
-              r'return n>=4&&n<=\d+\?',
-              'return n>=4&&n<=24?',
+              r'return n>=\d+&&n<=\d+\?',
+              'return n>=1&&n<=24?',
               html,
               count=1,
           )
 
-          # Point library cards and dynamic next links at expanded pages when available.
+          # Point library cards and dynamic next links at expanded pages.
           html = html.replace(
               'href="?answer=${String(a.n).padStart(2,"0")}"',
               'href="${answerHref(a.n)}"',
@@ -85,10 +85,10 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add index.html answer-10.html answer-14.html answer-19.html
-            git commit -m "Link expanded answers 04 through 24"
+            git commit -m "Link all 24 expanded answers"
             git push
           else
-            echo "Expanded answer links are already wired"
+            echo "All 24 expanded answer links are already wired"
           fi
 
       - name: Setup Pages
