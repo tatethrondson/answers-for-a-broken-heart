@@ -3,22 +3,25 @@ const path = require('path');
 
 module.exports = function handler(req, res) {
   try {
-    const dir = path.join(process.cwd(), 'portrait-hires');
-    const names = fs.readdirSync(dir).filter(name => /^part\d+\.b64$/.test(name)).sort();
-    if (!names.length) throw new Error('No portrait source parts found');
+    const parts = [
+      fs.readFileSync(path.join(process.cwd(), 'portrait-hires', 'part01.b64'), 'utf8').trim(),
+      fs.readFileSync(path.join(process.cwd(), 'portrait-hires', 'part02.b64'), 'utf8').trim(),
+      fs.readFileSync(path.join(process.cwd(), 'portrait-hires', 'part03.b64'), 'utf8').trim(),
+      fs.readFileSync(path.join(process.cwd(), 'portrait-hires', 'part04.b64'), 'utf8').trim(),
+      fs.readFileSync(path.join(process.cwd(), 'portrait-hires', 'part05.b64'), 'utf8').trim(),
+      fs.readFileSync(path.join(process.cwd(), 'portrait-hires', 'part06.b64'), 'utf8').trim(),
+      fs.readFileSync(path.join(process.cwd(), 'portrait-hires', 'part07.b64'), 'utf8').trim(),
+      fs.readFileSync(path.join(process.cwd(), 'portrait-hires', 'part08.b64'), 'utf8').trim()
+    ];
 
-    const outerBase64 = names.map(name => fs.readFileSync(path.join(dir, name), 'utf8').trim()).join('');
-    const outerBytes = Buffer.from(outerBase64, 'base64');
+    const decoded = Buffer.from(parts.join(''), 'base64');
+    let jpeg = decoded;
 
-    let jpeg;
-    // If the stored source is already a JPEG, serve it directly.
-    if (outerBytes.length > 2 && outerBytes[0] === 0xff && outerBytes[1] === 0xd8) {
-      jpeg = outerBytes;
-    } else {
-      // Current source is an SVG wrapper around the real JPEG. Extract the inner JPEG bytes.
-      const wrapper = outerBytes.toString('utf8');
+    // Backward-compatible fallback in case the checked-in source is ever wrapped in SVG.
+    if (!(decoded.length > 2 && decoded[0] === 0xff && decoded[1] === 0xd8)) {
+      const wrapper = decoded.toString('utf8');
       const match = wrapper.match(/data:image\/jpeg;base64,([^"'\s<]+)/i);
-      if (!match) throw new Error('Embedded JPEG not found in portrait source');
+      if (!match) throw new Error('Valid JPEG portrait not found');
       jpeg = Buffer.from(match[1], 'base64');
     }
 
@@ -28,7 +31,6 @@ module.exports = function handler(req, res) {
 
     res.setHeader('Content-Type', 'image/jpeg');
     res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800');
-    res.setHeader('Content-Length', String(jpeg.length));
     res.status(200).send(jpeg);
   } catch (error) {
     console.error('Author photo error:', error);
