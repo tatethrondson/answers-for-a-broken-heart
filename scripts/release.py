@@ -52,6 +52,26 @@ PORTRAIT_CSS = f'''{PORTRAIT_CSS_START}
 @media(max-width:760px){{.authorInner{{grid-template-columns:1fr;gap:20px}}.authorPhoto{{width:160px;height:196px;object-position:center 18%}}.authorPage img{{max-width:320px}}}}
 {PORTRAIT_CSS_END}'''
 
+BOOK_UPDATES_CSS_START = "/* BOOK-UPDATES-START */"
+BOOK_UPDATES_CSS_END = "/* BOOK-UPDATES-END */"
+BOOK_UPDATES_CSS = f'''{BOOK_UPDATES_CSS_START}
+.bookUpdates{{margin-top:30px;background:#183024;color:white;padding:42px 46px;display:grid;grid-template-columns:1fr .92fr;gap:46px;align-items:center;border:1px solid rgba(24,48,36,.08);box-shadow:0 18px 42px rgba(28,43,34,.12)}}
+.bookUpdates .eyebrow{{color:#d8bd87;margin-bottom:10px}}
+.bookUpdates h2{{color:white;font-size:2.35rem;line-height:1.04;margin:0 0 12px}}
+.bookUpdatesCopy p{{margin:0;color:rgba(255,255,255,.82);font-size:.9rem;line-height:1.6;max-width:570px}}
+.bookUpdatesForm{{display:grid;grid-template-columns:1fr 132px;gap:9px;align-items:start}}
+.bookUpdatesForm input[type="email"]{{width:100%;border:1px solid rgba(255,255,255,.24);background:white;color:#28332d;padding:14px 15px;font-size:.9rem;min-height:48px}}
+.bookUpdatesForm button{{border:1px solid #d8bd87;background:#d8bd87;color:#183024;padding:13px 16px;min-height:48px;font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;font-weight:800;cursor:pointer}}
+.bookUpdatesForm button:hover{{background:#ead9b7}}
+.bookUpdatesPrivacy{{grid-column:1/-1;margin-top:2px;font-size:.67rem;line-height:1.45;color:rgba(255,255,255,.68)}}
+.bookUpdatesHoney{{position:absolute!important;left:-5000px!important;width:1px!important;height:1px!important;overflow:hidden!important}}
+@media(max-width:800px){{.bookUpdates{{grid-template-columns:1fr;gap:24px;padding:34px 28px}}.bookUpdatesForm{{grid-template-columns:1fr}}.bookUpdatesForm button{{width:100%}}}}
+{BOOK_UPDATES_CSS_END}'''
+
+BOOK_UPDATES_HTML_START = "<!-- BOOK-UPDATES-START -->"
+BOOK_UPDATES_HTML_END = "<!-- BOOK-UPDATES-END -->"
+BOOK_UPDATES_HTML = f'''{BOOK_UPDATES_HTML_START}<div id="book-updates" class="bookUpdates"><div class="bookUpdatesCopy"><p class="eyebrow">Book Release Updates</p><h2>Be the first to know.</h2><p><em>Answers for a Broken Heart</em> is coming soon. Leave your email and I’ll let you know when preorders open, when the book releases, and when signed-copy options become available.</p></div><form class="bookUpdatesForm" action="https://formsubmit.co/tatethrondson@gmail.com" method="POST"><input type="email" name="email" placeholder="Your email address" aria-label="Your email address" autocomplete="email" required><input type="text" name="_honey" class="bookUpdatesHoney" tabindex="-1" autocomplete="off"><input type="hidden" name="_subject" value="New Answers for a Broken Heart release notification signup"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_url" value="https://answersforabrokenheart.com/?view=book"><input type="hidden" name="_next" value="https://answersforabrokenheart.com/book-updates-thanks"><input type="hidden" name="interest" value="Answers for a Broken Heart release notifications"><input type="hidden" name="source" value="About the Book / preorder page"><button type="submit">Notify Me</button><div class="bookUpdatesPrivacy">No spam. Just occasional updates about the book, preorder availability, release day, and signed-copy options.</div></form></div>{BOOK_UPDATES_HTML_END}'''
+
 PUBLICATION_STATUS = '<p><strong>Publication status:</strong> The book is not yet released. It is currently in final preparation, with preorder options opening before publication.</p>'
 BOOK_BRIDGE = '<p>The site and the book work together: read an answer here, then go deeper in the full book.</p>'
 
@@ -127,6 +147,28 @@ def inject_portrait_styles(text):
     return text
 
 
+def inject_book_updates(text):
+    text = re.sub(
+        re.escape(BOOK_UPDATES_CSS_START) + r".*?" + re.escape(BOOK_UPDATES_CSS_END) + r"\s*",
+        "",
+        text,
+        flags=re.S,
+    )
+    text = re.sub(
+        re.escape(BOOK_UPDATES_HTML_START) + r".*?" + re.escape(BOOK_UPDATES_HTML_END),
+        "",
+        text,
+        flags=re.S,
+    )
+    if "</style>" in text:
+        text = text.replace("</style>", BOOK_UPDATES_CSS + "\n</style>", 1)
+
+    anchor = '<div class="salesCard"><p class="eyebrow">Churches</p><h3>Church & bulk reservations</h3><p>Quantity options are being prepared for pastors, counseling ministries, small groups, conferences, and churches.</p><strong>Bulk preorder details are coming soon.</strong></div></div></div></section>'
+    replacement = '<div class="salesCard"><p class="eyebrow">Churches</p><h3>Church & bulk reservations</h3><p>Quantity options are being prepared for pastors, counseling ministries, small groups, conferences, and churches.</p><strong>Bulk preorder details are coming soon.</strong></div></div>' + BOOK_UPDATES_HTML + '</div></section>'
+    text = text.replace(anchor, replacement, 1)
+    return text
+
+
 def patch_index(path):
     text = path.read_text()
     text = text.replace(OLD_BASE, NEW_BASE)
@@ -175,6 +217,7 @@ def patch_index(path):
     text = inject_start_here(text)
     text = inject_badge(text)
     text = inject_portrait_styles(text)
+    text = inject_book_updates(text)
     path.write_text(inject_analytics(text))
 
 
@@ -198,4 +241,4 @@ for path in Path(".").glob("*.html"):
 patch_text_file(Path("sitemap.xml"))
 patch_text_file(Path("robots.txt"))
 
-print("Release pass complete: custom domain, coming-soon messaging, high-resolution author portrait, Start Here pathway, refined hero badge, and Vercel Web Analytics added.")
+print("Release pass complete: custom domain, coming-soon messaging, high-resolution author portrait, book release signup, Start Here pathway, refined hero badge, and Vercel Web Analytics added.")
