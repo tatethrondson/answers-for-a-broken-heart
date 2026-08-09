@@ -29,6 +29,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
 
           index = Path('index.html')
           html = index.read_text()
@@ -40,14 +41,19 @@ jobs:
               1,
           )
 
-          # Keep the central URL helper current as more full pages are published.
+          # All published answer pages 04-24 now use standalone URLs.
           if 'function answerHref(n)' not in html:
               html = html.replace(
                   'function go(url){',
-                  'function answerHref(n){const s=String(n).padStart(2,"0");return n>=4&&n<=14?`/answer-${s}`:`?answer=${s}`}function go(url){',
+                  'function answerHref(n){const s=String(n).padStart(2,"0");return n>=4&&n<=24?`/answer-${s}`:`?answer=${s}`}function go(url){',
                   1,
               )
-          html = html.replace('return n>=4&&n<=10?', 'return n>=4&&n<=14?')
+          html = re.sub(
+              r'return n>=4&&n<=\d+\?',
+              'return n>=4&&n<=24?',
+              html,
+              count=1,
+          )
 
           # Point library cards and dynamic next links at expanded pages when available.
           html = html.replace(
@@ -61,20 +67,25 @@ jobs:
           html = html.replace('href="?answer=04"', 'href="/answer-04"')
           index.write_text(html)
 
-          # Keep the reading journey on full pages from Answer 10 into Answer 11.
-          answer10 = Path('answer-10.html')
-          if answer10.exists():
-              a10 = answer10.read_text().replace('href="/?answer=11"', 'href="/answer-11"')
-              answer10.write_text(a10)
+          # Keep standalone reading transitions on standalone pages.
+          transitions = {
+              'answer-10.html': ('href="/?answer=11"', 'href="/answer-11"'),
+              'answer-14.html': ('href="/?answer=15"', 'href="/answer-15"'),
+              'answer-19.html': ('href="/?answer=20"', 'href="/answer-20"'),
+          }
+          for filename, (old, new) in transitions.items():
+              path = Path(filename)
+              if path.exists():
+                  path.write_text(path.read_text().replace(old, new))
           PY
 
       - name: Commit navigation changes
         run: |
-          if ! git diff --quiet -- index.html answer-10.html; then
+          if ! git diff --quiet -- index.html answer-10.html answer-14.html answer-19.html; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add index.html answer-10.html
-            git commit -m "Link expanded answers 04 through 14"
+            git add index.html answer-10.html answer-14.html answer-19.html
+            git commit -m "Link expanded answers 04 through 24"
             git push
           else
             echo "Expanded answer links are already wired"
