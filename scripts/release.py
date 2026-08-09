@@ -1,4 +1,5 @@
 from pathlib import Path
+import base64
 import re
 
 # Vercel Web Analytics enabled in the project dashboard; this commit refreshes production tracking.
@@ -52,39 +53,11 @@ PORTRAIT_CSS = f'''{PORTRAIT_CSS_START}
 @media(max-width:760px){{.authorInner{{grid-template-columns:1fr;gap:20px}}.authorPhoto{{width:160px;height:196px;object-position:center 18%}}.authorPage img{{max-width:320px}}}}
 {PORTRAIT_CSS_END}'''
 
+# Kept only so old browser-loader code can be removed from index.html during migration.
 PORTRAIT_LOADER_START = "/* AUTHOR-PORTRAIT-LOADER-START */"
 PORTRAIT_LOADER_END = "/* AUTHOR-PORTRAIT-LOADER-END */"
-PORTRAIT_PLACEHOLDER = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
-PORTRAIT_LOADER = f'''{PORTRAIT_LOADER_START}
-let authorPortraitUrl = null;
-let authorPortraitPromise = null;
-async function getAuthorPortraitUrl() {{
-  if (authorPortraitUrl) return authorPortraitUrl;
-  if (!authorPortraitPromise) {{
-    authorPortraitPromise = (async () => {{
-      const names = ["01","02","03","04","05","06","07","08"];
-      const parts = await Promise.all(names.map(async n => {{
-        const response = await fetch(`/portrait-hires/part${{n}}.b64`, {{cache:"force-cache"}});
-        if (!response.ok) throw new Error(`Portrait part ${{n}} failed to load`);
-        return (await response.text()).trim();
-      }}));
-      const binary = atob(parts.join("").replace(/\\s/g, ""));
-      const bytes = new Uint8Array(binary.length);
-      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-      authorPortraitUrl = URL.createObjectURL(new Blob([bytes], {{type:"image/jpeg"}}));
-      return authorPortraitUrl;
-    }})();
-  }}
-  return authorPortraitPromise;
-}}
-function applyAuthorPortrait() {{
-  const images = document.querySelectorAll("[data-author-photo]");
-  if (!images.length) return;
-  getAuthorPortraitUrl().then(url => images.forEach(img => {{ img.src = url; }})).catch(err => console.error("Author portrait failed:", err));
-}}
-new MutationObserver(applyAuthorPortrait).observe(document.getElementById("app"), {{childList:true, subtree:true}});
-applyAuthorPortrait();
-{PORTRAIT_LOADER_END}'''
+PORTRAIT_FILE = Path("author-tate.jpg")
+PORTRAIT_URL = "/author-tate.jpg"
 
 BOOK_UPDATES_CSS_START = "/* BOOK-UPDATES-START */"
 BOOK_UPDATES_CSS_END = "/* BOOK-UPDATES-END */"
@@ -108,6 +81,19 @@ BOOK_UPDATES_HTML = f'''{BOOK_UPDATES_HTML_START}<div id="book-updates" class="b
 
 PUBLICATION_STATUS = '<p><strong>Publication status:</strong> The book is not yet released. It is currently in final preparation, with preorder options opening before publication.</p>'
 BOOK_BRIDGE = '<p>The site and the book work together: read an answer here, then go deeper in the full book.</p>'
+
+
+def build_author_portrait():
+    """Create a normal JPEG file from the checked-in base64 source chunks."""
+    parts = sorted(Path("portrait-hires").glob("part*.b64"))
+    if parts:
+        encoded = "".join(part.read_text().strip() for part in parts)
+    else:
+        fallback = Path("portrait-inline.b64")
+        if not fallback.exists():
+            raise FileNotFoundError("No author portrait source found")
+        encoded = fallback.read_text().strip()
+    PORTRAIT_FILE.write_bytes(base64.b64decode(encoded))
 
 
 def inject_analytics(text):
@@ -147,13 +133,14 @@ def inject_portrait_styles(text):
     return text
 
 
-def inject_portrait_loader(text):
-    text = re.sub(re.escape(PORTRAIT_LOADER_START) + r".*?" + re.escape(PORTRAIT_LOADER_END) + r"\s*", "", text, flags=re.S)
-    text = text.replace('<img class="authorPhoto" src="${AUTHOR}" alt="Tate Throndson">', '<img class="authorPhoto" data-author-photo src="${AUTHOR}" alt="Tate Throndson">')
-    text = text.replace('<div class="wrap authorPage"><img src="${AUTHOR}" alt="Tate Throndson">', '<div class="wrap authorPage"><img data-author-photo src="${AUTHOR}" alt="Tate Throndson">')
-    script_end = text.rfind("</script>")
-    if script_end != -1:
-        text = text[:script_end] + PORTRAIT_LOADER + "\n" + text[script_end:]
+def remove_old_portrait_loader(text):
+    text = re.sub(
+        re.escape(PORTRAIT_LOADER_START) + r".*?" + re.escape(PORTRAIT_LOADER_END) + r"\s*",
+        "",
+        text,
+        flags=re.S,
+    )
+    text = text.replace(' data-author-photo', '')
     return text
 
 
@@ -172,9 +159,9 @@ def patch_index(path):
     text = path.read_text()
     text = text.replace(OLD_BASE, NEW_BASE)
 
-    # Keep the page source small and rebuild-safe. The high-resolution portrait
-    # is reconstructed in the browser from the static chunk files.
-    text = re.sub(r'const AUTHOR="[^"]*";', lambda _: f'const AUTHOR="{PORTRAIT_PLACEHOLDER}";', text, count=1)
+    # Use a normal static JPEG path. This survives rebuilds and works natively in Safari.
+    text = re.sub(r'const AUTHOR="[^"]*";', f'const AUTHOR="{PORTRAIT_URL}";', text, count=1)
+    text = remove_old_portrait_loader(text)
 
     text = text.replace('<p class="eyebrow">About the book</p>', '<p class="eyebrow">Coming Soon · About the book</p>')
     text = text.replace('<p class="eyebrow">Answers for a Broken Heart</p><h1>A book written for the person who is hurting at 2:00 a.m.</h1>', '<p class="eyebrow">Coming Soon · Answers for a Broken Heart</p><h1>A book written for the person who is hurting at 2:00 a.m.</h1>')
@@ -190,7 +177,6 @@ def patch_index(path):
     text = inject_badge(text)
     text = inject_portrait_styles(text)
     text = inject_book_updates(text)
-    text = inject_portrait_loader(text)
     path.write_text(inject_analytics(text))
 
 
@@ -204,6 +190,7 @@ def patch_text_file(path):
         path.write_text(path.read_text().replace(OLD_BASE, NEW_BASE))
 
 
+build_author_portrait()
 index = Path("index.html")
 patch_index(index)
 
@@ -214,4 +201,4 @@ for path in Path(".").glob("*.html"):
 patch_text_file(Path("sitemap.xml"))
 patch_text_file(Path("robots.txt"))
 
-print("Release pass complete: custom domain, coming-soon messaging, rebuild-safe high-resolution author portrait, book release signup, Start Here pathway, refined hero badge, and Vercel Web Analytics added.")
+print("Release pass complete: custom domain, coming-soon messaging, static high-resolution author JPEG, book release signup, Start Here pathway, refined hero badge, and Vercel Web Analytics added.")
