@@ -74,6 +74,23 @@ jobs:
       - name: Apply launch, domain, portrait, and analytics release pass
         run: python scripts/release.py
 
+      - name: Pin author portrait to static JPEG
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          index = Path('index.html')
+          html = index.read_text()
+          html = re.sub(
+              r'const AUTHOR="[^"]*";',
+              'const AUTHOR="/author-tate.jpg?v=7";',
+              html,
+              count=1,
+          )
+          index.write_text(html)
+          PY
+
       - name: Wire Contact Tate page
         run: python scripts/contact.py
 
@@ -83,10 +100,10 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add index.html what-hurts-today.html contact.html answer-*.html sitemap.xml robots.txt
-            git commit -m "Publish embedded author portrait and site updates"
+            git commit -m "Publish static author portrait and site updates"
             git push
           else
-            echo "SEO, crawlable hub, contact, launch status, embedded portrait, analytics, and domain layer are already current"
+            echo "SEO, crawlable hub, contact, launch status, static portrait, analytics, and domain layer are already current"
           fi
 
       - name: Setup Pages
