@@ -74,16 +74,19 @@ jobs:
       - name: Apply launch, domain, portrait, and analytics release pass
         run: python scripts/release.py
 
+      - name: Wire Contact Tate page
+        run: python scripts/contact.py
+
       - name: Commit generated site improvements
         run: |
           if ! git diff --quiet; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add index.html what-hurts-today.html answer-*.html sitemap.xml robots.txt
-            git commit -m "Publish launch status portrait analytics and custom domain"
+            git add index.html what-hurts-today.html contact.html answer-*.html sitemap.xml robots.txt
+            git commit -m "Publish site discovery contact and analytics updates"
             git push
           else
-            echo "SEO, crawlable hub, launch status, analytics, and domain layer are already current"
+            echo "SEO, crawlable hub, contact, launch status, analytics, and domain layer are already current"
           fi
 
       - name: Setup Pages
