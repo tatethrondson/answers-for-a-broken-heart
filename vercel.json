@@ -5,7 +5,7 @@
   "rewrites": [
     {
       "source": "/author-tate.jpg",
-      "destination": "/api/portrait-node"
+      "destination": "/author-tate.svg"
     }
   ],
   "headers": [
