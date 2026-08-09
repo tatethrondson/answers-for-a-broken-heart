@@ -1,18 +1,16 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "python3 scripts/build_author_photo.py",
+  "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
     {
-      "source": "/api/author-photo",
+      "source": "/author-tate.jpg",
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "no-store, max-age=0"
-        },
-        {
-          "key": "Pragma",
-          "value": "no-cache"
+          "value": "public, max-age=300"
         }
       ]
     },
