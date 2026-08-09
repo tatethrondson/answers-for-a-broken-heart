@@ -1,5 +1,4 @@
 from pathlib import Path
-import base64
 import re
 
 # Vercel Web Analytics enabled in the project dashboard; this commit refreshes production tracking.
@@ -56,8 +55,7 @@ PORTRAIT_CSS = f'''{PORTRAIT_CSS_START}
 # Kept only so old browser-loader code can be removed from index.html during migration.
 PORTRAIT_LOADER_START = "/* AUTHOR-PORTRAIT-LOADER-START */"
 PORTRAIT_LOADER_END = "/* AUTHOR-PORTRAIT-LOADER-END */"
-PORTRAIT_FILE = Path("author-tate.jpg")
-PORTRAIT_URL = "/author-tate.jpg"
+PORTRAIT_URL = "/api/author-photo"
 
 BOOK_UPDATES_CSS_START = "/* BOOK-UPDATES-START */"
 BOOK_UPDATES_CSS_END = "/* BOOK-UPDATES-END */"
@@ -81,19 +79,6 @@ BOOK_UPDATES_HTML = f'''{BOOK_UPDATES_HTML_START}<div id="book-updates" class="b
 
 PUBLICATION_STATUS = '<p><strong>Publication status:</strong> The book is not yet released. It is currently in final preparation, with preorder options opening before publication.</p>'
 BOOK_BRIDGE = '<p>The site and the book work together: read an answer here, then go deeper in the full book.</p>'
-
-
-def build_author_portrait():
-    """Create a normal JPEG file from the checked-in base64 source chunks."""
-    parts = sorted(Path("portrait-hires").glob("part*.b64"))
-    if parts:
-        encoded = "".join(part.read_text().strip() for part in parts)
-    else:
-        fallback = Path("portrait-inline.b64")
-        if not fallback.exists():
-            raise FileNotFoundError("No author portrait source found")
-        encoded = fallback.read_text().strip()
-    PORTRAIT_FILE.write_bytes(base64.b64decode(encoded))
 
 
 def inject_analytics(text):
@@ -159,7 +144,7 @@ def patch_index(path):
     text = path.read_text()
     text = text.replace(OLD_BASE, NEW_BASE)
 
-    # Use a normal static JPEG path. This survives rebuilds and works natively in Safari.
+    # Serve Tate's portrait from a Vercel function that returns real JPEG bytes.
     text = re.sub(r'const AUTHOR="[^"]*";', f'const AUTHOR="{PORTRAIT_URL}";', text, count=1)
     text = remove_old_portrait_loader(text)
 
@@ -190,7 +175,6 @@ def patch_text_file(path):
         path.write_text(path.read_text().replace(OLD_BASE, NEW_BASE))
 
 
-build_author_portrait()
 index = Path("index.html")
 patch_index(index)
 
@@ -201,4 +185,4 @@ for path in Path(".").glob("*.html"):
 patch_text_file(Path("sitemap.xml"))
 patch_text_file(Path("robots.txt"))
 
-print("Release pass complete: custom domain, coming-soon messaging, static high-resolution author JPEG, book release signup, Start Here pathway, refined hero badge, and Vercel Web Analytics added.")
+print("Release pass complete: custom domain, coming-soon messaging, reliable author photo endpoint, book release signup, Start Here pathway, refined hero badge, and Vercel Web Analytics added.")
