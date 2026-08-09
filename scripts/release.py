@@ -132,8 +132,13 @@ def patch_index(path):
     text = text.replace(OLD_BASE, NEW_BASE)
 
     # Keep Tate's real uploaded portrait inline so browsers receive a valid JPEG
-    # without relying on a separately served image path.
-    portrait = Path("portrait-inline.b64").read_text().strip()
+    # without relying on a separately served image path. Prefer the higher-
+    # resolution chunked copy for a crisp Retina rendering.
+    portrait_parts = sorted(Path("portrait-hires").glob("part*.b64"))
+    if portrait_parts:
+        portrait = "".join(part.read_text().strip() for part in portrait_parts)
+    else:
+        portrait = Path("portrait-inline.b64").read_text().strip()
     author_value = f'data:image/jpeg;base64,{portrait}'
     text = re.sub(
         r'const AUTHOR="[^"]*";',
@@ -193,4 +198,4 @@ for path in Path(".").glob("*.html"):
 patch_text_file(Path("sitemap.xml"))
 patch_text_file(Path("robots.txt"))
 
-print("Release pass complete: custom domain, coming-soon messaging, author portrait, Start Here pathway, refined hero badge, and Vercel Web Analytics added.")
+print("Release pass complete: custom domain, coming-soon messaging, high-resolution author portrait, Start Here pathway, refined hero badge, and Vercel Web Analytics added.")
