@@ -2,14 +2,20 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
-  "redirects": [
+  "headers": [
     {
       "source": "/author-tate.jpg",
-      "destination": "/author-tate.svg",
-      "permanent": false
-    }
-  ],
-  "headers": [
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "image/svg+xml; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store, max-age=0"
+        }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [
