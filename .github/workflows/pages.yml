@@ -77,54 +77,16 @@ jobs:
       - name: Wire Contact Tate page
         run: python scripts/contact.py
 
-      - name: Build and pin static author JPEG
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import base64
-          import re
-
-          parts = sorted(Path('portrait-hires').glob('part*.b64'))
-          if not parts:
-              raise SystemExit('No portrait source parts found')
-
-          decoded = base64.b64decode(''.join(p.read_text().strip() for p in parts))
-          jpeg = decoded
-          if not jpeg.startswith(b'\xff\xd8'):
-              wrapper = decoded.decode('utf-8')
-              match = re.search(r'data:image/jpeg;base64,([^"<]+)', wrapper, re.I)
-              if not match:
-                  raise SystemExit('Embedded JPEG not found in portrait source')
-              jpeg = base64.b64decode(match.group(1))
-
-          if not jpeg.startswith(b'\xff\xd8'):
-              raise SystemExit('Decoded author portrait is not a JPEG')
-
-          Path('author-tate.jpg').write_bytes(jpeg)
-
-          index = Path('index.html')
-          html = index.read_text()
-          html = re.sub(r'const AUTHOR="[^"]*";', 'const AUTHOR="/author-tate.jpg?v=4";', html, count=1)
-          html = re.sub(
-              r'/\* AUTHOR-PORTRAIT-LOADER-START \*/.*?/\* AUTHOR-PORTRAIT-LOADER-END \*/\s*',
-              '',
-              html,
-              flags=re.S,
-          )
-          html = html.replace(' data-author-photo', '')
-          index.write_text(html)
-          PY
-
       - name: Commit generated site improvements
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add index.html what-hurts-today.html contact.html answer-*.html sitemap.xml robots.txt author-tate.jpg
-            git commit -m "Publish static author portrait and site updates"
+            git add index.html what-hurts-today.html contact.html answer-*.html sitemap.xml robots.txt
+            git commit -m "Publish embedded author portrait and site updates"
             git push
           else
-            echo "SEO, crawlable hub, contact, launch status, static portrait, analytics, and domain layer are already current"
+            echo "SEO, crawlable hub, contact, launch status, embedded portrait, analytics, and domain layer are already current"
           fi
 
       - name: Setup Pages
