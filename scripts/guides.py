@@ -42,11 +42,19 @@ def patch_index(path):
             1,
         )
 
-    anchor = '<section class="hopeBand" id="newsletter">'
-    if anchor in text:
-        text = text.replace(anchor, HOME + anchor, 1)
-    elif '</main>' in text:
-        text = text.replace('</main>', HOME + '</main>', 1)
+    # Works whether the older newsletter or the newer Hope conversion band is present.
+    anchors = [
+        '<section class="hopeBand" id="newsletter">',
+        '<section class="newsletter" id="newsletter">',
+    ]
+    inserted = False
+    for anchor in anchors:
+        if anchor in text:
+            text = text.replace(anchor, HOME + anchor, 1)
+            inserted = True
+            break
+
+    # Do not insert into the empty SPA mount; if neither anchor exists, leave the page unchanged.
     path.write_text(text)
 
 
@@ -54,7 +62,6 @@ def patch_thanks(path):
     if not path.exists():
         return
     text = path.read_text()
-    # Give the thank-you page a second immediate resource without changing the signup promise.
     if '/can-christians-be-depressed' not in text:
         marker = '</div></div></section></main>'
         extra = '<div style="margin-top:24px;padding:26px;border:1px solid #ddd6c9;background:#fff"><p class="eyebrow">A Note from Tate</p><h2 style="font-size:2rem;margin:0 0 8px">Can Christians Be Depressed?</h2><p style="margin:0 0 14px;color:#66716a">If emotional heaviness is part of what you are carrying, this new pastoral guide may be the best place to go next.</p><a class="btn" href="/can-christians-be-depressed">Read the Depression Guide →</a></div>'
