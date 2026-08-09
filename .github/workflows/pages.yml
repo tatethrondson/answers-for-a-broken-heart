@@ -33,22 +33,23 @@ jobs:
           index = Path('index.html')
           html = index.read_text()
 
-          # Do not let the SPA intercept clicks to the real standalone answer pages.
+          # Standalone expanded pages must use normal browser navigation.
           html = html.replace(
               'if(href&&!href.startsWith("#")){e.preventDefault();go(href)}',
               'if(href&&!href.startsWith("#")&&!href.startsWith("/answer-")){e.preventDefault();go(href)}',
               1,
           )
 
-          # Add one central URL helper for expanded answers 04-10.
+          # Keep the central URL helper current as more full pages are published.
           if 'function answerHref(n)' not in html:
               html = html.replace(
                   'function go(url){',
-                  'function answerHref(n){const s=String(n).padStart(2,"0");return n>=4&&n<=10?`/answer-${s}`:`?answer=${s}`}function go(url){',
+                  'function answerHref(n){const s=String(n).padStart(2,"0");return n>=4&&n<=14?`/answer-${s}`:`?answer=${s}`}function go(url){',
                   1,
               )
+          html = html.replace('return n>=4&&n<=10?', 'return n>=4&&n<=14?')
 
-          # Point the What Hurts Today cards and dynamic next links at expanded pages when available.
+          # Point library cards and dynamic next links at expanded pages when available.
           html = html.replace(
               'href="?answer=${String(a.n).padStart(2,"0")}"',
               'href="${answerHref(a.n)}"',
@@ -57,20 +58,23 @@ jobs:
               'href="?answer=${String(next.n).padStart(2,"0")}"',
               'href="${answerHref(next.n)}"',
           )
-
-          # The homepage sample should open the full Answer 04 page.
           html = html.replace('href="?answer=04"', 'href="/answer-04"')
-
           index.write_text(html)
+
+          # Keep the reading journey on full pages from Answer 10 into Answer 11.
+          answer10 = Path('answer-10.html')
+          if answer10.exists():
+              a10 = answer10.read_text().replace('href="/?answer=11"', 'href="/answer-11"')
+              answer10.write_text(a10)
           PY
 
       - name: Commit navigation changes
         run: |
-          if ! git diff --quiet -- index.html; then
+          if ! git diff --quiet -- index.html answer-10.html; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add index.html
-            git commit -m "Link expanded answers 04 through 10"
+            git add index.html answer-10.html
+            git commit -m "Link expanded answers 04 through 14"
             git push
           else
             echo "Expanded answer links are already wired"
