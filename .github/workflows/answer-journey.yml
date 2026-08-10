@@ -1,4 +1,5 @@
 name: Publish Answer Journey
+# trigger: refresh answer-page lead capture
 
 on:
   push:
