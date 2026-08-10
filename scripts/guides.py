@@ -42,8 +42,12 @@ CSS = f'''{CSS_START}
 .bookBridgeActions a{{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:11px 16px;text-transform:uppercase;letter-spacing:.055em;font-size:.68rem;font-weight:800;white-space:nowrap}}
 .bookBridgeActions .bookPrimary{{background:#294533;color:#fff;border:1px solid #294533}}
 .bookBridgeActions .bookSecondary{{background:transparent;color:#294533;border:1px solid #294533}}
+/* Keep Tate's portrait in its native 5:7 proportion instead of forcing a crop. */
+.authorInner{{grid-template-columns:180px 1fr;gap:30px;align-items:start}}
+.authorPhoto{{width:180px;height:252px;border-radius:6px;object-fit:cover;object-position:center center;box-shadow:0 10px 28px rgba(33,47,38,.14);border:1px solid rgba(41,69,51,.08);background:#eee9df}}
+.authorPage img{{width:100%;max-width:350px;height:auto;object-fit:contain;object-position:center;border-radius:6px;box-shadow:var(--shadow);background:#eee9df}}
 @media(max-width:900px){{.homeNote{{grid-template-columns:1fr;gap:22px}}.bookBridgeInner{{grid-template-columns:1fr;gap:12px}}.bookBridgeActions{{justify-content:flex-start;margin-top:5px}}}}
-@media(max-width:760px){{.freeGuidesHead{{align-items:start;flex-direction:column}}.guideCards{{grid-template-columns:1fr}}.homeNote{{padding:29px 25px}}.homeNoteForm{{grid-template-columns:1fr}}.homeNoteForm button{{width:100%}}}}
+@media(max-width:760px){{.freeGuidesHead{{align-items:start;flex-direction:column}}.guideCards{{grid-template-columns:1fr}}.homeNote{{padding:29px 25px}}.homeNoteForm{{grid-template-columns:1fr}}.homeNoteForm button{{width:100%}}.authorInner{{grid-template-columns:1fr;gap:20px}}.authorPhoto{{width:160px;height:224px;object-position:center center}}.authorPage img{{max-width:320px}}}}
 {CSS_END}'''
 
 HOME = f'''{HTML_START}<section class="freeGuidesHome"><div class="wrap"><div class="freeGuidesHead"><div><p class="eyebrow">Free Help</p><h2>Start with something useful.</h2><p class="guideIntro">You do not have to buy anything to find help here. These short pastoral guides are designed for the hard moment you are in right now—read one, print one, or send one to somebody you love.</p></div><a class="freeGuidesAll" href="/free-guides">View All Free Guides →</a></div><div class="guideCards"><a class="guideCard featured" href="/2am-guide"><small>Best place to start tonight · 7 Scriptures</small><strong>The 2:00 A.M. Guide</strong><span>Something true to hold onto when the room is quiet, your thoughts are loud, and you do not know what else to do.</span><b>Read the free guide →</b></a><a class="guideCard" href="/can-christians-be-depressed"><small>A Note from Pastor Tate · Depression</small><strong>Can Christians Be Depressed?</strong><span>A gentle biblical answer for the Christian who feels low—and then feels guilty for feeling low. Includes three practical steps for this week.</span><b>Read the free guide →</b></a></div><div class="homeNote"><div><p class="eyebrow">A Note from Pastor Tate</p><h3>Get the next note from Pastor Tate.</h3><p>Every so often, I’ll send a short pastoral note for a question people are actually carrying—grief, doubt, depression, unanswered prayer, forgiveness, and more. I’ll also let you know when <em>Answers for a Broken Heart</em> is ready.</p></div><form class="homeNoteForm" action="https://formsubmit.co/tatethrondson@gmail.com" method="POST"><input type="email" name="email" placeholder="Your email address" aria-label="Your email address" autocomplete="email" required><input type="text" name="_honey" class="homeNoteHoney" tabindex="-1" autocomplete="off"><input type="hidden" name="_subject" value="New Answers for a Broken Heart homepage signup"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_next" value="https://answersforabrokenheart.com/hope-thanks"><input type="hidden" name="interest" value="A Note from Pastor Tate + free guides + book release updates"><input type="hidden" name="source" value="Homepage Free Guides"><button type="submit">Send Me the Next Note</button><div class="homeNotePrivacy">No daily emails. Just occasional pastoral encouragement, new free guides, and book-release updates.</div></form></div></div></section>{HTML_END}'''
@@ -52,20 +56,20 @@ BRIDGE = f'''{BRIDGE_START}<section class="bookBridgeHome"><div class="wrap book
 
 
 def author_data_uri():
-    # This exact JPEG was freshly re-encoded from Tate's original Library portrait,
-    # then split into small text chunks to prevent transport truncation/corruption.
-    parts = [Path(f'portrait-clean-v2/part0{i}.b64') for i in range(1, 4)]
+    # Higher-resolution web-safe JPEG, re-encoded directly from Tate's original Library portrait.
+    # The chunks keep GitHub transport reliable while preserving enough resolution for the About view.
+    parts = [Path(f'portrait-hq-v1/part0{i}.b64') for i in range(1, 4)]
     if not all(part.exists() for part in parts):
-        raise RuntimeError('Verified clean author portrait chunks are missing; refusing to publish.')
+        raise RuntimeError('High-resolution author portrait chunks are missing; refusing to publish.')
     encoded = ''.join(''.join(part.read_text().split()) for part in parts)
     try:
         image = base64.b64decode(encoded, validate=True)
     except Exception as exc:
-        raise RuntimeError('Verified clean author portrait chunks are not valid base64.') from exc
-    if len(image) != 6393:
-        raise RuntimeError(f'Clean author portrait has unexpected size: {len(image)} bytes.')
+        raise RuntimeError('High-resolution author portrait chunks are not valid base64.') from exc
+    if len(image) != 25913:
+        raise RuntimeError(f'High-resolution author portrait has unexpected size: {len(image)} bytes.')
     if not (image.startswith(b'\xff\xd8\xff') and image.endswith(b'\xff\xd9')):
-        raise RuntimeError('Verified clean author portrait is not a complete JPEG.')
+        raise RuntimeError('High-resolution author portrait is not a complete JPEG.')
     return 'data:image/jpeg;base64,' + encoded
 
 
@@ -137,4 +141,4 @@ def patch_sitemap(path):
 patch_index(Path('index.html'))
 patch_thanks(Path('hope-thanks.html'))
 patch_sitemap(Path('sitemap.xml'))
-print('Homepage conversion layer current: free help, Pastor Tate invitation, book bridge, nav, sitemap, and verified clean author portrait are current.')
+print('Homepage conversion layer current: free help, Pastor Tate invitation, book bridge, nav, sitemap, high-resolution portrait, and corrected portrait proportions are current.')
