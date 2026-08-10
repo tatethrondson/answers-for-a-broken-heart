@@ -1,27 +1,21 @@
 from pathlib import Path
-import re, json
+import re
 
 ROOT=Path('.')
 html_files=list(ROOT.glob('*.html'))
 existing={'/'+p.stem for p in html_files}
 existing.add('/')
-# Clean URL aliases and Vercel routes
 aliases={
 '/start-here','/what-hurts-today','/all-answers','/church-resources','/free-guides','/contact','/about','/2am-guide','/help-someone','/unsafe','/can-christians-be-depressed','/grief-and-loss','/why-god-allows-suffering','/god-feels-far-away','/anger-and-unanswered-prayer','/forgiveness-and-relational-hurt','/doubt-and-church-hurt'
 }
 existing |= aliases
 existing |= {f'/answer-{i:02d}' for i in range(1,25)}
-
 issues=[]
-checks=[]
 
 def add(level,file,msg): issues.append((level,file,msg))
-
-def hrefs(text):
-    return re.findall(r'href=["\']([^"\']+)',text,re.I)
-
+def hrefs(text): return re.findall(r'href=["\']([^"\']+)',text,re.I)
 def internal_ok(h):
-    if h.startswith(('#','mailto:','tel:','javascript:','http://','https://')): return True
+    if h.startswith(('#','mailto:','tel:','javascript:','http://','https://','sms:')): return True
     base=h.split('#')[0].split('?')[0]
     if base in ('','./','.'): return True
     if not base.startswith('/'): return True
@@ -47,19 +41,19 @@ for i in range(1,25):
       '60-second help':'HURTING-HELP',
       'safety pathway':'SAFETY-LINK',
       'answer journey':'ANSWER-JOURNEY',
-      'sharing':'ANSWER-SHARE',
+      'sharing tools':'class="shareHelp"',
       'conversion analytics':'CONVERSION-ANALYTICS',
     }
     for label,needle in required.items():
         if needle not in t: add('ERROR',p.name,f'Missing {label}')
     if '/all-answers' not in t: add('WARN',p.name,'No all-answers link')
     if '/?view=book' not in t and '?view=book' not in t: add('WARN',p.name,'No book path')
+    if 'PODCAST-RESOURCE-START' in t: add('WARN',p.name,'Legacy standalone podcast block still present')
+    if re.search(r'href="/?\?answer=\d{2}"',t): add('WARN',p.name,'Legacy query-style answer link still present')
 
-# Critical pages
 for route,file in [('/start-here','begin-here.html'),('/what-hurts-today','start-here.html'),('/all-answers','what-hurts-today.html'),('/church-resources','church-resources.html'),('/free-guides','free-guides.html')]:
     if not Path(file).exists(): add('ERROR',file,f'Backing file missing for {route}')
 
-# Homepage checks
 idx=Path('index.html')
 if idx.exists():
     t=idx.read_text(encoding='utf-8',errors='ignore')
