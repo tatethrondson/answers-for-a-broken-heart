@@ -4,6 +4,10 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/start-here",
+      "destination": "/begin-here.html"
+    },
+    {
       "source": "/what-hurts-today",
       "destination": "/start-here.html"
     },
