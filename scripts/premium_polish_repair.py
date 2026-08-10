@@ -32,21 +32,24 @@ for path in Path('.').glob('*.html'):
     text=strip(text,CSS_START,CSS_END)
     text=strip(text,HEADER_START,HEADER_END)
     text=strip(text,FOOTER_START,FOOTER_END)
-    # Normalize repeated cache-buster suffixes from prior polish passes.
     while '?v=7?v=7' in text:
         text=text.replace('?v=7?v=7','?v=7')
-    # Replace a surviving legacy shell; otherwise insert the premium shell explicitly.
-    if re.search(r'<header\b.*?</header>',text,flags=re.S|re.I):
-        text=re.sub(r'<header\b.*?</header>',HEADER,text,count=1,flags=re.S|re.I)
-    else:
-        text=text.replace('<body>','<body>\n'+HEADER,1)
-    footers=list(re.finditer(r'<footer\b.*?</footer>',text,flags=re.S|re.I))
-    if footers:
-        m=footers[-1]; text=text[:m.start()]+FOOTER+text[m.end():]
-    elif '</main>' in text:
-        text=text.replace('</main>','</main>\n'+FOOTER,1)
-    else:
+
+    # Header always belongs immediately after <body> once any legacy header is removed.
+    text=re.sub(r'<header\b.*?</header>','',text,count=1,flags=re.S|re.I)
+    text=text.replace('<body>','<body>\n'+HEADER,1)
+
+    # Remove any legacy footer wherever an older template placed it. Then put the one
+    # universal footer after all visible content, immediately before analytics/scripts.
+    text=re.sub(r'<footer\b.*?</footer>','',text,flags=re.S|re.I)
+    analytics='<!-- CONVERSION-ANALYTICS-START -->'
+    if analytics in text:
+        text=text.replace(analytics,FOOTER+'\n'+analytics,1)
+    elif '</body>' in text:
         text=text.replace('</body>',FOOTER+'\n</body>',1)
+    else:
+        text += '\n'+FOOTER
+
     text=text.replace('</head>',CSS+'\n</head>',1)
     if path.name=='contact.html':
         text=text.replace('Fill this out and we’ll prepare an email addressed directly to Tate.','Fill this out and your message will be sent directly to Tate.')
