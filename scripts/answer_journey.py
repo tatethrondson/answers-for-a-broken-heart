@@ -3,6 +3,7 @@ import re
 
 START = "<!-- ANSWER-JOURNEY-START -->"
 END = "<!-- ANSWER-JOURNEY-END -->"
+GUIDE_ACCESS = "https://answersforabrokenheart.com/2am-guide-access?welcome=1"
 
 STYLE = '''<style>
 .answerJourney{margin:52px 0 18px;padding:32px;background:#183024;color:#fff;border:1px solid #183024}
@@ -16,6 +17,11 @@ STYLE = '''<style>
 .journeyCard strong{display:block;font:1.24rem/1.18 Georgia,"Times New Roman",serif;font-weight:400;color:#20372a;margin-bottom:7px}
 .journeyCard span{display:block;margin-top:auto;font-size:.75rem;font-weight:800;color:#294533}
 .journeyCard.listen{background:#f6f1e8}.journeyCard.bookPath{background:#eef2ed}
+.journeyCard.listen.hasThumb{padding:0;background:#fffdf9;overflow:hidden}
+.journeyThumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:#d8d2c8}
+.journeyThumb img{display:block;width:100%;height:100%;object-fit:cover}
+.journeyPlay{position:absolute;left:14px;bottom:12px;width:42px;height:42px;border-radius:50%;display:flex!important;align-items:center;justify-content:center;background:rgba(24,48,36,.94);color:#fff!important;font-size:1rem!important;line-height:1;margin:0!important;box-shadow:0 6px 16px rgba(0,0,0,.2)}
+.journeyListenCopy{padding:17px 18px 18px;display:flex;flex-direction:column;flex:1}
 .shareHelp{margin-top:18px;padding:22px 0 0;border-top:1px solid rgba(255,255,255,.18)}
 .shareHelp strong{display:block;font:1.28rem/1.2 Georgia,"Times New Roman",serif;font-weight:400;color:#fff;margin-bottom:5px}
 .shareHelp p{margin:0 0 13px!important;color:rgba(255,255,255,.76);font-size:.8rem}
@@ -29,14 +35,26 @@ PODCASTS = {4:("Ava's Story: How God Is Still Good in the Hardest Trials","https
 TOPICS = {1:("When God Feels Far Away","/god-feels-far-away"),2:("When God Feels Far Away","/god-feels-far-away"),3:("When God Feels Far Away","/god-feels-far-away"),9:("When God Feels Far Away","/god-feels-far-away"),10:("When God Feels Far Away","/god-feels-far-away"),4:("Why God Allows Suffering","/why-god-allows-suffering"),5:("Why God Allows Suffering","/why-god-allows-suffering"),6:("Why God Allows Suffering","/why-god-allows-suffering"),7:("Why God Allows Suffering","/why-god-allows-suffering"),8:("Why God Allows Suffering","/why-god-allows-suffering"),11:("Anger & Unanswered Prayer","/anger-and-unanswered-prayer"),13:("Anger & Unanswered Prayer","/anger-and-unanswered-prayer"),18:("Anger & Unanswered Prayer","/anger-and-unanswered-prayer"),19:("Anger & Unanswered Prayer","/anger-and-unanswered-prayer"),12:("Forgiveness & Relational Hurt","/forgiveness-and-relational-hurt"),20:("Forgiveness & Relational Hurt","/forgiveness-and-relational-hurt"),21:("Forgiveness & Relational Hurt","/forgiveness-and-relational-hurt"),22:("Forgiveness & Relational Hurt","/forgiveness-and-relational-hurt"),14:("Grief & Loss","/grief-and-loss"),15:("Grief & Loss","/grief-and-loss"),16:("Grief & Loss","/grief-and-loss"),17:("Grief & Loss","/grief-and-loss"),23:("Doubt, Church Hurt & Faith","/doubt-and-church-hurt"),24:("Doubt, Church Hurt & Faith","/doubt-and-church-hurt")}
 NEXT = {i:(i+1 if i<24 else 1) for i in range(1,25)}
 
+def youtube_id(url):
+    if 'youtu.be/' in url:
+        return url.split('youtu.be/',1)[1].split('?',1)[0].split('&',1)[0]
+    match = re.search(r'[?&]v=([^&]+)', url)
+    return match.group(1) if match else ''
+
+def podcast_card(title, url):
+    vid = youtube_id(url)
+    thumb = f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg" if vid else ''
+    image = f'''<div class="journeyThumb"><img src="{thumb}" alt="" loading="lazy" decoding="async"><span class="journeyPlay" aria-hidden="true">▶</span></div>''' if thumb else ''
+    return f'''<a class="journeyCard listen hasThumb" href="{url}" target="_blank" rel="noopener noreferrer">{image}<div class="journeyListenCopy"><small>Listen</small><strong>{title}</strong><span>Listen on YouTube →</span></div></a>'''
+
 def block(n):
     topic, topic_url = TOPICS[n]; nxt=NEXT[n]; page_url=f"https://answersforabrokenheart.com/answer-{n:02d}"
     if n in PODCASTS:
-        title,url=PODCASTS[n]; listen=f'''<a class="journeyCard listen" href="{url}" target="_blank" rel="noopener noreferrer"><small>Listen</small><strong>{title}</strong><span>Listen on YouTube →</span></a>'''
+        title,url=PODCASTS[n]; listen=podcast_card(title,url)
     else:
         listen=f'''<a class="journeyCard listen" href="{topic_url}"><small>Stay with this subject</small><strong>Explore {topic}</strong><span>See the topic guide →</span></a>'''
     share=f'''<div class="shareHelp"><strong>Know someone who may need this?</strong><p>You do not have to explain their pain for them. Sometimes the kindest thing is simply to send something that may help them feel less alone.</p><div class="shareRow"><button class="shareBtn" type="button" onclick="navigator.clipboard.writeText('{page_url}').then(()=>{{this.parentElement.querySelector('.copyStatus').textContent='Link copied'}})">Copy Link</button><a class="shareBtn" href="sms:?&body=I thought this might help you: {page_url}">Text This</a><a class="shareBtn" href="mailto:?subject=Thought this might help&body=I came across this and thought of you: {page_url}">Email This</a><span class="copyStatus" aria-live="polite"></span></div></div>'''
-    capture=f'''<div class="guideCapture"><div><small>Free resource · 7 Scriptures</small><strong>Want something to hold onto tonight?</strong><p>I’ll send you the free 2:00 A.M. Guide: seven Scriptures, short pastoral reminders, and simple prayers for the nights when your thoughts are loud.</p></div><form class="guideForm" action="https://formsubmit.co/tatethrondson@gmail.com" method="POST"><input type="email" name="email" placeholder="Your email address" aria-label="Your email address" autocomplete="email" required><input type="text" name="_honey" class="guideHoney" tabindex="-1" autocomplete="off"><input type="hidden" name="_subject" value="New 2:00 A.M. Guide signup from Answer {n:02d}"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_next" value="https://answersforabrokenheart.com/2am-guide"><input type="hidden" name="interest" value="2:00 A.M. Guide + occasional pastoral notes + book release updates"><input type="hidden" name="source" value="Answer {n:02d}"><button type="submit">Send Me the Guide</button><div class="privacy">You’ll go straight to the guide after signing up. Occasional pastoral notes and book updates only.</div></form></div>'''
+    capture=f'''<div class="guideCapture"><div><small>Free resource · 7 Scriptures</small><strong>Want something to hold onto tonight?</strong><p>I’ll send you the free 2:00 A.M. Guide: seven Scriptures, short pastoral reminders, and simple prayers for the nights when your thoughts are loud.</p></div><form class="guideForm" action="https://formsubmit.co/tatethrondson@gmail.com" method="POST"><input type="email" name="email" placeholder="Your email address" aria-label="Your email address" autocomplete="email" required><input type="text" name="_honey" class="guideHoney" tabindex="-1" autocomplete="off"><input type="hidden" name="_subject" value="New 2:00 A.M. Guide signup from Answer {n:02d}"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_next" value="{GUIDE_ACCESS}"><input type="hidden" name="interest" value="2:00 A.M. Guide + occasional pastoral notes + book release updates"><input type="hidden" name="source" value="Answer {n:02d}"><button type="submit">Send Me the Guide</button><div class="privacy">You’ll go straight to the guide after signing up. Occasional pastoral notes and book updates only.</div></form></div>'''
     return f'''{START}\n{STYLE}\n<section class="answerJourney" aria-label="Where to go next"><p class="journeyEyebrow">You do not have to stop here</p><h2>Choose your next step.</h2><p class="journeyLead">You may need to keep reading, hear a real conversation, or simply stay with this subject a little longer. Choose what would help most right now.</p><div class="journeyGrid">{listen}<a class="journeyCard" href="{topic_url}"><small>Go deeper</small><strong>{topic}</strong><span>Explore the full topic →</span></a><a class="journeyCard bookPath" href="/?view=book"><small>The deeper journey</small><strong>Answers for a Broken Heart</strong><span>Explore the book →</span></a></div>{share}{capture}<div style="margin-top:15px;font-size:.78rem;color:rgba(255,255,255,.72)">Or <a href="/answer-{nxt:02d}" style="color:#fff;font-weight:800">continue to Answer {nxt:02d} →</a> &nbsp;·&nbsp; <a href="/all-answers" style="color:#fff;font-weight:800">browse all 24 answers →</a></div></section>\n{END}'''
 
 for n in range(1,25):
