@@ -20,6 +20,7 @@
 <body>
 <header><div class="wrap nav"><a class="logo" href="/"><span class="logoWords">Answers<small>for a Broken Heart</small></span><span class="logoHeart">♡</span></a><a class="back" href="/?view=book">Back to the Book</a></div></header>
 <main class="hero"><div class="wrap"><section class="card"><div class="check">✓</div><p class="eyebrow">Book Release Updates</p><h1>You’re on the list.</h1><p>Thank you for asking to be notified about <em>Answers for a Broken Heart</em>. I’ll use this address for occasional updates about preorder availability, release day, and signed-copy options.</p><a class="btn" href="/?view=book">Return to the Book Page</a><p class="note">If this is the first signup through the new form, Tate may need to activate the form by confirming the verification email sent to his inbox.</p></section></div></main>
+
 <!-- CONVERSION-ANALYTICS-START -->
 <script>
 (function(){
@@ -44,7 +45,7 @@
     if(href==='/church-resources') track('Church Resources Click',{page:page(),label:label});
     if(href==='/2am-guide') track('2AM Guide Opened',{page:page(),label:label});
     if(href.indexOf('view=book')!==-1) track('Book Interest Click',{page:page(),label:label});
-    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && a.closest('.answerJourney')){
+    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && (a.closest('.answerJourney') || a.closest('.podcastResource'))){
       track('Podcast Resource Click',{page:page(),label:label});
     }
     if(a.classList && a.classList.contains('shareBtn')){

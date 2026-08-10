@@ -88,6 +88,7 @@ const search=document.getElementById('search');const buttons=[...document.queryS
 const stop=new Set('i im ive id me my mine myself we our you your the a an and or but is are was were be been being to of for in on at with from this that it its do does did have has had feel feels feeling just really very so still am can could would should there here about like what why how when where who not'.split(' '));function norm(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[’']/g,'').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim()}function terms(s){return norm(s).split(' ').filter(w=>w.length>1&&!stop.has(w))}function draw(){const raw=search.value.trim();const q=terms(raw);const normalized=norm(raw);const danger=/\b(suicide|suicidal|self harm|selfharm|kill myself|hurt myself|end my life|dont want to live|not safe|unsafe)\b/.test(normalized);const safety=document.getElementById('safetySearch');if(safety)safety.style.display=danger?'block':'none';let shown=0;cards.forEach(card=>{const category=card.dataset.category;const matchCat=active==='all'||category===active;const haystack=norm(card.textContent+' '+(card.dataset.search||''));const matchText=!raw||(q.length?q.every(t=>haystack.includes(t)):haystack.includes(normalized));const show=matchCat&&matchText;card.style.display=show?'block':'none';if(show)shown++});groups.forEach(group=>{const visible=[...group.querySelectorAll('.card')].some(c=>c.style.display!=='none');group.style.display=visible?'block':'none'});empty.style.display=shown?'none':'block'}
 buttons.forEach(button=>button.addEventListener('click',()=>{active=button.dataset.filter;buttons.forEach(b=>b.classList.toggle('active',b===button));draw()}));search.addEventListener('input',draw);
 </script>
+
 <!-- CONVERSION-ANALYTICS-START -->
 <script>
 (function(){
@@ -112,7 +113,7 @@ buttons.forEach(button=>button.addEventListener('click',()=>{active=button.datas
     if(href==='/church-resources') track('Church Resources Click',{page:page(),label:label});
     if(href==='/2am-guide') track('2AM Guide Opened',{page:page(),label:label});
     if(href.indexOf('view=book')!==-1) track('Book Interest Click',{page:page(),label:label});
-    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && a.closest('.answerJourney')){
+    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && (a.closest('.answerJourney') || a.closest('.podcastResource'))){
       track('Podcast Resource Click',{page:page(),label:label});
     }
     if(a.classList && a.classList.contains('shareBtn')){

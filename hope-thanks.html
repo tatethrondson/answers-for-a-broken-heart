@@ -15,6 +15,7 @@
 <header><div class="wrap"><a class="brand" href="/">Answers<small>for a Broken Heart</small></a></div></header>
 <main><div class="wrap"><section class="card"><p class="eyebrow">You’re in</p><h1>Thank you.</h1><p class="lead">I’m grateful you’re here. I’ll send occasional biblical encouragement, new free resources, and updates about <em>Answers for a Broken Heart</em>.</p><div class="resource"><p class="eyebrow">Read this next</p><h2>Can Christians Be Depressed?</h2><p>If emotional heaviness is part of what you’re carrying, this pastoral guide may be the best place to begin.</p><a class="btn" href="/can-christians-be-depressed">Read the Depression Guide →</a></div><p class="next">Or go back to <a href="/what-hurts-today">What Hurts Today?</a> and start with the question closest to what you’re carrying.</p></section></div></main>
 <footer><div class="wrap">Answers for a Broken Heart · Biblical hope for life’s hardest moments.</div></footer>
+
 <!-- CONVERSION-ANALYTICS-START -->
 <script>
 (function(){
@@ -39,7 +40,7 @@
     if(href==='/church-resources') track('Church Resources Click',{page:page(),label:label});
     if(href==='/2am-guide') track('2AM Guide Opened',{page:page(),label:label});
     if(href.indexOf('view=book')!==-1) track('Book Interest Click',{page:page(),label:label});
-    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && a.closest('.answerJourney')){
+    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && (a.closest('.answerJourney') || a.closest('.podcastResource'))){
       track('Podcast Resource Click',{page:page(),label:label});
     }
     if(a.classList && a.classList.contains('shareBtn')){

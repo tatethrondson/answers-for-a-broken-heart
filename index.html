@@ -191,6 +191,7 @@ function book(){navActive("book");app.innerHTML=`<section class="subHero"><div c
 function about(){navActive("about");app.innerHTML=`<section class="subHero"><div class="wrap"><p class="eyebrow">About the author</p><h1>Tate Throndson</h1><p class="lead">Pastor, preacher, and author helping people find biblical hope in the middle of real life.</p></div></section><section class="section"><div class="wrap authorPage"><img src="${AUTHOR}" alt="Tate Throndson"><div><p class="eyebrow">Pastoral answers for people in real pain</p><h2>More than an argument. A shepherd’s voice.</h2><p>Tate Throndson has served as lead pastor of Castleview Baptist Church in Castle Rock, Colorado, since planting it in 2008. He and his wife, Debbie, have served together in full-time ministry for more than twenty-five years.</p><p><em>Answers for a Broken Heart</em> grows out of years of sitting with people in hospital rooms, funeral homes, counseling conversations, and seasons when easy answers simply were not enough.</p><p class="keyline">The goal is not to explain away your pain. It is to help you recognize the God who has been present in it all along.</p><a class="btn primary" href="/what-hurts-today">Find an Answer</a></div></div></section>`}
 function render(){const p=new URLSearchParams(location.search);if(p.has("answer"))return answer(parseInt(p.get("answer"),10));const v=p.get("view");if(v==="hurts")return hurts();if(v==="book")return book();if(v==="about")return about();home()}render();
 </script>
+
 <!-- CONVERSION-ANALYTICS-START -->
 <script>
 (function(){
@@ -215,7 +216,7 @@ function render(){const p=new URLSearchParams(location.search);if(p.has("answer"
     if(href==='/church-resources') track('Church Resources Click',{page:page(),label:label});
     if(href==='/2am-guide') track('2AM Guide Opened',{page:page(),label:label});
     if(href.indexOf('view=book')!==-1) track('Book Interest Click',{page:page(),label:label});
-    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && a.closest('.answerJourney')){
+    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && (a.closest('.answerJourney') || a.closest('.podcastResource'))){
       track('Podcast Resource Click',{page:page(),label:label});
     }
     if(a.classList && a.classList.contains('shareBtn')){

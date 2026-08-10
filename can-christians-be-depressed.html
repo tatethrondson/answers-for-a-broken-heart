@@ -56,6 +56,7 @@
 </div></main>
 <section class="cta"><div class="wrap ctaGrid"><div><p class="eyebrow" style="color:#d8bd87">Hope in your inbox</p><h2>Want the next note from Pastor Tate?</h2><p>Receive occasional biblical encouragement for life’s hardest moments, along with new free guides and updates about <em>Answers for a Broken Heart</em>.</p></div><form class="form" action="https://formsubmit.co/tatethrondson@gmail.com" method="POST"><input type="email" name="email" placeholder="Your email address" aria-label="Your email address" autocomplete="email" required><input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off"><input type="hidden" name="_subject" value="New A Note from Pastor Tate signup - Depression guide"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_next" value="https://answersforabrokenheart.com/hope-thanks"><input type="hidden" name="interest" value="A Note from Pastor Tate + Answers for a Broken Heart updates"><input type="hidden" name="source" value="Can Christians Be Depressed guide"><button type="submit">Send Me the Next Note</button><div class="privacy">Occasional pastoral encouragement and book updates. No spam.</div></form></div></section>
 <footer><div class="wrap footerRow"><div><strong>Answers for a Broken Heart</strong><br>Helping people find biblical hope in life’s hardest moments.</div><div><a href="/what-hurts-today">What Hurts Today?</a> · <a href="/free-guides">Free Guides</a> · <a href="/?view=book">The Book</a></div></div></footer>
+
 <!-- CONVERSION-ANALYTICS-START -->
 <script>
 (function(){
@@ -80,7 +81,7 @@
     if(href==='/church-resources') track('Church Resources Click',{page:page(),label:label});
     if(href==='/2am-guide') track('2AM Guide Opened',{page:page(),label:label});
     if(href.indexOf('view=book')!==-1) track('Book Interest Click',{page:page(),label:label});
-    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && a.closest('.answerJourney')){
+    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && (a.closest('.answerJourney') || a.closest('.podcastResource'))){
       track('Podcast Resource Click',{page:page(),label:label});
     }
     if(a.classList && a.classList.contains('shareBtn')){

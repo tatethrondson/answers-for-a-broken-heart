@@ -32,6 +32,7 @@
 <section class="safety"><div class="wrap">If your pain has become dangerous, you are thinking about harming yourself, or you do not feel safe, <a href="/unsafe">start with immediate help here →</a></div></section>
 </main>
 <footer><div class="wrap footer"><span>© 2026 Tate Throndson · Answers for a Broken Heart</span><span>Biblical answers. Real hope. Lasting healing.</span></div></footer>
+
 <!-- CONVERSION-ANALYTICS-START -->
 <script>
 (function(){
@@ -56,7 +57,7 @@
     if(href==='/church-resources') track('Church Resources Click',{page:page(),label:label});
     if(href==='/2am-guide') track('2AM Guide Opened',{page:page(),label:label});
     if(href.indexOf('view=book')!==-1) track('Book Interest Click',{page:page(),label:label});
-    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && a.closest('.answerJourney')){
+    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && (a.closest('.answerJourney') || a.closest('.podcastResource'))){
       track('Podcast Resource Click',{page:page(),label:label});
     }
     if(a.classList && a.classList.contains('shareBtn')){

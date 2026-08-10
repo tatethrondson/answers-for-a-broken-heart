@@ -35,6 +35,7 @@
 <section class="cta"><div class="wrap ctaGrid"><div><p class="eyebrow" style="color:#d6bd8c">Where do you begin?</p><h2>Tell me where it hurts.</h2><p>Twenty-four honest questions. Biblical answers. A place to start without pretending you are fine.</p></div><a class="btn" href="/what-hurts-today">Find an Answer</a></div></section>
 </main>
 <footer><div class="wrap footer"><div><strong>Answers for a Broken Heart</strong><br>Finding God’s goodness in grief, doubt, and unanswered prayer.</div><div><a href="/">Home</a> · <a href="/what-hurts-today">What Hurts Today?</a> · <a href="/free-guides">Free Guides</a> · <a href="/contact">Contact Tate</a><br>© 2026 Tate Throndson · Psalm 34:18</div></div></footer>
+
 <!-- CONVERSION-ANALYTICS-START -->
 <script>
 (function(){
@@ -59,7 +60,7 @@
     if(href==='/church-resources') track('Church Resources Click',{page:page(),label:label});
     if(href==='/2am-guide') track('2AM Guide Opened',{page:page(),label:label});
     if(href.indexOf('view=book')!==-1) track('Book Interest Click',{page:page(),label:label});
-    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && a.closest('.answerJourney')){
+    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && (a.closest('.answerJourney') || a.closest('.podcastResource'))){
       track('Podcast Resource Click',{page:page(),label:label});
     }
     if(a.classList && a.classList.contains('shareBtn')){

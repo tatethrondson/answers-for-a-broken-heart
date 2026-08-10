@@ -40,6 +40,7 @@
 <section class="related"><div class="wrap"><p class="eyebrow">Related help</p><h2>Pain rarely stays in one category.</h2><div class="relatedGrid"><a class="relatedCard" href="/god-feels-far-away"><small>Explore another topic</small><strong>When God Feels Far Away →</strong></a><a class="relatedCard" href="/forgiveness-and-relational-hurt"><small>Explore another topic</small><strong>Forgiveness &amp; Relational Hurt →</strong></a><a class="relatedCard" href="/why-god-allows-suffering"><small>Explore another topic</small><strong>Why God Allows Suffering →</strong></a></div><div class="allHelp"><a class="btn" href="/what-hurts-today">Browse All 24 Answers</a></div></div></section>
 </main>
 <footer><div class="wrap footer"><div><strong>Answers for a Broken Heart</strong><br>Finding God’s goodness in grief, doubt, and unanswered prayer.</div><div>© 2026 Tate Throndson · Psalm 34:18</div></div></footer>
+
 <!-- CONVERSION-ANALYTICS-START -->
 <script>
 (function(){
@@ -64,7 +65,7 @@
     if(href==='/church-resources') track('Church Resources Click',{page:page(),label:label});
     if(href==='/2am-guide') track('2AM Guide Opened',{page:page(),label:label});
     if(href.indexOf('view=book')!==-1) track('Book Interest Click',{page:page(),label:label});
-    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && a.closest('.answerJourney')){
+    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && (a.closest('.answerJourney') || a.closest('.podcastResource'))){
       track('Podcast Resource Click',{page:page(),label:label});
     }
     if(a.classList && a.classList.contains('shareBtn')){

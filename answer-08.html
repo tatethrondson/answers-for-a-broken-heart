@@ -183,6 +183,7 @@ footer{background:#17291f;color:rgba(255,255,255,.8);padding:34px 0;font-size:.7
 <section class="next"><div class="wrap"><p class="eyebrow">Keep going</p><a href="/answer-09"><small>ANSWER 09</small><h3>Does God actually know what this feels like?</h3><p>He wept with you. →</p></a></div></section>
 </main>
 <footer><div class="wrap footer"><div><strong>Answers for a Broken Heart</strong><br>Finding God’s goodness in grief, doubt, and unanswered prayer.</div><div>© 2026 Tate Throndson · Psalm 34:18</div></div></footer>
+
 <!-- CONVERSION-ANALYTICS-START -->
 <script>
 (function(){
@@ -207,7 +208,7 @@ footer{background:#17291f;color:rgba(255,255,255,.8);padding:34px 0;font-size:.7
     if(href==='/church-resources') track('Church Resources Click',{page:page(),label:label});
     if(href==='/2am-guide') track('2AM Guide Opened',{page:page(),label:label});
     if(href.indexOf('view=book')!==-1) track('Book Interest Click',{page:page(),label:label});
-    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && a.closest('.answerJourney')){
+    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && (a.closest('.answerJourney') || a.closest('.podcastResource'))){
       track('Podcast Resource Click',{page:page(),label:label});
     }
     if(a.classList && a.classList.contains('shareBtn')){
