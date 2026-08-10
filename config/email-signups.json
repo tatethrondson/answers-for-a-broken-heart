@@ -1,0 +1,29 @@
+{
+  "provider": "formsubmit",
+  "status": "temporary",
+  "migration_ready": true,
+  "segments": {
+    "guide_2am": {
+      "label": "2:00 A.M. Guide Readers",
+      "purpose": "Deliver the 2:00 A.M. Guide and occasional pastoral/book updates",
+      "public_consent": "Occasional pastoral notes and book updates only."
+    },
+    "book_launch": {
+      "label": "Book Launch List",
+      "purpose": "Release notice, previews, launch-team opportunities, and book updates",
+      "public_consent": "Occasional book updates only."
+    },
+    "church_resources": {
+      "label": "Pastors and Churches",
+      "purpose": "Church-care resources, printables, ministry tools, and bulk-book updates",
+      "public_consent": "Occasional ministry-resource updates only."
+    },
+    "launch_team": {
+      "label": "Launch Team",
+      "purpose": "Future launch-team communication after explicit opt-in",
+      "enabled": false
+    }
+  },
+  "required_fields": ["email", "segment", "source"],
+  "never_send_to_analytics": ["email", "name", "message"]
+}
