@@ -28,7 +28,7 @@ SCRIPT=r'''<!-- CONVERSION-ANALYTICS-START -->
     if(href==='/church-resources') track('Church Resources Click',{page:page(),label:label});
     if(href==='/2am-guide') track('2AM Guide Opened',{page:page(),label:label});
     if(href.indexOf('view=book')!==-1) track('Book Interest Click',{page:page(),label:label});
-    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && a.closest('.answerJourney')){
+    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && (a.closest('.answerJourney') || a.closest('.podcastResource'))){
       track('Podcast Resource Click',{page:page(),label:label});
     }
     if(a.classList && a.classList.contains('shareBtn')){
