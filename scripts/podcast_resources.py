@@ -10,13 +10,17 @@ STYLE = '''
 .podcastResource .podcastEyebrow{margin:0 0 8px;text-transform:uppercase;letter-spacing:.14em;font-size:.67rem;font-weight:800;color:#88683b}
 .podcastResource h2{font:2rem/1.08 Georgia,"Times New Roman",serif;font-weight:400;color:#20372a;margin:0 0 10px}
 .podcastResource .podcastIntro{margin:0 0 22px;color:#5f6862;font-size:.94rem;line-height:1.65}
-.podcastEpisode{background:#fffdf9;border:1px solid #ded8cd;padding:22px 24px}
+.podcastEpisode{background:#fffdf9;border:1px solid #ded8cd;display:grid;grid-template-columns:minmax(240px,.9fr) 1.1fr;overflow:hidden}
+.podcastThumb{position:relative;display:block;min-height:210px;background:#d8d2c8;overflow:hidden}
+.podcastThumb img{display:block;width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.podcastPlay{position:absolute;left:18px;bottom:16px;width:48px;height:48px;border-radius:50%;background:rgba(24,48,36,.94);color:white;display:flex;align-items:center;justify-content:center;font-size:1.05rem;box-shadow:0 7px 18px rgba(0,0,0,.22)}
+.podcastCopy{padding:22px 24px;display:flex;flex-direction:column;justify-content:center}
 .podcastEpisode small{display:block;text-transform:uppercase;letter-spacing:.11em;font-size:.65rem;font-weight:800;color:#88683b;margin-bottom:7px}
 .podcastEpisode h3{font:1.45rem/1.2 Georgia,"Times New Roman",serif;font-weight:400;color:#20372a;margin:0 0 9px}
 .podcastEpisode p{margin:0 0 16px!important;color:#4f5a53;font-size:.91rem;line-height:1.6}
-.podcastButton{display:inline-block;background:#294533;color:#fff!important;text-decoration:none!important;padding:10px 15px;font-size:.76rem;font-weight:800;letter-spacing:.03em}
+.podcastButton{display:inline-block;align-self:flex-start;background:#294533;color:#fff!important;text-decoration:none!important;padding:10px 15px;font-size:.76rem;font-weight:800;letter-spacing:.03em}
 .podcastButton:hover{background:#183024}
-@media(max-width:700px){.podcastResource{padding:25px 22px}.podcastResource h2{font-size:1.75rem}}
+@media(max-width:700px){.podcastResource{padding:25px 22px}.podcastResource h2{font-size:1.75rem}.podcastEpisode{grid-template-columns:1fr}.podcastThumb{min-height:0;aspect-ratio:16/9}}
 </style>
 '''
 
@@ -84,8 +88,18 @@ RESOURCES = {
 }
 
 
+def youtube_id(url):
+    if 'youtu.be/' in url:
+        return url.split('youtu.be/',1)[1].split('?',1)[0].split('&',1)[0]
+    match = re.search(r'[?&]v=([^&]+)', url)
+    return match.group(1) if match else ''
+
+
 def block(data):
-    return f'''{START}\n{STYLE}\n<section class="podcastResource" aria-label="Related Castleview Baptist Church Podcast episode">\n<p class="podcastEyebrow">Prefer to listen?</p>\n<h2>Listen to a conversation about this.</h2>\n<p class="podcastIntro">Sometimes you do not need another article. You need to hear someone talk through the hard part with you.</p>\n<div class="podcastEpisode">\n<small>Castleview Baptist Church Podcast</small>\n<h3>{data["title"]}</h3>\n<p>{data["blurb"]}</p>\n<a class="podcastButton" href="{data["url"]}" target="_blank" rel="noopener noreferrer">Listen on YouTube →</a>\n</div>\n</section>\n{END}'''
+    vid = youtube_id(data["url"])
+    thumb = f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg" if vid else ''
+    visual = f'''<a class="podcastThumb" href="{data["url"]}" target="_blank" rel="noopener noreferrer" aria-label="Watch {data["title"]} on YouTube"><img src="{thumb}" alt="" loading="lazy" decoding="async"><span class="podcastPlay" aria-hidden="true">▶</span></a>''' if thumb else ''
+    return f'''{START}\n{STYLE}\n<section class="podcastResource" aria-label="Related Castleview Baptist Church Podcast episode">\n<p class="podcastEyebrow">Prefer to listen?</p>\n<h2>Listen to a conversation about this.</h2>\n<p class="podcastIntro">Sometimes you do not need another article. You need to hear someone talk through the hard part with you.</p>\n<div class="podcastEpisode">\n{visual}\n<div class="podcastCopy"><small>Castleview Baptist Church Podcast</small>\n<h3>{data["title"]}</h3>\n<p>{data["blurb"]}</p>\n<a class="podcastButton" href="{data["url"]}" target="_blank" rel="noopener noreferrer">Listen on YouTube →</a></div>\n</div>\n</section>\n{END}'''
 
 
 def patch(path, data):
