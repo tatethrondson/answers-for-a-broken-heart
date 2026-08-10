@@ -17,7 +17,16 @@ STYLE = '''<style>
 .journeyCard span{display:block;margin-top:auto;font-size:.75rem;font-weight:800;color:#294533}
 .journeyCard.listen{background:#f6f1e8}
 .journeyCard.bookPath{background:#eef2ed}
-@media(max-width:760px){.answerJourney{padding:27px 22px}.answerJourney h2{font-size:1.9rem}.journeyGrid{grid-template-columns:1fr}.journeyCard{min-height:0}}
+.guideCapture{margin-top:18px;padding:22px;background:#f6f1e8;color:#24312b;display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center}
+.guideCapture small{display:block;text-transform:uppercase;letter-spacing:.12em;font-size:.62rem;font-weight:800;color:#88683b;margin-bottom:6px}
+.guideCapture strong{display:block;font:1.35rem/1.18 Georgia,"Times New Roman",serif;font-weight:400;color:#20372a;margin-bottom:6px}
+.guideCapture p{margin:0!important;font-size:.82rem;line-height:1.5;color:#5e6861}
+.guideForm{display:grid;grid-template-columns:1fr 138px;gap:8px}
+.guideForm input[type="email"]{width:100%;border:1px solid #d7d0c5;background:#fff;padding:12px 13px;font-size:.82rem;min-height:44px}
+.guideForm button{border:0;background:#294533;color:#fff;padding:11px 12px;min-height:44px;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;cursor:pointer}
+.guideForm .privacy{grid-column:1/-1;font-size:.62rem;color:#6c746f;line-height:1.4}
+.guideHoney{position:absolute!important;left:-5000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+@media(max-width:760px){.answerJourney{padding:27px 22px}.answerJourney h2{font-size:1.9rem}.journeyGrid,.guideCapture{grid-template-columns:1fr}.journeyCard{min-height:0}.guideForm{grid-template-columns:1fr}.guideForm button{width:100%}}
 </style>'''
 
 PODCASTS = {
@@ -42,17 +51,16 @@ TOPICS = {
 
 NEXT = {i:(i+1 if i<24 else 1) for i in range(1,25)}
 
-
 def block(n):
     topic, topic_url = TOPICS[n]
     nxt = NEXT[n]
-    listen = ''
     if n in PODCASTS:
         title,url=PODCASTS[n]
         listen=f'''<a class="journeyCard listen" href="{url}" target="_blank" rel="noopener noreferrer"><small>Listen</small><strong>{title}</strong><span>Listen on YouTube →</span></a>'''
     else:
         listen=f'''<a class="journeyCard listen" href="{topic_url}"><small>Stay with this subject</small><strong>Explore {topic}</strong><span>See the topic guide →</span></a>'''
-    return f'''{START}\n{STYLE}\n<section class="answerJourney" aria-label="Where to go next"><p class="journeyEyebrow">You do not have to stop here</p><h2>Choose your next step.</h2><p class="journeyLead">You may need to keep reading, hear a real conversation, or simply stay with this subject a little longer. Choose what would help most right now.</p><div class="journeyGrid">{listen}<a class="journeyCard" href="{topic_url}"><small>Go deeper</small><strong>{topic}</strong><span>Explore the full topic →</span></a><a class="journeyCard bookPath" href="/?view=book"><small>The deeper journey</small><strong>Answers for a Broken Heart</strong><span>Explore the book →</span></a></div><div style="margin-top:15px;font-size:.78rem;color:rgba(255,255,255,.72)">Or <a href="/answer-{nxt:02d}" style="color:#fff;font-weight:800">continue to Answer {nxt:02d} →</a> &nbsp;·&nbsp; <a href="/all-answers" style="color:#fff;font-weight:800">browse all 24 answers →</a></div></section>\n{END}'''
+    capture=f'''<div class="guideCapture"><div><small>Free resource · 7 Scriptures</small><strong>Want something to hold onto tonight?</strong><p>I’ll send you the free 2:00 A.M. Guide: seven Scriptures, short pastoral reminders, and simple prayers for the nights when your thoughts are loud.</p></div><form class="guideForm" action="https://formsubmit.co/tatethrondson@gmail.com" method="POST"><input type="email" name="email" placeholder="Your email address" aria-label="Your email address" autocomplete="email" required><input type="text" name="_honey" class="guideHoney" tabindex="-1" autocomplete="off"><input type="hidden" name="_subject" value="New 2:00 A.M. Guide signup from Answer {n:02d}"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_next" value="https://answersforabrokenheart.com/2am-guide"><input type="hidden" name="interest" value="2:00 A.M. Guide + occasional pastoral notes + book release updates"><input type="hidden" name="source" value="Answer {n:02d}"><button type="submit">Send Me the Guide</button><div class="privacy">You’ll go straight to the guide after signing up. Occasional pastoral notes and book updates only.</div></form></div>'''
+    return f'''{START}\n{STYLE}\n<section class="answerJourney" aria-label="Where to go next"><p class="journeyEyebrow">You do not have to stop here</p><h2>Choose your next step.</h2><p class="journeyLead">You may need to keep reading, hear a real conversation, or simply stay with this subject a little longer. Choose what would help most right now.</p><div class="journeyGrid">{listen}<a class="journeyCard" href="{topic_url}"><small>Go deeper</small><strong>{topic}</strong><span>Explore the full topic →</span></a><a class="journeyCard bookPath" href="/?view=book"><small>The deeper journey</small><strong>Answers for a Broken Heart</strong><span>Explore the book →</span></a></div>{capture}<div style="margin-top:15px;font-size:.78rem;color:rgba(255,255,255,.72)">Or <a href="/answer-{nxt:02d}" style="color:#fff;font-weight:800">continue to Answer {nxt:02d} →</a> &nbsp;·&nbsp; <a href="/all-answers" style="color:#fff;font-weight:800">browse all 24 answers →</a></div></section>\n{END}'''
 
 for n in range(1,25):
     p=Path(f"answer-{n:02d}.html")
@@ -60,7 +68,6 @@ for n in range(1,25):
         print("Missing",p); continue
     text=p.read_text(encoding="utf-8")
     text=re.sub(re.escape(START)+r".*?"+re.escape(END),"",text,flags=re.S)
-    # Remove the older standalone podcast box when the new journey will carry that episode.
     text=re.sub(r"<!-- PODCAST-RESOURCE-START -->.*?<!-- PODCAST-RESOURCE-END -->","",text,flags=re.S)
     anchor="</article>"
     if anchor not in text:
