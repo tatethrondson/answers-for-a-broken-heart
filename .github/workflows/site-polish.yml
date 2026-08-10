@@ -35,7 +35,7 @@ jobs:
 
       - name: Commit polished pages
         run: |
-          if git diff --quiet -- '*.html'; then
+          if [ -z "$(git status --porcelain -- '*.html')" ]; then
             echo "Site audit cleanup is already current"
             exit 0
           fi
@@ -43,4 +43,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add '*.html'
           git commit -m "Publish final site audit cleanup"
+          git pull --rebase origin main
           git push
