@@ -6,6 +6,7 @@ on:
     paths:
       - '*.html'
       - 'scripts/premium_polish.py'
+      - 'scripts/premium_polish_refine.py'
       - '.github/workflows/premium-polish.yml'
   workflow_dispatch:
 
@@ -29,6 +30,8 @@ jobs:
           python-version: '3.x'
       - name: Apply premium polish layer
         run: python scripts/premium_polish.py
+      - name: Apply final polish refinements
+        run: python scripts/premium_polish_refine.py
       - name: Commit polished site
         run: |
           if [ -z "$(git status --porcelain -- '*.html')" ]; then
