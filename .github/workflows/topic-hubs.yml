@@ -9,6 +9,7 @@ on:
       - 'scripts/content_strengthening.py'
       - 'scripts/content_strengthening_wave2.py'
       - 'scripts/content_strengthening_wave3.py'
+      - 'scripts/answer_content_strengthening.py'
       - 'scripts/seo.py'
       - 'sitemap.xml'
       - 'index.html'
@@ -44,13 +45,16 @@ jobs:
       - name: Strengthen third-wave pastoral content
         run: python scripts/content_strengthening_wave3.py
 
+      - name: Strengthen exact-question answer pages
+        run: python scripts/answer_content_strengthening.py
+
       - name: Commit topic hub layer
         run: |
           if [ -n "$(git status --porcelain -- index.html what-hurts-today.html answer-*.html sitemap.xml can-christians-be-depressed.html grief-and-loss.html why-god-allows-suffering.html god-feels-far-away.html anger-and-unanswered-prayer.html forgiveness-and-relational-hurt.html doubt-and-church-hurt.html)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add index.html what-hurts-today.html answer-*.html sitemap.xml can-christians-be-depressed.html grief-and-loss.html why-god-allows-suffering.html god-feels-far-away.html anger-and-unanswered-prayer.html forgiveness-and-relational-hurt.html doubt-and-church-hurt.html
-            git commit -m "Strengthen pastoral search content wave three"
+            git commit -m "Strengthen exact-question pastoral answer pages"
             git push
           else
             echo "Topic hub and content strengthening layers are already current"
