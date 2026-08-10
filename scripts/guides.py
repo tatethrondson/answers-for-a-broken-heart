@@ -52,18 +52,20 @@ BRIDGE = f'''{BRIDGE_START}<section class="bookBridgeHome"><div class="wrap book
 
 
 def author_data_uri():
-    # This is a fresh web-safe re-encode made directly from Tate's original Library portrait.
-    # Do not use author-tate.jpg here; that older derived file is the source we were debugging.
-    source = Path('portrait-clean/author-web.b64')
-    if not source.exists():
-        raise RuntimeError('Fresh author portrait source is missing; refusing to publish a broken portrait.')
-    encoded = ''.join(source.read_text().split())
+    # This exact JPEG was freshly re-encoded from Tate's original Library portrait,
+    # then split into small text chunks to prevent transport truncation/corruption.
+    parts = [Path(f'portrait-clean-v2/part0{i}.b64') for i in range(1, 4)]
+    if not all(part.exists() for part in parts):
+        raise RuntimeError('Verified clean author portrait chunks are missing; refusing to publish.')
+    encoded = ''.join(''.join(part.read_text().split()) for part in parts)
     try:
         image = base64.b64decode(encoded, validate=True)
     except Exception as exc:
-        raise RuntimeError('Fresh author portrait source is not valid base64.') from exc
+        raise RuntimeError('Verified clean author portrait chunks are not valid base64.') from exc
+    if len(image) != 6393:
+        raise RuntimeError(f'Clean author portrait has unexpected size: {len(image)} bytes.')
     if not (image.startswith(b'\xff\xd8\xff') and image.endswith(b'\xff\xd9')):
-        raise RuntimeError('Fresh author portrait source is not a complete JPEG.')
+        raise RuntimeError('Verified clean author portrait is not a complete JPEG.')
     return 'data:image/jpeg;base64,' + encoded
 
 
@@ -78,8 +80,6 @@ def patch_index(path):
 
     text = text.replace('<a href="/what-hurts-today">Resources</a>', '<a href="/free-guides">Free Guides</a>')
 
-    # Embed the fresh re-encoded portrait directly in the page. There is no image request,
-    # redirect, API route, Vercel static-file route, or GitHub raw URL involved.
     embedded_author = author_data_uri()
     text, count = re.subn(r'const AUTHOR="[^"]*";', f'const AUTHOR="{embedded_author}";', text, count=1)
     if count != 1:
@@ -92,14 +92,12 @@ def patch_index(path):
             1,
         )
 
-    # Help comes before promotion: place the free-help block immediately before the book band.
     book_anchor = '<section class="bookBand">'
     if book_anchor in text:
         text = text.replace(book_anchor, HOME + book_anchor, 1)
     else:
         raise RuntimeError('Could not find homepage book band; refusing to publish a partial integration.')
 
-    # Keep a gentle book bridge at the end of the homepage journey.
     boundary = '`}\nfunction hurts(){'
     if boundary in text:
         text = text.replace(boundary, BRIDGE + boundary, 1)
@@ -139,4 +137,4 @@ def patch_sitemap(path):
 patch_index(Path('index.html'))
 patch_thanks(Path('hope-thanks.html'))
 patch_sitemap(Path('sitemap.xml'))
-print('Homepage conversion layer current: free help, Pastor Tate invitation, book bridge, nav, sitemap, and fresh re-encoded author portrait are current.')
+print('Homepage conversion layer current: free help, Pastor Tate invitation, book bridge, nav, sitemap, and verified clean author portrait are current.')
