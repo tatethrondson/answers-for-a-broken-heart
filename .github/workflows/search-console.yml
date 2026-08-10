@@ -1,0 +1,39 @@
+name: Publish Search Console Verification
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/search_console.py'
+      - '.github/workflows/search-console.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: search-console-verification
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Add verification tag
+        run: python scripts/search_console.py
+
+      - name: Commit verification tag
+        run: |
+          if [ -n "$(git status --porcelain index.html)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "Publish Google Search Console verification"
+            git push
+          else
+            echo "Search Console verification is already present"
+          fi
