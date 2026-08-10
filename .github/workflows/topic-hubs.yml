@@ -7,11 +7,13 @@ on:
     paths:
       - 'scripts/topic_hubs.py'
       - 'scripts/content_strengthening.py'
+      - 'scripts/content_strengthening_wave2.py'
       - 'scripts/seo.py'
       - 'sitemap.xml'
       - 'index.html'
       - 'what-hurts-today.html'
       - 'answer-*.html'
+      - 'can-christians-be-depressed.html'
       - '.github/workflows/topic-hubs.yml'
   workflow_dispatch:
 
@@ -32,16 +34,19 @@ jobs:
       - name: Generate and connect topic hubs
         run: python scripts/topic_hubs.py
 
-      - name: Strengthen priority hub content
+      - name: Strengthen first-wave priority hub content
         run: python scripts/content_strengthening.py
+
+      - name: Strengthen second-wave pastoral content
+        run: python scripts/content_strengthening_wave2.py
 
       - name: Commit topic hub layer
         run: |
-          if [ -n "$(git status --porcelain -- index.html what-hurts-today.html answer-*.html sitemap.xml grief-and-loss.html why-god-allows-suffering.html god-feels-far-away.html anger-and-unanswered-prayer.html forgiveness-and-relational-hurt.html doubt-and-church-hurt.html)" ]; then
+          if [ -n "$(git status --porcelain -- index.html what-hurts-today.html answer-*.html sitemap.xml can-christians-be-depressed.html grief-and-loss.html why-god-allows-suffering.html god-feels-far-away.html anger-and-unanswered-prayer.html forgiveness-and-relational-hurt.html doubt-and-church-hurt.html)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add index.html what-hurts-today.html answer-*.html sitemap.xml grief-and-loss.html why-god-allows-suffering.html god-feels-far-away.html anger-and-unanswered-prayer.html forgiveness-and-relational-hurt.html doubt-and-church-hurt.html
-            git commit -m "Strengthen priority pastoral topic content"
+            git add index.html what-hurts-today.html answer-*.html sitemap.xml can-christians-be-depressed.html grief-and-loss.html why-god-allows-suffering.html god-feels-far-away.html anger-and-unanswered-prayer.html forgiveness-and-relational-hurt.html doubt-and-church-hurt.html
+            git commit -m "Strengthen pastoral search content wave two"
             git push
           else
             echo "Topic hub and content strengthening layers are already current"
