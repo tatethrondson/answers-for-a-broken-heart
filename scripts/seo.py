@@ -3,9 +3,10 @@ import html
 import json
 import re
 
-BASE = "https://answers-for-a-broken-heart.vercel.app"
+BASE = "https://answersforabrokenheart.com"
 SITE_NAME = "Answers for a Broken Heart"
 AUTHOR = "Tate Throndson"
+AUTHOR_URL = BASE + "/?view=about"
 
 ANSWERS = {
 1: ("Has God really been here the whole time, or have I just told myself that to feel better?", "He’s Always Been There", "God Feels Far Away", "When God feels absent in pain, Scripture shows a God who comes looking for people. A pastoral answer for the night you wonder whether He has really been there."),
@@ -34,6 +35,35 @@ ANSWERS = {
 24: ("Does my doubt mean I was never really a believer?", "Your Doubt Is Not Disqualifying", "Doubt & Faith", "Thomas doubted and Jesus moved toward him. Biblical faith can tremble, question, and struggle while still reaching toward Christ."),
 }
 
+# Search-facing titles use the plain-language questions people are most likely to type.
+# The article H1s stay pastoral and conversational.
+SEO_TITLES = {
+1: "Why Does God Feel Far Away? | Biblical Answer",
+2: "If God Is Real, Why Doesn’t He Show Himself? | Biblical Answer",
+3: "Why Can’t I See What God Is Doing? | Biblical Answer",
+4: "Why Does God Allow Suffering? | Biblical Answer",
+5: "Is It Wrong to Ask God Why? | Biblical Answer",
+6: "Why Won’t God Tell Me Why This Is Happening? | Biblical Answer",
+7: "Can Anything Good Come From Suffering? | Romans 8:28",
+8: "What If God Never Tells Me Why? | Biblical Hope",
+9: "Does God Understand My Pain? | Jesus and Suffering",
+10: "What Did Jesus Do About Suffering? | Cross and Resurrection",
+11: "Does God Care About Injustice? | Biblical Answer",
+12: "Am I as Guilty as the Person Who Hurt Me? | Biblical Answer",
+13: "What Do I Do When God Says No? | Unanswered Prayer",
+14: "Where Is Hope When Someone Dies? | Christian Hope",
+15: "How Long Is It Okay to Grieve? | Biblical Grief",
+16: "Why Did This Happen to Me? | Biblical Help After Pain",
+17: "Why Does Grief Feel Worse Over Time? | Biblical Help",
+18: "Is It Okay to Be Angry With God? | Biblical Answer",
+19: "What Do I Say to God When I’m Angry? | Honest Prayer",
+20: "Why Do People I Love Hurt Me? | Biblical Help",
+21: "How to Forgive Someone Who Never Apologized | Biblical Help",
+22: "Does Forgiveness Mean Reconciliation? | Biblical Boundaries",
+23: "Church Hurt: Am I Walking Away From God? | Biblical Help",
+24: "Can Christians Have Doubts? | Doubt and Salvation",
+}
+
 RELATED = {
 1:[2,3,9], 2:[1,3,10], 3:[1,6,7], 4:[5,6,7], 5:[6,8,18], 6:[5,7,8],
 7:[6,8,13], 8:[5,6,10], 9:[10,14,15], 10:[9,13,14], 11:[12,21,22], 12:[11,21,22],
@@ -45,6 +75,8 @@ HEAD_START = "<!-- SEO-ENHANCEMENTS-START -->"
 HEAD_END = "<!-- SEO-ENHANCEMENTS-END -->"
 REL_START = "<!-- RELATED-ANSWERS-START -->"
 REL_END = "<!-- RELATED-ANSWERS-END -->"
+BYLINE_START = "<!-- AUTHOR-BYLINE-START -->"
+BYLINE_END = "<!-- AUTHOR-BYLINE-END -->"
 
 
 def remove_marked(text, start, end):
@@ -60,7 +92,7 @@ def head_block(title, description, canonical, page_type="article", number=None, 
             "url": BASE + "/",
             "name": SITE_NAME,
             "description": description,
-            "publisher": {"@type": "Person", "name": AUTHOR},
+            "publisher": {"@type": "Person", "name": AUTHOR, "url": AUTHOR_URL},
         })
     else:
         graph.append({
@@ -69,7 +101,7 @@ def head_block(title, description, canonical, page_type="article", number=None, 
             "headline": question or title,
             "description": description,
             "mainEntityOfPage": canonical,
-            "author": {"@type": "Person", "name": AUTHOR},
+            "author": {"@type": "Person", "name": AUTHOR, "url": AUTHOR_URL},
             "publisher": {"@type": "Organization", "name": SITE_NAME, "url": BASE + "/"},
             "isPartOf": {"@type": "WebSite", "name": SITE_NAME, "url": BASE + "/"},
         })
@@ -77,7 +109,7 @@ def head_block(title, description, canonical, page_type="article", number=None, 
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type":"ListItem","position":1,"name":"Home","item":BASE + "/"},
-                {"@type":"ListItem","position":2,"name":"What Hurts Today?","item":BASE + "/?view=hurts"},
+                {"@type":"ListItem","position":2,"name":"What Hurts Today?","item":BASE + "/what-hurts-today"},
                 {"@type":"ListItem","position":3,"name":f"Answer {number:02d}","item":canonical},
             ],
         })
@@ -103,6 +135,8 @@ def head_block(title, description, canonical, page_type="article", number=None, 
 .relatedCard small{{display:block;text-transform:uppercase;letter-spacing:.12em;color:#88683b;font-weight:800;margin-bottom:7px}}
 .relatedCard strong{{display:block;font:1.28rem/1.25 Georgia,"Times New Roman",serif;color:#20372a;font-weight:400;margin-bottom:8px}}
 .relatedCard span{{font-size:.82rem;color:#657068}}
+.answerByline{{margin-top:10px;font-size:.78rem;line-height:1.5;color:#5f6862}}
+.answerByline a{{font-weight:800;color:#294533;text-decoration:none}}
 @media(max-width:760px){{.relatedGrid{{grid-template-columns:1fr}}}}
 </style>
 {HEAD_END}'''
@@ -112,35 +146,79 @@ def related_block(number):
     cards = []
     for n in RELATED[number]:
         question, short, category, _ = ANSWERS[n]
-        cards.append(f'''<a class="relatedCard" href="/answer-{n:02d}"><small>Answer {n:02d} · {html.escape(category)}</small><strong>{html.escape(question)}</strong><span>{html.escape(short)} →</span></a>''')
+        cards.append(
+            f'''<a class="relatedCard" href="/answer-{n:02d}"><small>Answer {n:02d} · {html.escape(category)}</small><strong>{html.escape(question)}</strong><span>{html.escape(short)} →</span></a>'''
+        )
     return f'''{REL_START}
 <section class="relatedAnswers"><div class="wrap"><p class="eyebrow">Related questions</p><h2>You may also be carrying one of these.</h2><p class="relatedLead">Pain rarely asks only one question. Keep going wherever your heart needs to go next.</p><div class="relatedGrid">{''.join(cards)}</div></div></section>
 {REL_END}'''
+
+
+def byline_block():
+    return f'''{BYLINE_START}<div class="answerByline">Written by <a href="/?view=about">{AUTHOR}</a> · Pastor and author of <em>Answers for a Broken Heart</em></div>{BYLINE_END}'''
 
 
 def patch_answer(number):
     path = Path(f"answer-{number:02d}.html")
     if not path.exists():
         raise SystemExit(f"Missing {path}")
+
     question, short, category, description = ANSWERS[number]
-    title = f"{question} | Biblical Answer"
+    title = SEO_TITLES[number]
     canonical = f"{BASE}/answer-{number:02d}"
+
     text = path.read_text()
     text = remove_marked(text, HEAD_START, HEAD_END)
     text = remove_marked(text, REL_START, REL_END)
-    text = re.sub(r"<title>.*?</title>", f"<title>{html.escape(title)}</title>", text, count=1, flags=re.S)
+    text = remove_marked(text, BYLINE_START, BYLINE_END)
+
+    text = re.sub(
+        r"<title>.*?</title>",
+        f"<title>{html.escape(title)}</title>",
+        text,
+        count=1,
+        flags=re.S,
+    )
+
     if re.search(r'<meta\s+name="description"[^>]*>', text, flags=re.I):
-        text = re.sub(r'<meta\s+name="description"[^>]*>', f'<meta name="description" content="{html.escape(description, quote=True)}">', text, count=1, flags=re.I)
+        text = re.sub(
+            r'<meta\s+name="description"[^>]*>',
+            f'<meta name="description" content="{html.escape(description, quote=True)}">',
+            text,
+            count=1,
+            flags=re.I,
+        )
     else:
-        text = text.replace("</title>", f'</title>\n<meta name="description" content="{html.escape(description, quote=True)}">', 1)
-    text = text.replace("</head>", head_block(title, description, canonical, "article", number, question) + "\n</head>", 1)
+        text = text.replace(
+            "</title>",
+            f'</title>\n<meta name="description" content="{html.escape(description, quote=True)}">',
+            1,
+        )
+
+    text = text.replace(
+        "</head>",
+        head_block(title, description, canonical, "article", number, question) + "\n</head>",
+        1,
+    )
+
+    text, count = re.subn(
+        r'(<div class="meta">.*?</div>)',
+        r"\1" + byline_block(),
+        text,
+        count=1,
+        flags=re.S,
+    )
+    if count != 1:
+        raise RuntimeError(f"Could not place author byline in {path}")
+
     related = related_block(number)
     if '<section class="cta">' in text:
         text = text.replace('<section class="cta">', related + '\n<section class="cta">', 1)
-    elif '</main>' in text:
-        text = text.replace('</main>', related + '\n</main>', 1)
+    elif "</main>" in text:
+        text = text.replace("</main>", related + "\n</main>", 1)
     else:
-        text = text.replace('</footer>', related + '\n</footer>', 1)
+        text = text.replace("</footer>", related + "\n</footer>", 1)
+
     path.write_text(text)
 
 
@@ -148,31 +226,83 @@ def patch_home():
     path = Path("index.html")
     text = path.read_text()
     text = remove_marked(text, HEAD_START, HEAD_END)
+
     title = "Answers for a Broken Heart | Biblical Hope for Life’s Hardest Questions"
-    description = "Pastoral, biblical answers for grief, suffering, doubt, unanswered prayer, relational wounds, and the questions pain asks—without clichés or shallow answers."
-    text = re.sub(r"<title>.*?</title>", f"<title>{html.escape(title)}</title>", text, count=1, flags=re.S)
-    text = re.sub(r'<meta\s+name="description"[^>]*>', f'<meta name="description" content="{html.escape(description, quote=True)}">', text, count=1, flags=re.I)
-    text = text.replace("</head>", head_block(title, description, BASE + "/", "website") + "\n</head>", 1)
+    description = (
+        "Pastoral, biblical answers for grief, suffering, doubt, unanswered prayer, "
+        "relational wounds, and the questions pain asks—without clichés or shallow answers."
+    )
+
+    text = re.sub(
+        r"<title>.*?</title>",
+        f"<title>{html.escape(title)}</title>",
+        text,
+        count=1,
+        flags=re.S,
+    )
+
+    if re.search(r'<meta\s+name="description"[^>]*>', text, flags=re.I):
+        text = re.sub(
+            r'<meta\s+name="description"[^>]*>',
+            f'<meta name="description" content="{html.escape(description, quote=True)}">',
+            text,
+            count=1,
+            flags=re.I,
+        )
+    else:
+        text = text.replace(
+            "</title>",
+            f'</title>\n<meta name="description" content="{html.escape(description, quote=True)}">',
+            1,
+        )
+
+    text = text.replace(
+        "</head>",
+        head_block(title, description, BASE + "/", "website") + "\n</head>",
+        1,
+    )
     path.write_text(text)
 
 
 def write_sitemap():
-    urls = [BASE + "/"] + [f"{BASE}/answer-{n:02d}" for n in range(1,25)]
-    body = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-    for url in urls:
-        priority = "1.0" if url.endswith("/") else "0.8"
-        body.append(f"  <url><loc>{url}</loc><changefreq>monthly</changefreq><priority>{priority}</priority></url>")
+    entries = [
+        ("/", "monthly", "1.0"),
+        ("/what-hurts-today", "weekly", "0.9"),
+    ]
+    entries.extend((f"/answer-{n:02d}", "monthly", "0.8") for n in range(1, 25))
+    entries.extend([
+        ("/free-guides", "weekly", "0.7"),
+        ("/2am-guide", "monthly", "0.7"),
+        ("/can-christians-be-depressed", "monthly", "0.7"),
+        ("/help-someone", "monthly", "0.7"),
+        ("/contact", "monthly", "0.5"),
+    ])
+
+    body = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ]
+    for path, changefreq, priority in entries:
+        url = BASE + path
+        body.append(
+            f"  <url><loc>{url}</loc><changefreq>{changefreq}</changefreq><priority>{priority}</priority></url>"
+        )
     body.append("</urlset>")
     Path("sitemap.xml").write_text("\n".join(body) + "\n")
 
 
 def write_robots():
-    Path("robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {BASE}/sitemap.xml\n")
+    Path("robots.txt").write_text(
+        f"User-agent: *\nAllow: /\n\nSitemap: {BASE}/sitemap.xml\n"
+    )
 
 
 patch_home()
-for number in range(1,25):
+for number in range(1, 25):
     patch_answer(number)
 write_sitemap()
 write_robots()
-print("SEO metadata, structured data, related answers, sitemap, and robots.txt updated for all 24 answers.")
+print(
+    "SEO strengthened: custom-domain canonicals, search-intent titles, visible authorship, "
+    "structured author data, related answers, complete sitemap, and robots.txt updated."
+)
