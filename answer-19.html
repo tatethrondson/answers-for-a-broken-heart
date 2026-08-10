@@ -116,4 +116,64 @@
 </article><aside class="side"><div class="card"><h3>In this answer</h3><a href="#short">The short answer</a><a href="#minute-help">The 60-second version</a><a href="#pour">Pour out your heart</a><a href="#psalms">Borrow words</a><a href="#anger">Fire and ash</a><a href="#correction">What if I’m wrong?</a><a href="#simple">A simple prayer</a><a href="#jesus">Jesus prayed honestly</a><a href="#tonight">What do I do tonight?</a></div><div class="card book"><h3>Go deeper</h3><p>The book explores what years of pastoral ministry taught me about angry prayers, unanswered questions, and keeping the conversation with God open.</p><a class="btn" href="/?view=book">Explore the book</a></div></aside></div></section><!-- RELATED-ANSWERS-START -->
 <section class="relatedAnswers"><div class="wrap"><p class="eyebrow">Related questions</p><h2>You may also be carrying one of these.</h2><p class="relatedLead">Pain rarely asks only one question. Keep going wherever your heart needs to go next.</p><div class="relatedGrid"><a class="relatedCard" href="/answer-18"><small>Answer 18 · Anger &amp; Unanswered Prayer</small><strong>Am I allowed to be furious with God?</strong><span>Anger at God Is Not the Opposite of Faith →</span></a><a class="relatedCard" href="/answer-08"><small>Answer 08 · Why Did This Happen?</small><strong>What do I do when the explanation never comes?</strong><span>Sometimes He Gives You Himself Instead of an Explanation →</span></a><a class="relatedCard" href="/answer-17"><small>Answer 17 · Grief &amp; Loss</small><strong>Why does it feel like I’m getting worse instead of better?</strong><span>Grief That Stops Moving Becomes Bitterness →</span></a></div></div></section>
 <!-- RELATED-ANSWERS-END -->
-<section class="cta"><div class="wrap ctaGrid"><div><p class="eyebrow">From Answers for a Broken Heart</p><h2>The prayer does not have to be beautiful. It just has to be real.</h2><p>God is not afraid of the version of the prayer you have been afraid to say.</p><a class="btn" style="background:white;color:#20372a" href="/?view=book">Discover the book</a></div><div class="quote">“Pour out your heart before him…”<br><small>— Psalm 62:8</small></div></div></section><section class="next"><div class="wrap"><p class="eyebrow">Keep going</p><a href="/answer-20"><small>ANSWER 20 · THE PEOPLE WHO HURT YOU</small><h3>Why does loving people hurt so much?</h3><p>To be loved is to be woundable. →</p></a></div></section></main><footer><div class="wrap footer"><div><strong>Answers for a Broken Heart</strong><br>Finding God’s goodness in grief, doubt, and unanswered prayer.</div><div>© 2026 Tate Throndson · Psalm 34:18</div></div></footer></body></html>
+<section class="cta"><div class="wrap ctaGrid"><div><p class="eyebrow">From Answers for a Broken Heart</p><h2>The prayer does not have to be beautiful. It just has to be real.</h2><p>God is not afraid of the version of the prayer you have been afraid to say.</p><a class="btn" style="background:white;color:#20372a" href="/?view=book">Discover the book</a></div><div class="quote">“Pour out your heart before him…”<br><small>— Psalm 62:8</small></div></div></section><section class="next"><div class="wrap"><p class="eyebrow">Keep going</p><a href="/answer-20"><small>ANSWER 20 · THE PEOPLE WHO HURT YOU</small><h3>Why does loving people hurt so much?</h3><p>To be loved is to be woundable. →</p></a></div></section></main><footer><div class="wrap footer"><div><strong>Answers for a Broken Heart</strong><br>Finding God’s goodness in grief, doubt, and unanswered prayer.</div><div>© 2026 Tate Throndson · Psalm 34:18</div></div></footer><!-- CONVERSION-ANALYTICS-START -->
+<script>
+(function(){
+  function track(name,data){
+    try{
+      if(typeof window.va==='function'){
+        window.va('event',{name:name,data:data||{}});
+      }
+    }catch(e){}
+  }
+  function page(){ return window.location.pathname || '/'; }
+  function text(el){ return (el && el.textContent ? el.textContent : '').trim().replace(/\s+/g,' ').slice(0,80); }
+
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a,button');
+    if(!a) return;
+    var href=a.getAttribute('href') || '';
+    var label=text(a);
+
+    if(href==='/start-here') track('Start Here Click',{page:page(),label:label});
+    if(href==='/what-hurts-today') track('What Hurts Today Click',{page:page(),label:label});
+    if(href==='/church-resources') track('Church Resources Click',{page:page(),label:label});
+    if(href==='/2am-guide') track('2AM Guide Opened',{page:page(),label:label});
+    if(href.indexOf('view=book')!==-1) track('Book Interest Click',{page:page(),label:label});
+    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && a.closest('.answerJourney')){
+      track('Podcast Resource Click',{page:page(),label:label});
+    }
+    if(a.classList && a.classList.contains('shareBtn')){
+      track('Answer Shared',{page:page(),method:label});
+    }
+    if(a.closest && a.closest('.answerTopicHub')){
+      track('Topic Guide Click',{page:page(),label:label});
+    }
+  });
+
+  document.addEventListener('submit',function(e){
+    var form=e.target;
+    if(!form || form.tagName!=='FORM') return;
+    var interest=form.querySelector('input[name="interest"]');
+    var value=interest ? interest.value : '';
+    if(value.indexOf('2:00 A.M. Guide')!==-1) track('2AM Guide Signup',{page:page()});
+    else if(value.indexOf('book launch list')!==-1) track('Book Launch Signup',{page:page()});
+    else if(value.indexOf('Church and Pastor Resources')!==-1) track('Church Resources Signup',{page:page()});
+  },true);
+
+  if(/^\/answer-\d{2}$/.test(page())){
+    var sent=false;
+    window.addEventListener('scroll',function(){
+      if(sent) return;
+      var doc=document.documentElement;
+      var max=Math.max(1,doc.scrollHeight-window.innerHeight);
+      if(window.scrollY/max>=0.5){
+        sent=true;
+        track('Answer 50% Read',{page:page()});
+      }
+    },{passive:true});
+  }
+})();
+</script>
+<!-- CONVERSION-ANALYTICS-END -->
+</body></html>

@@ -40,5 +40,65 @@
 <section class="related"><div class="wrap"><p class="eyebrow">Related help</p><h2>Pain rarely stays in one category.</h2><div class="relatedGrid"><a class="relatedCard" href="/god-feels-far-away"><small>Explore another topic</small><strong>When God Feels Far Away →</strong></a><a class="relatedCard" href="/forgiveness-and-relational-hurt"><small>Explore another topic</small><strong>Forgiveness &amp; Relational Hurt →</strong></a><a class="relatedCard" href="/why-god-allows-suffering"><small>Explore another topic</small><strong>Why God Allows Suffering →</strong></a></div><div class="allHelp"><a class="btn" href="/what-hurts-today">Browse All 24 Answers</a></div></div></section>
 </main>
 <footer><div class="wrap footer"><div><strong>Answers for a Broken Heart</strong><br>Finding God’s goodness in grief, doubt, and unanswered prayer.</div><div>© 2026 Tate Throndson · Psalm 34:18</div></div></footer>
+<!-- CONVERSION-ANALYTICS-START -->
+<script>
+(function(){
+  function track(name,data){
+    try{
+      if(typeof window.va==='function'){
+        window.va('event',{name:name,data:data||{}});
+      }
+    }catch(e){}
+  }
+  function page(){ return window.location.pathname || '/'; }
+  function text(el){ return (el && el.textContent ? el.textContent : '').trim().replace(/\s+/g,' ').slice(0,80); }
+
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a,button');
+    if(!a) return;
+    var href=a.getAttribute('href') || '';
+    var label=text(a);
+
+    if(href==='/start-here') track('Start Here Click',{page:page(),label:label});
+    if(href==='/what-hurts-today') track('What Hurts Today Click',{page:page(),label:label});
+    if(href==='/church-resources') track('Church Resources Click',{page:page(),label:label});
+    if(href==='/2am-guide') track('2AM Guide Opened',{page:page(),label:label});
+    if(href.indexOf('view=book')!==-1) track('Book Interest Click',{page:page(),label:label});
+    if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && a.closest('.answerJourney')){
+      track('Podcast Resource Click',{page:page(),label:label});
+    }
+    if(a.classList && a.classList.contains('shareBtn')){
+      track('Answer Shared',{page:page(),method:label});
+    }
+    if(a.closest && a.closest('.answerTopicHub')){
+      track('Topic Guide Click',{page:page(),label:label});
+    }
+  });
+
+  document.addEventListener('submit',function(e){
+    var form=e.target;
+    if(!form || form.tagName!=='FORM') return;
+    var interest=form.querySelector('input[name="interest"]');
+    var value=interest ? interest.value : '';
+    if(value.indexOf('2:00 A.M. Guide')!==-1) track('2AM Guide Signup',{page:page()});
+    else if(value.indexOf('book launch list')!==-1) track('Book Launch Signup',{page:page()});
+    else if(value.indexOf('Church and Pastor Resources')!==-1) track('Church Resources Signup',{page:page()});
+  },true);
+
+  if(/^\/answer-\d{2}$/.test(page())){
+    var sent=false;
+    window.addEventListener('scroll',function(){
+      if(sent) return;
+      var doc=document.documentElement;
+      var max=Math.max(1,doc.scrollHeight-window.innerHeight);
+      if(window.scrollY/max>=0.5){
+        sent=true;
+        track('Answer 50% Read',{page:page()});
+      }
+    },{passive:true});
+  }
+})();
+</script>
+<!-- CONVERSION-ANALYTICS-END -->
 </body>
 </html>
