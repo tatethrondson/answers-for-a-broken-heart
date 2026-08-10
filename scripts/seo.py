@@ -6,7 +6,7 @@ import re
 BASE = "https://answersforabrokenheart.com"
 SITE_NAME = "Answers for a Broken Heart"
 AUTHOR = "Tate Throndson"
-AUTHOR_URL = BASE + "/?view=about"
+AUTHOR_URL = BASE + "/about"
 
 ANSWERS = {
 1: ("Has God really been here the whole time, or have I just told myself that to feel better?", "He’s Always Been There", "God Feels Far Away", "When God feels absent in pain, Scripture shows a God who comes looking for people. A pastoral answer for the night you wonder whether He has really been there."),
@@ -155,7 +155,7 @@ def related_block(number):
 
 
 def byline_block():
-    return f'''{BYLINE_START}<div class="answerByline">Written by <a href="/?view=about">{AUTHOR}</a> · Pastor and author of <em>Answers for a Broken Heart</em></div>{BYLINE_END}'''
+    return f'''{BYLINE_START}<div class="answerByline">Written by <a href="/about" rel="author">{AUTHOR}</a> · Pastor and author of <em>Answers for a Broken Heart</em></div>{BYLINE_END}'''
 
 
 def patch_answer(number):
@@ -227,6 +227,14 @@ def patch_home():
     text = path.read_text()
     text = remove_marked(text, HEAD_START, HEAD_END)
 
+    # Permanent standalone author page. Keep navigation crawlable instead of routing it through the SPA query string.
+    text = text.replace('href="?view=about"', 'href="/about"')
+    text = text.replace(
+        '&&!href.startsWith("/unsafe"))',
+        '&&!href.startsWith("/unsafe")&&!href.startsWith("/about"))',
+        1,
+    )
+
     title = "Answers for a Broken Heart | Biblical Hope for Life’s Hardest Questions"
     description = (
         "Pastoral, biblical answers for grief, suffering, doubt, unanswered prayer, "
@@ -268,6 +276,7 @@ def write_sitemap():
     entries = [
         ("/", "monthly", "1.0"),
         ("/what-hurts-today", "weekly", "0.9"),
+        ("/about", "monthly", "0.7"),
     ]
     entries.extend((f"/answer-{n:02d}", "monthly", "0.8") for n in range(1, 25))
     entries.extend([
