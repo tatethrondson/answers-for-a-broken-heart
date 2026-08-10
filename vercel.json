@@ -2,6 +2,16 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/what-hurts-today",
+      "destination": "/start-here.html"
+    },
+    {
+      "source": "/all-answers",
+      "destination": "/what-hurts-today.html"
+    }
+  ],
   "headers": [
     {
       "source": "/api/author-photo",
