@@ -1,0 +1,36 @@
+name: Publish Book Launch Experience
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/book_launch.py'
+      - '.github/workflows/book-launch.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Add book launch experience
+        run: python scripts/book_launch.py
+      - name: Commit homepage
+        run: |
+          if git diff --quiet; then
+            echo "No changes to publish"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Publish book launch list experience"
+          git push
