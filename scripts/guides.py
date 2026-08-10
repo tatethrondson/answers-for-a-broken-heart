@@ -1,4 +1,5 @@
 from pathlib import Path
+import base64
 import re
 
 CSS_START = "/* FREE-GUIDES-HOME-START */"
@@ -50,6 +51,17 @@ HOME = f'''{HTML_START}<section class="freeGuidesHome"><div class="wrap"><div cl
 BRIDGE = f'''{BRIDGE_START}<section class="bookBridgeHome"><div class="wrap bookBridgeInner"><div class="bookBridgeKicker">The deeper journey</div><div class="bookBridgeCopy"><h2>The guides help with one hard moment. The book goes deeper.</h2><p><em>Answers for a Broken Heart</em> walks through 24 questions people ask when pain makes easy answers feel too small. A website can help you find the question. The book is being written to walk with you through it.</p></div><div class="bookBridgeActions"><a class="bookPrimary" href="?view=book">Explore the Book</a><a class="bookSecondary" href="/answer-04">Read a Sample</a></div></div></section>{BRIDGE_END}'''
 
 
+def author_data_uri():
+    portrait = Path('author-tate.jpg')
+    if not portrait.exists():
+        raise RuntimeError('author-tate.jpg is missing; refusing to publish a broken author portrait.')
+    image = portrait.read_bytes()
+    if not image.startswith(b'\xff\xd8\xff'):
+        raise RuntimeError('author-tate.jpg is not a valid JPEG; refusing to publish it.')
+    encoded = base64.b64encode(image).decode('ascii')
+    return 'data:image/jpeg;base64,' + encoded
+
+
 def patch_index(path):
     text = path.read_text()
 
@@ -60,9 +72,13 @@ def patch_index(path):
     text = text.replace("</style>", CSS + "\n</style>", 1)
 
     text = text.replace('<a href="/what-hurts-today">Resources</a>', '<a href="/free-guides">Free Guides</a>')
-    raw_author = 'https://raw.githubusercontent.com/tatethrondson/answers-for-a-broken-heart/main/author-tate.jpg'
-    text = text.replace('const AUTHOR="/api/author-photo";', f'const AUTHOR="{raw_author}";')
-    text = text.replace('const AUTHOR="/author-tate.jpg?v=3";', f'const AUTHOR="{raw_author}";')
+
+    # Embed the verified portrait directly in the page so browsers do not depend on
+    # Vercel static routing, API routes, redirects, or external image hosting.
+    embedded_author = author_data_uri()
+    text, count = re.subn(r'const AUTHOR="[^"]*";', f'const AUTHOR="{embedded_author}";', text, count=1)
+    if count != 1:
+        raise RuntimeError('Could not find the homepage AUTHOR source; refusing to publish a partial portrait fix.')
 
     if '!href.startsWith("/free-guides")' not in text:
         text = text.replace(
@@ -118,4 +134,4 @@ def patch_sitemap(path):
 patch_index(Path('index.html'))
 patch_thanks(Path('hope-thanks.html'))
 patch_sitemap(Path('sitemap.xml'))
-print('Homepage conversion layer current: free help precedes book promotion; Pastor Tate invitation, book bridge, nav, thank-you path, sitemap, and direct author portrait source are current.')
+print('Homepage conversion layer current: free help, Pastor Tate invitation, book bridge, nav, sitemap, and embedded verified author portrait are current.')
