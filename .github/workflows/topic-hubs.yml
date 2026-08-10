@@ -14,6 +14,7 @@ on:
       - 'scripts/answer_content_strengthening_wave3.py'
       - 'scripts/answer_content_strengthening_wave4.py'
       - 'scripts/answer_content_strengthening_wave5.py'
+      - 'scripts/podcast_resources.py'
       - 'scripts/seo.py'
       - 'sitemap.xml'
       - 'index.html'
@@ -64,14 +65,17 @@ jobs:
       - name: Strengthen final exact-question answer wave
         run: python scripts/answer_content_strengthening_wave5.py
 
-      - name: Commit topic hub layer
+      - name: Add contextual podcast resources
+        run: python scripts/podcast_resources.py
+
+      - name: Commit published site layer
         run: |
           if [ -n "$(git status --porcelain -- index.html what-hurts-today.html answer-*.html sitemap.xml can-christians-be-depressed.html grief-and-loss.html why-god-allows-suffering.html god-feels-far-away.html anger-and-unanswered-prayer.html forgiveness-and-relational-hurt.html doubt-and-church-hurt.html)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add index.html what-hurts-today.html answer-*.html sitemap.xml can-christians-be-depressed.html grief-and-loss.html why-god-allows-suffering.html god-feels-far-away.html anger-and-unanswered-prayer.html forgiveness-and-relational-hurt.html doubt-and-church-hurt.html
-            git commit -m "Strengthen final exact-question answer wave"
+            git commit -m "Publish contextual podcast resources"
             git push
           else
-            echo "Topic hub and content strengthening layers are already current"
+            echo "Topic hub, content strengthening, and podcast resource layers are already current"
           fi
