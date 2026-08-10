@@ -52,13 +52,18 @@ BRIDGE = f'''{BRIDGE_START}<section class="bookBridgeHome"><div class="wrap book
 
 
 def author_data_uri():
-    portrait = Path('author-tate.jpg')
-    if not portrait.exists():
-        raise RuntimeError('author-tate.jpg is missing; refusing to publish a broken author portrait.')
-    image = portrait.read_bytes()
-    if not image.startswith(b'\xff\xd8\xff'):
-        raise RuntimeError('author-tate.jpg is not a valid JPEG; refusing to publish it.')
-    encoded = base64.b64encode(image).decode('ascii')
+    # This is a fresh web-safe re-encode made directly from Tate's original Library portrait.
+    # Do not use author-tate.jpg here; that older derived file is the source we were debugging.
+    source = Path('portrait-clean/author-web.b64')
+    if not source.exists():
+        raise RuntimeError('Fresh author portrait source is missing; refusing to publish a broken portrait.')
+    encoded = ''.join(source.read_text().split())
+    try:
+        image = base64.b64decode(encoded, validate=True)
+    except Exception as exc:
+        raise RuntimeError('Fresh author portrait source is not valid base64.') from exc
+    if not (image.startswith(b'\xff\xd8\xff') and image.endswith(b'\xff\xd9')):
+        raise RuntimeError('Fresh author portrait source is not a complete JPEG.')
     return 'data:image/jpeg;base64,' + encoded
 
 
@@ -73,8 +78,8 @@ def patch_index(path):
 
     text = text.replace('<a href="/what-hurts-today">Resources</a>', '<a href="/free-guides">Free Guides</a>')
 
-    # Embed the verified portrait directly in the page so browsers do not depend on
-    # Vercel static routing, API routes, redirects, or external image hosting.
+    # Embed the fresh re-encoded portrait directly in the page. There is no image request,
+    # redirect, API route, Vercel static-file route, or GitHub raw URL involved.
     embedded_author = author_data_uri()
     text, count = re.subn(r'const AUTHOR="[^"]*";', f'const AUTHOR="{embedded_author}";', text, count=1)
     if count != 1:
@@ -134,4 +139,4 @@ def patch_sitemap(path):
 patch_index(Path('index.html'))
 patch_thanks(Path('hope-thanks.html'))
 patch_sitemap(Path('sitemap.xml'))
-print('Homepage conversion layer current: free help, Pastor Tate invitation, book bridge, nav, sitemap, and embedded verified author portrait are current.')
+print('Homepage conversion layer current: free help, Pastor Tate invitation, book bridge, nav, sitemap, and fresh re-encoded author portrait are current.')
