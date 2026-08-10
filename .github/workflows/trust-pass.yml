@@ -27,3 +27,4 @@ jobs:
           git add index.html about.html answer-*.html
           git commit -m "Publish trust and credibility pass"
           git push
+# trust-pass-v1
