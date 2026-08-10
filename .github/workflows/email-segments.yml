@@ -28,3 +28,4 @@ jobs:
           git add '*.html'
           git commit -m "Publish email signup segmentation"
           git push
+# email-segments-v1
