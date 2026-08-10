@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'scripts/site_polish.py'
+      - 'scripts/guide_cta_fix.py'
       - '.github/workflows/site-polish.yml'
   workflow_dispatch:
 
@@ -32,6 +33,9 @@ jobs:
 
       - name: Apply final audit cleanup
         run: python scripts/site_polish.py
+
+      - name: Keep non-gated guides clearly open
+        run: python scripts/guide_cta_fix.py
 
       - name: Commit polished pages
         run: |
