@@ -42,7 +42,7 @@ CSS = f'''{CSS_START}
 .bookBridgeActions a{{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:11px 16px;text-transform:uppercase;letter-spacing:.055em;font-size:.68rem;font-weight:800;white-space:nowrap}}
 .bookBridgeActions .bookPrimary{{background:#294533;color:#fff;border:1px solid #294533}}
 .bookBridgeActions .bookSecondary{{background:transparent;color:#294533;border:1px solid #294533}}
-/* Keep Tate's portrait in its native 5:7 proportion instead of forcing a crop. */
+/* Preserve the portrait's native 5:7 framing rather than forcing a short crop. */
 .authorInner{{grid-template-columns:180px 1fr;gap:30px;align-items:start}}
 .authorPhoto{{width:180px;height:252px;border-radius:6px;object-fit:cover;object-position:center center;box-shadow:0 10px 28px rgba(33,47,38,.14);border:1px solid rgba(41,69,51,.08);background:#eee9df}}
 .authorPage img{{width:100%;max-width:350px;height:auto;object-fit:contain;object-position:center;border-radius:6px;box-shadow:var(--shadow);background:#eee9df}}
@@ -56,27 +56,25 @@ BRIDGE = f'''{BRIDGE_START}<section class="bookBridgeHome"><div class="wrap book
 
 
 def author_data_uri():
-    # Higher-resolution web-safe JPEG, re-encoded directly from Tate's original Library portrait.
-    # The chunks keep GitHub transport reliable while preserving enough resolution for the About view.
-    parts = [Path(f'portrait-hq-v1/part0{i}.b64') for i in range(1, 4)]
+    # This is the verified portrait source already proven to render reliably in Safari.
+    parts = [Path(f'portrait-clean-v2/part0{i}.b64') for i in range(1, 4)]
     if not all(part.exists() for part in parts):
-        raise RuntimeError('High-resolution author portrait chunks are missing; refusing to publish.')
+        raise RuntimeError('Verified clean author portrait chunks are missing; refusing to publish.')
     encoded = ''.join(''.join(part.read_text().split()) for part in parts)
     try:
         image = base64.b64decode(encoded, validate=True)
     except Exception as exc:
-        raise RuntimeError('High-resolution author portrait chunks are not valid base64.') from exc
-    if len(image) != 25913:
-        raise RuntimeError(f'High-resolution author portrait has unexpected size: {len(image)} bytes.')
+        raise RuntimeError('Verified clean author portrait chunks are not valid base64.') from exc
+    if len(image) != 6393:
+        raise RuntimeError(f'Clean author portrait has unexpected size: {len(image)} bytes.')
     if not (image.startswith(b'\xff\xd8\xff') and image.endswith(b'\xff\xd9')):
-        raise RuntimeError('High-resolution author portrait is not a complete JPEG.')
+        raise RuntimeError('Verified clean author portrait is not a complete JPEG.')
     return 'data:image/jpeg;base64,' + encoded
 
 
 def patch_index(path):
     text = path.read_text()
 
-    # Remove only our previously generated blocks, then rebuild them in stable places.
     text = re.sub(re.escape(CSS_START) + r".*?" + re.escape(CSS_END) + r"\s*", "", text, flags=re.S)
     text = re.sub(re.escape(HTML_START) + r".*?" + re.escape(HTML_END), "", text, flags=re.S)
     text = re.sub(re.escape(BRIDGE_START) + r".*?" + re.escape(BRIDGE_END), "", text, flags=re.S)
@@ -141,4 +139,4 @@ def patch_sitemap(path):
 patch_index(Path('index.html'))
 patch_thanks(Path('hope-thanks.html'))
 patch_sitemap(Path('sitemap.xml'))
-print('Homepage conversion layer current: free help, Pastor Tate invitation, book bridge, nav, sitemap, high-resolution portrait, and corrected portrait proportions are current.')
+print('Homepage conversion layer current: free help, Pastor Tate invitation, book bridge, nav, sitemap, proven portrait source, and corrected 5:7 portrait framing are current.')
