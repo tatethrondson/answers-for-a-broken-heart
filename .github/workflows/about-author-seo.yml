@@ -1,0 +1,72 @@
+name: Wire Permanent Author Page
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/about-author-seo.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: permanent-author-page
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Make author URL permanent in SEO generator
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('scripts/seo.py')
+          text = path.read_text()
+
+          text = text.replace(
+              'AUTHOR_URL = BASE + "/?view=about"',
+              'AUTHOR_URL = BASE + "/about"',
+          )
+          text = text.replace(
+              '<a href="/?view=about">{AUTHOR}</a>',
+              '<a href="/about" rel="author">{AUTHOR}</a>',
+          )
+
+          if '("/about", "monthly", "0.7"),' not in text:
+              text = text.replace(
+                  '("/what-hurts-today", "weekly", "0.9"),',
+                  '("/what-hurts-today", "weekly", "0.9"),\n        ("/about", "monthly", "0.7"),',
+                  1,
+              )
+
+          marker = '    text = remove_marked(text, HEAD_START, HEAD_END)\n\n    title = "Answers for a Broken Heart | Biblical Hope for Life’s Hardest Questions"'
+          if 'Permanent standalone author page.' not in text:
+              replacement = '''    text = remove_marked(text, HEAD_START, HEAD_END)\n\n    # Permanent standalone author page. Keep navigation crawlable instead of routing it through the SPA query string.\n    text = text.replace('href="?view=about"', 'href="/about"')\n    text = text.replace(\n        '&&!href.startsWith("/unsafe"))',\n        '&&!href.startsWith("/unsafe")&&!href.startsWith("/about"))',\n        1,\n    )\n\n    title = "Answers for a Broken Heart | Biblical Hope for Life’s Hardest Questions"'''
+              if marker not in text:
+                  raise SystemExit('Could not find patch_home insertion point')
+              text = text.replace(marker, replacement, 1)
+
+          path.write_text(text)
+          PY
+
+      - name: Regenerate SEO-controlled pages
+        run: python scripts/seo.py
+
+      - name: Commit permanent author architecture
+        run: |
+          if [ -n "$(git status --porcelain -- scripts/seo.py index.html answer-*.html sitemap.xml robots.txt)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add scripts/seo.py index.html answer-*.html sitemap.xml robots.txt
+            git commit -m "Publish permanent author page architecture"
+            git push
+          else
+            echo "Permanent author page architecture is already current"
+          fi
