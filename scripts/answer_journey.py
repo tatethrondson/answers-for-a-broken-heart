@@ -44,6 +44,10 @@ for n in range(1,25):
     if not p.exists(): continue
     text=p.read_text(encoding="utf-8")
     text=re.sub(re.escape(START)+r".*?"+re.escape(END),"",text,flags=re.S)
+    # The unified journey is now the single home for contextual podcast recommendations.
     text=re.sub(r"<!-- PODCAST-RESOURCE-START -->.*?<!-- PODCAST-RESOURCE-END -->","",text,flags=re.S)
+    # Normalize legacy SPA-style answer links to clean, shareable URLs.
+    text=re.sub(r'href="/\?answer=(\d{2})"',r'href="/answer-\1"',text)
+    text=re.sub(r'href="\?answer=(\d{2})"',r'href="/answer-\1"',text)
     if "</article>" in text: text=text.replace("</article>",block(n)+"\n</article>",1)
     p.write_text(text,encoding="utf-8")
