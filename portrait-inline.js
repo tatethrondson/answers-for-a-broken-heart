@@ -1,5 +1,5 @@
 (()=>{
-  const P='/tate-throndson-portrait-final.jpg?v=20260810-2';
+  const P='/api/portrait-sharp?v=20260810-1';
   function applyPortrait(){
     document.querySelectorAll('img').forEach(img=>{
       const alt=(img.alt||'').toLowerCase();
@@ -9,7 +9,7 @@
         img.removeAttribute('srcset');
         img.removeAttribute('sizes');
         img.loading='eager';
-        img.decoding='sync';
+        img.decoding='async';
         img.src=P;
       }
     });
