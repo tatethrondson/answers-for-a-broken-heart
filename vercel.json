@@ -4,10 +4,6 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/author-tate.jpg",
-      "destination": "https://avatars.githubusercontent.com/u/314793130?v=4"
-    },
-    {
       "source": "/start-here",
       "destination": "/begin-here.html"
     },
@@ -24,6 +20,10 @@
     {
       "source": "/author-tate.jpg",
       "headers": [
+        {
+          "key": "Content-Type",
+          "value": "image/jpeg"
+        },
         {
           "key": "Cache-Control",
           "value": "public, max-age=0, must-revalidate"
