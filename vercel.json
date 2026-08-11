@@ -2,6 +2,11 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "functions": {
+    "api/portrait-sharp.js": {
+      "includeFiles": "portrait_parts/**"
+    }
+  },
   "rewrites": [
     {
       "source": "/start-here",
@@ -50,6 +55,15 @@
           "key": "Content-Type",
           "value": "image/jpeg"
         },
+        {
+          "key": "Cache-Control",
+          "value": "no-store, max-age=0"
+        }
+      ]
+    },
+    {
+      "source": "/api/portrait-sharp",
+      "headers": [
         {
           "key": "Cache-Control",
           "value": "no-store, max-age=0"
