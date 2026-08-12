@@ -53,30 +53,13 @@
     const sh=document.querySelector('#short h2,.short h2');
     if(sh && short[n]) sh.textContent=short[n];
 
-    if(n===3){
-      const dek=document.querySelector('main>.hero .dek');
-      if(dek) dek.textContent='Some of God’s work becomes clearer in hindsight, while some questions may remain unresolved in this life.';
-    }
-    if(n===4){
-      const dek=document.querySelector('main>.hero .dek');
-      if(dek) dek.textContent='You are not wrong for feeling that something about this world is terribly wrong. Scripture says the brokenness we know is not the world God called very good.';
-    }
-    if(n===6){
-      const dek=document.querySelector('main>.hero .dek');
-      if(dek) dek.textContent='Sometimes God does not give us the explanation we want. Limited perspective is not proof that He has stopped being wise, good, or present.';
-    }
-    if(n===10){
-      const dek=document.querySelector('main>.hero .dek');
-      if(dek) dek.textContent='Jesus did more than enter human suffering. In His death and resurrection, He guaranteed that suffering and death will not have the final word.';
-    }
-    if(n===21){
-      const dek=document.querySelector('main>.hero .dek');
-      if(dek) dek.textContent='Forgiveness is not saying the wound was small. It is releasing personal vengeance to God without surrendering truth, justice, or wise boundaries.';
-    }
-    if(n===23){
-      const dek=document.querySelector('main>.hero .dek');
-      if(dek) dek.textContent='Before you decide what to do with faith, separate Jesus from the hypocrisy, abuse, legalism, or disappointment people may have attached to His name.';
-    }
+    const dek=document.querySelector('main>.hero .dek');
+    if(dek && n===3) dek.textContent='Some of God’s work becomes clearer in hindsight, while some questions may remain unresolved in this life.';
+    if(dek && n===4) dek.textContent='You are not wrong for feeling that something about this world is terribly wrong. Scripture says the brokenness we know is not the world God called very good.';
+    if(dek && n===6) dek.textContent='Sometimes God does not give us the explanation we want. Limited perspective is not proof that He has stopped being wise, good, or present.';
+    if(dek && n===10) dek.textContent='Jesus did more than enter human suffering. In His death and resurrection, He guaranteed that suffering and death will not have the final word.';
+    if(dek && n===21) dek.textContent='Forgiveness is not saying the wound was small. It is releasing personal vengeance to God without surrendering truth, justice, or wise boundaries.';
+    if(dek && n===23) dek.textContent='Before you decide what to do with faith, separate Jesus from the hypocrisy, abuse, legalism, or disappointment people may have attached to His name.';
 
     document.querySelectorAll('.answerTopicHub a[href]').forEach(a=>{
       const slug=(a.getAttribute('href')||'').replace(/^\//,'').replace(/\/$/,'');
@@ -105,6 +88,7 @@
   }
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',apply); else apply();
-  setTimeout(apply,120);setTimeout(apply,500);
-  new MutationObserver(apply).observe(document.documentElement,{childList:true,subtree:true});
+  setTimeout(apply,120);
+  setTimeout(apply,500);
+  addEventListener('popstate',()=>setTimeout(apply,0));
 })();
