@@ -43,6 +43,10 @@
     document.querySelectorAll('link[data-ab-heart-theme],link[data-ab-heart-home-simple]').forEach(x=>x.remove());
   }
 
+  function navMarkup(findHopeClass,searchClass){
+    return `<div class="siteShellWrap siteShellNav"><a class="siteShellBrand" href="/"><span class="siteShellBrandWords">answers<small>for a broken heart</small></span></a><nav class="siteShellLinks" aria-label="Main navigation"><a href="/">Home</a><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Guides</a><a href="/book">The Book</a><a href="/about">About</a><a href="/contact">Contact</a><a class="${findHopeClass}" href="/start-here">Find Hope</a><a class="${searchClass}" href="/all-answers" aria-label="Search the 24 Answers">⌕</a></nav><details class="siteShellMobile"><summary>Menu</summary><nav class="siteShellMobileMenu" aria-label="Mobile navigation"><a href="/">Home</a><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Guides</a><a href="/book">The Book</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/start-here">Find Hope</a></nav></details></div>`;
+  }
+
   function homeHeader(){
     const header=document.querySelector('.siteShellHeader');
     if(!header) return;
@@ -50,7 +54,7 @@
     header.classList.remove('phase1GlobalHeader');
     if(header.dataset.homeOriginal==='1') return;
     header.dataset.homeOriginal='1';
-    header.innerHTML=`<div class="siteShellWrap siteShellNav"><a class="siteShellBrand" href="/"><span class="siteShellBrandWords">answers<small>for a broken heart</small></span></a><nav class="siteShellLinks" aria-label="Main navigation"><a href="/">Home</a><a href="/all-answers">Encouragement</a><a href="/start-here">Pastoral Care</a><a href="/free-guides">Resources</a><a href="/about">About</a><a href="/contact">Contact</a><a class="homeFindHope" href="/start-here">Find Hope</a><a class="homeSearch" href="/all-answers" aria-label="Search the 24 Answers">⌕</a></nav><details class="siteShellMobile"><summary>Menu</summary><nav class="siteShellMobileMenu" aria-label="Mobile navigation"><a href="/">Home</a><a href="/all-answers">Encouragement</a><a href="/start-here">Pastoral Care</a><a href="/free-guides">Resources</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/start-here">Find Hope</a></nav></details></div>`;
+    header.innerHTML=navMarkup('homeFindHope','homeSearch');
   }
 
   function restoreHeader(){
@@ -70,7 +74,7 @@
     delete header.dataset.homeOriginal;
     header.dataset.phase1Shell='1';
     header.classList.add('phase1GlobalHeader');
-    header.innerHTML=`<div class="siteShellWrap siteShellNav"><a class="siteShellBrand" href="/"><span class="siteShellBrandWords">answers<small>for a broken heart</small></span></a><nav class="siteShellLinks" aria-label="Main navigation"><a href="/">Home</a><a href="/all-answers">Encouragement</a><a href="/start-here">Pastoral Care</a><a href="/free-guides">Resources</a><a href="/about">About</a><a href="/contact">Contact</a><a class="phase1FindHope" href="/start-here">Find Hope</a><a class="phase1Search" href="/all-answers" aria-label="Search the 24 Answers">⌕</a></nav><details class="siteShellMobile"><summary>Menu</summary><nav class="siteShellMobileMenu" aria-label="Mobile navigation"><a href="/">Home</a><a href="/all-answers">Encouragement</a><a href="/start-here">Pastoral Care</a><a href="/free-guides">Resources</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/start-here">Find Hope</a></nav></details></div>`;
+    header.innerHTML=navMarkup('phase1FindHope','phase1Search');
   }
 
   function globalFooter(){
@@ -79,7 +83,7 @@
     if(!footer || footer.dataset.phase1Shell==='1') return;
     footer.dataset.phase1Shell='1';
     footer.classList.add('phase1GlobalFooter');
-    footer.innerHTML=`<div class="phase1FooterMain"><div><div class="phase1FooterBrand">answers<small>for a broken heart</small></div><div class="phase1FooterTag">Biblical encouragement and pastoral care for life’s deepest hurts.</div></div><div class="phase1FooterCol"><strong>Encouragement</strong><a href="/all-answers">24 Biblical Answers</a><a href="/2am-guide">2:00 A.M. Guide</a><a href="/can-christians-be-depressed">Depression &amp; Faith</a><a href="/free-guides">Free Guides</a></div><div class="phase1FooterCol"><strong>Pastoral Care</strong><a href="/start-here">Start Here</a><a href="/help-someone">Help Someone</a><a href="/unsafe">Immediate Safety Help</a><a href="/contact">Contact Pastor Tate</a></div><div class="phase1FooterCol"><strong>Resources</strong><a href="/free-guides">Free Resources</a><a href="/book">The Book</a><a href="/church-resources">For Churches</a><a href="/about">About Tate</a><p style="margin-top:14px">Stay encouraged with occasional hope and pastoral care.</p><form class="phase1FooterForm" action="https://formsubmit.co/tatethrondson@gmail.com" method="POST"><input type="email" name="email" placeholder="Email address" aria-label="Email address" required><input type="hidden" name="_subject" value="Answers for a Broken Heart encouragement signup"><input type="hidden" name="_captcha" value="false"><button type="submit">Subscribe</button></form></div></div><div class="phase1FooterBottom"><div class="phase1FooterBottomInner"><span>© 2026 Answers for a Broken Heart</span><span><a href="/about">About</a><a href="/contact">Contact</a></span></div></div>`;
+    footer.innerHTML=`<div class="phase1FooterMain"><div><div class="phase1FooterBrand">answers<small>for a broken heart</small></div><div class="phase1FooterTag">Biblical encouragement and pastoral care for life’s deepest hurts.</div></div><div class="phase1FooterCol"><strong>Encouragement</strong><a href="/all-answers">24 Biblical Answers</a><a href="/2am-guide">2:00 A.M. Guide</a><a href="/can-christians-be-depressed">Depression &amp; Faith</a><a href="/free-guides">Free Guides</a></div><div class="phase1FooterCol"><strong>Pastoral Care</strong><a href="/start-here">Start Here</a><a href="/help-someone">Help Someone</a><a href="/unsafe">Immediate Safety Help</a><a href="/contact">Contact Pastor Tate</a></div><div class="phase1FooterCol"><strong>Resources</strong><a href="/book">The Book</a><a href="/church-resources">For Churches</a><a href="/about">About Tate</a><p style="margin-top:14px">Stay encouraged with occasional hope and pastoral care.</p><form class="phase1FooterForm" action="https://formsubmit.co/tatethrondson@gmail.com" method="POST"><input type="email" name="email" placeholder="Email address" aria-label="Email address" required><input type="hidden" name="_subject" value="Answers for a Broken Heart encouragement signup"><input type="hidden" name="_captcha" value="false"><button type="submit">Subscribe</button></form></div></div><div class="phase1FooterBottom"><div class="phase1FooterBottomInner"><span>© 2026 Answers for a Broken Heart</span><span><a href="/about">About</a><a href="/contact">Contact</a></span></div></div>`;
   }
 
   function homepageMarkup(){
@@ -97,11 +101,21 @@
         <a class="homeResourceCard" href="/free-guides"><div class="homeResourcePhoto five"><div class="homeResourceIcon">↓</div></div><div class="homeResourceBody"><h3>Free Resources</h3><p>Guides and tools to encourage your soul.</p></div></a>
       </div></div></section>
 
-      <section class="homeHurtsWrap"><div class="homeOriginalWrap"><div class="homeHurts"><div><h2>What hurts today?</h2><p>Take a moment to reflect and let us help you find encouragement that meets you where you are.</p><a class="homeHurtsBtn" href="/start-here">Begin Guided Entry</a></div><div class="homeHurtsPills"><a class="homeHurtPill" href="/grief-and-loss"><span>♧</span> Grief &amp; Loss</a><a class="homeHurtPill" href="/start-here"><span>⌁</span> Anxiety &amp; Fear</a><a class="homeHurtPill" href="/god-feels-far-away"><span>♙</span> Loneliness</a><a class="homeHurtPill" href="/forgiveness-and-relational-hurt"><span>♡</span> Broken Relationships</a><div class="homeHurtsNote">You can always come as you are. There is hope for today.</div></div></div></div></section>
+      <section class="homeHurtsWrap"><div class="homeOriginalWrap"><div class="homeHurts"><div><h2>What hurts today?</h2><p>Take a moment to reflect and let us help you find encouragement that meets you where you are.</p><a class="homeHurtsBtn" href="/start-here">Begin Guided Entry</a></div><div class="homeHurtsPills">
+        <a class="homeHurtPill" href="/grief-and-loss"><span>♧</span> Grief &amp; Loss</a>
+        <a class="homeHurtPill" href="/why-god-allows-suffering"><span>?</span> Suffering &amp; Why</a>
+        <a class="homeHurtPill" href="/god-feels-far-away"><span>♙</span> God Feels Far Away</a>
+        <a class="homeHurtPill" href="/anger-and-unanswered-prayer"><span>◌</span> Unanswered Prayer</a>
+        <a class="homeHurtPill" href="/forgiveness-and-relational-hurt"><span>♡</span> Relational Hurt</a>
+        <a class="homeHurtPill" href="/doubt-and-church-hurt"><span>✦</span> Doubt &amp; Church Hurt</a>
+        <div class="homeHurtsNote">Choose the closest one. You can always come back and choose another.</div>
+      </div></div></div></section>
 
-      <section class="homeTestimonial"><div class="homeOriginalWrap"><div class="homeTestimonialInner"><div class="homeTestimonialPhoto"></div><div class="homeQuote"><blockquote>Answers for a Broken Heart has been a lifeline in my hardest season. The truth, grace, and compassion here remind me that God sees me, He hears me, and He is with me.</blockquote><cite>— Jessica, Reader</cite></div></div></div></section>
+      <section class="homeBookBandWrap"><div class="homeOriginalWrap"><div class="homeBookBand"><div><div class="homeEyebrow">The deeper journey</div><h2>Twenty-four questions. One deeper journey.</h2><p><em>Answers for a Broken Heart</em> takes the questions on this site further with Scripture, pastoral stories, and a path toward hope that does not rush past the hurt.</p><div class="homeBookActions"><a class="homeBookAction primary" href="/book">Explore the Book</a><a class="homeBookAction secondary" href="/book#book-updates">Get Release Updates</a></div></div><div class="homeMiniBook" aria-label="Answers for a Broken Heart book"><strong>Answers<br>for a<br>Broken<br>Heart</strong><span>♡</span><small>24 Biblical Answers for Life’s Deepest Hurts</small></div></div></div></section>
 
-      <footer class="homeFooter"><div class="homeOriginalWrap homeFooterMain"><div><div class="homeFooterBrand">answers<small>for a broken heart</small></div><div class="homeFooterTag">Biblical encouragement and pastoral care for life’s deepest hurts.</div></div><div class="homeFooterCol"><strong>Encouragement</strong><a href="/all-answers">24 Biblical Answers</a><a href="/2am-guide">2:00 A.M. Guide</a><a href="/can-christians-be-depressed">Depression &amp; Faith</a><a href="/free-guides">Free Guides</a></div><div class="homeFooterCol"><strong>Pastoral Care</strong><a href="/start-here">Start Here</a><a href="/help-someone">Help Someone</a><a href="/church-resources">For Churches</a><a href="/contact">Contact Pastor Tate</a></div><div class="homeFooterCol"><strong>Stay Encouraged</strong><p>Subscribe for occasional hope and encouragement.</p><form class="homeFooterForm" action="https://formsubmit.co/tatethrondson@gmail.com" method="POST"><input type="email" name="email" placeholder="Email address" required><input type="hidden" name="_subject" value="Answers for a Broken Heart encouragement signup"><input type="hidden" name="_captcha" value="false"><button type="submit">Subscribe</button></form></div></div><div class="homeFooterBottom"><div class="homeOriginalWrap"><span>© 2026 Answers for a Broken Heart</span><span><a href="/about">About</a><a href="/contact">Contact</a></span></div></div></footer>
+      <section class="homeTestimonial"><div class="homeOriginalWrap"><div class="homeTestimonialInner"><div class="homeTestimonialPhoto"></div><div class="homeQuote"><span class="homePromiseLabel">A promise for the weary</span><blockquote>Come unto me, all ye that labour and are heavy laden, and I will give you rest.</blockquote><cite>— Matthew 11:28</cite></div></div></div></section>
+
+      <footer class="homeFooter"><div class="homeOriginalWrap homeFooterMain"><div><div class="homeFooterBrand">answers<small>for a broken heart</small></div><div class="homeFooterTag">Biblical encouragement and pastoral care for life’s deepest hurts.</div></div><div class="homeFooterCol"><strong>Encouragement</strong><a href="/all-answers">24 Biblical Answers</a><a href="/2am-guide">2:00 A.M. Guide</a><a href="/can-christians-be-depressed">Depression &amp; Faith</a><a href="/free-guides">Free Guides</a></div><div class="homeFooterCol"><strong>Pastoral Care</strong><a href="/start-here">Start Here</a><a href="/help-someone">Help Someone</a><a href="/unsafe">Immediate Safety Help</a><a href="/contact">Contact Pastor Tate</a></div><div class="homeFooterCol"><strong>Resources</strong><a href="/book">The Book</a><a href="/church-resources">For Churches</a><a href="/about">About Tate</a><p style="margin-top:14px">Stay encouraged with occasional hope and pastoral care.</p><form class="homeFooterForm" action="https://formsubmit.co/tatethrondson@gmail.com" method="POST"><input type="email" name="email" placeholder="Email address" required><input type="hidden" name="_subject" value="Answers for a Broken Heart encouragement signup"><input type="hidden" name="_captcha" value="false"><button type="submit">Subscribe</button></form></div></div><div class="homeFooterBottom"><div class="homeOriginalWrap"><span>© 2026 Answers for a Broken Heart</span><span><a href="/about">About</a><a href="/contact">Contact</a></span></div></div></footer>
     </div>`;
   }
 
@@ -148,10 +162,11 @@
   }
 
   function normalizeLinks(){
-    document.querySelectorAll('a').forEach(a=>{
+    document.querySelectorAll('a[href]').forEach(a=>{
       const href=a.getAttribute('href')||'';
       if(href==='/?view=book' || href==='?view=book') a.setAttribute('href','/book');
-      if(href==='/what-hurts-today') a.setAttribute('href','/start-here');
+      if(href==='/?view=about' || href==='?view=about') a.setAttribute('href','/about');
+      if(href==='/?view=hurts' || href==='?view=hurts' || href==='/what-hurts-today') a.setAttribute('href','/start-here');
     });
   }
 
