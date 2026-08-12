@@ -10,12 +10,12 @@
   const scripts=[
     ['/site-phase1.js?v=20260812-consolidated1','phase1'],
     ['/site-phase2.js?v=20260811-continuity2','phase2'],
-    ['/site-phase3.js?v=20260811-continuity1','phase3'],
+    ['/site-phase3.js?v=20260812-podcast1','phase3'],
     ['/site-phase4.js?v=20260811-continuity1','phase4'],
     ['/site-phase5.js?v=20260811-continuity1','phase5'],
     ['/site-unified.js?v=20260811-1','unified'],
     ['/site-finish.js?v=20260811-1','finish'],
-    ['/site-trust.js?v=20260812-consolidated1','trust'],
+    ['/site-trust.js?v=20260812-podcast1','trust'],
     ['/site-editorial.js?v=20260811-2','editorial']
   ];
   scripts.forEach(([src,key])=>{
