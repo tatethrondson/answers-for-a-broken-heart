@@ -2,6 +2,8 @@
   const P='/tate-throndson-portrait-final.jpg?v=20260811-restore';
   const HOME_STYLE='/homepage-original.css?v=20260811-1';
   const PHASE1_STYLE='/site-phase1.css?v=20260811-1';
+  const PODCAST_URL='https://youtu.be/cCnEWfS5M0o?si=oge2LySLWOMjpva8';
+  const PODCAST_THUMB='https://img.youtube.com/vi/cCnEWfS5M0o/hqdefault.jpg';
   let originalHeaderHTML='';
 
   function isHomepage(){
@@ -29,6 +31,18 @@
       link.href=PHASE1_STYLE;
       link.setAttribute('data-ab-heart-phase1','1');
       document.head.appendChild(link);
+    }
+    if(!document.getElementById('phase1-visitor-extras')){
+      const style=document.createElement('style');
+      style.id='phase1-visitor-extras';
+      style.textContent=`
+        .visitorSecondary{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0 0}.visitorSecondary .choice{background:#f7f3eb!important}
+        .homePodcastStripWrap{padding:0 0 30px;background:#fbfaf7}.homePodcastStrip{display:grid;grid-template-columns:180px 1fr auto;gap:24px;align-items:center;border:1px solid #d9ddd8;background:#eef2ed;border-radius:14px;padding:20px 24px}.homePodcastStrip small,.startPodcast small{display:block;text-transform:uppercase;letter-spacing:.14em;font-size:.61rem;font-weight:800;color:#88683b;margin-bottom:5px}.homePodcastStrip strong,.startPodcast strong{display:block;font:400 1.35rem/1.17 Georgia,"Times New Roman",serif;color:#20372a}.homePodcastStrip p,.startPodcast p{margin:5px 0 0;font-size:.76rem;line-height:1.5;color:#626a64}
+        .phase1PodcastThumb{display:block!important;background:transparent!important;padding:0!important;border-radius:10px!important;overflow:hidden!important;line-height:0!important;text-decoration:none!important}.phase1PodcastThumb img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}.phase1PodcastAction{display:inline-flex!important;text-decoration:none!important;background:#294533!important;color:#fff!important;padding:10px 14px!important;font-size:.69rem!important;font-weight:800!important;white-space:nowrap!important}
+        .startPodcast{margin:20px 0 0;padding:20px 22px;background:#eef2ed;border:1px solid #d9e0d8;display:grid;grid-template-columns:180px 1fr auto;gap:22px;align-items:center}
+        @media(max-width:760px){.visitorSecondary,.homePodcastStrip,.startPodcast{grid-template-columns:1fr}.phase1PodcastAction{justify-self:start}.phase1PodcastThumb{max-width:420px}}
+      `;
+      document.head.appendChild(style);
     }
   }
 
@@ -101,6 +115,8 @@
         <a class="homeResourceCard" href="/free-guides"><div class="homeResourcePhoto five"><div class="homeResourceIcon">↓</div></div><div class="homeResourceBody"><h3>Free Resources</h3><p>Guides and tools to encourage your soul.</p></div></a>
       </div></div></section>
 
+      <section class="homePodcastStripWrap"><div class="homeOriginalWrap"><div class="homePodcastStrip"><a class="phase1PodcastThumb" href="${PODCAST_URL}" target="_blank" rel="noopener noreferrer" aria-label="Watch the depression and faith podcast episode on YouTube"><img src="${PODCAST_THUMB}" alt="Depression and faith podcast episode thumbnail" loading="lazy"></a><div><small>New podcast episode</small><strong>A pastoral conversation about depression and faith.</strong><p>For the Christian who feels low, exhausted, or guilty for struggling emotionally.</p></div><a class="phase1PodcastAction" href="${PODCAST_URL}" target="_blank" rel="noopener noreferrer">Listen on YouTube →</a></div></div></section>
+
       <section class="homeHurtsWrap"><div class="homeOriginalWrap"><div class="homeHurts"><div><h2>What hurts today?</h2><p>Take a moment to reflect and let us help you find encouragement that meets you where you are.</p><a class="homeHurtsBtn" href="/start-here">Begin Guided Entry</a></div><div class="homeHurtsPills">
         <a class="homeHurtPill" href="/grief-and-loss"><span>♧</span> Grief &amp; Loss</a>
         <a class="homeHurtPill" href="/why-god-allows-suffering"><span>?</span> Suffering &amp; Why</a>
@@ -161,6 +177,34 @@
     wrap.appendChild(image);
   }
 
+  function simplifyStartHere(){
+    if(!isStartHere()) return;
+    const grid=document.querySelector('.choiceGrid');
+    let secondary=document.querySelector('.visitorSecondary');
+    if(grid && !secondary){
+      const choices=[...grid.querySelectorAll(':scope > .choice')];
+      if(choices.length>6){
+        secondary=document.createElement('div');
+        secondary.className='visitorSecondary';
+        choices.slice(6).forEach(choice=>secondary.appendChild(choice));
+        grid.insertAdjacentElement('afterend',secondary);
+      }
+    }
+    document.querySelectorAll('.bottom a').forEach(a=>{
+      const text=(a.textContent||'').toLowerCase();
+      if(text.includes('tell me where it hurts') || a.getAttribute('href')==='/what-hurts-today') a.remove();
+    });
+    if(!document.querySelector('.startPodcast')){
+      const anchor=secondary||grid;
+      if(anchor){
+        const box=document.createElement('div');
+        box.className='startPodcast';
+        box.innerHTML=`<a class="phase1PodcastThumb" href="${PODCAST_URL}" target="_blank" rel="noopener noreferrer" aria-label="Watch the depression and faith podcast episode on YouTube"><img src="${PODCAST_THUMB}" alt="Depression and faith podcast episode thumbnail" loading="lazy"></a><div><small>Prefer to listen?</small><strong>Hear a pastoral conversation about depression and faith.</strong><p>If emotional heaviness is part of what brought you here, you can listen instead of reading right now.</p></div><a class="phase1PodcastAction" href="${PODCAST_URL}" target="_blank" rel="noopener noreferrer">Listen →</a>`;
+        anchor.insertAdjacentElement('afterend',box);
+      }
+    }
+  }
+
   function normalizeLinks(){
     document.querySelectorAll('a[href]').forEach(a=>{
       const href=a.getAttribute('href')||'';
@@ -193,6 +237,7 @@
       globalHeader();
       globalFooter();
       enhanceEntryHero();
+      simplifyStartHere();
     }
     normalizeLinks();
     applyPortrait();
@@ -200,6 +245,8 @@
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',applyAll);
   else applyAll();
-  new MutationObserver(applyAll).observe(document.documentElement,{childList:true,subtree:true});
+  setTimeout(applyAll,120);
+  setTimeout(applyAll,500);
+  setTimeout(applyAll,1000);
   addEventListener('popstate',()=>setTimeout(applyAll,0));
 })();
