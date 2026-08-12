@@ -21,6 +21,12 @@
       link.setAttribute('data-ab-heart-unified','1');
       document.head.appendChild(link);
     }
+    if(!document.getElementById('topic-book-bridge-style')){
+      const style=document.createElement('style');
+      style.id='topic-book-bridge-style';
+      style.textContent=`.topicBookBridge{margin:30px 0 8px;padding:27px 29px;background:#f6f1e8;border:1px solid #ded8cd;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}.topicBookBridge small{display:block;text-transform:uppercase;letter-spacing:.14em;font-size:.62rem;font-weight:800;color:#8b6939;margin-bottom:6px}.topicBookBridge strong{display:block;font:1.55rem/1.14 Georgia,"Times New Roman",serif;font-weight:400;color:#20372a;margin-bottom:6px}.topicBookBridge p{margin:0!important;font-size:.82rem!important;line-height:1.55;color:#626a64}.topicBookBridge a{display:inline-flex;text-decoration:none;background:#294533;color:#fff;padding:11px 15px;font-size:.69rem;font-weight:800;white-space:nowrap}@media(max-width:760px){.topicBookBridge{grid-template-columns:1fr}.topicBookBridge a{justify-self:start}}`;
+      document.head.appendChild(style);
+    }
   }
 
   function setTopicClasses(){
@@ -44,6 +50,16 @@
     image.setAttribute('aria-label','A peaceful scene reflecting hope and pastoral care');
     wrap.appendChild(copy);
     wrap.appendChild(image);
+  }
+
+  function addTopicBookBridge(){
+    if(!topicClass()) return;
+    const grid=document.querySelector('.answerGrid');
+    if(!grid || document.querySelector('.topicBookBridge')) return;
+    const bridge=document.createElement('div');
+    bridge.className='topicBookBridge';
+    bridge.innerHTML='<div><small>The deeper journey</small><strong>These questions are part of a larger pastoral journey.</strong><p><em>Answers for a Broken Heart</em> goes deeper into the Scripture, stories, and hope behind the questions you are reading here.</p></div><a href="/book">Explore the Book →</a>';
+    grid.insertAdjacentElement('afterend',bridge);
   }
 
   function setAnswerVariant(){
@@ -70,6 +86,7 @@
     setTopicClasses();
     setAnswerVariant();
     enhanceTopicHero();
+    addTopicBookBridge();
     moveCssLast();
   }
 
@@ -77,6 +94,6 @@
   else apply();
   setTimeout(apply,100);
   setTimeout(apply,400);
-  new MutationObserver(()=>apply()).observe(document.documentElement,{childList:true,subtree:true});
+  setTimeout(apply,800);
   addEventListener('popstate',()=>setTimeout(apply,0));
 })();
