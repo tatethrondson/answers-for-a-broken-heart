@@ -23,19 +23,6 @@
   ],
   "headers": [
     {
-      "source": "/home-hero-bible-mountain.webp",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "image/webp"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "no-store, max-age=0"
-        }
-      ]
-    },
-    {
       "source": "/tate-throndson-portrait-final.jpg",
       "headers": [
         {
