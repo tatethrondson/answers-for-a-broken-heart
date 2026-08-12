@@ -11,12 +11,19 @@
   }
 
   function ensureCss(){
-    if(document.querySelector('link[data-ab-heart-phase2]')) return;
-    const link=document.createElement('link');
-    link.rel='stylesheet';
-    link.href=CSS;
-    link.setAttribute('data-ab-heart-phase2','1');
-    document.head.appendChild(link);
+    if(!document.querySelector('link[data-ab-heart-phase2]')){
+      const link=document.createElement('link');
+      link.rel='stylesheet';
+      link.href=CSS;
+      link.setAttribute('data-ab-heart-phase2','1');
+      document.head.appendChild(link);
+    }
+    if(!document.querySelector('style[data-ab-heart-library-state]')){
+      const style=document.createElement('style');
+      style.setAttribute('data-ab-heart-library-state','1');
+      style.textContent='body.phase2Library .card.hidden,body.phase2Library .group.hidden{display:none!important}';
+      document.head.appendChild(style);
+    }
   }
 
   function setClasses(){
