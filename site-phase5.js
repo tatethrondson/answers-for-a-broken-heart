@@ -8,6 +8,7 @@
   function isGuideAccess(){return path==='/2am-guide-access' || path==='/2am-guide-access.html';}
   function isUnsafe(){return path==='/unsafe' || path==='/unsafe.html';}
   function isThanks(){return /(?:^|\/)\w[\w-]*thanks(?:\.html)?$/.test(path);}
+  function isBookThanks(){return path==='/book-updates-thanks' || path==='/book-updates-thanks.html';}
 
   function ensureCss(){
     if(document.querySelector('link[data-ab-heart-phase5]')) return;
@@ -29,6 +30,14 @@
     let meta=document.querySelector('meta[name="robots"]');
     if(!meta){meta=document.createElement('meta');meta.name='robots';document.head.appendChild(meta);}
     meta.setAttribute('content','noindex,follow');
+  }
+
+  function cleanBookConfirmation(){
+    if(!isBookThanks()) return;
+    const note=document.querySelector('.card .note');
+    if(!note || note.dataset.phase5Clean==='1') return;
+    note.dataset.phase5Clean='1';
+    note.innerHTML='No daily emails. Just occasional updates as the book moves toward release.';
   }
 
   function enhanceBookHero(){
@@ -73,7 +82,7 @@
     wrap.append(copy,image);
   }
 
-  function apply(){ensureCss();setClasses();ensureThanksNoindex();enhanceBookHero();improveBookPage();enhanceChurchHero();}
+  function apply(){ensureCss();setClasses();ensureThanksNoindex();cleanBookConfirmation();enhanceBookHero();improveBookPage();enhanceChurchHero();}
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',apply); else apply();
   setTimeout(apply,120);
   setTimeout(apply,500);
