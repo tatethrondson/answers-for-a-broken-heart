@@ -14,7 +14,8 @@
     ['/site-phase4.js?v=20260811-continuity1','phase4'],
     ['/site-phase5.js?v=20260811-continuity1','phase5'],
     ['/site-unified.js?v=20260811-1','unified'],
-    ['/site-finish.js?v=20260811-1','finish']
+    ['/site-finish.js?v=20260811-1','finish'],
+    ['/site-trust.js?v=20260811-1','trust']
   ];
   scripts.forEach(([src,key])=>{
     if(document.querySelector(`script[data-ab-heart-${key}]`)) return;
