@@ -16,7 +16,7 @@
     ['/site-unified.js?v=20260811-1','unified'],
     ['/site-finish.js?v=20260811-1','finish'],
     ['/site-trust.js?v=20260811-3','trust'],
-    ['/site-editorial.js?v=20260811-1','editorial']
+    ['/site-editorial.js?v=20260811-2','editorial']
   ];
   scripts.forEach(([src,key])=>{
     if(document.querySelector(`script[data-ab-heart-${key}]`)) return;
