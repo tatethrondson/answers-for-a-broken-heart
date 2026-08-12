@@ -2,7 +2,7 @@
   if(!document.querySelector('link[data-ab-heart-home-hero]')){
     const link=document.createElement('link');
     link.rel='stylesheet';
-    link.href='/homepage-hero.css?v=20260811-5';
+    link.href='/homepage-hero.css?v=20260811-6';
     link.setAttribute('data-ab-heart-home-hero','1');
     document.head.appendChild(link);
   }
