@@ -1,0 +1,271 @@
+/* Final visitor-facing polish. Scoped away from the approved homepage. */
+:root{--f-olive:#777d55;--f-olive-dark:#626849;--f-cream:#f7f4ed;--f-paper:#fbfaf7;--f-card:#fffefb;--f-ink:#464942;--f-muted:#696b64;--f-gold:#a87335;--f-line:#e3ddd2;--f-blue:#a8bac4;--f-sage:#eef0e9}
+
+/* ---------- SPECIAL / UTILITY PAGE BRANDING ---------- */
+body.phase5GuideAccess>header,
+body.phase5Unsafe>header,
+body.phase5Thanks>header{
+  background:rgba(249,247,241,.98)!important;
+  color:#4d5147!important;
+  border-bottom:1px solid #e8e2d7!important;
+  padding:0!important;
+  min-height:78px!important;
+  display:flex!important;
+  align-items:center!important;
+}
+body.phase5GuideAccess>header .wrap,
+body.phase5Unsafe>header .wrap,
+body.phase5Thanks>header .wrap{
+  width:min(1220px,calc(100% - 54px))!important;
+  display:flex!important;
+  align-items:center!important;
+  min-height:78px!important;
+}
+body.phase5GuideAccess>header .brand,
+body.phase5Unsafe>header .brand,
+body.phase5Thanks>header .brand{
+  color:#4d5147!important;
+  font:2rem/.76 Georgia,"Times New Roman",serif!important;
+  letter-spacing:-.045em!important;
+  text-transform:lowercase!important;
+  text-decoration:none!important;
+}
+body.phase5GuideAccess>header .brand small,
+body.phase5Unsafe>header .brand small,
+body.phase5Thanks>header .brand small{
+  display:block!important;
+  margin-top:6px!important;
+  color:#66695f!important;
+  font:700 .58rem/1.1 Arial,sans-serif!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase!important;
+}
+
+/* ---------- 2:00 A.M. GUIDE ACCESS ---------- */
+body.phase5GuideAccess{background:var(--f-paper)!important;color:var(--f-ink)!important}
+body.phase5GuideAccess .wrap{width:min(880px,calc(100% - 48px))!important}
+body.phase5GuideAccess .hero{
+  padding:58px 0 52px!important;
+  background:linear-gradient(180deg,#f7f4ed,#eef0e9)!important;
+  border-bottom:1px solid var(--f-line)!important;
+}
+body.phase5GuideAccess .hero h1{
+  font-size:clamp(3.15rem,6vw,5rem)!important;
+  line-height:1.01!important;
+  color:#464942!important;
+  margin-bottom:16px!important;
+}
+body.phase5GuideAccess .hero .lead{color:#62645d!important;max-width:720px!important}
+body.phase5GuideAccess .tools{gap:10px!important;margin-top:25px!important}
+body.phase5GuideAccess .btn{
+  background:var(--f-olive)!important;
+  color:#fff!important;
+  border:1px solid var(--f-olive)!important;
+  border-radius:10px!important;
+  padding:11px 15px!important;
+  font-size:.72rem!important;
+  font-weight:700!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+}
+body.phase5GuideAccess .guide{padding:51px 0 62px!important;background:var(--f-paper)!important}
+body.phase5GuideAccess .intro{font-size:1rem!important;line-height:1.75!important;color:#555950!important;margin-bottom:31px!important}
+body.phase5GuideAccess .entry{
+  padding:29px 0!important;
+  border-top:1px solid var(--f-line)!important;
+}
+body.phase5GuideAccess .entry h2{color:#4c5047!important;font-size:1.95rem!important}
+body.phase5GuideAccess .num{color:var(--f-gold)!important}
+body.phase5GuideAccess .scripture{
+  background:#f5f1e8!important;
+  border:1px solid #e0d9cd!important;
+  border-left:3px solid var(--f-gold)!important;
+  border-radius:0 13px 13px 0!important;
+  padding:22px 24px!important;
+  color:#50544b!important;
+}
+body.phase5GuideAccess .remember{color:var(--f-olive)!important}
+body.phase5GuideAccess .prayer{color:#61645d!important}
+body.phase5GuideAccess .closing{
+  background:var(--f-paper)!important;
+  color:white!important;
+  padding:0 0 48px!important;
+}
+body.phase5GuideAccess .closing>.wrap{
+  background:var(--f-blue)!important;
+  border-radius:16px!important;
+  padding:34px 38px!important;
+}
+body.phase5GuideAccess .closing h2{color:white!important;font-size:2.15rem!important}
+body.phase5GuideAccess .closing p{color:rgba(255,255,255,.92)!important}
+body.phase5GuideAccess .closing .eyebrow{color:rgba(255,255,255,.92)!important}
+body.phase5GuideAccess .closing .btn{
+  background:var(--f-olive)!important;
+  color:white!important;
+  border-color:var(--f-olive)!important;
+}
+body.phase5GuideAccess>footer{
+  background:var(--f-olive)!important;
+  color:rgba(255,255,255,.86)!important;
+  padding:14px 0!important;
+  font-size:.68rem!important;
+}
+
+/* ---------- IMMEDIATE SAFETY PAGE ---------- */
+body.phase5Unsafe{background:var(--f-paper)!important;color:var(--f-ink)!important}
+body.phase5Unsafe .wrap{width:min(780px,calc(100% - 48px))!important}
+body.phase5Unsafe .hero{
+  background:linear-gradient(180deg,#f7f4ed,#eef0e9)!important;
+  padding:55px 0 47px!important;
+  border-bottom:1px solid var(--f-line)!important;
+}
+body.phase5Unsafe .hero h1{color:#464942!important;line-height:1.01!important}
+body.phase5Unsafe .hero .lead{color:#5c625a!important}
+body.phase5Unsafe .main{padding:40px 0 58px!important;background:var(--f-paper)!important}
+body.phase5Unsafe .first{
+  background:var(--f-blue)!important;
+  color:white!important;
+  padding:27px 29px!important;
+  border-radius:16px!important;
+  margin-bottom:27px!important;
+}
+body.phase5Unsafe .first h2{color:white!important}
+body.phase5Unsafe .first p{color:rgba(255,255,255,.94)!important}
+body.phase5Unsafe .step{padding:24px 0!important;border-bottom:1px solid var(--f-line)!important}
+body.phase5Unsafe .step h2{color:#4c5047!important;font-size:1.78rem!important;line-height:1.12!important}
+body.phase5Unsafe .callout{
+  background:#f5f1e8!important;
+  border:1px solid #e0d9cd!important;
+  border-left:3px solid var(--f-gold)!important;
+  border-radius:0 13px 13px 0!important;
+  padding:23px 25px!important;
+}
+body.phase5Unsafe .buttons{gap:9px!important}
+body.phase5Unsafe .btn{
+  background:var(--f-olive)!important;
+  color:#fff!important;
+  border-radius:9px!important;
+  padding:11px 16px!important;
+  font-size:.72rem!important;
+  font-weight:700!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+}
+body.phase5Unsafe .btn.light{
+  background:#f5f1e8!important;
+  color:#5f644f!important;
+  border:1px solid #d7d0c5!important;
+}
+body.phase5Unsafe .note{color:#777970!important;line-height:1.6!important}
+body.phase5Unsafe>footer{
+  background:var(--f-olive)!important;
+  color:rgba(255,255,255,.86)!important;
+  padding:14px 0!important;
+}
+
+/* ---------- THANK-YOU / CONFIRMATION PAGES ---------- */
+body.phase5Thanks{
+  background:linear-gradient(180deg,#f7f4ed,#fbfaf7)!important;
+  color:var(--f-ink)!important;
+  min-height:100vh!important;
+}
+body.phase5Thanks main{
+  min-height:auto!important;
+  background:transparent!important;
+  padding:68px 0 78px!important;
+}
+body.phase5Thanks main>.wrap{
+  width:min(720px,calc(100% - 40px))!important;
+  padding:42px 44px!important;
+  background:var(--f-card)!important;
+  border:1px solid var(--f-line)!important;
+  border-radius:20px!important;
+  box-shadow:0 16px 42px rgba(58,60,51,.08)!important;
+}
+body.phase5Thanks main>.wrap>.card{
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body.phase5Thanks .eyebrow,
+body.phase5Thanks main>.wrap>p:first-child{
+  color:var(--f-gold)!important;
+  letter-spacing:.16em!important;
+  font-size:.68rem!important;
+  font-weight:800!important;
+  text-transform:uppercase!important;
+}
+body.phase5Thanks h1{
+  color:#464942!important;
+  font-size:clamp(2.9rem,6vw,4.5rem)!important;
+  line-height:1.01!important;
+  letter-spacing:-.04em!important;
+}
+body.phase5Thanks h2{color:#4d5048!important}
+body.phase5Thanks p{color:#62665e!important}
+body.phase5Thanks .lead{color:#62645d!important}
+body.phase5Thanks .resource{
+  margin-top:28px!important;
+  padding:25px 27px!important;
+  background:#f5f1e8!important;
+  border:1px solid #e0d9cd!important;
+  border-radius:15px!important;
+}
+body.phase5Thanks .btn{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  margin-top:16px!important;
+  background:var(--f-olive)!important;
+  color:white!important;
+  border-radius:10px!important;
+  padding:11px 16px!important;
+  font-size:.72rem!important;
+  font-weight:700!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  text-decoration:none!important;
+}
+body.phase5Thanks .next a{color:var(--f-olive)!important}
+body.phase5Thanks>footer{
+  background:var(--f-olive)!important;
+  color:rgba(255,255,255,.86)!important;
+  padding:14px 0!important;
+  font-size:.68rem!important;
+}
+
+/* ---------- RESPONSIVE FINISH ACROSS INTERIOR PAGES ---------- */
+@media(max-width:980px){
+  .phase1HeroImage,.phase2LibraryHeroImage,.phase2AnswerHeroImage,.phase3HeroImage,.phase4ContactHeroImage,.phase5BookHeroImage,.phase5ChurchHeroImage,.siteUnifiedTopicHeroImage{min-height:325px!important}
+  body.phase2Answer .layout{grid-template-columns:minmax(0,1fr)!important;gap:34px!important}
+  body.phase2Answer .aside{position:static!important;width:auto!important}
+}
+@media(max-width:820px){
+  body:not(.homeOriginal) .phase1GlobalHeader .siteShellWrap,
+  body:not(.homeOriginal) .phase1GlobalFooter .phase1FooterMain,
+  body:not(.homeOriginal) .phase1GlobalFooter .phase1FooterBottomInner{width:min(100% - 30px,1220px)!important}
+  .phase1HeroImage,.phase2LibraryHeroImage,.phase2AnswerHeroImage,.phase3HeroImage,.phase4ContactHeroImage,.phase5BookHeroImage,.phase5ChurchHeroImage,.siteUnifiedTopicHeroImage{min-height:275px!important;border-radius:20px!important}
+  body.phase5GuideAccess>header .wrap,body.phase5Unsafe>header .wrap,body.phase5Thanks>header .wrap{width:min(100% - 30px,1220px)!important}
+  body.phase5GuideAccess .wrap,body.phase5Unsafe .wrap{width:min(100% - 32px,880px)!important}
+  body.phase5GuideAccess .closing>.wrap{padding:28px 24px!important}
+  body.phase5Thanks main{padding:48px 0 58px!important}
+  body.phase5Thanks main>.wrap{padding:32px 28px!important}
+}
+@media(max-width:560px){
+  body.phase5GuideAccess>header,body.phase5Unsafe>header,body.phase5Thanks>header,
+  body.phase5GuideAccess>header .wrap,body.phase5Unsafe>header .wrap,body.phase5Thanks>header .wrap{min-height:70px!important}
+  body.phase5GuideAccess>header .brand,body.phase5Unsafe>header .brand,body.phase5Thanks>header .brand{font-size:1.7rem!important}
+  body.phase5GuideAccess .hero,body.phase5Unsafe .hero{padding:43px 0 39px!important}
+  body.phase5GuideAccess .hero h1,body.phase5Unsafe .hero h1{font-size:clamp(2.75rem,13vw,3.7rem)!important}
+  body.phase5GuideAccess .tools,body.phase5Unsafe .buttons{display:grid!important;grid-template-columns:1fr!important}
+  body.phase5GuideAccess .btn,body.phase5Unsafe .btn{width:100%!important;text-align:center!important}
+  body.phase5GuideAccess .scripture{padding:19px 20px!important}
+  body.phase5Unsafe .first{padding:24px!important}
+  body.phase5Unsafe .step h2{font-size:1.55rem!important}
+  body.phase5Thanks main>.wrap{width:min(100% - 28px,720px)!important;padding:28px 22px!important;border-radius:16px!important}
+  body.phase5Thanks h1{font-size:clamp(2.7rem,14vw,3.65rem)!important}
+  .phase1HeroImage,.phase2LibraryHeroImage,.phase2AnswerHeroImage,.phase3HeroImage,.phase4ContactHeroImage,.phase5BookHeroImage,.phase5ChurchHeroImage,.siteUnifiedTopicHeroImage{min-height:235px!important}
+}
