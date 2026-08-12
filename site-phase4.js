@@ -30,15 +30,27 @@
     const image=document.createElement('div');
     image.className='phase4ContactHeroImage';
     image.setAttribute('role','img');
-    image.setAttribute('aria-label','An open Bible overlooking a peaceful mountain landscape');
+    image.setAttribute('aria-label','A peaceful scene reflecting hope and pastoral care');
     wrap.appendChild(copy);
     wrap.appendChild(image);
+  }
+
+  function addContactSafetyBoundary(){
+    if(!isContact()) return;
+    const intro=document.querySelector('.main .intro');
+    if(!intro || intro.querySelector('[data-contact-safety]')) return;
+    const box=document.createElement('div');
+    box.className='direct';
+    box.setAttribute('data-contact-safety','1');
+    box.innerHTML='<strong>Need immediate safety help?</strong><span>This inbox is not monitored for emergencies or immediate crisis response. <a href="/unsafe">Use the immediate safety pathway instead →</a></span>';
+    intro.appendChild(box);
   }
 
   function apply(){
     ensureCss();
     setClasses();
     enhanceContactHero();
+    addContactSafetyBoundary();
   }
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',apply);
