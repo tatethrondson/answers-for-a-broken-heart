@@ -1,0 +1,120 @@
+/* Restored homepage design based on the approved olive / cream pastoral mockup. Scoped to homepage only. */
+body.homeOriginal{background:#f7f4ed;color:#3b3d37}
+body.homeOriginal .siteShellHeader{background:rgba(249,247,241,.97)!important;border-bottom:1px solid #e8e2d7!important;box-shadow:none!important}
+body.homeOriginal .siteShellWrap{width:min(1220px,calc(100% - 54px))!important}
+body.homeOriginal .siteShellNav{min-height:78px!important}
+body.homeOriginal .siteShellBrand{color:#4d5147!important;gap:7px!important}
+body.homeOriginal .siteShellBrandWords{font:2rem/.76 Georgia,"Times New Roman",serif!important;letter-spacing:-.045em!important;text-transform:lowercase}
+body.homeOriginal .siteShellBrandWords small{font:700 .58rem/1.1 Arial,sans-serif!important;letter-spacing:.08em!important;text-transform:uppercase!important;margin-top:6px}
+body.homeOriginal .siteShellHeart{display:none!important}
+body.homeOriginal .siteShellLinks{gap:30px!important;font:400 .88rem Georgia,"Times New Roman",serif!important}
+body.homeOriginal .siteShellLinks a{color:#4c4c46!important}
+body.homeOriginal .siteShellLinks .homeFindHope{background:#777d55;color:white!important;padding:10px 19px;border-radius:999px;font-family:Arial,sans-serif;font-size:.72rem}
+body.homeOriginal .siteShellLinks .homeSearch{font-family:Arial,sans-serif;font-size:1.2rem;line-height:1}
+body.homeOriginal .siteShellMobile summary{border-radius:999px;background:#777d55!important;color:#fff!important;border:0!important}
+body.homeOriginal .siteShellFooter{display:none!important}
+body.homeOriginal #app{background:#f7f4ed}
+
+.homeOriginalWrap{width:min(1220px,calc(100% - 54px));margin:auto}
+.homeOriginalRoot{font-family:Arial,Helvetica,sans-serif;color:#464842;background:#f8f6f0}
+.homeOriginalRoot h1,.homeOriginalRoot h2,.homeOriginalRoot h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.035em;color:#464942}
+.homeOriginalRoot a{text-decoration:none}
+
+.homeHero{padding:34px 0 0;background:linear-gradient(180deg,#f7f4ed,#f8f6f1);border-bottom:1px solid #e7e1d7}
+.homeHeroGrid{display:grid;grid-template-columns:.9fr 1.1fr;align-items:stretch;gap:56px}
+.homeHeroCopy{padding:54px 0 58px}
+.homeEyebrow{text-transform:uppercase;letter-spacing:.22em;font-size:.64rem;font-weight:800;color:#a27335;margin-bottom:21px}
+.homeHero h1{font-size:clamp(3.2rem,5vw,4.8rem);line-height:1.02;margin:0 0 18px;max-width:560px}
+.homeHeroLead{font-size:1.05rem;line-height:1.55;color:#62645d;max-width:430px;margin:0}
+.homeHeroRule{width:24px;height:1px;background:#a9a28f;margin:28px 0 23px}
+.homeHeroVerse{font:italic 1rem/1.5 Georgia,"Times New Roman",serif;color:#686861;max-width:430px;margin:0}
+.homeHeroVerse small{display:block;font:400 .68rem Arial,sans-serif;margin-top:8px;color:#7d7d74}
+.homeHeroActions{display:flex;gap:13px;flex-wrap:wrap;margin-top:25px}
+.homeHeroBtn{display:inline-flex;align-items:center;justify-content:center;padding:11px 17px;border-radius:11px;font-size:.72rem;font-weight:700}
+.homeHeroBtn.primary{background:#777d55;color:#fff}
+.homeHeroBtn.secondary{border:1px solid #c8c2b4;color:#62645a;background:#faf8f3}
+.homeHeroImage{min-height:485px;border-radius:28px 0 0 0;overflow:hidden;background-image:linear-gradient(180deg,rgba(255,255,255,.03),rgba(47,53,46,.12)),url("https://images.unsplash.com/photo-1774284590552-598a2d613768?auto=format&fit=crop&fm=jpg&q=84&w=1800");background-size:cover;background-position:center 52%;box-shadow:0 10px 34px rgba(58,58,50,.11)}
+
+.homeResources{padding:41px 0 38px;background:#fbfaf7}
+.homeSectionTop{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:28px}
+.homeSectionTop .homeEyebrow{margin-bottom:7px}
+.homeSectionTop h2{font-size:2rem;margin:0}
+.homeViewAll{font-size:.7rem;font-weight:700;color:#a36f31;white-space:nowrap}
+.homeResourceGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+.homeResourceCard{border:1px solid #e5dfd4;border-radius:16px;background:#fbfaf7;overflow:hidden;min-height:290px;color:inherit;position:relative}
+.homeResourcePhoto{height:153px;background-size:cover;background-position:center;position:relative}
+.homeResourcePhoto.one{background-image:linear-gradient(rgba(55,64,55,.08),rgba(55,64,55,.08)),url("https://images.unsplash.com/photo-1774284590552-598a2d613768?auto=format&fit=crop&fm=jpg&q=78&w=900")}
+.homeResourcePhoto.two{background-image:linear-gradient(rgba(66,62,53,.08),rgba(66,62,53,.08)),url("https://images.unsplash.com/photo-1778866288139-4303cf75bb9c?auto=format&fit=crop&fm=jpg&q=78&w=900")}
+.homeResourcePhoto.three{background-image:linear-gradient(rgba(71,66,56,.18),rgba(71,66,56,.18)),url("https://images.unsplash.com/photo-1774284590552-598a2d613768?auto=format&fit=crop&fm=jpg&q=74&w=900");background-position:65% 50%}
+.homeResourcePhoto.four{background-image:linear-gradient(rgba(67,72,65,.1),rgba(67,72,65,.1)),url("https://images.unsplash.com/photo-1778866288139-4303cf75bb9c?auto=format&fit=crop&fm=jpg&q=74&w=900");background-position:35% 50%}
+.homeResourcePhoto.five{background-image:linear-gradient(rgba(136,105,66,.16),rgba(136,105,66,.16)),url("https://images.unsplash.com/photo-1774284590552-598a2d613768?auto=format&fit=crop&fm=jpg&q=74&w=900");filter:sepia(.08)}
+.homeResourceIcon{position:absolute;left:16px;bottom:-20px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#717a55;color:white;border:2px solid #f8f6f0;font-size:1.05rem}
+.homeResourceCard:nth-child(2) .homeResourceIcon{background:#677785}.homeResourceCard:nth-child(3) .homeResourceIcon{background:#bc7a2a}.homeResourceCard:nth-child(4) .homeResourceIcon{background:#747b57}.homeResourceCard:nth-child(5) .homeResourceIcon{background:#73828a}
+.homeResourceBody{padding:29px 16px 15px}
+.homeResourceBody h3{font-size:1.08rem;margin:0 0 8px;letter-spacing:-.025em}
+.homeResourceBody p{font-size:.72rem;line-height:1.45;color:#6c6d66;margin:0}
+
+.homeHurtsWrap{padding:0 0 38px;background:#fbfaf7}
+.homeHurts{display:grid;grid-template-columns:.82fr 1.18fr;gap:42px;align-items:center;background:#a8bac4;color:white;border-radius:16px;padding:36px 48px;position:relative;overflow:hidden}
+.homeHurts:after{content:"";position:absolute;right:-25px;bottom:-52px;width:190px;height:190px;border:1px solid rgba(82,103,111,.2);border-radius:55% 45% 50% 50%;transform:rotate(25deg)}
+.homeHurts h2{font-size:2rem;color:white;margin:0 0 9px}
+.homeHurts p{font-size:.72rem;line-height:1.55;color:rgba(255,255,255,.9);margin:0 0 17px;max-width:340px}
+.homeHurtsBtn{display:inline-flex;padding:10px 14px;border-radius:9px;background:#777d55;color:white;font-size:.7rem;font-weight:700}
+.homeHurtsPills{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:relative;z-index:1}
+.homeHurtPill{display:flex;align-items:center;gap:9px;background:#f8f7f3;color:#646a6c;border-radius:999px;padding:10px 15px;font-size:.7rem}
+.homeHurtPill span{font-size:.95rem;color:#77838a}
+.homeHurtsNote{grid-column:1/-1;font-size:.68rem;color:rgba(255,255,255,.9);margin-top:2px}
+
+.homeTestimonial{padding:28px 0;background:#f0ede5;border-top:1px solid #e3ddd2;border-bottom:1px solid #d6d0c5}
+.homeTestimonialInner{display:grid;grid-template-columns:145px 1fr;gap:42px;align-items:center;max-width:870px;margin:auto}
+.homeTestimonialPhoto{width:126px;height:126px;border-radius:50%;background-image:url("https://images.unsplash.com/photo-1774284590552-598a2d613768?auto=format&fit=crop&fm=jpg&q=70&w=500");background-size:cover;background-position:23% 55%}
+.homeQuote{position:relative;padding-left:47px}
+.homeQuote:before{content:'“';position:absolute;left:0;top:-7px;font:4rem Georgia,serif;color:#b67b34}
+.homeQuote blockquote{margin:0;font:italic .98rem/1.58 Georgia,"Times New Roman",serif;color:#66635c}
+.homeQuote cite{display:block;margin-top:12px;font:700 .57rem/1.2 Arial,sans-serif;letter-spacing:.17em;text-transform:uppercase;color:#88847a}
+
+.homeFooter{background:#f5f1e8;border-top:1px solid #d9d3c7;color:#66675f}
+.homeFooterMain{padding:27px 0 22px;display:grid;grid-template-columns:1.15fr .9fr .9fr 1fr;gap:36px}
+.homeFooterBrand{font:1.55rem/.85 Georgia,"Times New Roman",serif;color:#56594d;text-transform:lowercase}
+.homeFooterBrand small{display:block;font:700 .52rem/1.1 Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-top:7px}
+.homeFooterTag{font-size:.67rem;line-height:1.5;margin-top:15px;max-width:180px}
+.homeFooterCol strong{display:block;font-size:.61rem;letter-spacing:.11em;text-transform:uppercase;color:#55574f;margin-bottom:11px}
+.homeFooterCol a{display:block;color:#6e6e67;font-size:.67rem;margin:6px 0}
+.homeFooterCol p{font:italic .72rem/1.5 Georgia,serif;margin:0 0 9px}
+.homeFooterForm{display:flex;margin-top:8px}.homeFooterForm input{min-width:0;flex:1;border:1px solid #cfc8bb;background:#faf8f4;padding:9px 10px;border-radius:7px 0 0 7px;font-size:.68rem}.homeFooterForm button{border:0;background:#c1843d;color:white;padding:9px 12px;border-radius:0 7px 7px 0;font-size:.65rem;font-weight:700}
+.homeFooterBottom{background:#777d55;color:rgba(255,255,255,.84);padding:9px 0;font-size:.57rem}
+.homeFooterBottom .homeOriginalWrap{display:flex;justify-content:space-between;gap:20px}
+.homeFooterBottom a{color:inherit;margin-left:25px}
+
+@media(max-width:980px){
+ body.homeOriginal .siteShellLinks{gap:16px!important;font-size:.78rem!important}
+ .homeHeroGrid{grid-template-columns:1fr 1fr;gap:30px}
+ .homeResourceGrid{grid-template-columns:repeat(3,1fr)}
+ .homeResourceCard:nth-child(4),.homeResourceCard:nth-child(5){display:none}
+ .homeFooterMain{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+ body.homeOriginal .siteShellWrap,.homeOriginalWrap{width:min(100% - 30px,1220px)!important}
+ body.homeOriginal .siteShellLinks{display:none!important}
+ body.homeOriginal .siteShellMobile{display:block!important}
+ .homeHero{padding-top:0}
+ .homeHeroGrid{display:block}
+ .homeHeroCopy{padding:44px 0 32px}
+ .homeHero h1{font-size:clamp(2.9rem,13vw,4rem)}
+ .homeHeroImage{min-height:290px;border-radius:20px;margin-bottom:28px}
+ .homeSectionTop{align-items:start}
+ .homeResourceGrid{grid-template-columns:1fr 1fr;gap:12px}
+ .homeResourceCard:nth-child(3){display:none}
+ .homeResourcePhoto{height:125px}
+ .homeHurts{grid-template-columns:1fr;padding:30px 24px;gap:22px}
+ .homeHurtsPills{grid-template-columns:1fr}
+ .homeTestimonialInner{grid-template-columns:1fr;text-align:center;gap:18px}
+ .homeTestimonialPhoto{margin:auto}
+ .homeQuote{padding:32px 0 0}.homeQuote:before{left:50%;transform:translateX(-50%);top:-12px}
+ .homeFooterMain{grid-template-columns:1fr 1fr;gap:26px}
+}
+@media(max-width:480px){
+ .homeResourceGrid{grid-template-columns:1fr}.homeResourceCard:nth-child(2){display:none}
+ .homeFooterMain{grid-template-columns:1fr}
+ .homeFooterBottom .homeOriginalWrap{display:block;text-align:center}.homeFooterBottom a{margin:0 8px}
+}
