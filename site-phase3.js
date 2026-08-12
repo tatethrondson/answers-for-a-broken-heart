@@ -40,15 +40,26 @@
     const image=document.createElement('div');
     image.className='phase3HeroImage';
     image.setAttribute('role','img');
-    image.setAttribute('aria-label','An open Bible overlooking a peaceful mountain landscape');
+    image.setAttribute('aria-label','A peaceful scene reflecting hope and care');
     wrap.appendChild(copy);
     wrap.appendChild(image);
+  }
+
+  function fixHelpLibraryCta(){
+    if(!isHelp()) return;
+    document.querySelectorAll('.cta a').forEach(a=>{
+      if((a.textContent||'').includes('Browse What Hurts Today')){
+        a.setAttribute('href','/all-answers');
+        a.textContent='Browse All 24 Answers';
+      }
+    });
   }
 
   function apply(){
     ensureCss();
     setClasses();
     enhanceScenicHero();
+    fixHelpLibraryCta();
   }
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',apply);
