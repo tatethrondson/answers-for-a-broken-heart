@@ -34,10 +34,35 @@
     cite.textContent='— Matthew 11:28';
   }
 
+  function cleanBookConfirmation(){
+    if(!/^\/book-updates-thanks(?:\.html)?$/.test(location.pathname)) return;
+    const note=document.querySelector('.card .note');
+    if(note && note.dataset.trustClean!=='1'){
+      note.dataset.trustClean='1';
+      note.innerHTML='While you wait, you can <a href="/all-answers">browse the 24 Biblical Answers</a> or return to the book page anytime.';
+    }
+  }
+
+  function trackBookClicks(){
+    if(document.documentElement.dataset.bookTracking==='1') return;
+    document.documentElement.dataset.bookTracking='1';
+    document.addEventListener('click',e=>{
+      const a=e.target.closest('a[href]');
+      if(!a || a.getAttribute('href')!=='/book') return;
+      try{
+        if(typeof window.va==='function'){
+          window.va('event',{name:'Book Interest Click',data:{page:location.pathname||'/',label:(a.textContent||'').trim().replace(/\s+/g,' ').slice(0,80)}});
+        }
+      }catch(err){}
+    });
+  }
+
   function apply(){
     if(legacyRedirect()) return;
     normalizeLinks();
     replaceUnverifiedTestimonial();
+    cleanBookConfirmation();
+    trackBookClicks();
   }
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',apply);
