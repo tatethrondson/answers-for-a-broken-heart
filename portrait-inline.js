@@ -3,7 +3,8 @@
     ['/site-phase1.js?v=20260811-1','phase1'],
     ['/site-phase2.js?v=20260811-1','phase2'],
     ['/site-phase3.js?v=20260811-1','phase3'],
-    ['/site-phase4.js?v=20260811-1','phase4']
+    ['/site-phase4.js?v=20260811-1','phase4'],
+    ['/site-phase5.js?v=20260811-1','phase5']
   ];
   scripts.forEach(([src,key])=>{
     if(document.querySelector(`script[data-ab-heart-${key}]`)) return;
