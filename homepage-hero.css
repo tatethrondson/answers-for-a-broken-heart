@@ -1,0 +1,7 @@
+/* Homepage hero image only. Isolated so the approved homepage layout remains untouched. */
+body.homeOriginal .homeHeroImage{
+  background-image:linear-gradient(180deg,rgba(255,255,255,.03),rgba(47,53,46,.12)),url("https://koala.sh/api/image/v2-3dj8e-hve2e.jpg?dream=&height=832&width=1216")!important;
+  background-size:cover!important;
+  background-position:center 50%!important;
+  background-repeat:no-repeat!important;
+}
