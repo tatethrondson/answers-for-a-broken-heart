@@ -2,7 +2,7 @@
 
 HTML files scanned: 50
 Errors: 8
-Warnings: 8
+Warnings: 9
 
 ## Findings
 - **WARN** `answer-04.html` — Legacy standalone podcast block still present
@@ -19,5 +19,6 @@ Warnings: 8
 - **WARN** `answer-11.html` — Legacy standalone podcast block still present
 - **WARN** `answer-13.html` — Legacy standalone podcast block still present
 - **WARN** `answer-17.html` — Legacy standalone podcast block still present
+- **WARN** `answer-20.html` — No book path
 - **WARN** `answer-21.html` — Legacy standalone podcast block still present
 - **WARN** `answer-22.html` — Legacy standalone podcast block still present
