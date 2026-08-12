@@ -11,7 +11,7 @@
     style.id='ab-home-image-variety';
     style.textContent=`
       .homeHeroImage{
-        background-image:linear-gradient(180deg,rgba(255,255,255,.03),rgba(47,53,46,.12)),url("https://images.unsplash.com/photo-1774284590552-598a2d613768?auto=format&fit=crop&fm=jpg&q=86&w=1800")!important;
+        background-image:linear-gradient(180deg,rgba(255,255,255,.03),rgba(47,53,46,.12)),url("/home-hero-bible-mountain.webp?v=20260811-2")!important;
         background-position:center 52%!important;
       }
       .homeResourcePhoto.one{
