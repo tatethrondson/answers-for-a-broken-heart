@@ -1,4 +1,12 @@
 (()=>{
+  if(!document.querySelector('link[data-ab-heart-home-hero]')){
+    const link=document.createElement('link');
+    link.rel='stylesheet';
+    link.href='/homepage-hero.css?v=20260811-1';
+    link.setAttribute('data-ab-heart-home-hero','1');
+    document.head.appendChild(link);
+  }
+
   const scripts=[
     ['/site-phase1.js?v=20260811-1','phase1'],
     ['/site-phase2.js?v=20260811-1','phase2'],
