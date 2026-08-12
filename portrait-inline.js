@@ -16,6 +16,7 @@
     ['/site-unified.js?v=20260811-1','unified'],
     ['/site-finish.js?v=20260811-1','finish'],
     ['/site-trust.js?v=20260812-podcast2','trust'],
+    ['/site-youtube.js?v=20260812-1','youtube'],
     ['/site-editorial.js?v=20260811-2','editorial']
   ];
   scripts.forEach(([src,key])=>{
