@@ -26,3 +26,10 @@ body.homeOriginal .homeResourcePhoto.three{
   background-position:center 56%!important;
   background-repeat:no-repeat!important;
 }
+
+body.homeOriginal .homeResourcePhoto.four{
+  background-image:linear-gradient(rgba(67,72,65,.08),rgba(67,72,65,.08)),url("https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&fm=jpg&q=82&w=1000")!important;
+  background-size:cover!important;
+  background-position:center 48%!important;
+  background-repeat:no-repeat!important;
+}
