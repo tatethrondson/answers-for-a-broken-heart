@@ -55,27 +55,6 @@
     });
   }
 
-  function literalNavigation(){
-    document.querySelectorAll('.siteShellHeader .siteShellLinks,.siteShellHeader .siteShellMobileMenu').forEach(nav=>{
-      const anchors=[...nav.querySelectorAll('a[href]')];
-      anchors.forEach(a=>{
-        const href=a.getAttribute('href')||'';
-        const label=(a.textContent||'').trim();
-        if(href==='/all-answers' && !a.classList.contains('homeSearch') && !a.classList.contains('phase1Search')) a.textContent='24 Answers';
-        if(href==='/start-here' && label!=='Find Hope' && !a.classList.contains('homeFindHope') && !a.classList.contains('phase1FindHope')) a.textContent='Start Here';
-        if(href==='/free-guides') a.textContent='Free Guides';
-        if(href==='/about') a.textContent='About';
-        if(href==='/contact') a.textContent='Contact';
-      });
-      if(!nav.querySelector('a[href="/book"]')){
-        const about=nav.querySelector('a[href="/about"]');
-        const book=document.createElement('a');
-        book.href='/book';book.textContent='The Book';
-        if(about) nav.insertBefore(book,about); else nav.appendChild(book);
-      }
-    });
-  }
-
   function simplifyStartHere(){
     if(!/^\/start-here(?:\.html)?$/.test(location.pathname) && location.pathname!=='/begin-here.html') return;
     const grid=document.querySelector('.choiceGrid');
@@ -92,46 +71,6 @@
       const text=(a.textContent||'').toLowerCase();
       if(text.includes('tell me where it hurts') || a.getAttribute('href')==='/what-hurts-today' || (a.getAttribute('href')==='/start-here' && text.includes('where it hurts'))) a.remove();
     });
-  }
-
-  function exactHomepageTopics(){
-    if(!document.body.classList.contains('homeOriginal')) return;
-    const pills=document.querySelector('.homeHurtsPills');
-    if(!pills || pills.dataset.flowClean==='1') return;
-    pills.dataset.flowClean='1';
-    pills.innerHTML=`
-      <a class="homeHurtPill" href="/grief-and-loss"><span>♧</span> Grief &amp; Loss</a>
-      <a class="homeHurtPill" href="/why-god-allows-suffering"><span>?</span> Suffering &amp; Why</a>
-      <a class="homeHurtPill" href="/god-feels-far-away"><span>♙</span> God Feels Far Away</a>
-      <a class="homeHurtPill" href="/anger-and-unanswered-prayer"><span>◌</span> Unanswered Prayer</a>
-      <a class="homeHurtPill" href="/forgiveness-and-relational-hurt"><span>♡</span> Relational Hurt</a>
-      <a class="homeHurtPill" href="/doubt-and-church-hurt"><span>✦</span> Doubt &amp; Church Hurt</a>
-      <div class="homeHurtsNote">Choose the closest one. You can always come back and choose another.</div>`;
-  }
-
-  function addHomepageBookBand(){
-    if(!document.body.classList.contains('homeOriginal')) return;
-    if(document.querySelector('.homeBookBandWrap')) return;
-    const hurts=document.querySelector('.homeHurtsWrap');
-    if(!hurts) return;
-    const section=document.createElement('section');
-    section.className='homeBookBandWrap';
-    section.innerHTML=`<div class="homeOriginalWrap"><div class="homeBookBand"><div><div class="homeEyebrow">The deeper journey</div><h2>Twenty-four questions. One deeper journey.</h2><p><em>Answers for a Broken Heart</em> takes the questions on this site further with Scripture, pastoral stories, and a path toward hope that does not rush past the hurt.</p><div class="homeBookActions"><a class="homeBookAction primary" href="/book">Explore the Book</a><a class="homeBookAction secondary" href="/book#book-updates">Get Release Updates</a></div></div><div class="homeMiniBook" aria-label="Answers for a Broken Heart book"><strong>Answers<br>for a<br>Broken<br>Heart</strong><span>♡</span><small>24 Biblical Answers for Life’s Deepest Hurts</small></div></div></div>`;
-    hurts.insertAdjacentElement('afterend',section);
-  }
-
-  function replaceUnverifiedTestimonial(){
-    if(!document.body.classList.contains('homeOriginal')) return;
-    const quote=document.querySelector('.homeQuote blockquote');
-    const cite=document.querySelector('.homeQuote cite');
-    if(!quote || !cite) return;
-    quote.textContent='Come unto me, all ye that labour and are heavy laden, and I will give you rest.';
-    cite.textContent='— Matthew 11:28';
-    const box=document.querySelector('.homeQuote');
-    if(box && !box.querySelector('.homePromiseLabel')){
-      const label=document.createElement('span');label.className='homePromiseLabel';label.textContent='A promise for the weary';
-      box.insertBefore(label,quote);
-    }
   }
 
   function improveBookPage(){
@@ -219,11 +158,7 @@
     if(legacyRedirect()) return;
     ensureFlowStyles();
     normalizeLinks();
-    literalNavigation();
     simplifyStartHere();
-    exactHomepageTopics();
-    addHomepageBookBand();
-    replaceUnverifiedTestimonial();
     improveBookPage();
     addTopicBookBridge();
     simplifyAnswerJourney();
