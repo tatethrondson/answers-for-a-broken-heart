@@ -89,6 +89,14 @@
     grid.insertAdjacentElement('afterend',holder);
   }
 
+  function clarifyTwoAmSignup(){
+    if(!isTwoAm()) return;
+    const p=document.querySelector('.hero .card > p:not(.eyebrow)');
+    if(!p || p.dataset.phase3Clean==='1') return;
+    p.dataset.phase3Clean='1';
+    p.innerHTML='Enter your email and you’ll go straight to the guide. I’ll also send occasional pastoral encouragement and let you know when the <em>Answers for a Broken Heart</em> book is ready.';
+  }
+
   function fixHelpLibraryCta(){
     if(!isHelp()) return;
     document.querySelectorAll('.cta a').forEach(a=>{
@@ -105,6 +113,7 @@
     enhanceScenicHero();
     addDepressionPodcast();
     addResourcesPodcast();
+    clarifyTwoAmSignup();
     fixHelpLibraryCta();
   }
 
