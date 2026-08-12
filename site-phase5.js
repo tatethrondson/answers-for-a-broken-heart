@@ -3,7 +3,7 @@
   const path=location.pathname;
   const params=new URLSearchParams(location.search);
 
-  function isBook(){return path==='/' && params.get('view')==='book';}
+  function isBook(){return path==='/book' || path==='/book.html' || (path==='/' && params.get('view')==='book');}
   function isChurch(){return path==='/church-resources' || path==='/church-resources.html';}
   function isGuideAccess(){return path==='/2am-guide-access' || path==='/2am-guide-access.html';}
   function isUnsafe(){return path==='/unsafe' || path==='/unsafe.html';}
@@ -24,6 +24,13 @@
     document.body.classList.toggle('phase5Thanks',isThanks());
   }
 
+  function ensureThanksNoindex(){
+    if(!isThanks()) return;
+    let meta=document.querySelector('meta[name="robots"]');
+    if(!meta){meta=document.createElement('meta');meta.name='robots';document.head.appendChild(meta);}
+    meta.setAttribute('content','noindex,follow');
+  }
+
   function enhanceBookHero(){
     if(!isBook()) return;
     const hero=document.querySelector('#app .subHero');
@@ -32,7 +39,7 @@
     wrap.dataset.phase5Hero='1';
     const copy=document.createElement('div'); copy.className='phase5BookHeroCopy';
     Array.from(wrap.children).forEach(n=>copy.appendChild(n));
-    const image=document.createElement('div'); image.className='phase5BookHeroImage'; image.setAttribute('role','img'); image.setAttribute('aria-label','An open Bible overlooking a peaceful mountain landscape');
+    const image=document.createElement('div'); image.className='phase5BookHeroImage'; image.setAttribute('role','img'); image.setAttribute('aria-label','A peaceful scene reflecting Scripture, hope, and healing');
     wrap.append(copy,image);
   }
 
@@ -44,11 +51,11 @@
     wrap.dataset.phase5Hero='1';
     const copy=document.createElement('div'); copy.className='phase5ChurchHeroCopy';
     Array.from(wrap.children).forEach(n=>copy.appendChild(n));
-    const image=document.createElement('div'); image.className='phase5ChurchHeroImage'; image.setAttribute('role','img'); image.setAttribute('aria-label','An open Bible overlooking a peaceful mountain landscape');
+    const image=document.createElement('div'); image.className='phase5ChurchHeroImage'; image.setAttribute('role','img'); image.setAttribute('aria-label','A peaceful scene reflecting pastoral care and ministry');
     wrap.append(copy,image);
   }
 
-  function apply(){ensureCss();setClasses();enhanceBookHero();enhanceChurchHero();}
+  function apply(){ensureCss();setClasses();ensureThanksNoindex();enhanceBookHero();enhanceChurchHero();}
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',apply); else apply();
   new MutationObserver(apply).observe(document.documentElement,{childList:true,subtree:true});
   addEventListener('popstate',()=>setTimeout(apply,0));
