@@ -24,6 +24,6 @@
   else apply();
   setTimeout(apply,100);
   setTimeout(apply,450);
-  new MutationObserver(apply).observe(document.documentElement,{childList:true,subtree:true});
+  setTimeout(apply,900);
   addEventListener('popstate',()=>setTimeout(apply,0));
 })();
