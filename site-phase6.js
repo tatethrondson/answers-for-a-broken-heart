@@ -1,5 +1,5 @@
 (()=>{
-  const HERO='/home-hero-bible-mountain.webp?v=20260811-4';
+  const HERO='https://raw.githubusercontent.com/tatethrondson/answers-for-a-broken-heart/main/home-hero-bible-mountain.webp?v=20260811-5';
 
   function isHomepage(){
     const params=new URLSearchParams(location.search);
