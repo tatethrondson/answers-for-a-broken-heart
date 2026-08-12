@@ -43,6 +43,24 @@
     wrap.append(copy,image);
   }
 
+  function improveBookPage(){
+    if(!isBook()) return;
+    const grid=document.querySelector('.salesGrid');
+    const updates=document.querySelector('.bookUpdates');
+    if(grid && updates && updates.nextElementSibling!==grid) grid.parentElement.insertBefore(updates,grid);
+    const cards=grid?[...grid.querySelectorAll('.salesCard')]:[];
+    const copy=[
+      ['The 24 questions','Questions people actually ask','Grief, suffering, unanswered prayer, relational hurt, doubt, and the moments when faith stops feeling theoretical.'],
+      ['Biblical without clichés','Scripture handled carefully','Each chapter makes room for the real hurt before moving toward biblical truth, Christ, and hope.'],
+      ['Pastoral and practical','A next step you can carry','Not just ideas to understand, but prayers, perspective, and faithful next steps for the days when you need help living the answer.']
+    ];
+    cards.forEach((card,i)=>{
+      if(!copy[i] || card.dataset.phase5BookClean==='1') return;
+      card.dataset.phase5BookClean='1';
+      card.innerHTML=`<p class="eyebrow">${copy[i][0]}</p><h3>${copy[i][1]}</h3><p>${copy[i][2]}</p>`;
+    });
+  }
+
   function enhanceChurchHero(){
     if(!isChurch()) return;
     const hero=document.querySelector('main>.hero');
@@ -55,8 +73,9 @@
     wrap.append(copy,image);
   }
 
-  function apply(){ensureCss();setClasses();ensureThanksNoindex();enhanceBookHero();enhanceChurchHero();}
+  function apply(){ensureCss();setClasses();ensureThanksNoindex();enhanceBookHero();improveBookPage();enhanceChurchHero();}
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',apply); else apply();
-  new MutationObserver(apply).observe(document.documentElement,{childList:true,subtree:true});
+  setTimeout(apply,120);
+  setTimeout(apply,500);
   addEventListener('popstate',()=>setTimeout(apply,0));
 })();
