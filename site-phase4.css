@@ -1,0 +1,79 @@
+/* Phase 4: About + Contact in approved olive / cream pastoral design. */
+:root{--ab4-olive:#777d55;--ab4-olive-dark:#626849;--ab4-cream:#f7f4ed;--ab4-paper:#fbfaf7;--ab4-ink:#464942;--ab4-muted:#696b64;--ab4-gold:#a87335;--ab4-line:#e3ddd2;--ab4-blue:#a8bac4}
+body.phase4About,body.phase4Contact{background:var(--ab4-paper)!important;color:var(--ab4-ink)!important}
+body.phase4About .wrap,body.phase4Contact .wrap{width:min(1120px,calc(100% - 48px))!important}
+body.phase4About h1,body.phase4About h2,body.phase4About h3,body.phase4Contact h1,body.phase4Contact h2,body.phase4Contact h3{font-family:Georgia,"Times New Roman",serif!important;font-weight:400!important;letter-spacing:-.035em!important;color:#4b4e47!important}
+body.phase4About .eyebrow,body.phase4Contact .eyebrow{color:var(--ab4-gold)!important;letter-spacing:.21em!important;font-size:.64rem!important;font-weight:800!important;text-transform:uppercase!important}
+
+/* ABOUT */
+body.phase4About .hero{background:linear-gradient(180deg,#f7f4ed,#f8f6f1)!important;padding:42px 0 45px!important;border-bottom:1px solid #e7e1d7!important}
+body.phase4About .heroGrid{display:grid!important;grid-template-columns:1fr 310px!important;gap:72px!important;align-items:center!important}
+body.phase4About .hero h1{font-size:clamp(3.5rem,6vw,5.45rem)!important;line-height:.99!important;margin:0 0 17px!important;color:#484b44!important}
+body.phase4About .heroLead{font:1.08rem/1.62 Georgia,"Times New Roman",serif!important;color:#62645d!important;max-width:680px!important}
+body.phase4About .portrait{width:270px!important;height:378px!important;border-radius:24px!important;object-fit:cover!important;object-position:center center!important;justify-self:end!important;border:8px solid #fbfaf7!important;box-shadow:0 18px 44px rgba(58,60,51,.14)!important}
+body.phase4About .section{padding:61px 0!important}
+body.phase4About .storyGrid{grid-template-columns:minmax(0,720px) 285px!important;gap:72px!important}
+body.phase4About .story h2{font-size:2.55rem!important;line-height:1.08!important;margin:0 0 23px!important;color:#4b4e47!important}
+body.phase4About .story p{color:#575a53!important;font-size:1rem!important}
+body.phase4About .keyline{font:1.45rem/1.48 Georgia,"Times New Roman",serif!important;color:#55584f!important;border-left:3px solid var(--ab4-gold)!important;padding:7px 0 7px 22px!important;margin:32px 0!important}
+body.phase4About .sideCard{background:#f5f1e8!important;border:1px solid var(--ab4-line)!important;padding:26px!important;border-radius:16px!important;position:sticky!important;top:104px!important;box-shadow:0 8px 24px rgba(58,60,51,.04)!important}
+body.phase4About .sideCard h3{font-size:1.45rem!important;color:#4d5048!important}
+body.phase4About .sideCard p{color:#6b6e66!important}
+body.phase4About .btn{background:var(--ab4-olive)!important;color:white!important;border-radius:10px!important;padding:11px 15px!important;font-size:.7rem!important;text-transform:none!important;letter-spacing:0!important}
+body.phase4About .approach{background:#f5f1e8!important;border-top:1px solid var(--ab4-line)!important;border-bottom:1px solid var(--ab4-line)!important}
+body.phase4About .approachHead h2{font-size:2.45rem!important;color:#4b4e47!important}
+body.phase4About .approachHead p{color:#6b6d65!important}
+body.phase4About .cards{gap:16px!important}
+body.phase4About .card{background:#fffefb!important;border:1px solid var(--ab4-line)!important;padding:27px!important;border-radius:16px!important;box-shadow:0 7px 20px rgba(58,60,51,.035)!important}
+body.phase4About .card small{color:var(--ab4-gold)!important}
+body.phase4About .card h3{color:#4d5048!important;font-size:1.48rem!important}
+body.phase4About .card p{color:#6b6e66!important}
+body.phase4About .why{gap:62px!important}
+body.phase4About .why h2{font-size:2.5rem!important;color:#4b4e47!important}
+body.phase4About .cta{background:var(--ab4-blue)!important;color:white!important;padding:50px 0!important}
+body.phase4About .cta h2{color:white!important;font-size:2.35rem!important}
+body.phase4About .cta p{color:rgba(255,255,255,.92)!important}
+body.phase4About .cta .btn{background:var(--ab4-olive)!important;color:white!important}
+
+/* CONTACT */
+body.phase4Contact .hero{background:linear-gradient(180deg,#f7f4ed,#f8f6f1)!important;padding:34px 0 38px!important;border-bottom:1px solid #e7e1d7!important}
+body.phase4Contact .hero>.wrap{display:grid!important;grid-template-columns:.92fr 1.08fr!important;gap:54px!important;align-items:stretch!important;max-width:1220px!important}
+.phase4ContactHeroCopy{padding:52px 0 48px;align-self:center}
+.phase4ContactHeroImage{min-height:360px;border-radius:28px;overflow:hidden;background-image:linear-gradient(180deg,rgba(255,255,255,.02),rgba(47,53,46,.11)),url("https://images.unsplash.com/photo-1774284590552-598a2d613768?auto=format&fit=crop&fm=jpg&q=84&w=1600");background-size:cover;background-position:center 52%;box-shadow:0 10px 34px rgba(58,58,50,.10)}
+body.phase4Contact .hero h1{font-size:clamp(3.2rem,5.3vw,4.9rem)!important;line-height:1.01!important;color:#484b44!important;margin:0 0 18px!important}
+body.phase4Contact .hero p:last-child{font:1.06rem/1.6 Georgia,"Times New Roman",serif!important;color:#62645d!important;max-width:520px!important}
+body.phase4Contact .main{padding:56px 0 68px!important;background:#fbfaf7!important}
+body.phase4Contact .grid{grid-template-columns:.82fr 1.18fr!important;gap:52px!important}
+body.phase4Contact .intro h2{font-size:2.35rem!important;color:#4b4e47!important;margin:0 0 15px!important}
+body.phase4Contact .intro>p{color:#666961!important}
+body.phase4Contact .reason{border-top:1px solid var(--ab4-line)!important;padding:18px 0!important}
+body.phase4Contact .reason h3{font-size:1.22rem!important;color:#55594e!important}
+body.phase4Contact .reason p{color:#70736b!important}
+body.phase4Contact .direct{background:#f5f1e8!important;padding:22px 24px!important;border-radius:14px!important;border:1px solid var(--ab4-line)!important}
+body.phase4Contact .direct a{color:var(--ab4-olive-dark)!important}
+body.phase4Contact .formCard{border:1px solid var(--ab4-line)!important;background:#fffefb!important;padding:34px!important;border-radius:18px!important;box-shadow:0 14px 36px rgba(58,60,51,.07)!important}
+body.phase4Contact .formCard h2{font-size:2rem!important;color:#4b4e47!important}
+body.phase4Contact .formIntro{color:#70736b!important}
+body.phase4Contact .field label{color:#62655d!important;font-size:.7rem!important}
+body.phase4Contact .field input,body.phase4Contact .field select,body.phase4Contact .field textarea{border:1px solid #d8d2c8!important;background:#fbfaf7!important;border-radius:10px!important;padding:12px 13px!important;color:#484b44!important}
+body.phase4Contact .field input:focus,body.phase4Contact .field select:focus,body.phase4Contact .field textarea:focus{outline:2px solid rgba(119,125,85,.16)!important;border-color:#929871!important}
+body.phase4Contact .btn{background:var(--ab4-olive)!important;border-color:var(--ab4-olive)!important;color:white!important;border-radius:10px!important;text-transform:none!important;letter-spacing:0!important;font-size:.72rem!important;padding:12px 18px!important}
+body.phase4Contact .btn:hover{background:var(--ab4-olive-dark)!important}
+body.phase4Contact .note{color:#7a7c74!important}
+
+@media(max-width:860px){
+ body.phase4About .heroGrid,body.phase4About .storyGrid,body.phase4About .why,body.phase4About .ctaGrid,body.phase4Contact .hero>.wrap,body.phase4Contact .grid{grid-template-columns:1fr!important}
+ body.phase4About .portrait{justify-self:start!important;width:210px!important;height:294px!important}
+ body.phase4About .sideCard{position:static!important}
+ .phase4ContactHeroImage{min-height:280px!important}
+}
+@media(max-width:620px){
+ body.phase4About .wrap,body.phase4Contact .wrap{width:min(100% - 30px,1120px)!important}
+ body.phase4About .hero{padding:34px 0 38px!important}
+ body.phase4About .hero h1,body.phase4Contact .hero h1{font-size:3.05rem!important}
+ body.phase4About .cards{grid-template-columns:1fr!important}
+ body.phase4Contact .hero>.wrap{gap:18px!important}
+ .phase4ContactHeroCopy{padding:40px 0 20px!important}
+ body.phase4Contact .formCard{padding:25px 21px!important}
+ body.phase4Contact .row{grid-template-columns:1fr!important}
+}
