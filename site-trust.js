@@ -1,5 +1,6 @@
 (()=>{
   const PODCAST_URL='https://youtu.be/cCnEWfS5M0o?si=oge2LySLWOMjpva8';
+  const PODCAST_THUMB='https://img.youtube.com/vi/cCnEWfS5M0o/hqdefault.jpg';
   const TOPIC_PATHS=new Set([
     '/god-feels-far-away','/why-god-allows-suffering','/grief-and-loss',
     '/anger-and-unanswered-prayer','/forgiveness-and-relational-hurt','/doubt-and-church-hurt'
@@ -40,10 +41,12 @@
       .homePromiseLabel{display:block;margin:0 0 9px;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:#a27335}
       .topicBookBridge{margin:30px 0 8px;padding:27px 29px;background:#f6f1e8;border:1px solid #ded8cd;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}
       .topicBookBridge small{display:block;text-transform:uppercase;letter-spacing:.14em;font-size:.62rem;font-weight:800;color:#8b6939;margin-bottom:6px}.topicBookBridge strong{display:block;font:1.55rem/1.14 Georgia,"Times New Roman",serif;font-weight:400;color:#20372a;margin-bottom:6px}.topicBookBridge p{margin:0!important;font-size:.82rem!important;line-height:1.55;color:#626a64}.topicBookBridge a{display:inline-flex;text-decoration:none;background:#294533;color:#fff;padding:11px 15px;font-size:.69rem;font-weight:800;white-space:nowrap}
-      .homePodcastStripWrap{padding:0 0 30px;background:#fbfaf7}.homePodcastStrip{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;border:1px solid #d9ddd8;background:#eef2ed;border-radius:14px;padding:23px 28px}.homePodcastStrip small,.startPodcast small,.podcastResource small{display:block;text-transform:uppercase;letter-spacing:.14em;font-size:.61rem;font-weight:800;color:#88683b;margin-bottom:5px}.homePodcastStrip strong,.startPodcast strong,.podcastResource strong{display:block;font:400 1.35rem/1.17 Georgia,"Times New Roman",serif;color:#20372a}.homePodcastStrip p,.startPodcast p,.podcastResource p{margin:5px 0 0;font-size:.76rem;line-height:1.5;color:#626a64}.homePodcastStrip a,.startPodcast a,.podcastResource a{display:inline-flex;text-decoration:none;background:#294533;color:#fff;padding:10px 14px;font-size:.69rem;font-weight:800;white-space:nowrap}
-      .startPodcast{margin:20px 0 0;padding:22px 24px;background:#eef2ed;border:1px solid #d9e0d8;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
-      .podcastResource.answerDepressionPodcast{margin:30px 0;padding:24px 26px;background:#eef2ed;border:1px solid #d9e0d8;border-left:4px solid #789078}
-      @media(max-width:760px){.visitorSecondary,.homeBookBand,.topicBookBridge,.homePodcastStrip,.startPodcast{grid-template-columns:1fr}.homeMiniBook{justify-self:start}.homeBookBand{padding:28px 24px}.topicBookBridge a,.homePodcastStrip a,.startPodcast a{justify-self:start}}
+      .homePodcastStripWrap{padding:0 0 30px;background:#fbfaf7}.homePodcastStrip{display:grid;grid-template-columns:180px 1fr auto;gap:24px;align-items:center;border:1px solid #d9ddd8;background:#eef2ed;border-radius:14px;padding:20px 24px}.homePodcastStrip small,.startPodcast small,.podcastResource small{display:block;text-transform:uppercase;letter-spacing:.14em;font-size:.61rem;font-weight:800;color:#88683b;margin-bottom:5px}.homePodcastStrip strong,.startPodcast strong,.podcastResource strong{display:block;font:400 1.35rem/1.17 Georgia,"Times New Roman",serif;color:#20372a}.homePodcastStrip p,.startPodcast p,.podcastResource p{margin:5px 0 0;font-size:.76rem;line-height:1.5;color:#626a64}
+      .podcastThumb{display:block!important;background:transparent!important;padding:0!important;border-radius:10px!important;overflow:hidden!important;line-height:0!important;text-decoration:none!important}.podcastThumb img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}.podcastAction{display:inline-flex!important;text-decoration:none!important;background:#294533!important;color:#fff!important;padding:10px 14px!important;font-size:.69rem!important;font-weight:800!important;white-space:nowrap!important}
+      .startPodcast{margin:20px 0 0;padding:20px 22px;background:#eef2ed;border:1px solid #d9e0d8;display:grid;grid-template-columns:180px 1fr auto;gap:22px;align-items:center}
+      .podcastResource.answerDepressionPodcast{margin:30px 0;padding:22px 24px;background:#eef2ed;border:1px solid #d9e0d8;border-left:4px solid #789078;display:grid;grid-template-columns:200px 1fr;gap:22px;align-items:center}
+      .answerDepressionPodcast .podcastAction{margin-top:13px}
+      @media(max-width:760px){.visitorSecondary,.homeBookBand,.topicBookBridge,.homePodcastStrip,.startPodcast,.podcastResource.answerDepressionPodcast{grid-template-columns:1fr}.homeMiniBook{justify-self:start}.homeBookBand{padding:28px 24px}.topicBookBridge a,.podcastAction{justify-self:start}.podcastThumb{max-width:420px}}
     `;
     document.head.appendChild(style);
   }
@@ -83,7 +86,7 @@
     if(!resources) return;
     const section=document.createElement('section');
     section.className='homePodcastStripWrap';
-    section.innerHTML=`<div class="homeOriginalWrap"><div class="homePodcastStrip"><div><small>New podcast episode</small><strong>A pastoral conversation about depression and faith.</strong><p>For the Christian who feels low, exhausted, or guilty for struggling emotionally.</p></div><a href="${PODCAST_URL}" target="_blank" rel="noopener noreferrer">Listen on YouTube →</a></div></div>`;
+    section.innerHTML=`<div class="homeOriginalWrap"><div class="homePodcastStrip"><a class="podcastThumb" href="${PODCAST_URL}" target="_blank" rel="noopener noreferrer" aria-label="Watch the depression and faith podcast episode on YouTube"><img src="${PODCAST_THUMB}" alt="Depression and faith podcast episode thumbnail" loading="lazy"></a><div><small>New podcast episode</small><strong>A pastoral conversation about depression and faith.</strong><p>For the Christian who feels low, exhausted, or guilty for struggling emotionally.</p></div><a class="podcastAction" href="${PODCAST_URL}" target="_blank" rel="noopener noreferrer">Listen on YouTube →</a></div></div>`;
     resources.insertAdjacentElement('afterend',section);
   }
 
@@ -93,7 +96,7 @@
     if(!secondary) return;
     const box=document.createElement('div');
     box.className='startPodcast';
-    box.innerHTML=`<div><small>Prefer to listen?</small><strong>Hear a pastoral conversation about depression and faith.</strong><p>If emotional heaviness is part of what brought you here, you can listen instead of reading right now.</p></div><a href="${PODCAST_URL}" target="_blank" rel="noopener noreferrer">Listen →</a>`;
+    box.innerHTML=`<a class="podcastThumb" href="${PODCAST_URL}" target="_blank" rel="noopener noreferrer" aria-label="Watch the depression and faith podcast episode on YouTube"><img src="${PODCAST_THUMB}" alt="Depression and faith podcast episode thumbnail" loading="lazy"></a><div><small>Prefer to listen?</small><strong>Hear a pastoral conversation about depression and faith.</strong><p>If emotional heaviness is part of what brought you here, you can listen instead of reading right now.</p></div><a class="podcastAction" href="${PODCAST_URL}" target="_blank" rel="noopener noreferrer">Listen →</a>`;
     secondary.insertAdjacentElement('afterend',box);
   }
 
@@ -104,7 +107,7 @@
     const box=document.createElement('section');
     box.className='podcastResource answerDepressionPodcast';
     box.setAttribute('aria-label','Related podcast episode about depression');
-    box.innerHTML=`<small>Related listening · Depression & faith</small><strong>If the heaviness feels bigger than grief alone.</strong><p>Pastor Tate talks about depression, faith, emotional exhaustion, and the guilt Christians sometimes feel when they are not getting better.</p><a href="${PODCAST_URL}" target="_blank" rel="noopener noreferrer">Listen on YouTube →</a>`;
+    box.innerHTML=`<a class="podcastThumb" href="${PODCAST_URL}" target="_blank" rel="noopener noreferrer" aria-label="Watch the depression and faith podcast episode on YouTube"><img src="${PODCAST_THUMB}" alt="Depression and faith podcast episode thumbnail" loading="lazy"></a><div><small>Related listening · Depression & faith</small><strong>If the heaviness feels bigger than grief alone.</strong><p>Pastor Tate talks about depression, faith, emotional exhaustion, and the guilt Christians sometimes feel when they are not getting better.</p><a class="podcastAction" href="${PODCAST_URL}" target="_blank" rel="noopener noreferrer">Listen on YouTube →</a></div>`;
     minute.insertAdjacentElement('afterend',box);
   }
 
