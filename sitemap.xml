@@ -2,7 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://answersforabrokenheart.com/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
   <url><loc>https://answersforabrokenheart.com/start-here</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://answersforabrokenheart.com/what-hurts-today</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://answersforabrokenheart.com/all-answers</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://answersforabrokenheart.com/book</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://answersforabrokenheart.com/church-resources</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://answersforabrokenheart.com/about</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://answersforabrokenheart.com/answer-01</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
