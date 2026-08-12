@@ -34,12 +34,20 @@
     cite.textContent='— Matthew 11:28';
   }
 
+  function clarifyTwoAmSignup(){
+    if(!/^\/2am-guide(?:\.html)?$/.test(location.pathname)) return;
+    const p=document.querySelector('.hero .card > p:not(.eyebrow)');
+    if(!p || p.dataset.trustClean==='1') return;
+    p.dataset.trustClean='1';
+    p.innerHTML='Enter your email and you’ll go straight to the guide. I’ll also send occasional pastoral encouragement and let you know when the <em>Answers for a Broken Heart</em> book is ready.';
+  }
+
   function cleanBookConfirmation(){
     if(!/^\/book-updates-thanks(?:\.html)?$/.test(location.pathname)) return;
     const note=document.querySelector('.card .note');
     if(note && note.dataset.trustClean!=='1'){
       note.dataset.trustClean='1';
-      note.innerHTML='While you wait, you can <a href="/all-answers">browse the 24 Biblical Answers</a> or return to the book page anytime.';
+      note.innerHTML='No daily emails. Just occasional updates as the book moves toward release.';
     }
   }
 
@@ -61,6 +69,7 @@
     if(legacyRedirect()) return;
     normalizeLinks();
     replaceUnverifiedTestimonial();
+    clarifyTwoAmSignup();
     cleanBookConfirmation();
     trackBookClicks();
   }
