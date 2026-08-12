@@ -7,18 +7,30 @@
       "includeFiles": "portrait_parts/**"
     }
   },
+  "redirects": [
+    {
+      "source": "/what-hurts-today",
+      "destination": "/start-here",
+      "permanent": true
+    },
+    {
+      "source": "/what-hurts-today.html",
+      "destination": "/start-here",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/start-here",
       "destination": "/begin-here.html"
     },
     {
-      "source": "/what-hurts-today",
-      "destination": "/start-here.html"
+      "source": "/all-answers",
+      "destination": "/all-answers.html"
     },
     {
-      "source": "/all-answers",
-      "destination": "/what-hurts-today.html"
+      "source": "/book",
+      "destination": "/book.html"
     }
   ],
   "headers": [
