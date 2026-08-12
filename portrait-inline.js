@@ -1,6 +1,7 @@
 (()=>{
   const P='/tate-throndson-portrait-final.jpg?v=20260811-restore';
   const HOME_STYLE='/homepage-original.css?v=20260811-1';
+  const PHASE1_STYLE='/site-phase1.css?v=20260811-1';
   let originalHeaderHTML='';
 
   function isHomepage(){
@@ -8,9 +9,27 @@
     return location.pathname==='/' && !params.has('view') && !params.has('answer');
   }
 
+  function isStartHere(){
+    return location.pathname==='/start-here' || location.pathname==='/begin-here.html';
+  }
+
+  function isWhatHurts(){
+    return location.pathname==='/what-hurts-today' || location.pathname==='/start-here.html';
+  }
+
   function captureHeader(){
     const header=document.querySelector('.siteShellHeader');
     if(header && !originalHeaderHTML) originalHeaderHTML=header.innerHTML;
+  }
+
+  function ensureStyles(){
+    if(!document.querySelector('link[data-ab-heart-phase1]')){
+      const link=document.createElement('link');
+      link.rel='stylesheet';
+      link.href=PHASE1_STYLE;
+      link.setAttribute('data-ab-heart-phase1','1');
+      document.head.appendChild(link);
+    }
   }
 
   function ensureHomeStyle(){
@@ -28,6 +47,7 @@
     const header=document.querySelector('.siteShellHeader');
     if(!header) return;
     captureHeader();
+    header.classList.remove('phase1GlobalHeader');
     if(header.dataset.homeOriginal==='1') return;
     header.dataset.homeOriginal='1';
     header.innerHTML=`<div class="siteShellWrap siteShellNav"><a class="siteShellBrand" href="/"><span class="siteShellBrandWords">answers<small>for a broken heart</small></span></a><nav class="siteShellLinks" aria-label="Main navigation"><a href="/">Home</a><a href="/all-answers">Encouragement⌄</a><a href="/start-here">Pastoral Care⌄</a><a href="/free-guides">Resources⌄</a><a href="/about">About</a><a href="/contact">Contact</a><a class="homeFindHope" href="/what-hurts-today">Find Hope</a><a class="homeSearch" href="/all-answers" aria-label="Search">⌕</a></nav><details class="siteShellMobile"><summary>Menu</summary><nav class="siteShellMobileMenu" aria-label="Mobile navigation"><a href="/">Home</a><a href="/all-answers">Encouragement</a><a href="/start-here">Pastoral Care</a><a href="/free-guides">Resources</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/what-hurts-today">Find Hope</a></nav></details></div>`;
@@ -39,6 +59,27 @@
       header.innerHTML=originalHeaderHTML;
       delete header.dataset.homeOriginal;
     }
+  }
+
+  function globalHeader(){
+    if(isHomepage()) return;
+    const header=document.querySelector('.siteShellHeader');
+    if(!header) return;
+    captureHeader();
+    if(header.dataset.phase1Shell==='1') return;
+    delete header.dataset.homeOriginal;
+    header.dataset.phase1Shell='1';
+    header.classList.add('phase1GlobalHeader');
+    header.innerHTML=`<div class="siteShellWrap siteShellNav"><a class="siteShellBrand" href="/"><span class="siteShellBrandWords">answers<small>for a broken heart</small></span></a><nav class="siteShellLinks" aria-label="Main navigation"><a href="/">Home</a><a href="/all-answers">Encouragement⌄</a><a href="/start-here">Pastoral Care⌄</a><a href="/free-guides">Resources⌄</a><a href="/about">About</a><a href="/contact">Contact</a><a class="phase1FindHope" href="/what-hurts-today">Find Hope</a><a class="phase1Search" href="/all-answers" aria-label="Search">⌕</a></nav><details class="siteShellMobile"><summary>Menu</summary><nav class="siteShellMobileMenu" aria-label="Mobile navigation"><a href="/">Home</a><a href="/all-answers">Encouragement</a><a href="/start-here">Pastoral Care</a><a href="/free-guides">Resources</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/what-hurts-today">Find Hope</a></nav></details></div>`;
+  }
+
+  function globalFooter(){
+    if(isHomepage()) return;
+    const footer=document.querySelector('.siteShellFooter');
+    if(!footer || footer.dataset.phase1Shell==='1') return;
+    footer.dataset.phase1Shell='1';
+    footer.classList.add('phase1GlobalFooter');
+    footer.innerHTML=`<div class="phase1FooterMain"><div><div class="phase1FooterBrand">answers<small>for a broken heart</small></div><div class="phase1FooterTag">Biblical encouragement and pastoral care for life’s deepest hurts.</div></div><div class="phase1FooterCol"><strong>Encouragement</strong><a href="/all-answers">Encouraging Articles</a><a href="/all-answers">24 Biblical Answers</a><a href="/2am-guide">2:00 A.M. Guide</a><a href="/can-christians-be-depressed">Depression &amp; Faith</a></div><div class="phase1FooterCol"><strong>Pastoral Care</strong><a href="/start-here">Start Here</a><a href="/what-hurts-today">What Hurts Today?</a><a href="/help-someone">Help Someone</a><a href="/contact">Contact Pastor Tate</a></div><div class="phase1FooterCol"><strong>Resources</strong><a href="/free-guides">Free Resources</a><a href="/?view=book">The Book</a><a href="/church-resources">For Churches</a><a href="/about">About</a><p style="margin-top:14px">Stay encouraged with occasional hope and pastoral care.</p><form class="phase1FooterForm" action="https://formsubmit.co/tatethrondson@gmail.com" method="POST"><input type="email" name="email" placeholder="Email address" aria-label="Email address" required><input type="hidden" name="_subject" value="Answers for a Broken Heart encouragement signup"><input type="hidden" name="_captcha" value="false"><button type="submit">Subscribe</button></form></div></div><div class="phase1FooterBottom"><div class="phase1FooterBottomInner"><span>© 2026 Answers for a Broken Heart</span><span><a href="/contact">Privacy Policy</a><a href="/contact">Terms of Use</a><a href="/contact">Contact</a></span></div></div>`;
   }
 
   function homepageMarkup(){
@@ -78,6 +119,34 @@
     if(app && !app.querySelector('[data-home-original="1"]')) app.innerHTML=homepageMarkup();
   }
 
+  function pageClasses(){
+    const start=isStartHere();
+    const hurts=isWhatHurts();
+    document.body.classList.toggle('phase1Start',start);
+    document.body.classList.toggle('phase1Hurts',hurts);
+    if(!isHomepage()){
+      const meta=document.querySelector('meta[name="theme-color"]');
+      if(meta) meta.setAttribute('content','#f7f4ed');
+    }
+  }
+
+  function enhanceEntryHero(){
+    if(!(isStartHere() || isWhatHurts())) return;
+    const hero=document.querySelector('main>.hero');
+    const wrap=hero && hero.querySelector(':scope>.wrap');
+    if(!wrap || wrap.dataset.phase1Hero==='1') return;
+    wrap.dataset.phase1Hero='1';
+    const copy=document.createElement('div');
+    copy.className='phase1HeroCopy';
+    Array.from(wrap.children).forEach(node=>copy.appendChild(node));
+    const image=document.createElement('div');
+    image.className='phase1HeroImage';
+    image.setAttribute('role','img');
+    image.setAttribute('aria-label','An open Bible overlooking a peaceful mountain landscape');
+    wrap.appendChild(copy);
+    wrap.appendChild(image);
+  }
+
   function applyPortrait(){
     document.querySelectorAll('img').forEach(img=>{
       const alt=(img.alt||'').toLowerCase();
@@ -94,7 +163,14 @@
   }
 
   function applyAll(){
+    ensureStyles();
     restoreApprovedHomepage();
+    pageClasses();
+    if(!isHomepage()){
+      globalHeader();
+      globalFooter();
+      enhanceEntryHero();
+    }
     applyPortrait();
   }
 
