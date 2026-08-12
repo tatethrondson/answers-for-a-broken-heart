@@ -93,6 +93,28 @@
     }
   }
 
+  function simplifyAnswerJourney(){
+    if(!isAnswer()) return;
+    const journey=document.querySelector('.answerJourney .journeyGrid');
+    if(!journey) return;
+    const cards=[...journey.querySelectorAll('.journeyCard')];
+    if(cards.length<3) return;
+    const related=document.querySelector('.relatedAnswers .relatedCard');
+    if(related){
+      const relatedTitle=related.querySelector('strong');
+      cards[1].href=related.getAttribute('href')||'/all-answers';
+      const small=cards[1].querySelector('small'),strong=cards[1].querySelector('strong'),span=cards[1].querySelector('span');
+      if(small) small.textContent='Read another answer';
+      if(strong && relatedTitle) strong.textContent=relatedTitle.textContent;
+      if(span) span.textContent='Continue with this question →';
+    }
+    cards[2].href='/book';
+    const small=cards[2].querySelector('small'),strong=cards[2].querySelector('strong'),span=cards[2].querySelector('span');
+    if(small) small.textContent='Go deeper';
+    if(strong) strong.textContent='Answers for a Broken Heart';
+    if(span) span.textContent='Explore the book →';
+  }
+
   function apply(){
     ensureCss();
     setClasses();
@@ -100,6 +122,7 @@
     enhanceAnswerHero();
     normalizeTaxonomy();
     softenAnswer17();
+    simplifyAnswerJourney();
   }
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',apply);
