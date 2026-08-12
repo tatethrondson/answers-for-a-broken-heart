@@ -1,5 +1,6 @@
 (()=>{
   const CSS='/site-phase3.css?v=20260811-1';
+  const PODCAST_URL='https://youtu.be/cCnEWfS5M0o?si=oge2LySLWOMjpva8';
 
   const path=()=>location.pathname.replace(/\.html$/,'');
   const isResources=()=>path()==='/free-guides';
@@ -9,12 +10,27 @@
   const isPhase3=()=>isResources()||isTwoAm()||isDepression()||isHelp();
 
   function ensureCss(){
-    if(document.querySelector('link[data-ab-heart-phase3]')) return;
-    const link=document.createElement('link');
-    link.rel='stylesheet';
-    link.href=CSS;
-    link.setAttribute('data-ab-heart-phase3','1');
-    document.head.appendChild(link);
+    if(!document.querySelector('link[data-ab-heart-phase3]')){
+      const link=document.createElement('link');
+      link.rel='stylesheet';
+      link.href=CSS;
+      link.setAttribute('data-ab-heart-phase3','1');
+      document.head.appendChild(link);
+    }
+    if(!document.getElementById('phase3-podcast-styles')){
+      const style=document.createElement('style');
+      style.id='phase3-podcast-styles';
+      style.textContent=`
+        .podcastResource{margin:30px 0;padding:25px 27px;background:#eef2ed;border:1px solid #d9e0d8;border-left:4px solid #789078}
+        .podcastResource small{display:block;text-transform:uppercase;letter-spacing:.14em;font-size:.64rem;font-weight:800;color:#88683b;margin-bottom:7px}
+        .podcastResource strong{display:block;font:400 1.55rem/1.18 Georgia,"Times New Roman",serif;color:#20372a;margin-bottom:7px}
+        .podcastResource p{margin:0 0 14px!important;color:#5e6861;font-size:.88rem;line-height:1.58}
+        .podcastButton{display:inline-flex!important;align-items:center;justify-content:center;text-decoration:none!important;background:#294533!important;color:#fff!important;padding:11px 15px!important;font-size:.72rem!important;font-weight:800!important;letter-spacing:.03em}
+        .phase3PodcastHub{margin:34px 0 0}
+        @media(max-width:760px){.podcastResource{padding:22px 20px}.podcastResource strong{font-size:1.35rem}}
+      `;
+      document.head.appendChild(style);
+    }
   }
 
   function setClasses(){
@@ -45,6 +61,31 @@
     wrap.appendChild(image);
   }
 
+  function podcastMarkup(extraClass=''){
+    return `<section class="podcastResource ${extraClass}" aria-label="Podcast episode about depression"><small>New podcast · Prefer to listen?</small><strong>A pastoral conversation about depression and faith.</strong><p>Pastor Tate talks through depression, spiritual guilt, emotional exhaustion, and why struggling emotionally does not automatically mean your faith has failed.</p><a class="podcastButton" href="${PODCAST_URL}" target="_blank" rel="noopener noreferrer">Listen on YouTube →</a></section>`;
+  }
+
+  function addDepressionPodcast(){
+    if(!isDepression() || document.querySelector('[data-depression-podcast]')) return;
+    const keyline=document.querySelector('.article .keyline');
+    if(!keyline) return;
+    const holder=document.createElement('div');
+    holder.setAttribute('data-depression-podcast','1');
+    holder.innerHTML=podcastMarkup();
+    keyline.insertAdjacentElement('afterend',holder);
+  }
+
+  function addResourcesPodcast(){
+    if(!isResources() || document.querySelector('[data-resources-podcast]')) return;
+    const grid=document.querySelector('.resources .grid');
+    if(!grid) return;
+    const holder=document.createElement('div');
+    holder.setAttribute('data-resources-podcast','1');
+    holder.className='phase3PodcastHub';
+    holder.innerHTML=podcastMarkup();
+    grid.insertAdjacentElement('afterend',holder);
+  }
+
   function fixHelpLibraryCta(){
     if(!isHelp()) return;
     document.querySelectorAll('.cta a').forEach(a=>{
@@ -59,6 +100,8 @@
     ensureCss();
     setClasses();
     enhanceScenicHero();
+    addDepressionPodcast();
+    addResourcesPodcast();
     fixHelpLibraryCta();
   }
 
