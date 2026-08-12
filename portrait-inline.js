@@ -1,5 +1,19 @@
 (()=>{
   const P='/tate-throndson-portrait-final.jpg?v=20260811-restore';
+  const THEME='/site-theme.css?v=20260811-1';
+
+  function applyTheme(){
+    if(!document.querySelector('link[data-ab-heart-theme]')){
+      const link=document.createElement('link');
+      link.rel='stylesheet';
+      link.href=THEME;
+      link.setAttribute('data-ab-heart-theme','journal');
+      document.head.appendChild(link);
+    }
+    const themeMeta=document.querySelector('meta[name="theme-color"]');
+    if(themeMeta) themeMeta.setAttribute('content','#fffaf5');
+  }
+
   function applyPortrait(){
     document.querySelectorAll('img').forEach(img=>{
       const alt=(img.alt||'').toLowerCase();
@@ -14,7 +28,13 @@
       }
     });
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',applyPortrait);
-  else applyPortrait();
-  new MutationObserver(applyPortrait).observe(document.documentElement,{childList:true,subtree:true});
+
+  function applyAll(){
+    applyTheme();
+    applyPortrait();
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',applyAll);
+  else applyAll();
+  new MutationObserver(applyAll).observe(document.documentElement,{childList:true,subtree:true});
 })();
