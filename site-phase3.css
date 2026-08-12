@@ -1,0 +1,97 @@
+/* Phase 3: Free Guides and pastoral resource pages in the approved olive / cream system. */
+:root{--ab3-olive:#777d55;--ab3-olive-dark:#626849;--ab3-cream:#f7f4ed;--ab3-cream2:#fbfaf7;--ab3-paper:#fffefb;--ab3-ink:#4b4e46;--ab3-muted:#6d6f67;--ab3-gold:#a87335;--ab3-line:#e3ddd2;--ab3-blue:#a8bac4;--ab3-sage:#eef0e9}
+
+body.phase3Resources,body.phase3TwoAm,body.phase3Depression,body.phase3Help{background:var(--ab3-cream2)!important;color:var(--ab3-ink)!important}
+body.phase3Resources h1,body.phase3Resources h2,body.phase3Resources h3,body.phase3TwoAm h1,body.phase3TwoAm h2,body.phase3TwoAm h3,body.phase3Depression h1,body.phase3Depression h2,body.phase3Depression h3,body.phase3Help h1,body.phase3Help h2,body.phase3Help h3{font-family:Georgia,"Times New Roman",serif!important;font-weight:400!important;letter-spacing:-.035em!important}
+body.phase3Resources .eyebrow,body.phase3TwoAm .eyebrow,body.phase3Depression .eyebrow,body.phase3Help .eyebrow{color:var(--ab3-gold)!important;letter-spacing:.21em!important;font-size:.64rem!important;font-weight:800!important;text-transform:uppercase!important}
+body.phase3Resources .wrap,body.phase3TwoAm .wrap,body.phase3Depression .wrap,body.phase3Help .wrap{width:min(1120px,calc(100% - 48px))!important}
+
+/* Shared scenic hero for text-led resource pages */
+body.phase3Resources>.hero,body.phase3Depression>.hero,body.phase3Help>.hero{padding:34px 0 38px!important;background:linear-gradient(180deg,#f7f4ed,#f8f6f1)!important;border-bottom:1px solid #e7e1d7!important}
+body.phase3Resources>.hero>.wrap,body.phase3Depression>.hero>.wrap,body.phase3Help>.hero>.wrap{display:grid!important;grid-template-columns:.92fr 1.08fr!important;gap:54px!important;align-items:stretch!important;max-width:1220px!important}
+.phase3HeroCopy{padding:50px 0 48px;align-self:center}
+.phase3HeroImage{min-height:365px;border-radius:28px;overflow:hidden;background-image:linear-gradient(180deg,rgba(255,255,255,.03),rgba(47,53,46,.12)),url("https://images.unsplash.com/photo-1774284590552-598a2d613768?auto=format&fit=crop&fm=jpg&q=84&w=1600");background-size:cover;background-position:center 52%;box-shadow:0 10px 34px rgba(58,58,50,.10)}
+body.phase3Resources>.hero h1,body.phase3Depression>.hero h1,body.phase3Help>.hero h1{font-size:clamp(3.05rem,5.2vw,4.75rem)!important;line-height:1.01!important;color:#464942!important;margin:0 0 18px!important}
+body.phase3Resources>.hero .lead,body.phase3Depression>.hero .lead,body.phase3Help>.hero .lead{font:1.06rem/1.58 Georgia,"Times New Roman",serif!important;color:#62645d!important;max-width:520px!important;margin:0!important}
+body.phase3Depression>.hero .byline{margin-top:20px!important;font-size:.72rem!important;color:#7a7b73!important}
+
+/* Free Guides hub */
+body.phase3Resources .resources{padding:52px 0 62px!important;background:#fbfaf7!important}
+body.phase3Resources .resources>.wrap>h2{font-size:2.4rem!important;color:#4b4e46!important;margin:0 0 10px!important}
+body.phase3Resources .resources .intro{color:#707168!important;margin:0 0 29px!important}
+body.phase3Resources .grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:16px!important}
+body.phase3Resources .card{display:flex!important;flex-direction:column!important;background:#fffefb!important;border:1px solid var(--ab3-line)!important;border-radius:17px!important;padding:28px!important;min-height:300px!important;box-shadow:0 7px 22px rgba(58,60,51,.045)!important;transition:.2s ease!important;overflow:hidden!important;position:relative!important}
+body.phase3Resources .card:before{content:"";position:absolute;left:0;top:0;right:0;height:7px;background:var(--ab3-olive)}
+body.phase3Resources .card:nth-child(2):before{background:#a8bac4}body.phase3Resources .card:nth-child(3):before{background:#c1843d}
+body.phase3Resources .card:hover{transform:translateY(-3px)!important;box-shadow:0 14px 30px rgba(58,60,51,.09)!important}
+body.phase3Resources .cardTag{color:#a27335!important;font-size:.61rem!important;letter-spacing:.13em!important;margin-top:6px!important}
+body.phase3Resources .card h3{font-size:1.78rem!important;line-height:1.1!important;color:#4d5048!important;margin:12px 0!important}
+body.phase3Resources .card p{color:#6d6f67!important;font-size:.84rem!important;line-height:1.58!important}
+body.phase3Resources .cardLink{color:var(--ab3-olive)!important;font-size:.7rem!important;text-transform:none!important;letter-spacing:0!important}
+body.phase3Resources .series{margin-top:25px!important;background:#eef0e9!important;padding:29px 31px!important;border-left:0!important;border-radius:16px!important;border:1px solid #dde2d8!important}
+body.phase3Resources .series h3{font-size:1.7rem!important;color:#4d5048!important;margin:0 0 8px!important}
+body.phase3Resources .signup{background:var(--ab3-blue)!important;color:white!important;padding:43px 0!important}
+body.phase3Resources .signup h2{color:white!important;font-size:2.25rem!important}
+body.phase3Resources .signup p{color:rgba(255,255,255,.92)!important}
+body.phase3Resources .form input{border:1px solid rgba(255,255,255,.6)!important;border-radius:10px!important}
+body.phase3Resources .form button{background:var(--ab3-olive)!important;color:white!important;border-radius:10px!important;text-transform:none!important;letter-spacing:0!important}
+
+/* 2:00 A.M. Guide */
+body.phase3TwoAm .hero{padding:47px 0!important;background:linear-gradient(180deg,#f7f4ed,#f8f6f1)!important;border-bottom:1px solid #e7e1d7!important}
+body.phase3TwoAm .heroGrid{grid-template-columns:1.05fr .95fr!important;gap:52px!important;align-items:center!important}
+body.phase3TwoAm .hero h1{font-size:clamp(3.15rem,5.4vw,4.9rem)!important;color:#464942!important;line-height:1.01!important}
+body.phase3TwoAm .lead{font:1.05rem/1.62 Georgia,"Times New Roman",serif!important;color:#62645d!important}
+body.phase3TwoAm .promise{color:#777970!important;font-size:.77rem!important}
+body.phase3TwoAm .hero .card{background:#fffefb!important;border:1px solid var(--ab3-line)!important;border-top:0!important;border-radius:18px!important;padding:30px!important;box-shadow:0 13px 34px rgba(58,60,51,.09)!important;position:relative!important;overflow:hidden!important}
+body.phase3TwoAm .hero .card:before{content:"";position:absolute;left:0;right:0;top:0;height:7px;background:#c1843d}
+body.phase3TwoAm .hero .card h2{font-size:1.9rem!important;color:#4c5047!important}
+body.phase3TwoAm .form input[type=email]{border:1px solid #d9d2c6!important;border-radius:10px!important;background:#fbfaf7!important}
+body.phase3TwoAm .form button{background:var(--ab3-olive)!important;border-radius:10px!important;text-transform:none!important;letter-spacing:0!important}
+body.phase3TwoAm .inside{padding:52px 0 58px!important;background:#fbfaf7!important}
+body.phase3TwoAm .insideHead h2{font-size:2.3rem!important;color:#4b4e46!important}
+body.phase3TwoAm .grid{gap:15px!important}
+body.phase3TwoAm .item{border:1px solid var(--ab3-line)!important;border-radius:16px!important;background:#fffefb!important;padding:24px!important;box-shadow:0 6px 18px rgba(58,60,51,.035)!important}
+body.phase3TwoAm .item h3{color:#4d5048!important}
+body.phase3TwoAm .night{background:var(--ab3-blue)!important;color:white!important;padding:43px 0!important}
+body.phase3TwoAm .night h2{color:white!important;font-size:2.15rem!important}
+body.phase3TwoAm .night p{color:rgba(255,255,255,.92)!important}
+
+/* Depression / faith guide */
+body.phase3Depression .article{padding:52px 0 66px!important;background:#fbfaf7!important;font-size:1.02rem!important}
+body.phase3Depression .article>.wrap{width:min(870px,calc(100% - 44px))!important}
+body.phase3Depression .opening{color:#555950!important}
+body.phase3Depression .article h2{font-size:2.2rem!important;color:#4d5048!important;margin:45px 0 15px!important}
+body.phase3Depression .keyline{border-left:3px solid #c1843d!important;color:#4d5048!important;background:#fffefb!important;padding:17px 20px!important;border-radius:0 12px 12px 0!important}
+body.phase3Depression .scripture{background:#f5f1e8!important;border:1px solid var(--ab3-line)!important;border-left:4px solid #c1843d!important;border-radius:12px!important}
+body.phase3Depression .scripture blockquote{color:#50534b!important}
+body.phase3Depression .prayer,body.phase3Depression .pastoral{background:#eef0e9!important;border-top:0!important;border-radius:15px!important;border:1px solid #dde2d8!important}
+body.phase3Depression .gentle{background:#f8f0e5!important;border:1px solid #ead9c3!important;border-radius:15px!important}
+body.phase3Depression .step{border-color:var(--ab3-line)!important}
+body.phase3Depression .stepNum{color:#b27b38!important}
+body.phase3Depression .ps{background:#f5f1e8!important;border-radius:15px!important}
+body.phase3Depression .cta{background:var(--ab3-blue)!important;color:white!important;padding:43px 0!important}
+body.phase3Depression .cta h2{color:white!important}
+body.phase3Depression .cta p{color:rgba(255,255,255,.92)!important}
+body.phase3Depression .form button{background:var(--ab3-olive)!important;color:white!important;border-radius:10px!important;text-transform:none!important;letter-spacing:0!important}
+body.phase3Depression .form input{border-radius:10px!important}
+
+/* Help someone */
+body.phase3Help .article{padding:51px 0 64px!important;background:#fbfaf7!important}
+body.phase3Help .article>.wrap{width:min(870px,calc(100% - 44px))!important}
+body.phase3Help .article h2{font-size:2.2rem!important;color:#4d5048!important;margin:44px 0 15px!important}
+body.phase3Help .keyline{border-left:3px solid #c1843d!important;color:#4d5048!important;background:#fffefb!important;padding:16px 20px!important;border-radius:0 12px 12px 0!important}
+body.phase3Help .pair{gap:14px!important}
+body.phase3Help .dont,body.phase3Help .say{border:1px solid var(--ab3-line)!important;border-radius:14px!important;padding:21px!important}
+body.phase3Help .dont{background:#f8f1e8!important}body.phase3Help .say{background:#eef0e9!important}
+body.phase3Help .step{border-color:var(--ab3-line)!important}
+body.phase3Help .prayer{background:#f5f1e8!important;border-left:3px solid #c1843d!important;border-radius:0 14px 14px 0!important}
+body.phase3Help .safety{background:#eef0e9!important;border:1px solid #dce1d7!important;border-radius:15px!important}
+body.phase3Help .safety a{color:var(--ab3-olive)!important}
+body.phase3Help .cta{background:var(--ab3-blue)!important;color:white!important;padding:42px 0!important}
+body.phase3Help .cta h2{color:white!important}
+body.phase3Help .cta p{color:rgba(255,255,255,.92)!important}
+body.phase3Help .cta .btn{background:var(--ab3-olive)!important;color:white!important;border-radius:10px!important;text-transform:none!important;letter-spacing:0!important}
+
+@media(max-width:900px){body.phase3Resources .grid{grid-template-columns:1fr 1fr!important}body.phase3Resources>.hero>.wrap,body.phase3Depression>.hero>.wrap,body.phase3Help>.hero>.wrap{grid-template-columns:1fr 1fr!important;gap:30px!important}.phase3HeroImage{min-height:320px}}
+@media(max-width:760px){body.phase3Resources .wrap,body.phase3TwoAm .wrap,body.phase3Depression .wrap,body.phase3Help .wrap{width:min(100% - 30px,1120px)!important}body.phase3Resources>.hero>.wrap,body.phase3Depression>.hero>.wrap,body.phase3Help>.hero>.wrap{display:block!important}.phase3HeroCopy{padding:42px 0 28px!important}.phase3HeroImage{min-height:270px!important;margin-bottom:5px!important;border-radius:20px!important}body.phase3Resources .grid,body.phase3TwoAm .heroGrid,body.phase3TwoAm .grid,body.phase3Depression .ctaGrid,body.phase3Help .pair{grid-template-columns:1fr!important}body.phase3Resources .signupGrid{grid-template-columns:1fr!important}body.phase3Resources .form,body.phase3Depression .form{grid-template-columns:1fr!important}body.phase3Resources>.hero h1,body.phase3Depression>.hero h1,body.phase3Help>.hero h1,body.phase3TwoAm .hero h1{font-size:clamp(2.75rem,13vw,3.8rem)!important}body.phase3TwoAm .hero{padding:40px 0!important}body.phase3TwoAm .hero .card{padding:25px!important}}
+@media(max-width:520px){body.phase3Resources .grid{grid-template-columns:1fr!important}}
