@@ -1,12 +1,13 @@
 (()=>{
   const CSS='/site-phase2.css?v=20260811-1';
 
+  function normalizedPath(){return location.pathname.replace(/\.html$/,'');}
   function isLibrary(){
-    return location.pathname==='/all-answers' || location.pathname==='/what-hurts-today.html';
+    const p=normalizedPath();
+    return p==='/all-answers' || p==='/what-hurts-today';
   }
-
   function isAnswer(){
-    return /^\/answer-\d{2}(?:\.html)?$/.test(location.pathname);
+    return /^\/answer-\d{2}$/.test(normalizedPath());
   }
 
   function ensureCss(){
@@ -35,7 +36,7 @@
     const image=document.createElement('div');
     image.className='phase2LibraryHeroImage';
     image.setAttribute('role','img');
-    image.setAttribute('aria-label','An open Bible overlooking a peaceful mountain landscape');
+    image.setAttribute('aria-label','A peaceful scene reflecting biblical hope');
     wrap.appendChild(copy);
     wrap.appendChild(image);
   }
@@ -52,9 +53,37 @@
     const image=document.createElement('div');
     image.className='phase2AnswerHeroImage';
     image.setAttribute('role','img');
-    image.setAttribute('aria-label','A peaceful mountain landscape with an open Bible');
+    image.setAttribute('aria-label','A peaceful landscape reflecting hope and pastoral care');
     wrap.appendChild(copy);
     wrap.appendChild(image);
+  }
+
+  function normalizeTaxonomy(){
+    if(!isLibrary()) return;
+    const replacements=[
+      ['Why Did This Happen?','Suffering & Why'],
+      ['People Who Hurt Me','Relational Hurt & Forgiveness'],
+      ['Doubt & Faith','Doubt & Church Hurt']
+    ];
+    document.querySelectorAll('.filter,.groupHead h2,.num,.card small').forEach(el=>{
+      let text=el.textContent;
+      replacements.forEach(([from,to])=>{text=text.replace(from,to);});
+      if(text!==el.textContent) el.textContent=text;
+    });
+  }
+
+  function softenAnswer17(){
+    if(normalizedPath()!=='/answer-17') return;
+    document.title='Why Does Healing Feel Like It Is Going Backward? | Answers for a Broken Heart';
+    const description=document.querySelector('meta[name="description"]');
+    if(description) description.setAttribute('content','Healing after grief is not a straight line. Biblical and pastoral help for hard days, grief that comes in waves, and knowing when pain needs additional care.');
+    const short=document.querySelector('.short');
+    if(short){
+      const h2=short.querySelector('h2');
+      const p=short.querySelector('p:last-child');
+      if(h2) h2.textContent='Healing is not a straight line.';
+      if(p) p.textContent='A hard day does not automatically mean you are losing ground. Grief often moves in waves. The question is not whether you still hurt, but whether the hurt is slowly being brought into truth, grace, relationship, and wise care rather than hardening into isolation or bitterness.';
+    }
   }
 
   function apply(){
@@ -62,6 +91,8 @@
     setClasses();
     enhanceLibraryHero();
     enhanceAnswerHero();
+    normalizeTaxonomy();
+    softenAnswer17();
   }
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',apply);
