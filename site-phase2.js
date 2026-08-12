@@ -104,6 +104,7 @@
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',apply);
   else apply();
-  new MutationObserver(apply).observe(document.documentElement,{childList:true,subtree:true});
+  setTimeout(apply,120);
+  setTimeout(apply,500);
   addEventListener('popstate',()=>setTimeout(apply,0));
 })();
