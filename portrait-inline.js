@@ -15,7 +15,7 @@
     ['/site-phase5.js?v=20260812-consolidated1','phase5'],
     ['/site-unified.js?v=20260812-consolidated1','unified'],
     ['/site-finish.js?v=20260812-consolidated1','finish'],
-    ['/site-trust.js?v=20260812-minimal2','trust'],
+    ['/site-trust.js?v=20260812-minimal3','trust'],
     ['/site-youtube.js?v=20260812-1','youtube'],
     ['/site-editorial.js?v=20260811-2','editorial']
   ];
