@@ -348,7 +348,8 @@ function render(){const p=new URLSearchParams(location.search);if(p.has("answer"
 
 
 <!-- PREMIUM-SHELL-FOOTER-START --><footer class="siteShellFooter"><div class="siteShellWrap siteShellFooterGrid"><div><div class="siteShellFooterBrand">Answers<small>for a Broken Heart</small></div><div class="siteShellFooterTag">Biblical hope for grief, suffering, doubt, unanswered prayer, and the questions pain asks.</div></div><nav class="siteShellFooterLinks" aria-label="Footer navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Guides</a><a href="/church-resources">Church Resources</a><a href="/book">The Book</a><a href="/about">About</a><a href="/contact">Contact</a></nav><div class="siteShellCopyright">© 2026 Tate Throndson · Psalm 34:18 · Resources are pastoral and educational and are not a substitute for emergency, medical, or mental-health care.</div></div></footer><!-- PREMIUM-SHELL-FOOTER-END -->
-<!-- CONVERSION-ANALYTICS-START -->
+
+<script src="/portrait-inline.js?v=1"></script><!-- CONVERSION-ANALYTICS-START -->
 <script>
 (function(){
   function track(name,data){
@@ -360,37 +361,81 @@ function render(){const p=new URLSearchParams(location.search);if(p.has("answer"
   }
   function page(){ return window.location.pathname || '/'; }
   function text(el){ return (el && el.textContent ? el.textContent : '').trim().replace(/\s+/g,' ').slice(0,80); }
+  function destinationLabel(a){
+    var heading=a && a.querySelector ? a.querySelector('h3,strong') : null;
+    return text(heading) || text(a);
+  }
 
   document.addEventListener('click',function(e){
     var a=e.target.closest('a,button');
     if(!a) return;
     var href=a.getAttribute('href') || '';
     var label=text(a);
+    var current=page();
 
-    if(href==='/start-here') track('Start Here Click',{page:page(),label:label});
-    if(href==='/what-hurts-today') track('What Hurts Today Click',{page:page(),label:label});
-    if(href==='/church-resources') track('Church Resources Click',{page:page(),label:label});
-    if(href==='/2am-guide') track('2AM Guide Opened',{page:page(),label:label});
-    if(href.indexOf('view=book')!==-1) track('Book Interest Click',{page:page(),label:label});
+    if(href==='/start-here') track('Start Here Click',{page:current,label:label});
+    if(href==='/all-answers') track('24 Answers Click',{page:current,label:label});
+    if(href==='/what-hurts-today') track('What Hurts Today Click',{page:current,label:label});
+    if(href==='/church-resources') track('Church Resources Click',{page:current,label:label});
+
+    if(href==='/2am-guide'){
+      track('2AM Guide Opened',{page:current,label:label});
+      track('Free Guide Click',{page:current,guide:'2am-guide'});
+    }
+    if(href==='/can-christians-be-depressed') track('Free Guide Click',{page:current,guide:'depression'});
+    if(href==='/help-someone') track('Free Guide Click',{page:current,guide:'help-someone'});
+
+    if(href==='/book' || href.indexOf('view=book')!==-1){
+      track('Book Interest Click',{page:current,label:label});
+    }
+    if(current==='/book' && href==='#book-updates'){
+      track('Book Release Updates Click',{page:current,label:label});
+    }
+
+    if(current==='/start-here' && a.closest && a.closest('.choice')){
+      track('Start Here Choice',{page:current,destination:href,label:destinationLabel(a)});
+    }
+    if(current==='/all-answers' && /^\/answer-\d{2}$/.test(href) && a.closest && a.closest('.card')){
+      track('Answer Opened',{page:current,answer:href,label:destinationLabel(a)});
+    }
+    if(current==='/all-answers' && a.classList && a.classList.contains('filter')){
+      track('Answers Filter',{page:current,label:label});
+    }
+    if(/^\/answer-\d{2}$/.test(current) && a.closest && a.closest('.journeyCard')){
+      track('Answer Next Step',{page:current,destination:href,label:destinationLabel(a)});
+    }
+
     if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && (a.closest('.answerJourney') || a.closest('.podcastResource'))){
-      track('Podcast Resource Click',{page:page(),label:label});
+      track('Podcast Resource Click',{page:current,label:label});
     }
     if(a.classList && a.classList.contains('shareBtn')){
-      track('Answer Shared',{page:page(),method:label});
+      track('Answer Shared',{page:current,method:label});
     }
     if(a.closest && a.closest('.answerTopicHub')){
-      track('Topic Guide Click',{page:page(),label:label});
+      track('Topic Guide Click',{page:current,label:label});
     }
   });
+
+  var searchTracked=false;
+  document.addEventListener('input',function(e){
+    var input=e.target;
+    if(searchTracked || page()!=='/all-answers' || !input || input.id!=='answerSearch') return;
+    if((input.value || '').trim().length>=3){
+      searchTracked=true;
+      // Deliberately do not send the search text. Hurt-related searches can be sensitive.
+      track('Answers Search Used',{page:page()});
+    }
+  },true);
 
   document.addEventListener('submit',function(e){
     var form=e.target;
     if(!form || form.tagName!=='FORM') return;
     var interest=form.querySelector('input[name="interest"]');
     var value=interest ? interest.value : '';
-    if(value.indexOf('2:00 A.M. Guide')!==-1) track('2AM Guide Signup',{page:page()});
-    else if(value.indexOf('book launch list')!==-1) track('Book Launch Signup',{page:page()});
-    else if(value.indexOf('Church and Pastor Resources')!==-1) track('Church Resources Signup',{page:page()});
+    var lower=value.toLowerCase();
+    if(lower.indexOf('2:00 a.m. guide')!==-1) track('2AM Guide Signup',{page:page()});
+    else if(lower.indexOf('book launch list')!==-1 || lower.indexOf('release notification')!==-1) track('Book Launch Signup',{page:page()});
+    else if(lower.indexOf('church and pastor resources')!==-1) track('Church Resources Signup',{page:page()});
   },true);
 
   if(/^\/answer-\d{2}$/.test(page())){
@@ -408,5 +453,5 @@ function render(){const p=new URLSearchParams(location.search);if(p.has("answer"
 })();
 </script>
 <!-- CONVERSION-ANALYTICS-END -->
-<script src="/portrait-inline.js?v=1"></script></body>
+</body>
 </html>

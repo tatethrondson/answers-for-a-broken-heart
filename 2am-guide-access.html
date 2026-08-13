@@ -24,7 +24,8 @@
 @media(max-width:360px){.bookStage{padding-left:18px!important;padding-right:18px!important}.heroBook{width:min(235px,100%)!important;max-width:100%!important}}
 </style><!-- MOBILE-RESILIENCE-END -->
 </head><body><header><div class="wrap"><a class="brand" href="/">Answers<small>for a Broken Heart</small></a></div></header><section class="hero"><div class="wrap"><p class="eyebrow">A free resource from Tate Throndson</p><h1>The 2:00 A.M. Guide</h1><p class="lead">7 Scriptures to Read When You Don’t Know What Else to Do</p><div class="tools"><button class="btn" onclick="window.print()">Print / Save as PDF</button><a class="btn" href="/what-hurts-today">Find an Answer</a></div></div></section><main class="guide"><div class="wrap"><p class="intro">If you are reading this in the middle of the night, you probably do not need a lecture. You need something solid enough to hold onto while your emotions are loud and the room is quiet. You do not have to solve everything tonight. Read one passage slowly. Tell God the truth. Stay with the words long enough for them to become more than words.</p><section class="entry"><div class="num">01 · When God feels far away</div><h2>Psalm 34:18</h2><div class="scripture">“The LORD is nigh unto them that are of a broken heart; and saveth such as be of a contrite spirit.”</div><p><span class="remember">What to remember:</span> A broken heart can make God feel distant, but Scripture says the opposite. He is not standing at the edge of your pain waiting for you to get yourself together. He is near to the person whose heart has been crushed.</p><p class="prayer">“Lord, I do not feel strong right now. Help me believe that You are nearer than I can feel.”</p></section><section class="entry"><div class="num">02 · When everything feels unstable</div><h2>Psalm 46:1</h2><div class="scripture">“God is our refuge and strength, a very present help in trouble.”</div><p><span class="remember">What to remember:</span> God does not promise that trouble will never arrive. He promises that when it does, you will not face it without a refuge. You may not know what tomorrow holds, but you know where to run tonight.</p><p class="prayer">“God, be my refuge for the next hour. Give me enough strength for the next faithful step.”</p></section><section class="entry"><div class="num">03 · When fear keeps talking</div><h2>Isaiah 41:10</h2><div class="scripture">“Fear thou not; for I am with thee: be not dismayed; for I am thy God: I will strengthen thee; yea, I will help thee; yea, I will uphold thee with the right hand of my righteousness.”</div><p><span class="remember">What to remember:</span> The answer to fear is not pretending there is nothing frightening. It is remembering who is with you in it. God does not merely tell you to be stronger. He says, “I will strengthen thee.”</p><p class="prayer">“Father, my mind keeps running toward what might happen. Hold me steady while I cannot see ahead.”</p></section><section class="entry"><div class="num">04 · When you are afraid to admit you are afraid</div><h2>Psalm 56:3</h2><div class="scripture">“What time I am afraid, I will trust in thee.”</div><p><span class="remember">What to remember:</span> David did not say, “I am never afraid.” He said there is something he can do when fear arrives. Faith is not the absence of fear. Sometimes faith is deciding where you will turn while you are still afraid.</p><p class="prayer">“Lord, I am afraid. I am bringing that fear to You instead of hiding it from You.”</p></section><section class="entry"><div class="num">05 · When you are exhausted</div><h2>Matthew 11:28</h2><div class="scripture">“Come unto me, all ye that labour and are heavy laden, and I will give you rest.”</div><p><span class="remember">What to remember:</span> Jesus does not ask weary people to impress Him. He invites them to come. You can come tired. You can come confused. You can come with unanswered questions. Rest begins with bringing the weight to Christ instead of carrying it alone.</p><p class="prayer">“Jesus, I am tired of carrying this. Teach me what it means to come to You with it tonight.”</p></section><section class="entry"><div class="num">06 · When you feel too weak for this</div><h2>2 Corinthians 12:9</h2><div class="scripture">“My grace is sufficient for thee: for my strength is made perfect in weakness.”</div><p><span class="remember">What to remember:</span> Weakness is not a disqualification from grace. It is often the place where grace becomes most visible. You may not have enough strength for everything ahead of you, but God has not asked you to manufacture tomorrow’s strength tonight.</p><p class="prayer">“God, I do not have enough for all of this. Let Your grace be enough for me right now.”</p></section><section class="entry"><div class="num">07 · When morning feels a long way off</div><h2>Lamentations 3:22-23</h2><div class="scripture">“It is of the LORD'S mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness.”</div><p><span class="remember">What to remember:</span> Jeremiah wrote about new mercies while standing in the wreckage of deep grief. Morning did not erase what had happened. It reminded him that pain had not exhausted the compassion of God. There will be mercy for the morning when it comes.</p><p class="prayer">“Father, carry me through this night. Help me trust that Your mercy will meet me again in the morning.”</p></section></div></main><section class="closing"><div class="wrap"><p class="eyebrow" style="color:#d8bd87">You do not have to solve everything tonight</p><h2>Start with the question that hurts most.</h2><p><em>Answers for a Broken Heart</em> exists to help you bring the real question into the light of Scripture without pretending the pain is simple.</p><a class="btn" href="/all-answers">Browse All 24 Answers</a><a class="btn" href="/?view=book">About the Book</a></div></section><footer><div class="wrap">Answers for a Broken Heart · Tate Throndson · Psalm 34:18</div></footer>
-<!-- CONVERSION-ANALYTICS-START -->
+
+<script src="/portrait-inline.js?v=1"></script><!-- CONVERSION-ANALYTICS-START -->
 <script>
 (function(){
   function track(name,data){
@@ -36,37 +37,81 @@
   }
   function page(){ return window.location.pathname || '/'; }
   function text(el){ return (el && el.textContent ? el.textContent : '').trim().replace(/\s+/g,' ').slice(0,80); }
+  function destinationLabel(a){
+    var heading=a && a.querySelector ? a.querySelector('h3,strong') : null;
+    return text(heading) || text(a);
+  }
 
   document.addEventListener('click',function(e){
     var a=e.target.closest('a,button');
     if(!a) return;
     var href=a.getAttribute('href') || '';
     var label=text(a);
+    var current=page();
 
-    if(href==='/start-here') track('Start Here Click',{page:page(),label:label});
-    if(href==='/what-hurts-today') track('What Hurts Today Click',{page:page(),label:label});
-    if(href==='/church-resources') track('Church Resources Click',{page:page(),label:label});
-    if(href==='/2am-guide') track('2AM Guide Opened',{page:page(),label:label});
-    if(href.indexOf('view=book')!==-1) track('Book Interest Click',{page:page(),label:label});
+    if(href==='/start-here') track('Start Here Click',{page:current,label:label});
+    if(href==='/all-answers') track('24 Answers Click',{page:current,label:label});
+    if(href==='/what-hurts-today') track('What Hurts Today Click',{page:current,label:label});
+    if(href==='/church-resources') track('Church Resources Click',{page:current,label:label});
+
+    if(href==='/2am-guide'){
+      track('2AM Guide Opened',{page:current,label:label});
+      track('Free Guide Click',{page:current,guide:'2am-guide'});
+    }
+    if(href==='/can-christians-be-depressed') track('Free Guide Click',{page:current,guide:'depression'});
+    if(href==='/help-someone') track('Free Guide Click',{page:current,guide:'help-someone'});
+
+    if(href==='/book' || href.indexOf('view=book')!==-1){
+      track('Book Interest Click',{page:current,label:label});
+    }
+    if(current==='/book' && href==='#book-updates'){
+      track('Book Release Updates Click',{page:current,label:label});
+    }
+
+    if(current==='/start-here' && a.closest && a.closest('.choice')){
+      track('Start Here Choice',{page:current,destination:href,label:destinationLabel(a)});
+    }
+    if(current==='/all-answers' && /^\/answer-\d{2}$/.test(href) && a.closest && a.closest('.card')){
+      track('Answer Opened',{page:current,answer:href,label:destinationLabel(a)});
+    }
+    if(current==='/all-answers' && a.classList && a.classList.contains('filter')){
+      track('Answers Filter',{page:current,label:label});
+    }
+    if(/^\/answer-\d{2}$/.test(current) && a.closest && a.closest('.journeyCard')){
+      track('Answer Next Step',{page:current,destination:href,label:destinationLabel(a)});
+    }
+
     if((href.indexOf('youtube.com')!==-1 || href.indexOf('youtu.be')!==-1) && (a.closest('.answerJourney') || a.closest('.podcastResource'))){
-      track('Podcast Resource Click',{page:page(),label:label});
+      track('Podcast Resource Click',{page:current,label:label});
     }
     if(a.classList && a.classList.contains('shareBtn')){
-      track('Answer Shared',{page:page(),method:label});
+      track('Answer Shared',{page:current,method:label});
     }
     if(a.closest && a.closest('.answerTopicHub')){
-      track('Topic Guide Click',{page:page(),label:label});
+      track('Topic Guide Click',{page:current,label:label});
     }
   });
+
+  var searchTracked=false;
+  document.addEventListener('input',function(e){
+    var input=e.target;
+    if(searchTracked || page()!=='/all-answers' || !input || input.id!=='answerSearch') return;
+    if((input.value || '').trim().length>=3){
+      searchTracked=true;
+      // Deliberately do not send the search text. Hurt-related searches can be sensitive.
+      track('Answers Search Used',{page:page()});
+    }
+  },true);
 
   document.addEventListener('submit',function(e){
     var form=e.target;
     if(!form || form.tagName!=='FORM') return;
     var interest=form.querySelector('input[name="interest"]');
     var value=interest ? interest.value : '';
-    if(value.indexOf('2:00 A.M. Guide')!==-1) track('2AM Guide Signup',{page:page()});
-    else if(value.indexOf('book launch list')!==-1) track('Book Launch Signup',{page:page()});
-    else if(value.indexOf('Church and Pastor Resources')!==-1) track('Church Resources Signup',{page:page()});
+    var lower=value.toLowerCase();
+    if(lower.indexOf('2:00 a.m. guide')!==-1) track('2AM Guide Signup',{page:page()});
+    else if(lower.indexOf('book launch list')!==-1 || lower.indexOf('release notification')!==-1) track('Book Launch Signup',{page:page()});
+    else if(lower.indexOf('church and pastor resources')!==-1) track('Church Resources Signup',{page:page()});
   },true);
 
   if(/^\/answer-\d{2}$/.test(page())){
@@ -84,4 +129,4 @@
 })();
 </script>
 <!-- CONVERSION-ANALYTICS-END -->
-<script src="/portrait-inline.js?v=1"></script></body></html>
+</body></html>
