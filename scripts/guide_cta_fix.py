@@ -126,3 +126,40 @@ for path in Path('.').glob('*.html'):
     if text != original:
         path.write_text(text, encoding='utf-8')
         print('Normalized next-step routes in', path.name)
+
+# Align homepage promises with the destination they actually describe. The searchable
+# 24 Answers library handles free-text searching; Start Here remains the guided path.
+home = Path('index.html')
+if home.exists():
+    text = home.read_text(encoding='utf-8')
+    original = text
+    text = text.replace(
+        '<a class="careChoiceCard" href="/what-hurts-today"><small>I’m hurting</small><strong>Help me find the question underneath the pain.</strong><span>Search grief, depression, anger, doubt, betrayal, unanswered prayer, loneliness, and more in your own words.</span></a>',
+        '<a class="careChoiceCard" href="/all-answers"><small>I’m hurting</small><strong>Help me find the question underneath the pain.</strong><span>Search grief, depression, anger, doubt, betrayal, unanswered prayer, loneliness, and more in your own words.</span></a>',
+    )
+    text = text.replace(
+        '<a class="btn outline" href="/what-hurts-today">View All 24 Topics</a>',
+        '<a class="btn outline" href="/all-answers">View All 24 Answers</a>',
+    )
+    # Any remaining legacy help links should use the guided front door rather than a redirect.
+    text = text.replace('href="/what-hurts-today"', 'href="/start-here"')
+    if text != original:
+        home.write_text(text, encoding='utf-8')
+        print('Aligned homepage help routes')
+
+# Give depression/emotional heaviness a clear path from the guided Start Here page. This
+# is one of the site's strongest exact-question resources and should not require a library search.
+DEPRESSION_PATH = '<!-- START-HERE-DEPRESSION-PATH --><a class="choice" href="/can-christians-be-depressed"><small>I feel heavy, numb, or worn down</small><strong>Could this be depression?</strong><span>Start here if you love God but feel low, exhausted, numb, or guilty for not feeling stronger.</span></a><!-- START-HERE-DEPRESSION-PATH-END -->'
+for filename in ('begin-here.html', 'start-here.html'):
+    path = Path(filename)
+    if not path.exists():
+        continue
+    text = path.read_text(encoding='utf-8')
+    original = text
+    text = re.sub(r'<!-- START-HERE-DEPRESSION-PATH -->.*?<!-- START-HERE-DEPRESSION-PATH-END -->', '', text, flags=re.S)
+    anchor = '<a class="choice" href="/answer-17">'
+    if anchor in text:
+        text = text.replace(anchor, DEPRESSION_PATH + anchor, 1)
+    if text != original:
+        path.write_text(text, encoding='utf-8')
+        print('Added depression path to', filename)
