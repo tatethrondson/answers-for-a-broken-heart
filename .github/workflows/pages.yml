@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -22,99 +22,17 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout
+      - name: Checkout finished site
         uses: actions/checkout@v6
-
-      - name: Keep all 24 expanded answers wired
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-
-          index = Path('index.html')
-          html = index.read_text()
-
-          html = html.replace(
-              'if(href&&!href.startsWith("#")){e.preventDefault();go(href)}',
-              'if(href&&!href.startsWith("#")&&!href.startsWith("/answer-")){e.preventDefault();go(href)}',
-              1,
-          )
-
-          if 'function answerHref(n)' not in html:
-              html = html.replace(
-                  'function go(url){',
-                  'function answerHref(n){const s=String(n).padStart(2,"0");return n>=1&&n<=24?`/answer-${s}`:`?answer=${s}`}function go(url){',
-                  1,
-              )
-          html = re.sub(
-              r'return n>=\d+&&n<=\d+\?',
-              'return n>=1&&n<=24?',
-              html,
-              count=1,
-          )
-
-          html = html.replace(
-              'href="?answer=${String(a.n).padStart(2,"0")}"',
-              'href="${answerHref(a.n)}"',
-          )
-          html = html.replace(
-              'href="?answer=${String(next.n).padStart(2,"0")}"',
-              'href="${answerHref(next.n)}"',
-          )
-          html = html.replace('href="?answer=04"', 'href="/answer-04"')
-          index.write_text(html)
-          PY
-
-      - name: Generate SEO and discovery layer
-        run: python scripts/seo.py
-
-      - name: Synchronize crawlable What Hurts Today hub
-        run: python scripts/hub.py
-
-      - name: Pin author portrait to static JPEG
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-
-          index = Path('index.html')
-          html = index.read_text()
-          html = re.sub(
-              r'const AUTHOR="[^"]*";',
-              'const AUTHOR="/author-tate.jpg?v=7";',
-              html,
-              count=1,
-          )
-          index.write_text(html)
-          PY
-
-      - name: Wire Contact Tate page
-        run: python scripts/contact.py
-
-      - name: Build hope conversion layer
-        run: python scripts/conversion.py
-
-      - name: Integrate Free Guides library
-        run: python scripts/guides.py
-
-      - name: Commit generated site improvements
-        run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add index.html what-hurts-today.html contact.html answer-*.html 2am-guide.html hope-thanks.html free-guides.html can-christians-be-depressed.html sitemap.xml robots.txt
-            git commit -m "Publish free guides and hope pathway"
-            git push
-          else
-            echo "SEO, crawlable hub, contact, launch status, portrait, hope conversion layer, free guides, analytics, and domain layer are already current"
-          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Upload artifact
+
+      - name: Upload site artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: '.'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
