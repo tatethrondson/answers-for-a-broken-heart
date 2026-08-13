@@ -115,3 +115,14 @@ for path in Path('.').glob('*.html'):
     if text != original:
         path.write_text(text, encoding='utf-8')
         print('Applied mobile resilience in', path.name)
+
+# Normalize old navigation routes that remain inside legacy/generated content.
+for path in Path('.').glob('*.html'):
+    text = path.read_text(encoding='utf-8')
+    original = text
+    text = text.replace('href="/?view=book"', 'href="/book"')
+    if path.name == '2am-guide-access.html':
+        text = text.replace('href="/what-hurts-today">Find an Answer</a>', 'href="/start-here">Start Here</a>')
+    if text != original:
+        path.write_text(text, encoding='utf-8')
+        print('Normalized next-step routes in', path.name)
