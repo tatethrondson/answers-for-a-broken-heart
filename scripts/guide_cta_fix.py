@@ -163,3 +163,19 @@ for filename in ('begin-here.html', 'start-here.html'):
     if text != original:
         path.write_text(text, encoding='utf-8')
         print('Added depression path to', filename)
+
+# Load one homepage-derived visual system after legacy page CSS. The homepage itself is the
+# source of truth and is intentionally left untouched. photo-test.html is an internal test page.
+DESIGN_START = '<!-- HOMEPAGE-DESIGN-SYSTEM-START -->'
+DESIGN_END = '<!-- HOMEPAGE-DESIGN-SYSTEM-END -->'
+DESIGN_LINK = DESIGN_START + '<link rel="stylesheet" href="/site-cohesive.css?v=1">' + DESIGN_END
+for path in Path('.').glob('*.html'):
+    if path.name in {'index.html', 'photo-test.html'}:
+        continue
+    text = path.read_text(encoding='utf-8')
+    original = text
+    text = re.sub(re.escape(DESIGN_START) + r'.*?' + re.escape(DESIGN_END), '', text, flags=re.S)
+    text = text.replace('</head>', DESIGN_LINK + '\n</head>', 1)
+    if text != original:
+        path.write_text(text, encoding='utf-8')
+        print('Applied homepage design system in', path.name)
