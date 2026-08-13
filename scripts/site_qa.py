@@ -39,7 +39,6 @@ for i in range(1,25):
       'canonical':'rel="canonical"',
       'author byline':'AUTHOR-BYLINE',
       '60-second help':'HURTING-HELP',
-      'safety pathway':'SAFETY-LINK',
       'answer journey':'ANSWER-JOURNEY',
       'sharing tools':'class="shareHelp"',
       'conversion analytics':'CONVERSION-ANALYTICS',
@@ -47,6 +46,8 @@ for i in range(1,25):
     }
     for label,needle in required.items():
         if needle not in t: add('ERROR',p.name,f'Missing {label}')
+    if 'SAFETY-LINK' not in t and 'class="answerSafety"' not in t:
+        add('ERROR',p.name,'Missing safety pathway')
     if '/all-answers' not in t: add('WARN',p.name,'No all-answers link')
     if 'href="/book"' not in t: add('WARN',p.name,'No canonical book path')
     if 'PODCAST-RESOURCE-START' in t: add('WARN',p.name,'Legacy standalone podcast block still present')
