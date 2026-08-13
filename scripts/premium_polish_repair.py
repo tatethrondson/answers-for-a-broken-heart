@@ -22,10 +22,36 @@ FOOTER=f'''{FOOTER_START}<footer class="siteShellFooter"><div class="siteShellWr
 EXCLUDE={'unsafe.html','2am-guide-access.html','hope-thanks.html','book-updates-thanks.html','contact-thanks.html'}
 
 CARD_COPY_REPLACEMENTS={
+    'He’s Always Been There →':'He’s always been there. →',
+    'He Showed You His Face →':'He showed you His face. →',
+    'You’ll See It Looking Back →':'Some things become clearer looking back. →',
     'This Is Not the World He Made →':'This is not the world God called very good. →',
+    'Honest Questions Are Not Unbelief →':'Honest questions are not unbelief. →',
     'He Knows More Than You Do →':'Your view is not the whole story. →',
     'All Things — Even This →':'God can redeem even this. →',
+    'Sometimes He Gives You Himself Instead of an Explanation →':'Sometimes He gives you Himself instead of an explanation. →',
+    'He Wept With You →':'He wept with you. →',
+    'He Didn’t Just Enter It — He Ended It →':'He entered it—and He will end it. →',
+    'His Silence Isn’t His Approval →':'His silence isn’t His approval. →',
+    'A No Is Not the End of the Story →':'A no is not the end of the story. →',
+    'Death Does Not Get the Final Word →':'Death does not get the final word. →',
+    'You’re Allowed to Grieve as Long as It Takes →':'You’re allowed to grieve as long as it takes. →',
+    'Ask a Different Question →':'When you’re ready, ask a different question. →',
     'Grief That Stops Moving Becomes Bitterness →':'Healing is not a straight line. →',
+    'Anger at God Is Not the Opposite of Faith →':'Anger at God is not the opposite of faith. →',
+    'Bring Him the Real Prayer, Not the Polished One →':'Bring Him the real prayer, not the polished one. →',
+    'Your Pain and Their Guilt Are Not the Same Conversation →':'Your pain and their guilt are not the same conversation. →',
+    'To Be Loved Is to Be Woundable →':'To be loved is to be woundable. →',
+    'Forgiving Them Lets You Look Like Your Father →':'Forgiveness releases vengeance without calling the wrong right. →',
+    'Forgiveness Is Not Reconciliation →':'Forgiveness is not reconciliation. →',
+    'Make Sure You’re Rejecting the Real Thing →':'Separate Jesus from what was done in His name. →',
+    'Your Doubt Is Not Disqualifying →':'Your doubt is not disqualifying. →',
+}
+
+TEXT_REPLACEMENTS={
+    'Isn’t His sympathy enough?':'Is sympathy all God offers?',
+    'Forgiveness & Relational Hurt':'Relational Hurt & Forgiveness',
+    'Doubt, Church Hurt & Faith':'Doubt & Church Hurt',
 }
 
 def strip(text,start,end):
@@ -42,6 +68,8 @@ def normalize_legacy_content(text):
         '"name": "24 Biblical Answers", "item": "https://answersforabrokenheart.com/all-answers"',
         text
     )
+    for old,new in TEXT_REPLACEMENTS.items():
+        text=text.replace(old,new)
     for old,new in CARD_COPY_REPLACEMENTS.items():
         text=text.replace(old,new)
     return text
