@@ -71,9 +71,6 @@ jobs:
       - name: Synchronize crawlable What Hurts Today hub
         run: python scripts/hub.py
 
-      - name: Apply launch, domain, portrait, and analytics release pass
-        run: python scripts/release.py
-
       - name: Pin author portrait to static JPEG
         run: |
           python - <<'PY'
