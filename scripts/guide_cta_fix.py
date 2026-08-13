@@ -76,3 +76,26 @@ if start_here.exists():
     text = text.replace('content="https://answersforabrokenheart.com/what-hurts-today"', 'content="https://answersforabrokenheart.com/start-here"')
     start_here.write_text(text, encoding='utf-8')
     print('Clarified start-here.html metadata')
+
+# Normalize the high-traffic resource pages to the exact shared palette.
+palette_pages = (
+    'free-guides.html', '2am-guide.html', 'can-christians-be-depressed.html',
+    'help-someone.html', 'church-resources.html'
+)
+palette = {
+    '#b69258': '#ad823d',
+    '#f6f1e8': '#f5f0e7',
+    '#fffdf9': '#fffefb',
+    '#ddd6c9': '#ded8cd',
+}
+for filename in palette_pages:
+    path = Path(filename)
+    if not path.exists():
+        continue
+    text = path.read_text(encoding='utf-8')
+    original = text
+    for old, new in palette.items():
+        text = text.replace(old, new)
+    if text != original:
+        path.write_text(text, encoding='utf-8')
+        print('Normalized palette in', filename)
