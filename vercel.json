@@ -17,6 +17,11 @@
       "source": "/what-hurts-today.html",
       "destination": "/start-here",
       "permanent": true
+    },
+    {
+      "source": "/begin-here",
+      "destination": "/start-here",
+      "permanent": true
     }
   ],
   "rewrites": [
