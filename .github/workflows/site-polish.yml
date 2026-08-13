@@ -8,6 +8,7 @@ on:
       - 'scripts/site_polish.py'
       - 'scripts/guide_cta_fix.py'
       - 'scripts/analytics_events.py'
+      - 'scripts/email_segments.py'
       - '.github/workflows/site-polish.yml'
   workflow_dispatch:
 
@@ -38,6 +39,9 @@ jobs:
       - name: Keep non-gated guides clearly open
         run: python scripts/guide_cta_fix.py
 
+      - name: Tag email signup audiences
+        run: python scripts/email_segments.py
+
       - name: Instrument the help-first funnel
         run: python scripts/analytics_events.py
 
@@ -51,5 +55,13 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add '*.html'
           git commit -m "Publish final site audit cleanup"
-          git pull --rebase origin main
-          git push
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then
+              exit 0
+            fi
+            echo "Push raced another workflow; retrying ($attempt/3)"
+            sleep 2
+          done
+          echo "Unable to publish after 3 attempts"
+          exit 1
