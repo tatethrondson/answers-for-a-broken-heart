@@ -1,7 +1,7 @@
 # Site QA Report
 
 HTML files scanned: 50
-Errors: 8
+Errors: 6
 Warnings: 32
 
 ## Findings
@@ -13,7 +13,6 @@ Warnings: 32
 - **ERROR** `answer-05.html` — Missing author byline
 - **ERROR** `answer-05.html` — Missing safety pathway
 - **ERROR** `answer-05.html` — Missing answer journey
-- **ERROR** `answer-05.html` — Missing conversion analytics
 - **WARN** `answer-05.html` — No book path
 - **WARN** `answer-06.html` — No book path
 - **WARN** `answer-06.html` — Legacy standalone podcast block still present
@@ -22,7 +21,6 @@ Warnings: 32
 - **ERROR** `answer-08.html` — Missing author byline
 - **ERROR** `answer-08.html` — Missing safety pathway
 - **ERROR** `answer-08.html` — Missing answer journey
-- **ERROR** `answer-08.html` — Missing conversion analytics
 - **WARN** `answer-08.html` — No book path
 - **WARN** `answer-09.html` — No book path
 - **WARN** `answer-10.html` — No book path
