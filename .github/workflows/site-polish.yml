@@ -12,6 +12,7 @@ on:
       - 'scripts/site_qa.py'
       - 'scripts/care_paths.py'
       - 'scripts/answer_journey.py'
+      - 'site-cohesive.css'
       - '.github/workflows/site-polish.yml'
   workflow_dispatch:
 
