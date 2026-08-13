@@ -97,3 +97,21 @@ for path in Path('.').glob('*.html'):
     if text != original:
         path.write_text(text, encoding='utf-8')
         print('Normalized legacy palette in', path.name)
+
+# Mobile resilience: prevent intrinsic grid content from widening answer pages, allow the
+# 60-second-help label to wrap, and keep the book mockup inside very narrow phone screens.
+MOBILE_FIX_START = '<!-- MOBILE-RESILIENCE-START -->'
+MOBILE_FIX_END = '<!-- MOBILE-RESILIENCE-END -->'
+MOBILE_FIX = '''<!-- MOBILE-RESILIENCE-START --><style>
+@media(max-width:820px){.page .layout>*{min-width:0}}
+@media(max-width:700px){.minuteHelpHead span{white-space:normal!important}}
+@media(max-width:360px){.bookStage{padding-left:18px!important;padding-right:18px!important}.heroBook{width:min(235px,100%)!important;max-width:100%!important}}
+</style><!-- MOBILE-RESILIENCE-END -->'''
+for path in Path('.').glob('*.html'):
+    text = path.read_text(encoding='utf-8')
+    original = text
+    text = re.sub(re.escape(MOBILE_FIX_START) + r'.*?' + re.escape(MOBILE_FIX_END), '', text, flags=re.S)
+    text = text.replace('</head>', MOBILE_FIX + '\n</head>', 1)
+    if text != original:
+        path.write_text(text, encoding='utf-8')
+        print('Applied mobile resilience in', path.name)
