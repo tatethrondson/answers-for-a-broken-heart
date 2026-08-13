@@ -27,3 +27,8 @@ for filename in ('index.html', 'free-guides.html'):
     if text != original:
         path.write_text(text, encoding='utf-8')
         print('Corrected open-guide CTA in', filename)
+
+# Keep the help-first homepage and Book-page presentation aligned with the site polish pass.
+redesign = Path('scripts/help_first_redesign.py')
+if redesign.exists():
+    exec(compile(redesign.read_text(encoding='utf-8'), str(redesign), 'exec'))
