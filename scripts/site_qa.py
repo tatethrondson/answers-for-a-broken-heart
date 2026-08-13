@@ -80,4 +80,6 @@ else:
     lines.append('No issues found by the automated checks.')
 Path('SITE-QA.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
 print(f'QA complete: {errors} errors, {warns} warnings')
+for level,file,msg in issues:
+    print(f'{level}: {file} — {msg}')
 if errors: raise SystemExit(1)
