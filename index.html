@@ -208,6 +208,8 @@ header{position:sticky;top:0;z-index:80;background:rgba(255,254,251,.97);border-
 
 
 
+
+
 <!-- PREMIUM-SHELL-CSS-START --><style>
 .siteShellHeader{position:sticky!important;top:0!important;z-index:90!important;background:rgba(255,254,251,.97)!important;border-bottom:1px solid rgba(33,49,40,.09)!important;backdrop-filter:blur(12px);color:#24312b!important}
 .siteShellWrap{width:min(1160px,calc(100% - 44px));margin:auto}.siteShellNav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:24px}.siteShellBrand{display:flex;align-items:center;gap:8px;text-decoration:none!important;color:#183024!important;line-height:.84}.siteShellBrandWords{font:1.62rem/.82 Georgia,"Times New Roman",serif;letter-spacing:-.04em}.siteShellBrandWords small{display:block;font-size:.74rem;letter-spacing:-.01em}.siteShellHeart{font:1.8rem Georgia,"Times New Roman",serif;color:#ad823d}.siteShellLinks{display:flex;align-items:center;gap:22px;font-size:.76rem;font-weight:700}.siteShellLinks a{text-decoration:none!important;color:#334139!important;white-space:nowrap}.siteShellLinks a:hover{color:#294533!important}.siteShellMobile{display:none;position:relative}.siteShellMobile summary{list-style:none;cursor:pointer;border:1px solid #ded8cd;background:#fff;padding:8px 12px;font-size:.73rem;font-weight:800;color:#294533}.siteShellMobile summary::-webkit-details-marker{display:none}.siteShellMobileMenu{position:absolute;right:0;top:44px;width:230px;background:#fff;border:1px solid #ded8cd;box-shadow:0 16px 36px rgba(30,44,35,.14);padding:8px}.siteShellMobileMenu a{display:block;text-decoration:none!important;color:#334139!important;padding:10px 11px;font-size:.78rem;font-weight:700;border-bottom:1px solid #eee9df}.siteShellMobileMenu a:last-child{border-bottom:0}
@@ -217,6 +219,7 @@ header{position:sticky;top:0;z-index:80;background:rgba(255,254,251,.97);border-
 </head>
 <body>
 <!-- PREMIUM-SHELL-HEADER-START --><header class="siteShellHeader"><div class="siteShellWrap siteShellNav"><a class="siteShellBrand" href="/"><span class="siteShellBrandWords">Answers<small>for a Broken Heart</small></span><span class="siteShellHeart">♡</span></a><nav class="siteShellLinks" aria-label="Main navigation"><a href="/">Home</a><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Guides</a><a href="/book">The Book</a><a href="/about">About</a><a href="/contact">Contact</a></nav><details class="siteShellMobile"><summary>Menu</summary><nav class="siteShellMobileMenu" aria-label="Mobile navigation"><a href="/">Home</a><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Guides</a><a href="/book">The Book</a><a href="/about">About</a><a href="/contact">Contact</a></nav></details></div></header><!-- PREMIUM-SHELL-HEADER-END -->
+
 
 
 
@@ -263,7 +266,7 @@ const A=[
 [7,"Why Did This Happen?","Can anything good actually come out of this?","All Things — Even This","Pain is never good merely because it hurts, but God is able to work through what He did not delight in. He can bring grace, compassion, endurance, ministry, and redemption out of wounds we would never have chosen."],
 [8,"Why Did This Happen?","What do I do when the explanation never comes?","Sometimes He Gives You Himself Instead of an Explanation","Sometimes God does not give the explanation we keep asking for. Instead, He gives us Himself—and His presence can become an answer deeper than information."],
 [9,"God Feels Far Away","Does God actually know what this feels like?","He Wept With You","Yes. Jesus did not observe human sorrow from a safe distance. He entered our world, wept at a grave, suffered betrayal, and knows grief from the inside."],
-[10,"God Feels Far Away","Isn’t His sympathy enough?","He Didn’t Just Enter It — He Ended It","God's answer to suffering is more than sympathy. In Christ, He entered death itself and rose again, promising that suffering and death will not have the final word."],
+[10,"God Feels Far Away","Is sympathy all God offers?","He Didn’t Just Enter It — He Ended It","God's answer to suffering is more than sympathy. In Christ, He entered death itself and rose again, promising that suffering and death will not have the final word."],
 [11,"Anger & Unanswered Prayer","Does God even care that they’re getting away with it?","His Silence Isn’t His Approval","God's patience should never be confused with indifference. Scripture repeatedly insists that injustice matters to Him, even when judgment does not arrive on our timetable."],
 [12,"People Who Hurt Me","Am I just as guilty as the person who hurt me?","Your Pain and Their Guilt Are Not the Same Conversation","Your need for grace does not erase another person's responsibility for what they did. Universal sinfulness and specific guilt are both biblical truths—and they are not the same conversation."],
 [13,"Anger & Unanswered Prayer","What do I do when God says no?","A No Is Not the End of the Story","A no from God can break your heart without ending your story. Faith learns to grieve the answer it wanted while trusting that God can still be present and purposeful in what follows."],
@@ -292,6 +295,7 @@ function book(){navActive("book");app.innerHTML=`<section class="subHero"><div c
 function about(){navActive("about");app.innerHTML=`<section class="subHero"><div class="wrap"><p class="eyebrow">About the author</p><h1>Tate Throndson</h1><p class="lead">Pastor, preacher, and author helping people find biblical hope in the middle of real life.</p></div></section><section class="section"><div class="wrap authorPage"><img src="${AUTHOR}" alt="Tate Throndson"><div><p class="eyebrow">Pastoral answers for people in real pain</p><h2>More than an argument. A shepherd’s voice.</h2><p>Tate Throndson has served as lead pastor of Castleview Baptist Church in Castle Rock, Colorado, since planting it in 2008. He and his wife, Debbie, have served together in full-time ministry for more than twenty-five years.</p><p><em>Answers for a Broken Heart</em> grows out of years of sitting with people in hospital rooms, funeral homes, counseling conversations, and seasons when easy answers simply were not enough.</p><p class="keyline">The goal is not to explain away your pain. It is to help you recognize the God who has been present in it all along.</p><a class="btn primary" href="/what-hurts-today">Find an Answer</a></div></div></section>`}
 function render(){const p=new URLSearchParams(location.search);if(p.has("answer"))return answer(parseInt(p.get("answer"),10));const v=p.get("view");if(v==="hurts")return hurts();if(v==="book")return book();if(v==="about")return about();home()}render();
 </script>
+
 
 
 
