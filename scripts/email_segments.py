@@ -3,7 +3,7 @@ import re
 
 MARKETING = [
     ('guide_2am', lambda t: '2:00 A.M. Guide' in t or '2AM Guide' in t or '2:00 A.M.' in t),
-    ('book_launch', lambda t: 'book launch list' in t.lower() or 'Join the Launch List' in t or 'New Answers for a Broken Heart book launch signup' in t),
+    ('book_launch', lambda t: 'book launch list' in t.lower() or 'Join the Launch List' in t or 'New Answers for a Broken Heart book launch signup' in t or 'release notification' in t.lower() or 'book release updates' in t.lower()),
     ('church_resources', lambda t: 'Church and Pastor Resources' in t or 'New Church Resources interest' in t),
 ]
 
