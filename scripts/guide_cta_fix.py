@@ -65,3 +65,14 @@ body{background:#fffefb!important;color:#242a26!important}.hero{background:linea
     text = text.replace('</head>', css + '\n</head>', 1)
     answers.write_text(text, encoding='utf-8')
     print('Unified all-answers.html')
+
+# Make Start Here the guided front door, while /all-answers remains the full library.
+start_here = Path('start-here.html')
+if start_here.exists():
+    text = start_here.read_text(encoding='utf-8')
+    text = text.replace('<title>What Hurts Today? | Find a Biblical Place to Begin</title>', '<title>Start Here | Find Biblical Help for What Hurts</title>')
+    text = text.replace('<link rel="canonical" href="https://answersforabrokenheart.com/what-hurts-today">', '<link rel="canonical" href="https://answersforabrokenheart.com/start-here">')
+    text = text.replace('content="What Hurts Today? | Find a Biblical Place to Begin"', 'content="Start Here | Find Biblical Help for What Hurts"')
+    text = text.replace('content="https://answersforabrokenheart.com/what-hurts-today"', 'content="https://answersforabrokenheart.com/start-here"')
+    start_here.write_text(text, encoding='utf-8')
+    print('Clarified start-here.html metadata')
