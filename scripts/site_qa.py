@@ -6,7 +6,7 @@ html_files=list(ROOT.glob('*.html'))
 existing={'/'+p.stem for p in html_files}
 existing.add('/')
 aliases={
-'/start-here','/what-hurts-today','/all-answers','/church-resources','/free-guides','/contact','/about','/2am-guide','/help-someone','/unsafe','/can-christians-be-depressed','/grief-and-loss','/why-god-allows-suffering','/god-feels-far-away','/anger-and-unanswered-prayer','/forgiveness-and-relational-hurt','/doubt-and-church-hurt'
+'/start-here','/what-hurts-today','/all-answers','/church-resources','/free-guides','/contact','/about','/book','/2am-guide','/help-someone','/unsafe','/can-christians-be-depressed','/grief-and-loss','/why-god-allows-suffering','/god-feels-far-away','/anger-and-unanswered-prayer','/forgiveness-and-relational-hurt','/doubt-and-church-hurt'
 }
 existing |= aliases
 existing |= {f'/answer-{i:02d}' for i in range(1,25)}
@@ -43,23 +43,31 @@ for i in range(1,25):
       'answer journey':'ANSWER-JOURNEY',
       'sharing tools':'class="shareHelp"',
       'conversion analytics':'CONVERSION-ANALYTICS',
+      'mobile resilience':'MOBILE-RESILIENCE',
     }
     for label,needle in required.items():
         if needle not in t: add('ERROR',p.name,f'Missing {label}')
     if '/all-answers' not in t: add('WARN',p.name,'No all-answers link')
-    if '/?view=book' not in t and '?view=book' not in t: add('WARN',p.name,'No book path')
+    if 'href="/book"' not in t: add('WARN',p.name,'No canonical book path')
     if 'PODCAST-RESOURCE-START' in t: add('WARN',p.name,'Legacy standalone podcast block still present')
     if re.search(r'href="/?\?answer=\d{2}"',t): add('WARN',p.name,'Legacy query-style answer link still present')
 
-for route,file in [('/start-here','begin-here.html'),('/what-hurts-today','start-here.html'),('/all-answers','what-hurts-today.html'),('/church-resources','church-resources.html'),('/free-guides','free-guides.html')]:
+for route,file in [('/start-here','begin-here.html'),('/all-answers','all-answers.html'),('/book','book.html'),('/church-resources','church-resources.html'),('/free-guides','free-guides.html')]:
     if not Path(file).exists(): add('ERROR',file,f'Backing file missing for {route}')
+
+start=Path('begin-here.html')
+if start.exists():
+    t=start.read_text(encoding='utf-8',errors='ignore')
+    if 'https://answersforabrokenheart.com/start-here' not in t: add('ERROR',start.name,'Start Here canonical missing or incorrect')
+    if '/can-christians-be-depressed' not in t: add('WARN',start.name,'No direct depression pathway')
 
 idx=Path('index.html')
 if idx.exists():
     t=idx.read_text(encoding='utf-8',errors='ignore')
-    for route in ['/start-here','/what-hurts-today','/free-guides','/church-resources']:
+    for route in ['/start-here','/all-answers','/free-guides','/church-resources']:
         if route not in t: add('ERROR','index.html',f'Homepage missing key route {route}')
     if 'CONVERSION-ANALYTICS' not in t: add('WARN','index.html','Homepage missing conversion analytics marker')
+    if 'View All 24 Answers' not in t: add('WARN','index.html','Homepage missing explicit 24 Answers library CTA')
 else: add('ERROR','index.html','Homepage missing')
 
 errors=sum(1 for x in issues if x[0]=='ERROR')
