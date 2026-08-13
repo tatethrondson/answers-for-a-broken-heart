@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Deployment retry 2026-08-12: no sitemap URL changes -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://answersforabrokenheart.com/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
   <url><loc>https://answersforabrokenheart.com/start-here</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
