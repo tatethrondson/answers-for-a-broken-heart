@@ -7,6 +7,7 @@ on:
     paths:
       - 'scripts/site_polish.py'
       - 'scripts/guide_cta_fix.py'
+      - 'scripts/analytics_events.py'
       - '.github/workflows/site-polish.yml'
   workflow_dispatch:
 
@@ -36,6 +37,9 @@ jobs:
 
       - name: Keep non-gated guides clearly open
         run: python scripts/guide_cta_fix.py
+
+      - name: Instrument the help-first funnel
+        run: python scripts/analytics_events.py
 
       - name: Commit polished pages
         run: |
