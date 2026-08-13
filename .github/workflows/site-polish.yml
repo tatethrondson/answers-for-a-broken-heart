@@ -10,6 +10,8 @@ on:
       - 'scripts/analytics_events.py'
       - 'scripts/email_segments.py'
       - 'scripts/site_qa.py'
+      - 'scripts/care_paths.py'
+      - 'scripts/answer_journey.py'
       - '.github/workflows/site-polish.yml'
   workflow_dispatch:
 
@@ -37,8 +39,30 @@ jobs:
       - name: Apply final audit cleanup
         run: python scripts/site_polish.py
 
-      - name: Keep non-gated guides clearly open
+      - name: Refresh care components
+        run: python scripts/care_paths.py
+
+      - name: Regenerate answer journeys
+        run: python scripts/answer_journey.py
+
+      - name: Keep guides and canonical routes current
         run: python scripts/guide_cta_fix.py
+
+      - name: Repair missing author bylines
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          byline='<!-- AUTHOR-BYLINE-START --><div class="answerByline">Written by <a href="/about" rel="author">Tate Throndson</a> · Pastor and author of <em>Answers for a Broken Heart</em></div><!-- AUTHOR-BYLINE-END -->'
+          for path in Path('.').glob('answer-??.html'):
+              text=path.read_text(encoding='utf-8')
+              if 'AUTHOR-BYLINE-START' in text:
+                  continue
+              text,count=re.subn(r'(<div class="meta">.*?</div>)',r'\1'+byline,text,count=1,flags=re.S)
+              if count:
+                  path.write_text(text,encoding='utf-8')
+                  print('Restored byline in',path.name)
+          PY
 
       - name: Tag email signup audiences
         run: python scripts/email_segments.py
