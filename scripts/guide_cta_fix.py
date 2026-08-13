@@ -77,25 +77,23 @@ if start_here.exists():
     start_here.write_text(text, encoding='utf-8')
     print('Clarified start-here.html metadata')
 
-# Normalize the high-traffic resource pages to the exact shared palette.
-palette_pages = (
-    'free-guides.html', '2am-guide.html', 'can-christians-be-depressed.html',
-    'help-someone.html', 'church-resources.html'
-)
+# Normalize legacy near-match colors across every HTML page. These values came from the
+# former design system; replacing them keeps direct-entry answer pages, topic hubs, guides,
+# and utility pages visually consistent with the current pine / cream / gold system.
 palette = {
+    '#2d4937': '#294533',
+    '#20372a': '#183024',
     '#b69258': '#ad823d',
     '#f6f1e8': '#f5f0e7',
     '#fffdf9': '#fffefb',
     '#ddd6c9': '#ded8cd',
+    '#789078': '#738371',
 }
-for filename in palette_pages:
-    path = Path(filename)
-    if not path.exists():
-        continue
+for path in Path('.').glob('*.html'):
     text = path.read_text(encoding='utf-8')
     original = text
     for old, new in palette.items():
         text = text.replace(old, new)
     if text != original:
         path.write_text(text, encoding='utf-8')
-        print('Normalized palette in', filename)
+        print('Normalized legacy palette in', path.name)
