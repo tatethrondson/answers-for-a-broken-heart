@@ -8,6 +8,7 @@ on:
       - 'scripts/premium_polish.py'
       - 'scripts/premium_polish_refine.py'
       - 'scripts/premium_polish_repair.py'
+      - 'scripts/unify_design.py'
       - '.github/workflows/premium-polish.yml'
   workflow_dispatch:
 
@@ -35,6 +36,8 @@ jobs:
         run: python scripts/premium_polish_refine.py
       - name: Guarantee repeatable premium shell
         run: python scripts/premium_polish_repair.py
+      - name: Enforce homepage design across every page
+        run: python scripts/unify_design.py
       - name: Commit polished site
         run: |
           if [ -z "$(git status --porcelain -- '*.html')" ]; then
