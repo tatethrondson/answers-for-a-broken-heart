@@ -15,14 +15,36 @@ CSS=f'''{CSS_START}<style>
 @media(max-width:900px){{.siteShellLinks{{gap:14px;font-size:.7rem}}}}@media(max-width:760px){{.siteShellLinks{{display:none}}.siteShellMobile{{display:block}}.siteShellFooterGrid{{grid-template-columns:1fr;gap:22px}}.siteShellFooterLinks{{justify-content:flex-start}}.siteShellCopyright{{grid-column:1}}.siteShellWrap{{width:min(100% - 30px,1160px)}}}}
 </style>{CSS_END}'''
 
-HEADER=f'''{HEADER_START}<header class="siteShellHeader"><div class="siteShellWrap siteShellNav"><a class="siteShellBrand" href="/"><span class="siteShellBrandWords">Answers<small>for a Broken Heart</small></span><span class="siteShellHeart">♡</span></a><nav class="siteShellLinks" aria-label="Main navigation"><a href="/">Home</a><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Guides</a><a href="/?view=book">The Book</a><a href="/about">About Tate</a><a href="/contact">Contact</a></nav><details class="siteShellMobile"><summary>Menu</summary><nav class="siteShellMobileMenu" aria-label="Mobile navigation"><a href="/">Home</a><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Guides</a><a href="/?view=book">The Book</a><a href="/about">About Tate</a><a href="/contact">Contact</a></nav></details></div></header>{HEADER_END}'''
+HEADER=f'''{HEADER_START}<header class="siteShellHeader"><div class="siteShellWrap siteShellNav"><a class="siteShellBrand" href="/"><span class="siteShellBrandWords">Answers<small>for a Broken Heart</small></span><span class="siteShellHeart">♡</span></a><nav class="siteShellLinks" aria-label="Main navigation"><a href="/">Home</a><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Guides</a><a href="/book">The Book</a><a href="/about">About</a><a href="/contact">Contact</a></nav><details class="siteShellMobile"><summary>Menu</summary><nav class="siteShellMobileMenu" aria-label="Mobile navigation"><a href="/">Home</a><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Guides</a><a href="/book">The Book</a><a href="/about">About</a><a href="/contact">Contact</a></nav></details></div></header>{HEADER_END}'''
 
-FOOTER=f'''{FOOTER_START}<footer class="siteShellFooter"><div class="siteShellWrap siteShellFooterGrid"><div><div class="siteShellFooterBrand">Answers<small>for a Broken Heart</small></div><div class="siteShellFooterTag">Biblical hope for grief, suffering, doubt, unanswered prayer, and the questions pain asks.</div></div><nav class="siteShellFooterLinks" aria-label="Footer navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Guides</a><a href="/church-resources">Church Resources</a><a href="/?view=book">The Book</a><a href="/about">About Tate</a><a href="/contact">Contact</a></nav><div class="siteShellCopyright">© 2026 Tate Throndson · Psalm 34:18 · Resources are pastoral and educational and are not a substitute for emergency, medical, or mental-health care.</div></div></footer>{FOOTER_END}'''
+FOOTER=f'''{FOOTER_START}<footer class="siteShellFooter"><div class="siteShellWrap siteShellFooterGrid"><div><div class="siteShellFooterBrand">Answers<small>for a Broken Heart</small></div><div class="siteShellFooterTag">Biblical hope for grief, suffering, doubt, unanswered prayer, and the questions pain asks.</div></div><nav class="siteShellFooterLinks" aria-label="Footer navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Guides</a><a href="/church-resources">Church Resources</a><a href="/book">The Book</a><a href="/about">About</a><a href="/contact">Contact</a></nav><div class="siteShellCopyright">© 2026 Tate Throndson · Psalm 34:18 · Resources are pastoral and educational and are not a substitute for emergency, medical, or mental-health care.</div></div></footer>{FOOTER_END}'''
 
 EXCLUDE={'unsafe.html','2am-guide-access.html','hope-thanks.html','book-updates-thanks.html','contact-thanks.html'}
 
+CARD_COPY_REPLACEMENTS={
+    'This Is Not the World He Made →':'This is not the world God called very good. →',
+    'He Knows More Than You Do →':'Your view is not the whole story. →',
+    'All Things — Even This →':'God can redeem even this. →',
+    'Grief That Stops Moving Becomes Bitterness →':'Healing is not a straight line. →',
+}
+
 def strip(text,start,end):
     return re.sub(re.escape(start)+r'.*?'+re.escape(end),'',text,flags=re.S)
+
+def normalize_legacy_content(text):
+    # Keep raw HTML aligned with the site's canonical routes instead of relying on
+    # client-side correction after the page loads.
+    text=text.replace('href="/?view=book"','href="/book"')
+    text=text.replace('href="/what-hurts-today">Browse All 24 Answers','href="/all-answers">Browse All 24 Answers')
+    text=text.replace('href="/what-hurts-today">See all 24 questions','href="/all-answers">See all 24 questions')
+    text=re.sub(
+        r'"name"\s*:\s*"What Hurts Today\?"\s*,\s*"item"\s*:\s*"https://answersforabrokenheart\.com/what-hurts-today"',
+        '"name": "24 Biblical Answers", "item": "https://answersforabrokenheart.com/all-answers"',
+        text
+    )
+    for old,new in CARD_COPY_REPLACEMENTS.items():
+        text=text.replace(old,new)
+    return text
 
 for path in Path('.').glob('*.html'):
     if path.name in EXCLUDE:
@@ -34,6 +56,7 @@ for path in Path('.').glob('*.html'):
     text=strip(text,FOOTER_START,FOOTER_END)
     while '?v=7?v=7' in text:
         text=text.replace('?v=7?v=7','?v=7')
+    text=normalize_legacy_content(text)
 
     # Header always belongs immediately after <body> once any legacy header is removed.
     text=re.sub(r'<header\b.*?</header>','',text,count=1,flags=re.S|re.I)
