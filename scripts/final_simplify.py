@@ -10,6 +10,17 @@ TOPIC_HUBS = {
     'doubt-and-church-hurt.html': 'Go deeper: doubt, faith, and church hurt',
 }
 
+DISCLOSURE_STYLE = '''<!-- FINAL-SIMPLIFY-CSS-START --><style>
+.deepHelpDisclosure{border-top:1px solid #ded8cd;border-bottom:1px solid #ded8cd;background:#faf8f3}
+.deepHelpDisclosure>summary{cursor:pointer;list-style:none;max-width:1120px;margin:0 auto;padding:23px 24px;font:400 1.15rem/1.35 Georgia,"Times New Roman",serif;color:#183024;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.deepHelpDisclosure>summary::-webkit-details-marker{display:none}
+.deepHelpDisclosure>summary:after{content:"+";font:400 1.5rem/1 Arial,Helvetica,sans-serif;color:#ad823d}
+.deepHelpDisclosure[open]>summary:after{content:"−"}
+.deepHelpDisclosure[open]>summary{border-bottom:1px solid #ded8cd}
+.deepHelpDisclosure .deepHelp{border-top:0!important;background:#fff!important;padding-top:48px!important}
+@media(max-width:760px){.deepHelpDisclosure>summary{padding:20px 18px;font-size:1.05rem}}
+</style><!-- FINAL-SIMPLIFY-CSS-END -->'''
+
 
 def read(name):
     return Path(name).read_text(encoding='utf-8')
@@ -109,6 +120,9 @@ def simplify_topic_hubs():
                     + '</details>'
                 )
                 text = text[:m.start()] + wrapped + text[m.end():]
+
+        if 'FINAL-SIMPLIFY-CSS-START' not in text and '</head>' in text:
+            text = text.replace('</head>', DISCLOSURE_STYLE + '\n</head>', 1)
 
         write(name, text, original)
 
