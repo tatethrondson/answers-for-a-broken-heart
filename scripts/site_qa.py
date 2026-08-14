@@ -21,15 +21,15 @@ def internal_ok(h):
     if not base.startswith('/'): return True
     return base in existing or Path(base.lstrip('/')+'.html').exists() or Path(base.lstrip('/')).exists()
 
-if not Path('site-cohesive.css').exists():
-    add('ERROR','site-cohesive.css','Shared homepage-derived design system is missing')
+if not Path('site-interior-v3.css').exists():
+    add('ERROR','site-interior-v3.css','Unified homepage-derived interior design system is missing')
 
 for p in html_files:
     t=p.read_text(encoding='utf-8',errors='ignore')
     for h in hrefs(t):
         if not internal_ok(h): add('ERROR',p.name,f'Broken-looking internal href: {h}')
-    if p.name not in {'index.html','photo-test.html'} and 'HOMEPAGE-DESIGN-SYSTEM' not in t:
-        add('ERROR',p.name,'Missing shared homepage design system')
+    if p.name not in {'index.html','photo-test.html'} and '/site-interior-v3.css?v=1' not in t:
+        add('ERROR',p.name,'Missing unified homepage-derived interior design system')
     if 'formsubmit.co' in t:
         if 'name="_next"' not in t: add('WARN',p.name,'FormSubmit form missing _next redirect')
         if 'name="_honey"' not in t: add('WARN',p.name,'FormSubmit form missing honeypot')
