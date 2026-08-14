@@ -27,7 +27,7 @@
   "rewrites": [
     {
       "source": "/start-here",
-      "destination": "/begin-here.html"
+      "destination": "/start-here.html"
     },
     {
       "source": "/all-answers",
