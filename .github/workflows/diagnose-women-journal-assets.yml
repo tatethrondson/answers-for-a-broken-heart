@@ -17,95 +17,105 @@ jobs:
         with:
           ref: women-journal-exact-upload
           fetch-depth: 0
-      - name: Reconstruct candidates
+      - name: Reconstruct CRC-verified stream
         shell: python
         run: |
           from pathlib import Path
-          import re, base64, gzip, hashlib
-
+          import re, base64, gzip, hashlib, zlib
           root=Path('journal-assets')
-          dirs=['women-approved','women','women-v3','women-v4','women-gz','women-ec','women-tail','women-tail15','women-tail3','women-tail3pairs','women-tail4','women-tail6']
-          out=[]
+          report=[]
 
-          def extract(path):
-              parts=[]
-              for p in sorted(path.glob('*.js')):
+          def simple_text(dirname):
+              vals=[]
+              for p in sorted((root/dirname).glob('*.js')):
                   s=p.read_text(errors='ignore')
-                  # collect every indexed quoted assignment in each file
-                  matches=re.findall(r'\[(\d+)\]\s*=\s*"([A-Za-z0-9+/=]+)"',s)
-                  if matches:
-                      for idx,val in matches:
-                          parts.append((int(idx),val,p.name))
+                  for idx,val in re.findall(r'\[(\d+)\]\s*=\s*"([A-Za-z0-9+/=]+)"',s):
+                      vals.append((int(idx),val,p.name))
+              vals.sort(key=lambda x:(x[0],x[2]))
+              # last file wins for duplicate index
+              d={}
+              for idx,val,name in vals: d[idx]=val
+              return ''.join(d[i] for i in sorted(d)), d
+
+          # EC data: choose only payload variants whose stored CRC32 matches the payload text.
+          variants={}
+          for p in sorted((root/'women-ec').glob('*.js')):
+              s=p.read_text(errors='ignore')
+              for idx,val,crc in re.findall(r'\[(\d+)\]\s*=\s*\["([A-Za-z0-9+/=]+)",(\d+)\]',s):
+                  idx=int(idx); crc=int(crc)
+                  variants.setdefault(idx,[]).append((val,crc,p.name))
+          good={}
+          bad=0
+          conflicts=[]
+          for idx,arr in variants.items():
+              valid=[]
+              for val,crc,name in arr:
+                  if (zlib.crc32(val.encode()) & 0xffffffff)==crc:
+                      valid.append((val,name))
                   else:
-                      # fallback: quoted base64 payloads with no explicit array index
-                      vals=re.findall(r'"([A-Za-z0-9+/=]{100,})"',s)
-                      for val in vals:
-                          parts.append((len(parts),val,p.name))
-              parts.sort(key=lambda x:(x[0],x[2]))
-              return parts
+                      bad+=1
+              uniq={v for v,n in valid}
+              if len(uniq)>1: conflicts.append(idx)
+              if valid: good[idx]=valid[-1][0]
+          keys=sorted(good)
+          missing=[i for i in range(keys[-1]+1) if i not in good] if keys else []
+          ec=''.join(good[i] for i in keys)
+          report.append(f'EC indexes={keys[0] if keys else None}..{keys[-1] if keys else None} good={len(good)} bad_variants={bad} missing={missing} conflicts={conflicts}')
+          report.append(f'EC chars={len(ec)} first={ec[:60]} last={ec[-60:]}')
 
-          def b64decode_loose(s):
-              return base64.b64decode(s + '='*((-len(s))%4), validate=False)
+          def overlap(a,b):
+              m=min(len(a),len(b),50000)
+              for n in range(m,0,-1):
+                  if a[-n:]==b[:n]: return n
+              return 0
 
-          def inspect_bytes(label,raw):
-              variants=[('raw',raw)]
+          def try_candidate(label,text):
+              text=text.strip()
+              try:
+                  raw=base64.b64decode(text+'='*((-len(text))%4),validate=False)
+              except Exception as e:
+                  report.append(f'{label}: base64 ERROR {e}')
+                  return
+              report.append(f'{label}: b64chars={len(text)} raw={len(raw)} rawsha={hashlib.sha256(raw).hexdigest()} sig={raw[:8]!r}')
               if raw[:2]==b'\x1f\x8b':
                   try:
-                      variants.append(('gunzip',gzip.decompress(raw)))
+                      data=gzip.decompress(raw)
+                      report.append(f'{label}: GZIP OK data={len(data)} sha={hashlib.sha256(data).hexdigest()} sig={data[:8]!r} eof={data.rfind(b"%%EOF")}')
+                      if data.startswith(b'%PDF'):
+                          Path('reconstructed-women-candidate.pdf').write_bytes(data)
                   except Exception as e:
-                      out.append(f'{label}: gzip ERROR {e}; compressed={len(raw)} sha={hashlib.sha256(raw).hexdigest()}')
-              for kind,data in variants:
-                  sig=data[:8]
-                  sha=hashlib.sha256(data).hexdigest()
-                  eof=data.rfind(b'%%EOF')
-                  pages=data.count(b'/Type /Page') if data.startswith(b'%PDF') else -1
-                  out.append(f'{label} [{kind}]: bytes={len(data)} sha256={sha} pages_hint={pages} eof_at={eof} sig={sig!r}')
+                      report.append(f'{label}: gzip ERROR {e}')
+              elif raw.startswith(b'%PDF'):
+                  report.append(f'{label}: PDF raw eof={raw.rfind(b"%%EOF")}')
 
-          decoded={}
-          for d in dirs:
-              path=root/d
-              if not path.exists(): continue
-              parts=extract(path)
-              out.append(f'--- {d}: payloads={len(parts)} indexes={[x[0] for x in parts]} lens={[len(x[1]) for x in parts]}')
-              if not parts:
-                  continue
-              # Method A: concatenate textual base64, pad once
-              joined=''.join(x[1] for x in parts)
-              try:
-                  rawA=b64decode_loose(joined)
-                  inspect_bytes(d+'-joinedB64',rawA)
-              except Exception as e:
-                  out.append(f'{d}-joinedB64: decode ERROR {e}')
-              # Method B: decode each independently, concatenate decoded byte slices
-              chunks=[]
-              ok=True
-              for idx,val,name in parts:
-                  try: chunks.append(b64decode_loose(val))
-                  except Exception as e:
-                      out.append(f'{d} part idx={idx} {name}: decode ERROR {e}')
-                      ok=False
-              if ok:
-                  rawB=b''.join(chunks)
-                  decoded[d]=rawB
-                  inspect_bytes(d+'-decodedParts',rawB)
+          prefixes={}
+          for d in ['women-v3','women-v4','women-gz']:
+              t,_=simple_text(d)
+              prefixes[d]=t
+              ov=overlap(t,ec)
+              report.append(f'{d}: chars={len(t)} first={t[:30]} last={t[-30:]} overlap_to_EC={ov}')
+              try_candidate(d+'+EC',t+ec[ov:])
 
-          combos=[
-              ['women-gz','women-tail'],['women-gz','women-tail15'],['women-gz','women-tail3'],
-              ['women-gz','women-tail3pairs'],['women-gz','women-tail4'],['women-gz','women-tail6'],
-              ['women-v4','women-tail'],['women-v4','women-tail15'],['women-v4','women-tail3'],
-              ['women-v4','women-tail3pairs'],['women-v4','women-tail4'],['women-v4','women-tail6'],
-              ['women','women-v3'],['women','women-v4'],['women','women-gz'],
-          ]
-          for c in combos:
-              if all(x in decoded for x in c):
-                  inspect_bytes('+'.join(c)+'-decodedParts',b''.join(decoded[x] for x in c))
+          # Also try EC appended at common 250-char boundaries after trimming damaged suffixes.
+          for d,t in prefixes.items():
+              best=[]
+              for trim in range(0,min(20000,len(t))+1,250):
+                  cand=t[:-trim] if trim else t
+                  ov=overlap(cand,ec)
+                  if ov: best.append((ov,trim))
+              if best:
+                  ov,trim=max(best)
+                  cand=(t[:-trim] if trim else t)+ec[ov:]
+                  report.append(f'{d} best boundary overlap={ov} trim={trim}')
+                  try_candidate(d+f'-trim{trim}+EC',cand)
 
-          Path('journal-asset-diagnostic.txt').write_text('\n'.join(out)+'\n')
+          Path('journal-asset-diagnostic.txt').write_text('\n'.join(report)+'\n')
       - name: Commit report
         shell: bash
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add journal-asset-diagnostic.txt
-          git commit -m 'Report improved women journal asset reconstruction' || exit 0
+          [ -f reconstructed-women-candidate.pdf ] && git add reconstructed-women-candidate.pdf || true
+          git commit -m 'Report CRC-verified women journal reconstruction' || exit 0
           git push origin HEAD:women-journal-exact-upload
