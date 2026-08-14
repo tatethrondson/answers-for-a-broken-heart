@@ -23,13 +23,18 @@ def internal_ok(h):
 
 if not Path('site-interior-v3.css').exists():
     add('ERROR','site-interior-v3.css','Unified homepage-derived interior design system is missing')
+if not Path('site-polish-v4.css').exists():
+    add('ERROR','site-polish-v4.css','Second-pass visual polish layer is missing')
 
 for p in html_files:
     t=p.read_text(encoding='utf-8',errors='ignore')
     for h in hrefs(t):
         if not internal_ok(h): add('ERROR',p.name,f'Broken-looking internal href: {h}')
-    if p.name not in {'index.html','photo-test.html'} and '/site-interior-v3.css?v=1' not in t:
-        add('ERROR',p.name,'Missing unified homepage-derived interior design system')
+    if p.name not in {'index.html','photo-test.html'}:
+        if '/site-interior-v3.css?v=2' not in t:
+            add('ERROR',p.name,'Missing unified homepage-derived interior design system')
+        if '/site-polish-v4.css?v=1' not in t:
+            add('ERROR',p.name,'Missing second-pass visual polish layer')
     if 'formsubmit.co' in t:
         if 'name="_next"' not in t: add('WARN',p.name,'FormSubmit form missing _next redirect')
         if 'name="_honey"' not in t: add('WARN',p.name,'FormSubmit form missing honeypot')
