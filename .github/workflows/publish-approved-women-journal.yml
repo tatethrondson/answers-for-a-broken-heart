@@ -1,0 +1,65 @@
+name: Publish approved women's journal
+
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-approved-women-journal.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download and verify approved journal
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 4 --retry-delay 3 --max-time 60 \
+            'https://filebin.net/afabh-women-20260814/Faith_and_Feelings_30_Day_Journal_for_Women.pdf' \
+            -o Faith_and_Feelings_30_Day_Journal_for_Women.pdf
+          echo '7f16356bdf2cdd54a2a5fbcef30a0df2365bcdee3f13d4f2c5e1d96f4967ac0c  Faith_and_Feelings_30_Day_Journal_for_Women.pdf' | sha256sum -c -
+
+      - name: Point the women journal card to the approved PDF
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          p = Path('free-guides.html')
+          s = p.read_text(encoding='utf-8')
+
+          old_button = '<button class="journalButton" type="button" onclick="generateFaithFeelingsJournal(\'women\',this)">Download Women’s PDF</button>'
+          new_button = '<a class="journalButton" href="/Faith_and_Feelings_30_Day_Journal_for_Women.pdf" download="Faith_and_Feelings_30_Day_Journal_for_Women.pdf">Download Women’s PDF</a>'
+          if old_button in s:
+              s = s.replace(old_button, new_button)
+          elif '/Faith_and_Feelings_30_Day_Journal_for_Women.pdf' not in s:
+              raise SystemExit('Could not find the women journal download control')
+
+          old_copy = 'Thirty daily prompts, KJV hope Scriptures, space to name what is heavy, and one practical action each day—designed in a lighter floral style.'
+          new_copy = 'Thirty short devotionals, KJV hope Scriptures, room to name what you feel, what is heavy, and answer those feelings with what God says is true.'
+          s = s.replace(old_copy, new_copy)
+
+          old_css = '.journalButton{margin-top:auto;align-self:flex-start;border:1px solid var(--green);background:var(--green);color:white;padding:11px 15px;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.055em;cursor:pointer}'
+          new_css = '.journalButton{margin-top:auto;align-self:flex-start;border:1px solid var(--green);background:var(--green);color:white;padding:11px 15px;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.055em;cursor:pointer;text-decoration:none;display:inline-block}'
+          s = s.replace(old_css, new_css)
+
+          p.write_text(s, encoding='utf-8')
+
+      - name: Publish journal to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .deployment-test .deployment-test-2
+          git rm -f .github/workflows/publish-approved-women-journal.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Faith_and_Feelings_30_Day_Journal_for_Women.pdf free-guides.html
+          git commit -m "Publish approved women's Faith & Feelings journal"
+          git push origin HEAD:main
