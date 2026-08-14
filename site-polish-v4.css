@@ -1,7 +1,7 @@
 /* Answers for a Broken Heart — visual polish v4
-   Second-pass refinements. The homepage remains the source of truth; this file
-   improves proportion, readability, card balance, and mobile composition on
-   interior pages without changing content or conversion paths. */
+   Final interior refinement. The homepage remains the source of truth.
+   This file owns proportions, readability, page-family consistency, and
+   responsive behavior after the base interior design system. */
 
 :root{
   --ab-reading:720px;
@@ -9,7 +9,7 @@
   --ab-gap:64px;
 }
 
-/* Type and reading comfort */
+/* ---------- Global editorial rhythm ---------- */
 body h1,body h2,body h3{ text-wrap:balance; }
 body p,body li{ text-wrap:pretty; }
 body img{max-width:100%;height:auto}
@@ -20,13 +20,21 @@ body .article h3{line-height:1.15!important}
 body .lead,body .dek,body .heroLead{max-width:740px!important}
 body .keyline{max-width:700px!important}
 
-/* More editorial interior heroes: confident, but not oversized */
-body main>.hero,body .subHero,body .hero:not(.homeHero),body>.hero{padding-top:56px!important;padding-bottom:50px!important}
-body main>.hero h1,body .subHero h1,body .hero h1{font-size:clamp(2.85rem,4.8vw,4.6rem)!important;max-width:900px!important}
+/* ---------- Interior heroes ---------- */
+body main>.hero,body .subHero,body .hero:not(.homeHero),body>.hero{
+  padding-top:56px!important;
+  padding-bottom:50px!important;
+  background:linear-gradient(120deg,var(--ab-cream),#eef2ed)!important;
+}
+body main>.hero h1,body .subHero h1,body .hero h1{
+  font-size:clamp(2.85rem,4.8vw,4.6rem)!important;
+  max-width:900px!important;
+  line-height:1.01!important;
+}
 body .heroGrid{gap:56px!important}
 body .hero .eyebrow,body .subHero .eyebrow{margin-bottom:10px!important}
 
-/* Universal grid polish */
+/* ---------- Universal cards and grids ---------- */
 body .choiceGrid,body .relatedGrid,body .salesGrid,body .cards,body .grid,body .journalGrid,body .journalsGrid,body .resourceGrid,body .resourcesGrid,body .bookForYouGrid{
   align-items:stretch!important;
   gap:16px!important;
@@ -35,8 +43,16 @@ body .choiceGrid>*,body .relatedGrid>*,body .salesGrid>*,body .cards>*,body .gri
 body .choice,body .relatedCard,body .salesCard,body .card,body .item,body .resourceCard,body .guideCard,body .journalCard{padding:26px!important}
 body .choice,body .relatedCard,body .resourceCard,body .guideCard,body .journalCard{display:flex!important;flex-direction:column!important}
 body .choice .read,body .choice .cardLink,body .relatedCard .read,body .resourceCard .cardLink,body .guideCard .cardLink{margin-top:auto!important;padding-top:14px!important}
+body .card,body .choice,body .relatedCard,body .resourceCard,body .guideCard,body .journalCard,body .item{
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body .card:hover,body .choice:hover,body .relatedCard:hover,body .resourceCard:hover,body .guideCard:hover,body .journalCard:hover{
+  border-color:#cfc7b9!important;
+  box-shadow:0 14px 30px rgba(24,48,36,.07)!important;
+}
 
-/* Start Here: make the guided choices feel intentional and calm */
+/* ---------- Start Here ---------- */
 body .start{padding-top:48px!important;padding-bottom:68px!important}
 body .start .intro{max-width:760px!important;margin-bottom:28px!important}
 body .choiceGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
@@ -47,22 +63,24 @@ body .night{margin-top:30px!important;padding:30px 32px!important;gap:30px!impor
 body .night h2{font-size:2rem!important;line-height:1.08!important}
 body .bottom{margin-top:26px!important;padding-top:22px!important}
 
-/* 24 Answers library: tighter scanning and more consistent cards */
+/* ---------- 24 Answers / What Hurts Today ---------- */
 body .tools{padding-top:16px!important;padding-bottom:16px!important}
 body .search,body .searchBox,body input[type="search"]{min-height:48px!important;padding:12px 14px!important}
 body .filters{gap:8px!important}
-body .filter{min-height:36px!important;padding:8px 13px!important;font-size:.72rem!important}
+body .filter{min-height:36px!important;padding:8px 13px!important;font-size:.72rem!important;border-radius:0!important}
 body .library .card,body .library .answerCard{padding:24px!important}
 body .library .card h3,body .library .answerCard h3{line-height:1.2!important;margin-top:5px!important}
 body .groupHead{max-width:790px!important;margin-bottom:22px!important}
 body .groupHead h2{line-height:1.08!important}
+body.page-what-hurts-today .introGrid{grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr)!important;gap:50px!important}
+body.page-what-hurts-today .anchor{border-top:3px solid var(--ab-gold)!important;padding:27px 29px!important}
 
-/* Article / answer pages: narrower reading column and calmer sidebar */
+/* ---------- Answer/article pages ---------- */
 body .layout,body .articleWrap{grid-template-columns:minmax(0,var(--ab-reading)) var(--ab-sidebar)!important;gap:var(--ab-gap)!important;justify-content:space-between!important;align-items:start!important}
 body .article{font-size:1.02rem!important}
 body .short,body .shortAnswer{padding:28px 30px!important;margin-bottom:34px!important}
 body .short h2,body .shortAnswer h2{font-size:1.9rem!important;margin-bottom:10px!important}
-body .scripture{padding:24px 26px!important;margin:28px 0!important}
+body .scripture{padding:24px 26px!important;margin:28px 0!important;border-radius:0!important}
 body .pastoral{padding:26px 28px!important;margin:34px 0!important}
 body .minuteHelp{padding:26px 28px!important;margin-bottom:34px!important}
 body .minuteGrid{gap:12px!important}
@@ -73,7 +91,7 @@ body .relatedGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
 body .relatedCard{min-height:170px!important}
 body .next a{max-width:700px!important;padding:24px 26px!important}
 
-/* Book page: keep the mockup prominent while making the copy breathe */
+/* ---------- Book ---------- */
 body .bookHelpFirst{padding:30px 34px!important;gap:28px!important;margin-bottom:30px!important}
 body .bookBand{grid-template-columns:.84fr 1.16fr!important;margin-bottom:32px!important}
 body .bookStage{min-height:420px!important;padding:34px!important}
@@ -86,7 +104,7 @@ body .salesCard{min-height:190px!important}
 body .bookForYou{padding:36px 38px!important;margin:38px 0!important}
 body .bookUpdates{padding:34px 36px!important;gap:38px!important}
 
-/* About page: editorial biography proportions */
+/* ---------- About ---------- */
 body .heroGrid{grid-template-columns:minmax(0,1fr) 210px!important;align-items:center!important}
 body .portrait{width:200px!important;height:280px!important;object-fit:cover!important;justify-self:end!important}
 body .storyGrid{grid-template-columns:minmax(0,730px) 276px!important;gap:64px!important;align-items:start!important}
@@ -97,39 +115,154 @@ body .cards{grid-template-columns:repeat(3,minmax(0,1fr))!important}
 body .why{gap:54px!important}
 body .ctaGrid{gap:44px!important}
 
-/* Free resources and journals: equal-height offers and cleaner covers */
+/* ---------- Free resources and journals ---------- */
 body .resources .resourceCard,body .journals .journalCard{min-height:100%!important}
 body .journalCover{flex:0 0 auto!important}
 body .journalCard h3,body .resourceCard h3,body .guideCard h3{line-height:1.15!important}
 body .journalCard p,body .resourceCard p,body .guideCard p{line-height:1.58!important}
 body .journalActions,body .resourceActions{margin-top:auto!important;padding-top:16px!important}
 
-/* Lead-magnet / guide pages */
+/* ---------- Lead-magnet / guide landing pages ---------- */
 body .inside .grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
 body .inside .item{min-height:190px!important}
 body .formCard,body .heroGrid>.card{padding:28px!important}
 body .form input,body .form button{min-height:50px!important}
 body .promise{margin-top:14px!important}
 
-/* Contact and utility pages */
+body.page-2am-guide .heroGrid{
+  grid-template-columns:minmax(0,1.05fr) minmax(320px,.75fr)!important;
+  gap:54px!important;
+}
+body.page-2am-guide .hero .card{
+  border:1px solid var(--ab-line)!important;
+  border-top:4px solid var(--ab-gold)!important;
+  background:var(--ab-paper)!important;
+  padding:30px!important;
+  box-shadow:0 18px 42px rgba(24,48,36,.08)!important;
+}
+body.page-2am-guide .inside{padding:58px 0 66px!important;background:var(--ab-warm)!important}
+body.page-2am-guide .insideHead{max-width:720px!important;margin-bottom:30px!important;text-align:left!important}
+body.page-2am-guide .inside .item{background:var(--ab-paper)!important;border:1px solid var(--ab-line)!important;border-top:3px solid rgba(173,130,61,.72)!important}
+body.page-2am-guide .night{margin:0!important;padding:46px 0!important;background:var(--ab-deep)!important}
+body.page-2am-guide .night .wrap{max-width:860px!important}
+
+/* ---------- 2:00 A.M. guide content ---------- */
+body.page-2am-guide-access .hero .wrap{max-width:820px!important}
+body.page-2am-guide-access .guide{padding:54px 0 72px!important;background:var(--ab-paper)!important}
+body.page-2am-guide-access .guide>.wrap{max-width:800px!important}
+body.page-2am-guide-access .intro{font:1.12rem/1.72 Georgia,"Times New Roman",serif!important;color:#46534b!important;margin-bottom:34px!important;max-width:70ch!important}
+body.page-2am-guide-access .entry{padding:34px 0!important;border-top:1px solid var(--ab-line)!important}
+body.page-2am-guide-access .entry h2{font-size:2.05rem!important;margin:7px 0 15px!important}
+body.page-2am-guide-access .entry .scripture{background:var(--ab-cream)!important;border:1px solid var(--ab-line)!important;border-left:4px solid var(--ab-gold)!important;font:1.12rem/1.65 Georgia,"Times New Roman",serif!important}
+body.page-2am-guide-access .entry .prayer{padding:17px 20px!important;background:#eef2ed!important;border-left:3px solid var(--ab-sage)!important;color:#435047!important;font-style:italic!important}
+body.page-2am-guide-access .closing{padding:46px 0!important;background:var(--ab-deep)!important}
+body.page-2am-guide-access .closing .wrap{max-width:820px!important}
+body.page-2am-guide-access .closing h2{font-size:2.35rem!important;line-height:1.08!important}
+body.page-2am-guide-access .closing .btn{background:#d8bd87!important;color:var(--ab-deep)!important}
+
+/* ---------- Helping someone who hurts ---------- */
+body.page-help-someone .hero .wrap{max-width:880px!important}
+body.page-help-someone .article{padding:54px 0 72px!important}
+body.page-help-someone .article>.wrap{max-width:820px!important}
+body.page-help-someone .pairs{display:grid!important;gap:14px!important;margin:30px 0 38px!important}
+body.page-help-someone .pair{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important;padding:0!important}
+body.page-help-someone .dont,body.page-help-someone .say{padding:23px 24px!important;border:1px solid var(--ab-line)!important;border-radius:0!important}
+body.page-help-someone .dont{background:#fbf7f0!important;border-top:3px solid #c6a982!important}
+body.page-help-someone .say{background:#eef2ed!important;border-top:3px solid var(--ab-sage)!important}
+body.page-help-someone .step{padding:27px 0!important;border-top:1px solid var(--ab-line)!important}
+body.page-help-someone .step h3{font-size:1.62rem!important;line-height:1.15!important}
+body.page-help-someone .prayer{background:var(--ab-cream)!important;border-left:4px solid var(--ab-gold)!important;padding:25px 27px!important}
+body.page-help-someone .safety{background:#f4f0e8!important;border:1px solid var(--ab-line)!important;border-left:4px solid var(--ab-gold)!important;padding:25px 27px!important}
+body.page-help-someone .cta{padding:48px 0!important;background:var(--ab-deep)!important}
+body.page-help-someone .cta .wrap{max-width:820px!important}
+body.page-help-someone .cta .btn{margin-top:10px!important}
+
+/* ---------- Immediate safety page ---------- */
+body.page-unsafe .hero .wrap{max-width:800px!important}
+body.page-unsafe .main{padding:48px 0 70px!important}
+body.page-unsafe .main>.wrap{max-width:780px!important}
+body.page-unsafe .first{
+  background:var(--ab-deep)!important;
+  color:#fff!important;
+  border-top:4px solid var(--ab-gold)!important;
+  padding:29px 31px!important;
+  margin-bottom:30px!important;
+}
+body.page-unsafe .first h2{font-size:2rem!important;line-height:1.08!important}
+body.page-unsafe .step{padding:27px 0!important;border-bottom:1px solid var(--ab-line)!important}
+body.page-unsafe .step h2{font-size:1.75rem!important;line-height:1.15!important;margin-bottom:9px!important}
+body.page-unsafe .callout{background:var(--ab-cream)!important;border:1px solid var(--ab-line)!important;border-left:4px solid var(--ab-gold)!important;padding:24px 26px!important}
+body.page-unsafe .buttons{gap:10px!important;margin-top:18px!important}
+body.page-unsafe .note{max-width:70ch!important;line-height:1.6!important}
+
+/* ---------- Depression pastoral guide ---------- */
+body.page-can-christians-be-depressed .hero .wrap,body.page-can-christians-be-depressed .article>.wrap{max-width:820px!important}
+body.page-can-christians-be-depressed .opening{font-size:1.2rem!important;line-height:1.66!important}
+body.page-can-christians-be-depressed .steps{margin:34px 0!important}
+body.page-can-christians-be-depressed .step{grid-template-columns:56px minmax(0,1fr)!important;gap:22px!important;padding:28px 0!important}
+body.page-can-christians-be-depressed .stepNum{font-size:2rem!important;color:var(--ab-gold)!important}
+body.page-can-christians-be-depressed .prayer{background:#eef2ed!important;border-top:3px solid var(--ab-sage)!important;padding:27px 29px!important}
+body.page-can-christians-be-depressed .gentle{background:#fbf7f0!important;border:1px solid var(--ab-line)!important;border-left:4px solid var(--ab-gold)!important;padding:26px 28px!important}
+body.page-can-christians-be-depressed .ps{background:var(--ab-cream)!important;border:1px solid var(--ab-line)!important;padding:27px 29px!important}
+body.page-can-christians-be-depressed .cta{padding:48px 0!important;background:var(--ab-deep)!important}
+
+/* ---------- Church & pastor resources ---------- */
+body.page-church-resources .intro{padding:54px 0!important}
+body.page-church-resources .introGrid{grid-template-columns:minmax(0,1.08fr) minmax(300px,.82fr)!important;gap:52px!important}
+body.page-church-resources .pastorNote{background:var(--ab-deep)!important;border-top:4px solid var(--ab-gold)!important;padding:29px 30px!important}
+body.page-church-resources .gridSec{padding:56px 0 68px!important;background:var(--ab-warm)!important}
+body.page-church-resources .resourceGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important}
+body.page-church-resources .resourceGrid .card{min-height:210px!important;border-top:3px solid rgba(173,130,61,.72)!important}
+body.page-church-resources .useSec{padding:56px 0!important}
+body.page-church-resources .useGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px!important}
+body.page-church-resources .use{background:var(--ab-cream)!important;border:1px solid var(--ab-line)!important;border-left:4px solid var(--ab-gold)!important;padding:24px 25px!important}
+body.page-church-resources .churchKit{padding:58px 0!important;background:var(--ab-deep)!important}
+body.page-church-resources .kitGrid{grid-template-columns:minmax(0,1fr) minmax(320px,.9fr)!important;gap:54px!important}
+body.page-church-resources .interest{background:var(--ab-cream)!important;border-top:4px solid var(--ab-gold)!important;padding:29px!important}
+body.page-church-resources .future{padding:50px 0!important;background:#eef2ed!important}
+
+/* ---------- Forms, contact, confirmation, utility pages ---------- */
 body .formCard{max-width:760px!important}
 body textarea{min-height:150px!important;padding:13px 14px!important;resize:vertical!important}
-body input[type="text"],body input[type="email"],body select{min-height:48px!important;padding:12px 14px!important}
+body input[type="text"],body input[type="email"],body select{min-height:48px!important;padding:12px 14px!important;border-radius:0!important}
 body .hero404{padding:76px 0 90px!important}
 body .hero404 p{max-width:650px!important}
 body .actions{gap:10px!important}
 
-/* Fine interaction and accessibility polish */
+body.page-contact-thanks main>.wrap,
+body.page-hope-thanks main>.wrap,
+body.page-book-updates-thanks main>.wrap{
+  width:min(760px,calc(100% - 40px))!important;
+  padding:78px 0 94px!important;
+  min-height:52vh!important;
+}
+body.page-contact-thanks main h1,
+body.page-hope-thanks main h1,
+body.page-book-updates-thanks main h1{
+  font-size:clamp(2.9rem,5vw,4.35rem)!important;
+  line-height:1.03!important;
+  margin-bottom:17px!important;
+}
+body.page-contact-thanks main p,
+body.page-hope-thanks main p,
+body.page-book-updates-thanks main p{max-width:65ch!important;font-size:1rem!important;line-height:1.72!important}
+body.page-contact-thanks main .btn,
+body.page-hope-thanks main .btn,
+body.page-book-updates-thanks main .btn{margin-top:18px!important}
+
+/* ---------- Interaction / accessibility ---------- */
 body a,body button,body input,body textarea,body select{outline-offset:3px}
 body a:focus-visible,body button:focus-visible,body input:focus-visible,body textarea:focus-visible,body select:focus-visible{outline:3px solid rgba(173,130,61,.55)!important}
 body .card,body .choice,body .relatedCard,body .resourceCard,body .guideCard,body .journalCard{transition:box-shadow .18s ease,border-color .18s ease,transform .18s ease!important}
 
+/* ---------- Responsive ---------- */
 @media(max-width:980px){
   :root{--ab-gap:42px;--ab-sidebar:250px}
   body .layout,body .articleWrap{grid-template-columns:minmax(0,1fr) var(--ab-sidebar)!important}
   body .storyGrid{grid-template-columns:minmax(0,1fr) 250px!important;gap:44px!important}
   body .bookBandCopy{padding:38px 34px!important}
   body .bookStage{padding:28px!important}
+  body.page-church-resources .introGrid,body.page-church-resources .kitGrid{gap:38px!important}
 }
 
 @media(max-width:820px){
@@ -138,14 +271,17 @@ body .card,body .choice,body .relatedCard,body .resourceCard,body .guideCard,bod
   body main>.hero h1,body .subHero h1,body .hero h1{font-size:clamp(2.55rem,9vw,3.7rem)!important}
   body .section{padding:50px 0!important}
   body .resources,body .journals,body .inside,body .library,body .page,body .relatedAnswers,body .next{padding-top:44px!important;padding-bottom:52px!important}
-  body .layout,body .articleWrap,body .storyGrid,body .heroGrid,body .bookBand,body .bookUpdates,body .why,body .ctaGrid{grid-template-columns:1fr!important;gap:30px!important}
+  body .layout,body .articleWrap,body .storyGrid,body .heroGrid,body .bookBand,body .bookUpdates,body .why,body .ctaGrid,
+  body.page-2am-guide .heroGrid,body.page-church-resources .introGrid,body.page-church-resources .kitGrid{grid-template-columns:1fr!important;gap:30px!important}
   body .side,body .sideCard{position:static!important;top:auto!important}
   body .portrait{justify-self:start!important;width:170px!important;height:238px!important}
   body .bookBandCopy{border-left:0!important;border-top:1px solid var(--ab-line)!important;padding:34px 28px!important}
   body .bookStage{min-height:360px!important}
-  body .relatedGrid,body .salesGrid,body .cards,body .inside .grid{grid-template-columns:1fr!important}
+  body .relatedGrid,body .salesGrid,body .cards,body .inside .grid,body.page-church-resources .resourceGrid{grid-template-columns:1fr!important}
   body .relatedCard,body .salesCard,body .inside .item{min-height:0!important}
   body .bookHelpFirst{grid-template-columns:1fr!important;padding:27px 25px!important}
+  body.page-what-hurts-today .introGrid{grid-template-columns:1fr!important;gap:24px!important}
+  body.page-church-resources .useGrid{grid-template-columns:1fr!important}
 }
 
 @media(max-width:700px){
@@ -157,6 +293,10 @@ body .card,body .choice,body .relatedCard,body .resourceCard,body .guideCard,bod
   body .minuteHelpHead span{display:block!important;margin-top:6px!important}
   body .bookForYou{padding:28px 23px!important}
   body .bookForYouGrid{grid-template-columns:1fr!important}
+  body.page-help-someone .pair{grid-template-columns:1fr!important}
+  body.page-can-christians-be-depressed .step{grid-template-columns:1fr!important;gap:8px!important}
+  body.page-can-christians-be-depressed .stepNum{font-size:1.5rem!important}
+  body.page-church-resources .interest form{grid-template-columns:1fr!important}
 }
 
 @media(max-width:540px){
@@ -170,6 +310,15 @@ body .card,body .choice,body .relatedCard,body .resourceCard,body .guideCard,bod
   body .actions,body .bookActions,body .bottom,body .journalActions,body .resourceActions{display:grid!important;grid-template-columns:1fr!important;width:100%!important}
   body .actions .btn,body .bookActions .bookAction,body .bottom .btn,body .bottom .linkBtn,body .journalActions .journalButton,body .resourceActions .btn{width:100%!important}
   body .hero404{padding:58px 0 70px!important}
+  body.page-help-someone .cta .btn,body.page-2am-guide-access .closing .btn,body.page-unsafe .buttons .btn{display:block!important;width:100%!important;margin-right:0!important;text-align:center!important}
+  body.page-contact-thanks main>.wrap,body.page-hope-thanks main>.wrap,body.page-book-updates-thanks main>.wrap{padding:58px 0 70px!important}
+}
+
+@media print{
+  body.page-2am-guide-access .siteShellHeader,
+  body.page-2am-guide-access .siteShellFooter,
+  body.page-2am-guide-access .tools,
+  body.page-2am-guide-access .closing{display:none!important}
 }
 
 @media(prefers-reduced-motion:reduce){
