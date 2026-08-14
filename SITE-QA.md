@@ -1,8 +1,7 @@
 # Site QA Report
 
 HTML files scanned: 50
-Errors: 1
+Errors: 0
 Warnings: 0
 
-## Findings
-- **ERROR** `free-guides.html` — Missing shared homepage design system
+No issues found by the automated checks.
