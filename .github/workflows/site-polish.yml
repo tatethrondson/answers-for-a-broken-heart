@@ -12,6 +12,7 @@ on:
       - 'scripts/site_qa.py'
       - 'scripts/care_paths.py'
       - 'scripts/answer_journey.py'
+      - 'scripts/content_presentation.py'
       - 'scripts/design_normalize.py'
       - 'site-cohesive.css'
       - 'site-interior-v3.css'
@@ -73,6 +74,9 @@ jobs:
 
       - name: Instrument the help-first funnel
         run: python scripts/analytics_events.py
+
+      - name: Prioritize content presentation
+        run: python scripts/content_presentation.py
 
       - name: Normalize interior design system
         run: python scripts/design_normalize.py
