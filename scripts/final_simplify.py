@@ -11,14 +11,16 @@ TOPIC_HUBS = {
 }
 
 DISCLOSURE_STYLE = '''<!-- FINAL-SIMPLIFY-CSS-START --><style>
-.deepHelpDisclosure{border-top:1px solid #ded8cd;border-bottom:1px solid #ded8cd;background:#faf8f3}
-.deepHelpDisclosure>summary{cursor:pointer;list-style:none;max-width:1120px;margin:0 auto;padding:23px 24px;font:400 1.15rem/1.35 Georgia,"Times New Roman",serif;color:#183024;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.deepHelpDisclosure>summary::-webkit-details-marker{display:none}
-.deepHelpDisclosure>summary:after{content:"+";font:400 1.5rem/1 Arial,Helvetica,sans-serif;color:#ad823d}
-.deepHelpDisclosure[open]>summary:after{content:"−"}
-.deepHelpDisclosure[open]>summary{border-bottom:1px solid #ded8cd}
+.deepHelpDisclosure,.podcastDisclosure{border-top:1px solid #ded8cd;border-bottom:1px solid #ded8cd;background:#faf8f3}
+.deepHelpDisclosure>summary,.podcastDisclosure>summary{cursor:pointer;list-style:none;max-width:1120px;margin:0 auto;padding:23px 24px;font:400 1.15rem/1.35 Georgia,"Times New Roman",serif;color:#183024;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.deepHelpDisclosure>summary::-webkit-details-marker,.podcastDisclosure>summary::-webkit-details-marker{display:none}
+.deepHelpDisclosure>summary:after,.podcastDisclosure>summary:after{content:"+";font:400 1.5rem/1 Arial,Helvetica,sans-serif;color:#ad823d}
+.deepHelpDisclosure[open]>summary:after,.podcastDisclosure[open]>summary:after{content:"−"}
+.deepHelpDisclosure[open]>summary,.podcastDisclosure[open]>summary{border-bottom:1px solid #ded8cd}
 .deepHelpDisclosure .deepHelp{border-top:0!important;background:#fff!important;padding-top:48px!important}
-@media(max-width:760px){.deepHelpDisclosure>summary{padding:20px 18px;font-size:1.05rem}}
+.podcastDisclosure{border-top:0}
+.podcastDisclosure .podcastResource{margin:0!important;border:0!important;border-top:0!important;background:#fff!important}
+@media(max-width:760px){.deepHelpDisclosure>summary,.podcastDisclosure>summary{padding:20px 18px;font-size:1.05rem}}
 </style><!-- FINAL-SIMPLIFY-CSS-END -->'''
 
 
@@ -37,34 +39,31 @@ def simplify_home():
     text = read(name)
     original = text
 
-    # The hero already routes a hurting reader well. Remove the second routing
-    # section so the page does not ask the same decision twice.
     text = re.sub(
         r'<!-- CARE-PATHS-HOME-START -->.*?<!-- CARE-PATHS-HOME-END -->',
         '', text, flags=re.S
     )
 
-    # Replace the vague fifth category with the useful second visitor persona.
     text = text.replace(
         '<h3>Hope &amp; Healing</h3><p>When you’re ready to take the next step forward.</p><a href="/start-here">Find Answers →</a>',
         '<h3>Someone I Love Is Hurting</h3><p>When you want to help without saying the wrong thing.</p><a href="/help-someone">Help Me Help Them →</a>'
     )
 
-    # Keep immediate safety visible without making it another full section.
-    text = text.replace(
-        '<div class="center allTopics"><a class="btn outline" href="/all-answers">View All 24 Answers</a></div>',
-        '<div class="center allTopics"><a class="btn outline" href="/all-answers">View All 24 Answers</a></div><div class="careSafety">If you do not feel safe or the pain has become dangerous, <a href="/unsafe">start here right now →</a></div>'
-    )
+    safety_block = '<div class="careSafety">If you do not feel safe or the pain has become dangerous, <a href="/unsafe">start here right now →</a></div>'
+    # Make this idempotent across both publishing pipelines.
+    while safety_block + safety_block in text:
+        text = text.replace(safety_block + safety_block, safety_block)
+    if safety_block not in text:
+        text = text.replace(
+            '<div class="center allTopics"><a class="btn outline" href="/all-answers">View All 24 Answers</a></div>',
+            '<div class="center allTopics"><a class="btn outline" href="/all-answers">View All 24 Answers</a></div>' + safety_block
+        )
 
-    # Free Resources has its own clear top-level destination. The large homepage
-    # resource/email block was turning the homepage into another resource hub.
     text = re.sub(
         r'<!-- FREE-GUIDES-HOME-START -->.*?<!-- FREE-GUIDES-HOME-END -->',
         '', text, flags=re.S
     )
 
-    # About/author credibility is already handled by the compact trust strip.
-    # Remove the larger two-column author/sample block that repeated it.
     text = re.sub(
         r'<section class="section"><div class="wrap authorSample">.*?</section>',
         '', text, count=1, flags=re.S
@@ -105,12 +104,8 @@ def simplify_topic_hubs():
         text = read(name)
         original = text
 
-        # The question cards already explain how to begin. Remove the separate
-        # dark instruction band that says essentially the same thing.
         text = re.sub(r'<section class="quick">.*?</section>', '', text, count=1, flags=re.S)
 
-        # Keep substantial SEO/pastoral depth, but make it optional. The hub's
-        # primary job is routing a hurting reader to one question.
         if 'deepHelpDisclosure' not in text:
             m = re.search(r'(<section class="deepHelp">.*?</section>)', text, flags=re.S)
             if m:
@@ -121,7 +116,33 @@ def simplify_topic_hubs():
                 )
                 text = text[:m.start()] + wrapped + text[m.end():]
 
-        if 'FINAL-SIMPLIFY-CSS-START' not in text and '</head>' in text:
+        # These two large sections repeat truths already present in the question
+        # cards and optional deeper material. Removing them keeps the hub focused
+        # on helping the reader choose one question.
+        text = re.sub(r'<section class="truthSection">.*?</section>', '', text, count=1, flags=re.S)
+        text = re.sub(r'<section class="tonight">.*?</section>', '', text, count=1, flags=re.S)
+
+        # Keep relevant podcast content, but make it opt-in rather than another
+        # large visual card competing with the question choices.
+        if 'podcastDisclosure' not in text:
+            m = re.search(r'(<section class="podcastResource".*?</section>)', text, flags=re.S)
+            if m:
+                wrapped = (
+                    '<details class="podcastDisclosure"><summary>Prefer to listen? Hear a conversation about this</summary>'
+                    + m.group(1)
+                    + '</details>'
+                )
+                text = text[:m.start()] + wrapped + text[m.end():]
+
+        if 'FINAL-SIMPLIFY-CSS-START' in text:
+            text = re.sub(
+                r'<!-- FINAL-SIMPLIFY-CSS-START -->.*?<!-- FINAL-SIMPLIFY-CSS-END -->',
+                DISCLOSURE_STYLE,
+                text,
+                count=1,
+                flags=re.S,
+            )
+        elif '</head>' in text:
             text = text.replace('</head>', DISCLOSURE_STYLE + '\n</head>', 1)
 
         write(name, text, original)
@@ -137,8 +158,6 @@ def simplify_about():
         'Pastor and author helping people find biblical hope when life hurts.'
     )
 
-    # The story itself establishes experience and approach. The three-card trust
-    # section repeats those same claims, so let the story carry the credibility.
     text = re.sub(
         r'<!-- TRUST-CREDIBILITY-START -->.*?<!-- TRUST-CREDIBILITY-END -->',
         '', text, count=1, flags=re.S
@@ -157,8 +176,6 @@ def simplify_book():
         'Twenty-four honest questions. Biblical answers. A pastoral voice that does not rush past the hurt.'
     )
 
-    # The free site itself demonstrates "help first." On the Book page this
-    # extra positioning paragraph delays the actual book story.
     text = re.sub(r'<div class="bookHeroTrust">.*?</div>', '', text, count=1, flags=re.S)
 
     text = text.replace(
