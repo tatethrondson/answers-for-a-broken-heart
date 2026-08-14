@@ -12,7 +12,9 @@ on:
       - 'scripts/site_qa.py'
       - 'scripts/care_paths.py'
       - 'scripts/answer_journey.py'
+      - 'scripts/design_normalize.py'
       - 'site-cohesive.css'
+      - 'site-interior-v3.css'
       - '.github/workflows/site-polish.yml'
   workflow_dispatch:
 
@@ -70,6 +72,9 @@ jobs:
 
       - name: Instrument the help-first funnel
         run: python scripts/analytics_events.py
+
+      - name: Normalize interior design system
+        run: python scripts/design_normalize.py
 
       - name: QA the generated pages
         run: python scripts/site_qa.py
