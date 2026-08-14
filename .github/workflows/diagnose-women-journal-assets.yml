@@ -21,7 +21,7 @@ jobs:
         shell: python
         run: |
           from pathlib import Path
-          import re, base64, gzip, hashlib, zlib
+          import re, base64, gzip, hashlib
 
           root=Path('journal-assets')
           dirs=['women-approved','women','women-v3','women-v4','women-gz','women-ec','women-tail','women-tail15','women-tail3','women-tail3pairs','women-tail4','women-tail6']
@@ -31,57 +31,74 @@ jobs:
               parts=[]
               for p in sorted(path.glob('*.js')):
                   s=p.read_text(errors='ignore')
-                  # capture assignment index and string; handles part/pair files
-                  m=re.search(r'\[(\d+)\]\s*=\s*"([A-Za-z0-9+/=]+)"',s)
-                  if m:
-                      parts.append((int(m.group(1)),m.group(2),p.name))
+                  # collect every indexed quoted assignment in each file
+                  matches=re.findall(r'\[(\d+)\]\s*=\s*"([A-Za-z0-9+/=]+)"',s)
+                  if matches:
+                      for idx,val in matches:
+                          parts.append((int(idx),val,p.name))
                   else:
-                      m=re.search(r'=\s*"([A-Za-z0-9+/=]+)"',s)
-                      if m: parts.append((len(parts),m.group(1),p.name))
-              parts.sort(key=lambda x:x[0])
-              return ''.join(x[1] for x in parts), parts
+                      # fallback: quoted base64 payloads with no explicit array index
+                      vals=re.findall(r'"([A-Za-z0-9+/=]{100,})"',s)
+                      for val in vals:
+                          parts.append((len(parts),val,p.name))
+              parts.sort(key=lambda x:(x[0],x[2]))
+              return parts
 
-          def inspect(label,b64):
-              try:
-                  raw=base64.b64decode(b64, validate=False)
-              except Exception as e:
-                  return f'{label}: base64 ERROR {e}'
+          def b64decode_loose(s):
+              return base64.b64decode(s + '='*((-len(s))%4), validate=False)
+
+          def inspect_bytes(label,raw):
               variants=[('raw',raw)]
               if raw[:2]==b'\x1f\x8b':
-                  try: variants.append(('gunzip',gzip.decompress(raw)))
-                  except Exception as e: return f'{label}: gzip ERROR {e}; compressed={len(raw)} sha={hashlib.sha256(raw).hexdigest()}'
+                  try:
+                      variants.append(('gunzip',gzip.decompress(raw)))
+                  except Exception as e:
+                      out.append(f'{label}: gzip ERROR {e}; compressed={len(raw)} sha={hashlib.sha256(raw).hexdigest()}')
               for kind,data in variants:
                   sig=data[:8]
                   sha=hashlib.sha256(data).hexdigest()
+                  eof=data.rfind(b'%%EOF')
                   pages=data.count(b'/Type /Page') if data.startswith(b'%PDF') else -1
-                  if data.startswith(b'%PDF'):
-                      Path(f'/tmp/{label.replace("+","_")}.pdf').write_bytes(data)
-                  out.append(f'{label} [{kind}]: bytes={len(data)} sha256={sha} pages_hint={pages} sig={sig!r}')
-              return None
+                  out.append(f'{label} [{kind}]: bytes={len(data)} sha256={sha} pages_hint={pages} eof_at={eof} sig={sig!r}')
 
-          blobs={}
+          decoded={}
           for d in dirs:
               path=root/d
               if not path.exists(): continue
-              b64,parts=extract(path)
-              blobs[d]=b64
-              out.append(f'--- {d}: files={len(parts)} indexes={[x[0] for x in parts]} b64chars={len(b64)}')
-              err=inspect(d,b64)
-              if err: out.append(err)
+              parts=extract(path)
+              out.append(f'--- {d}: payloads={len(parts)} indexes={[x[0] for x in parts]} lens={[len(x[1]) for x in parts]}')
+              if not parts:
+                  continue
+              # Method A: concatenate textual base64, pad once
+              joined=''.join(x[1] for x in parts)
+              try:
+                  rawA=b64decode_loose(joined)
+                  inspect_bytes(d+'-joinedB64',rawA)
+              except Exception as e:
+                  out.append(f'{d}-joinedB64: decode ERROR {e}')
+              # Method B: decode each independently, concatenate decoded byte slices
+              chunks=[]
+              ok=True
+              for idx,val,name in parts:
+                  try: chunks.append(b64decode_loose(val))
+                  except Exception as e:
+                      out.append(f'{d} part idx={idx} {name}: decode ERROR {e}')
+                      ok=False
+              if ok:
+                  rawB=b''.join(chunks)
+                  decoded[d]=rawB
+                  inspect_bytes(d+'-decodedParts',rawB)
 
-          # common combinations for gz continuation experiments
           combos=[
               ['women-gz','women-tail'],['women-gz','women-tail15'],['women-gz','women-tail3'],
               ['women-gz','women-tail3pairs'],['women-gz','women-tail4'],['women-gz','women-tail6'],
               ['women-v4','women-tail'],['women-v4','women-tail15'],['women-v4','women-tail3'],
               ['women-v4','women-tail3pairs'],['women-v4','women-tail4'],['women-v4','women-tail6'],
+              ['women','women-v3'],['women','women-v4'],['women','women-gz'],
           ]
           for c in combos:
-              if all(x in blobs for x in c):
-                  label='+'.join(c)
-                  out.append('--- combo '+label)
-                  err=inspect(label,''.join(blobs[x] for x in c))
-                  if err: out.append(err)
+              if all(x in decoded for x in c):
+                  inspect_bytes('+'.join(c)+'-decodedParts',b''.join(decoded[x] for x in c))
 
           Path('journal-asset-diagnostic.txt').write_text('\n'.join(out)+'\n')
       - name: Commit report
@@ -90,5 +107,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add journal-asset-diagnostic.txt
-          git commit -m 'Report women journal asset reconstruction' || exit 0
+          git commit -m 'Report improved women journal asset reconstruction' || exit 0
           git push origin HEAD:women-journal-exact-upload
