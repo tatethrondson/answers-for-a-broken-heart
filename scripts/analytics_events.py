@@ -33,8 +33,8 @@ SCRIPT=r'''<!-- CONVERSION-ANALYTICS-START -->
     if(href==='/what-hurts-today') track('What Hurts Today Click',{page:current,label:label});
     if(href==='/church-resources') track('Church Resources Click',{page:current,label:label});
 
-    if(href==='/2am-guide'){
-      track('2AM Guide Opened',{page:current,label:label});
+    if(href==='/2am-guide' || href==='/2am-guide-access'){
+      track('2AM Guide Opened',{page:current,label:label,direct:href==='/2am-guide-access'});
       track('Free Guide Click',{page:current,guide:'2am-guide'});
     }
     if(href==='/can-christians-be-depressed') track('Free Guide Click',{page:current,guide:'depression'});
@@ -89,6 +89,7 @@ SCRIPT=r'''<!-- CONVERSION-ANALYTICS-START -->
     var value=interest ? interest.value : '';
     var lower=value.toLowerCase();
     if(lower.indexOf('2:00 a.m. guide')!==-1) track('2AM Guide Signup',{page:page()});
+    else if(lower.indexOf('pastoral encouragement')!==-1) track('Pastoral Notes Signup',{page:page()});
     else if(lower.indexOf('book launch list')!==-1 || lower.indexOf('release notification')!==-1) track('Book Launch Signup',{page:page()});
     else if(lower.indexOf('church and pastor resources')!==-1) track('Church Resources Signup',{page:page()});
   },true);
