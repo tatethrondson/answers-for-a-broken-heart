@@ -7,8 +7,11 @@ HEADER_START = '<!-- PREMIUM-SHELL-HEADER-START -->'
 HEADER_END = '<!-- PREMIUM-SHELL-HEADER-END -->'
 FOOTER_START = '<!-- PREMIUM-SHELL-FOOTER-START -->'
 FOOTER_END = '<!-- PREMIUM-SHELL-FOOTER-END -->'
+RUNTIME_START = '<!-- SITE-SHELL-RUNTIME-START -->'
+RUNTIME_END = '<!-- SITE-SHELL-RUNTIME-END -->'
 
 DESIGN_LINK = DESIGN_START + '<link rel="stylesheet" href="/site-cohesive.css?v=2">' + DESIGN_END
+SHELL_RUNTIME = RUNTIME_START + '<script defer src="/site-shell.js?v=1"></script>' + RUNTIME_END
 
 HEADER = f'''{HEADER_START}<header class="siteShellHeader"><div class="siteShellWrap siteShellNav"><a class="siteShellBrand" href="/" aria-label="Answers for a Broken Heart home"><span class="siteShellBrandWords">Answers<small>for a Broken Heart</small></span><span class="siteShellHeart">♡</span></a><nav class="siteShellLinks" aria-label="Main navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Resources</a><a href="/book">The Book</a><a href="/about">About</a></nav><details class="siteShellMobile"><summary>Menu</summary><nav class="siteShellMobileMenu" aria-label="Mobile navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Resources</a><a href="/book">The Book</a><a href="/about">About</a></nav></details></div></header>{HEADER_END}'''
 
@@ -23,6 +26,15 @@ def ensure_design_link(text: str, filename: str) -> str:
     text = strip_marked(text, DESIGN_START, DESIGN_END)
     if filename != 'index.html' and '</head>' in text:
         text = text.replace('</head>', DESIGN_LINK + '\n</head>', 1)
+    return text
+
+
+def ensure_shell_runtime(text: str) -> str:
+    text = strip_marked(text, RUNTIME_START, RUNTIME_END)
+    # Remove any stray older copies before inserting the canonical runtime once.
+    text = re.sub(r'<script\b[^>]*src=["\']/site-shell\.js(?:\?[^"\']*)?["\'][^>]*></script>', '', text, flags=re.I)
+    if '</head>' in text:
+        text = text.replace('</head>', SHELL_RUNTIME + '\n</head>', 1)
     return text
 
 
@@ -89,6 +101,7 @@ for path in Path('.').glob('*.html'):
     elif path.name == 'free-guides.html':
         text = refine_free_resources(text)
     text = ensure_design_link(text, path.name)
+    text = ensure_shell_runtime(text)
     text = ensure_shell(text)
     if text != original:
         path.write_text(text, encoding='utf-8')
