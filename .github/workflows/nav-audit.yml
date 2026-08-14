@@ -1,0 +1,42 @@
+name: Navigation Consistency Audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.html'
+      - 'scripts/nav_audit.py'
+      - '.github/workflows/nav-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: navigation-consistency-audit
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Audit repository and live navigation
+        run: python scripts/nav_audit.py
+      - name: Commit navigation report
+        run: |
+          if [ -z "$(git status --porcelain -- NAV-AUDIT.md)" ]; then
+            echo "Navigation report is current"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add NAV-AUDIT.md
+          git commit -m "Update navigation consistency audit"
+          git pull --rebase origin main
+          git push
