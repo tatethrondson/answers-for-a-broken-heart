@@ -3,7 +3,7 @@ import re
 
 STYLE_LINKS = (
     '<link rel="stylesheet" href="/site-interior-v3.css?v=3">\n'
-    '<link rel="stylesheet" href="/site-polish-v4.css?v=2">'
+    '<link rel="stylesheet" href="/site-polish-v4.css?v=3">'
 )
 
 HEADER = '''<!-- PREMIUM-SHELL-HEADER-START --><header class="siteShellHeader"><div class="siteShellWrap siteShellNav"><a class="siteShellBrand" href="/" aria-label="Answers for a Broken Heart home"><span class="siteShellBrandWords">Answers<small>for a Broken Heart</small></span><span class="siteShellHeart">♡</span></a><nav class="siteShellLinks" aria-label="Main navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Resources</a><a href="/book">The Book</a><a href="/about">About</a></nav><details class="siteShellMobile"><summary>Menu</summary><nav class="siteShellMobileMenu" aria-label="Mobile navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Resources</a><a href="/book">The Book</a><a href="/about">About</a></nav></details></div></header><!-- PREMIUM-SHELL-HEADER-END -->'''
@@ -58,6 +58,21 @@ for path in Path('.').glob('*.html'):
     # Shared brand CSS loads after legacy page CSS so it owns the visible design.
     if '</head>' in text:
         text = text.replace('</head>', STYLE_LINKS + '\n</head>', 1)
+
+    # Give each page a stable class so one-off legacy layouts can be polished safely
+    # without creating broad selectors that disturb the rest of the site.
+    page_class = 'page-' + re.sub(r'[^a-z0-9-]+', '-', path.stem.lower()).strip('-')
+    def add_page_class(match):
+        tag = match.group(0)
+        cm = re.search(r'class=(["\'])(.*?)\1', tag, flags=re.I | re.S)
+        if cm:
+            classes = cm.group(2).split()
+            if page_class not in classes:
+                classes.append(page_class)
+            replacement = 'class=' + cm.group(1) + ' '.join(classes) + cm.group(1)
+            return tag[:cm.start()] + replacement + tag[cm.end():]
+        return tag[:-1] + f' class="{page_class}">'
+    text, class_count = re.subn(r'<body\b[^>]*>', add_page_class, text, count=1, flags=re.I)
 
     # Every interior page gets the exact same visible shell as the homepage family.
     text, body_count = re.subn(r'(<body\b[^>]*>)', r'\1\n' + HEADER + '\n', text, count=1, flags=re.I)
