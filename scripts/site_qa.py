@@ -21,6 +21,10 @@ def internal_ok(h):
     if not base.startswith('/'): return True
     return base in existing or Path(base.lstrip('/')+'.html').exists() or Path(base.lstrip('/')).exists()
 
+def has_stylesheet(text, filename):
+    # Cache-busting versions are intentionally allowed to change.
+    return bool(re.search(r'href=["\']/'+re.escape(filename)+r'(?:\?[^"\']*)?["\']', text, re.I))
+
 if not Path('site-interior-v3.css').exists():
     add('ERROR','site-interior-v3.css','Unified homepage-derived interior design system is missing')
 if not Path('site-polish-v4.css').exists():
@@ -31,10 +35,14 @@ for p in html_files:
     for h in hrefs(t):
         if not internal_ok(h): add('ERROR',p.name,f'Broken-looking internal href: {h}')
     if p.name not in {'index.html','photo-test.html'}:
-        if '/site-interior-v3.css?v=2' not in t:
+        if not has_stylesheet(t,'site-interior-v3.css'):
             add('ERROR',p.name,'Missing unified homepage-derived interior design system')
-        if '/site-polish-v4.css?v=1' not in t:
+        if not has_stylesheet(t,'site-polish-v4.css'):
             add('ERROR',p.name,'Missing second-pass visual polish layer')
+        if 'PREMIUM-SHELL-HEADER-START' not in t or 'class="siteShellHeader"' not in t:
+            add('ERROR',p.name,'Missing canonical homepage-derived header shell')
+        if 'PREMIUM-SHELL-FOOTER-START' not in t or 'class="siteShellFooter"' not in t:
+            add('ERROR',p.name,'Missing canonical homepage-derived footer shell')
     if 'formsubmit.co' in t:
         if 'name="_next"' not in t: add('WARN',p.name,'FormSubmit form missing _next redirect')
         if 'name="_honey"' not in t: add('WARN',p.name,'FormSubmit form missing honeypot')
