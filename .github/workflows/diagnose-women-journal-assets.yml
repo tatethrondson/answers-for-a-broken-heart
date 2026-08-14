@@ -1,0 +1,94 @@
+name: Diagnose women journal assets
+
+on:
+  push:
+    branches: [women-journal-exact-upload]
+    paths:
+      - '.github/workflows/diagnose-women-journal-assets.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: women-journal-exact-upload
+          fetch-depth: 0
+      - name: Reconstruct candidates
+        shell: python
+        run: |
+          from pathlib import Path
+          import re, base64, gzip, hashlib, zlib
+
+          root=Path('journal-assets')
+          dirs=['women-approved','women','women-v3','women-v4','women-gz','women-ec','women-tail','women-tail15','women-tail3','women-tail3pairs','women-tail4','women-tail6']
+          out=[]
+
+          def extract(path):
+              parts=[]
+              for p in sorted(path.glob('*.js')):
+                  s=p.read_text(errors='ignore')
+                  # capture assignment index and string; handles part/pair files
+                  m=re.search(r'\[(\d+)\]\s*=\s*"([A-Za-z0-9+/=]+)"',s)
+                  if m:
+                      parts.append((int(m.group(1)),m.group(2),p.name))
+                  else:
+                      m=re.search(r'=\s*"([A-Za-z0-9+/=]+)"',s)
+                      if m: parts.append((len(parts),m.group(1),p.name))
+              parts.sort(key=lambda x:x[0])
+              return ''.join(x[1] for x in parts), parts
+
+          def inspect(label,b64):
+              try:
+                  raw=base64.b64decode(b64, validate=False)
+              except Exception as e:
+                  return f'{label}: base64 ERROR {e}'
+              variants=[('raw',raw)]
+              if raw[:2]==b'\x1f\x8b':
+                  try: variants.append(('gunzip',gzip.decompress(raw)))
+                  except Exception as e: return f'{label}: gzip ERROR {e}; compressed={len(raw)} sha={hashlib.sha256(raw).hexdigest()}'
+              for kind,data in variants:
+                  sig=data[:8]
+                  sha=hashlib.sha256(data).hexdigest()
+                  pages=data.count(b'/Type /Page') if data.startswith(b'%PDF') else -1
+                  if data.startswith(b'%PDF'):
+                      Path(f'/tmp/{label.replace("+","_")}.pdf').write_bytes(data)
+                  out.append(f'{label} [{kind}]: bytes={len(data)} sha256={sha} pages_hint={pages} sig={sig!r}')
+              return None
+
+          blobs={}
+          for d in dirs:
+              path=root/d
+              if not path.exists(): continue
+              b64,parts=extract(path)
+              blobs[d]=b64
+              out.append(f'--- {d}: files={len(parts)} indexes={[x[0] for x in parts]} b64chars={len(b64)}')
+              err=inspect(d,b64)
+              if err: out.append(err)
+
+          # common combinations for gz continuation experiments
+          combos=[
+              ['women-gz','women-tail'],['women-gz','women-tail15'],['women-gz','women-tail3'],
+              ['women-gz','women-tail3pairs'],['women-gz','women-tail4'],['women-gz','women-tail6'],
+              ['women-v4','women-tail'],['women-v4','women-tail15'],['women-v4','women-tail3'],
+              ['women-v4','women-tail3pairs'],['women-v4','women-tail4'],['women-v4','women-tail6'],
+          ]
+          for c in combos:
+              if all(x in blobs for x in c):
+                  label='+'.join(c)
+                  out.append('--- combo '+label)
+                  err=inspect(label,''.join(blobs[x] for x in c))
+                  if err: out.append(err)
+
+          Path('journal-asset-diagnostic.txt').write_text('\n'.join(out)+'\n')
+      - name: Commit report
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add journal-asset-diagnostic.txt
+          git commit -m 'Report women journal asset reconstruction' || exit 0
+          git push origin HEAD:women-journal-exact-upload
