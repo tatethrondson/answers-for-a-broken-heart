@@ -1,0 +1,178 @@
+/* Answers for a Broken Heart — visual polish v4
+   Second-pass refinements. The homepage remains the source of truth; this file
+   improves proportion, readability, card balance, and mobile composition on
+   interior pages without changing content or conversion paths. */
+
+:root{
+  --ab-reading:720px;
+  --ab-sidebar:276px;
+  --ab-gap:64px;
+}
+
+/* Type and reading comfort */
+body h1,body h2,body h3{ text-wrap:balance; }
+body p,body li{ text-wrap:pretty; }
+body img{max-width:100%;height:auto}
+body .article,body .story{line-height:1.76!important}
+body .article>p,body .story>p{max-width:72ch}
+body .article h2{font-size:clamp(2rem,3.2vw,2.45rem)!important;line-height:1.08!important;margin:50px 0 17px!important}
+body .article h3{line-height:1.15!important}
+body .lead,body .dek,body .heroLead{max-width:740px!important}
+body .keyline{max-width:700px!important}
+
+/* More editorial interior heroes: confident, but not oversized */
+body main>.hero,body .subHero,body .hero:not(.homeHero),body>.hero{padding-top:56px!important;padding-bottom:50px!important}
+body main>.hero h1,body .subHero h1,body .hero h1{font-size:clamp(2.85rem,4.8vw,4.6rem)!important;max-width:900px!important}
+body .heroGrid{gap:56px!important}
+body .hero .eyebrow,body .subHero .eyebrow{margin-bottom:10px!important}
+
+/* Universal grid polish */
+body .choiceGrid,body .relatedGrid,body .salesGrid,body .cards,body .grid,body .journalGrid,body .journalsGrid,body .resourceGrid,body .resourcesGrid,body .bookForYouGrid{
+  align-items:stretch!important;
+  gap:16px!important;
+}
+body .choiceGrid>*,body .relatedGrid>*,body .salesGrid>*,body .cards>*,body .grid>*,body .journalGrid>*,body .journalsGrid>*,body .resourceGrid>*,body .resourcesGrid>*,body .bookForYouGrid>*{height:100%}
+body .choice,body .relatedCard,body .salesCard,body .card,body .item,body .resourceCard,body .guideCard,body .journalCard{padding:26px!important}
+body .choice,body .relatedCard,body .resourceCard,body .guideCard,body .journalCard{display:flex!important;flex-direction:column!important}
+body .choice .read,body .choice .cardLink,body .relatedCard .read,body .resourceCard .cardLink,body .guideCard .cardLink{margin-top:auto!important;padding-top:14px!important}
+
+/* Start Here: make the guided choices feel intentional and calm */
+body .start{padding-top:48px!important;padding-bottom:68px!important}
+body .start .intro{max-width:760px!important;margin-bottom:28px!important}
+body .choiceGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+body .choice{min-height:178px!important}
+body .choice strong{font-size:1.48rem!important;line-height:1.18!important;margin-bottom:9px!important}
+body .choice span{line-height:1.55!important}
+body .night{margin-top:30px!important;padding:30px 32px!important;gap:30px!important}
+body .night h2{font-size:2rem!important;line-height:1.08!important}
+body .bottom{margin-top:26px!important;padding-top:22px!important}
+
+/* 24 Answers library: tighter scanning and more consistent cards */
+body .tools{padding-top:16px!important;padding-bottom:16px!important}
+body .search,body .searchBox,body input[type="search"]{min-height:48px!important;padding:12px 14px!important}
+body .filters{gap:8px!important}
+body .filter{min-height:36px!important;padding:8px 13px!important;font-size:.72rem!important}
+body .library .card,body .library .answerCard{padding:24px!important}
+body .library .card h3,body .library .answerCard h3{line-height:1.2!important;margin-top:5px!important}
+body .groupHead{max-width:790px!important;margin-bottom:22px!important}
+body .groupHead h2{line-height:1.08!important}
+
+/* Article / answer pages: narrower reading column and calmer sidebar */
+body .layout,body .articleWrap{grid-template-columns:minmax(0,var(--ab-reading)) var(--ab-sidebar)!important;gap:var(--ab-gap)!important;justify-content:space-between!important;align-items:start!important}
+body .article{font-size:1.02rem!important}
+body .short,body .shortAnswer{padding:28px 30px!important;margin-bottom:34px!important}
+body .short h2,body .shortAnswer h2{font-size:1.9rem!important;margin-bottom:10px!important}
+body .scripture{padding:24px 26px!important;margin:28px 0!important}
+body .pastoral{padding:26px 28px!important;margin:34px 0!important}
+body .minuteHelp{padding:26px 28px!important;margin-bottom:34px!important}
+body .minuteGrid{gap:12px!important}
+body .minuteItem{padding:18px 19px!important}
+body .side{top:100px!important}
+body .side .card,body .sideCard{padding:22px!important;margin-bottom:14px!important}
+body .relatedGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+body .relatedCard{min-height:170px!important}
+body .next a{max-width:700px!important;padding:24px 26px!important}
+
+/* Book page: keep the mockup prominent while making the copy breathe */
+body .bookHelpFirst{padding:30px 34px!important;gap:28px!important;margin-bottom:30px!important}
+body .bookBand{grid-template-columns:.84fr 1.16fr!important;margin-bottom:32px!important}
+body .bookStage{min-height:420px!important;padding:34px!important}
+body .bookBandCopy{padding:44px 46px!important}
+body .bookBandCopy h2{font-size:2.35rem!important;line-height:1.08!important;margin-bottom:15px!important}
+body .bookBandCopy p{max-width:62ch!important}
+body .bookActions{gap:10px!important;margin-top:22px!important}
+body .salesGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;margin:30px 0 40px!important}
+body .salesCard{min-height:190px!important}
+body .bookForYou{padding:36px 38px!important;margin:38px 0!important}
+body .bookUpdates{padding:34px 36px!important;gap:38px!important}
+
+/* About page: editorial biography proportions */
+body .heroGrid{grid-template-columns:minmax(0,1fr) 210px!important;align-items:center!important}
+body .portrait{width:200px!important;height:280px!important;object-fit:cover!important;justify-self:end!important}
+body .storyGrid{grid-template-columns:minmax(0,730px) 276px!important;gap:64px!important;align-items:start!important}
+body .story h2{line-height:1.08!important}
+body .story .keyline{font-size:1.48rem!important;line-height:1.42!important;margin:30px 0!important}
+body .approachHead{max-width:720px!important;margin-bottom:30px!important}
+body .cards{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+body .why{gap:54px!important}
+body .ctaGrid{gap:44px!important}
+
+/* Free resources and journals: equal-height offers and cleaner covers */
+body .resources .resourceCard,body .journals .journalCard{min-height:100%!important}
+body .journalCover{flex:0 0 auto!important}
+body .journalCard h3,body .resourceCard h3,body .guideCard h3{line-height:1.15!important}
+body .journalCard p,body .resourceCard p,body .guideCard p{line-height:1.58!important}
+body .journalActions,body .resourceActions{margin-top:auto!important;padding-top:16px!important}
+
+/* Lead-magnet / guide pages */
+body .inside .grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+body .inside .item{min-height:190px!important}
+body .formCard,body .heroGrid>.card{padding:28px!important}
+body .form input,body .form button{min-height:50px!important}
+body .promise{margin-top:14px!important}
+
+/* Contact and utility pages */
+body .formCard{max-width:760px!important}
+body textarea{min-height:150px!important;padding:13px 14px!important;resize:vertical!important}
+body input[type="text"],body input[type="email"],body select{min-height:48px!important;padding:12px 14px!important}
+body .hero404{padding:76px 0 90px!important}
+body .hero404 p{max-width:650px!important}
+body .actions{gap:10px!important}
+
+/* Fine interaction and accessibility polish */
+body a,body button,body input,body textarea,body select{outline-offset:3px}
+body a:focus-visible,body button:focus-visible,body input:focus-visible,body textarea:focus-visible,body select:focus-visible{outline:3px solid rgba(173,130,61,.55)!important}
+body .card,body .choice,body .relatedCard,body .resourceCard,body .guideCard,body .journalCard{transition:box-shadow .18s ease,border-color .18s ease,transform .18s ease!important}
+
+@media(max-width:980px){
+  :root{--ab-gap:42px;--ab-sidebar:250px}
+  body .layout,body .articleWrap{grid-template-columns:minmax(0,1fr) var(--ab-sidebar)!important}
+  body .storyGrid{grid-template-columns:minmax(0,1fr) 250px!important;gap:44px!important}
+  body .bookBandCopy{padding:38px 34px!important}
+  body .bookStage{padding:28px!important}
+}
+
+@media(max-width:820px){
+  body .wrap,.siteShellWrap{width:min(100% - 34px,1160px)!important}
+  body main>.hero,body .subHero,body .hero:not(.homeHero),body>.hero{padding:46px 0 42px!important}
+  body main>.hero h1,body .subHero h1,body .hero h1{font-size:clamp(2.55rem,9vw,3.7rem)!important}
+  body .section{padding:50px 0!important}
+  body .resources,body .journals,body .inside,body .library,body .page,body .relatedAnswers,body .next{padding-top:44px!important;padding-bottom:52px!important}
+  body .layout,body .articleWrap,body .storyGrid,body .heroGrid,body .bookBand,body .bookUpdates,body .why,body .ctaGrid{grid-template-columns:1fr!important;gap:30px!important}
+  body .side,body .sideCard{position:static!important;top:auto!important}
+  body .portrait{justify-self:start!important;width:170px!important;height:238px!important}
+  body .bookBandCopy{border-left:0!important;border-top:1px solid var(--ab-line)!important;padding:34px 28px!important}
+  body .bookStage{min-height:360px!important}
+  body .relatedGrid,body .salesGrid,body .cards,body .inside .grid{grid-template-columns:1fr!important}
+  body .relatedCard,body .salesCard,body .inside .item{min-height:0!important}
+  body .bookHelpFirst{grid-template-columns:1fr!important;padding:27px 25px!important}
+}
+
+@media(max-width:700px){
+  body .choiceGrid{grid-template-columns:1fr!important}
+  body .choice{min-height:0!important;padding:22px!important}
+  body .night{grid-template-columns:1fr!important;padding:26px 24px!important}
+  body .minuteHelp{padding:23px 21px!important}
+  body .minuteHelpHead{display:block!important}
+  body .minuteHelpHead span{display:block!important;margin-top:6px!important}
+  body .bookForYou{padding:28px 23px!important}
+  body .bookForYouGrid{grid-template-columns:1fr!important}
+}
+
+@media(max-width:540px){
+  body .wrap,.siteShellWrap{width:min(100% - 28px,1160px)!important}
+  body main>.hero,body .subHero,body .hero:not(.homeHero),body>.hero{padding:40px 0 36px!important}
+  body .section{padding:44px 0!important}
+  body .card,body .relatedCard,body .salesCard,body .item,body .resourceCard,body .guideCard,body .journalCard{padding:22px!important}
+  body .article{font-size:1rem!important}
+  body .article h2{margin-top:42px!important}
+  body .short,body .shortAnswer,body .scripture,body .pastoral{padding:22px!important}
+  body .actions,body .bookActions,body .bottom,body .journalActions,body .resourceActions{display:grid!important;grid-template-columns:1fr!important;width:100%!important}
+  body .actions .btn,body .bookActions .bookAction,body .bottom .btn,body .bottom .linkBtn,body .journalActions .journalButton,body .resourceActions .btn{width:100%!important}
+  body .hero404{padding:58px 0 70px!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
