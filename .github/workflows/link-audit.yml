@@ -1,0 +1,47 @@
+name: Full Site Link Audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.html'
+      - 'scripts/link_audit.py'
+      - '.github/workflows/link-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: full-site-link-audit
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Check every link
+        id: audit
+        continue-on-error: true
+        run: python scripts/link_audit.py
+      - name: Commit link report
+        run: |
+          if [ -z "$(git status --porcelain -- LINK-AUDIT.md)" ]; then
+            echo "Link report is current"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add LINK-AUDIT.md
+            git commit -m "Update full-site link audit"
+            git pull --rebase origin main
+            git push
+          fi
+      - name: Fail on internal broken links
+        if: steps.audit.outcome == 'failure'
+        run: exit 1
