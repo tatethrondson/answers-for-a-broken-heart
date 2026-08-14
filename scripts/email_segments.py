@@ -1,13 +1,18 @@
 from pathlib import Path
 import re
 
+KNOWN_SEGMENTS = {'guide_2am','pastoral_notes','book_launch','church_resources'}
 MARKETING = [
+    ('pastoral_notes', lambda t: 'pastoral encouragement' in t.lower() or 'occasional encouragement' in t.lower()),
     ('guide_2am', lambda t: '2:00 A.M. Guide' in t or '2AM Guide' in t or '2:00 A.M.' in t),
     ('book_launch', lambda t: 'book launch list' in t.lower() or 'Join the Launch List' in t or 'New Answers for a Broken Heart book launch signup' in t or 'release notification' in t.lower() or 'book release updates' in t.lower()),
     ('church_resources', lambda t: 'Church and Pastor Resources' in t or 'New Church Resources interest' in t),
 ]
 
 def infer_segment(form):
+    explicit=re.search(r'data-email-segment=["\']([^"\']+)["\']',form,re.I)
+    if explicit and explicit.group(1) in KNOWN_SEGMENTS:
+        return explicit.group(1)
     for seg,check in MARKETING:
         if check(form): return seg
     return None
