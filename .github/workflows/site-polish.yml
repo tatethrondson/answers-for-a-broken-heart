@@ -16,6 +16,7 @@ on:
       - 'scripts/answer_presentation_cleanup.py'
       - 'scripts/persona_flow.py'
       - 'scripts/persona_flow_finalize.py'
+      - 'scripts/final_simplify.py'
       - 'scripts/design_normalize.py'
       - 'site-cohesive.css'
       - 'site-interior-v3.css'
@@ -89,6 +90,9 @@ jobs:
 
       - name: Remove final persona funnel friction
         run: python scripts/persona_flow_finalize.py
+
+      - name: Reduce visible information load
+        run: python scripts/final_simplify.py
 
       - name: Normalize interior design system
         run: python scripts/design_normalize.py
