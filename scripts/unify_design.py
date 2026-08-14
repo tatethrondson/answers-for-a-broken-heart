@@ -61,17 +61,6 @@ def clean_answers_library(text: str) -> str:
     return text
 
 
-def strengthen_book_page(text: str) -> str:
-    start = '<!-- BOOK-FOR-YOU-START -->'
-    end = '<!-- BOOK-FOR-YOU-END -->'
-    text = strip_marked(text, start, end)
-    block = '''<!-- BOOK-FOR-YOU-START --><section class="bookForYou" aria-labelledby="book-for-you-heading"><p class="eyebrow">This book is for you if…</p><h2 id="book-for-you-heading">You still believe—but you’re hurting.</h2><p class="bookForYouLead">You do not need to have the right words for what is happening. This book was written for the questions that show up when pain becomes personal.</p><div class="bookForYouGrid"><div>You’re grieving something you cannot simply get over.</div><div>You’re wondering where God was when life fell apart.</div><div>You prayed—and the answer hurt.</div><div>You’re angry with God and feel guilty about it.</div><div>Someone you trusted wounded you deeply.</div><div>You’re questioning things you once believed.</div></div></section><style>.bookForYou{margin:38px 0;padding:38px 40px;background:#f5f0e7;border:1px solid #ded8cd}.bookForYou h2{font:2.55rem/1.08 Georgia,"Times New Roman",serif;font-weight:400;color:#183024;margin:0 0 10px}.bookForYouLead{max-width:760px;color:#5f6862;margin:0 0 23px}.bookForYouGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}.bookForYouGrid div{background:#fff;border:1px solid #ded8cd;padding:16px 18px;color:#344239;font-size:.88rem;line-height:1.55}@media(max-width:700px){.bookForYou{padding:28px 23px}.bookForYouGrid{grid-template-columns:1fr}.bookForYou h2{font-size:2.1rem}}</style><!-- BOOK-FOR-YOU-END -->'''
-    anchor = '<div class="bookUpdates" id="book-updates">'
-    if anchor in text:
-        text = text.replace(anchor, block + '\n' + anchor, 1)
-    return text
-
-
 def tighten_about_page(text: str) -> str:
     text = re.sub(r'<section class="section approach">.*?</section>', '', text, count=1, flags=re.S)
     return text
@@ -92,7 +81,9 @@ for path in Path('.').glob('*.html'):
     elif path.name == 'all-answers.html':
         text = clean_answers_library(text)
     elif path.name == 'book.html':
-        text = strengthen_book_page(text)
+        # The Book page now has its own current-design structure. Do not inject
+        # legacy bookBand/bookUpdates/bookForYou components into it.
+        pass
     elif path.name == 'about.html':
         text = tighten_about_page(text)
     elif path.name == 'free-guides.html':
