@@ -1,22 +1,24 @@
 # Full Site Link Audit
 
 HTML pages scanned in repository: 50
-Link/resource/form occurrences checked in repository: 1996
-Unique repo-derived live internal destinations checked: 52
+Clickable/resource/form occurrences checked: 2051
+Unique repo-derived live destinations checked: 52
 Live HTML pages fetched: 50
 Unique destinations found in live page markup: 93
 Unique external URLs checked: 19
 
-Broken internal page links in repository: 0
+Broken internal page links: 0
 Broken page fragments: 0
-Missing linked resources in repository: 46
-Broken repo-derived production destinations: 0
+Missing linked repository resources: 0
+Placeholder/dead anchor links: 0
+Links still using redirect aliases: 1
+Broken production destinations: 0
 Live pages that failed to load: 0
 Broken destinations found in live markup: 0
-Broken/unreachable external URLs: 0
+Broken/unreachable external URLs: 1
 Externally blocked/rate-limited checks: 0
 
-## Broken internal page links in repository
+## Broken internal page links
 
 None.
 
@@ -24,56 +26,19 @@ None.
 
 None.
 
-## Missing linked resources in repository
+## Missing linked repository resources
 
-- `book.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `help-someone.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `index.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `can-christians-be-depressed.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `unsafe.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-22.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-17.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `god-feels-far-away.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-08.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-06.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-07.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-23.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `doubt-and-church-hurt.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `forgiveness-and-relational-hurt.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `start-here.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-20.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-13.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-09.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-05.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `why-god-allows-suffering.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-02.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `church-resources.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-19.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-10.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `2am-guide.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-03.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `what-hurts-today.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-24.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `anger-and-unanswered-prayer.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-04.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-21.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `begin-here.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-16.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `2am-guide-access.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `all-answers.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-01.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-18.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `book-updates-thanks.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-14.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-11.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-15.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `grief-and-loss.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `contact.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `free-guides.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `hope-thanks.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
-- `answer-12.html` → `/_vercel/insights/script.js` (missing `_vercel/insights/script.js`)
+None.
 
-## Broken repo-derived production destinations
+## Placeholder / dead anchor links
+
+None.
+
+## Links still using redirect aliases
+
+- `help-someone.html` → `/what-hurts-today`; should link directly to `/start-here`
+
+## Broken production destinations
 
 None.
 
@@ -87,7 +52,7 @@ None.
 
 ## Broken or unreachable external links
 
-None.
+- `https://formsubmit.co/tatethrondson@gmail.com` — status `None` TimeoutError: The read operation timed out — used on 2am-guide-access.html, 2am-guide.html, answer-01.html, answer-02.html, answer-03.html, answer-04.html, answer-05.html, answer-06.html, answer-07.html, answer-08.html, answer-09.html, answer-10.html, answer-11.html, answer-12.html, answer-13.html, answer-14.html, answer-15.html, answer-16.html, answer-17.html, answer-18.html, answer-19.html, answer-20.html, answer-21.html, answer-22.html, answer-23.html, answer-24.html, book.html, can-christians-be-depressed.html, church-resources.html, contact.html, free-guides.html
 
 ## External checks blocked or rate-limited
 
