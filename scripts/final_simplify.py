@@ -39,11 +39,17 @@ def simplify_home():
     text = read(name)
     original = text
 
+    # The hero already routes the visitor. Do not ask the same decision twice.
     text = re.sub(
         r'<!-- CARE-PATHS-HOME-START -->.*?<!-- CARE-PATHS-HOME-END -->',
         '', text, flags=re.S
     )
 
+    # One sentence of reassurance is enough; the site itself should demonstrate
+    # help-first rather than continuing to explain that positioning.
+    text = re.sub(r'<div class="heroReassure">.*?</div>', '', text, count=1, flags=re.S)
+
+    # Replace the vague fifth category with the useful second visitor persona.
     text = text.replace(
         '<h3>Hope &amp; Healing</h3><p>When you’re ready to take the next step forward.</p><a href="/start-here">Find Answers →</a>',
         '<h3>Someone I Love Is Hurting</h3><p>When you want to help without saying the wrong thing.</p><a href="/help-someone">Help Me Help Them →</a>'
@@ -59,14 +65,24 @@ def simplify_home():
             '<div class="center allTopics"><a class="btn outline" href="/all-answers">View All 24 Answers</a></div>' + safety_block
         )
 
+    # Free Resources has its own top-level destination. Keep the homepage from
+    # becoming a second resource library and second email-capture page.
     text = re.sub(
         r'<!-- FREE-GUIDES-HOME-START -->.*?<!-- FREE-GUIDES-HOME-END -->',
         '', text, flags=re.S
     )
 
+    # The compact trust strip already establishes who Tate is and why this site
+    # can be trusted. Remove the larger repeated author/sample block.
     text = re.sub(
         r'<section class="section"><div class="wrap authorSample">.*?</section>',
         '', text, count=1, flags=re.S
+    )
+
+    # Tighten the remaining trust strip without losing credibility.
+    text = text.replace(
+        'Tate Throndson is senior pastor of Castleview Baptist Church in Castle Rock, Colorado, where he has served since planting the church in 2008. These resources grow out of years of preaching, counseling, hospital rooms, funerals, and walking with hurting people.',
+        'Tate Throndson has pastored Castleview Baptist Church since planting it in 2008. These resources grow out of years of preaching, counseling, hospital rooms, funerals, and walking with hurting people.'
     )
 
     write(name, text, original)
@@ -85,6 +101,7 @@ def simplify_start_here():
         'You can always come back and choose something else. Pain rarely fits neatly into one box.',
         'Choose the closest one. You can always come back later.'
     )
+    text = re.sub(r'<p class="reassure">.*?</p>', '', text, count=1, flags=re.S)
 
     compact = '''<div class="startMore"><div class="startMoreHead"><p class="eyebrow">Other ways to begin</p><h2>Not one of those six?</h2></div><div class="secondaryChoiceGrid"><a class="choice choiceSecondary" href="/can-christians-be-depressed"><small>I feel low, numb, or worn down</small><strong>I’m struggling emotionally.</strong><span>Start with a gentle pastoral note about depression and emotional heaviness.</span></a><a class="choice choiceSecondary" href="/help-someone"><small>I’m here for someone else</small><strong>Someone I love is hurting.</strong><span>Learn what to say, what not to say, and how to be present.</span></a><a class="choice choiceSecondary" href="/all-answers"><small>I already know my question</small><strong>I’d rather browse.</strong><span>Search the complete library of 24 answers.</span></a></div></div><div class="night"><div><p class="eyebrow" style="color:#d8bd87">For the hardest hour</p><h3>You do not have to solve your whole life tonight.</h3><p>Read one passage, pray one honest sentence, and take the next hour as it comes.</p></div><a class="btn light" href="/2am-guide-access">Open the 2:00 A.M. Guide</a></div></div></section>
 '''
@@ -104,8 +121,11 @@ def simplify_topic_hubs():
         text = read(name)
         original = text
 
+        # The cards themselves tell the reader how to begin.
         text = re.sub(r'<section class="quick">.*?</section>', '', text, count=1, flags=re.S)
 
+        # Keep substantial teaching available, but only when the visitor asks
+        # for more. The hub's primary job is helping them choose one question.
         if 'deepHelpDisclosure' not in text:
             m = re.search(r'(<section class="deepHelp">.*?</section>)', text, flags=re.S)
             if m:
@@ -116,14 +136,13 @@ def simplify_topic_hubs():
                 )
                 text = text[:m.start()] + wrapped + text[m.end():]
 
-        # These two large sections repeat truths already present in the question
-        # cards and optional deeper material. Removing them keeps the hub focused
-        # on helping the reader choose one question.
+        # These large sections repeated truths already present in the question
+        # cards and deeper material.
         text = re.sub(r'<section class="truthSection">.*?</section>', '', text, count=1, flags=re.S)
         text = re.sub(r'<section class="tonight">.*?</section>', '', text, count=1, flags=re.S)
 
-        # Keep relevant podcast content, but make it opt-in rather than another
-        # large visual card competing with the question choices.
+        # Podcast content remains available without competing visually with the
+        # question choices.
         if 'podcastDisclosure' not in text:
             m = re.search(r'(<section class="podcastResource".*?</section>)', text, flags=re.S)
             if m:
@@ -133,6 +152,11 @@ def simplify_topic_hubs():
                     + '</details>'
                 )
                 text = text[:m.start()] + wrapped + text[m.end():]
+
+        # Once a visitor has chosen a topic, the page should not immediately
+        # present three more topic decisions at the bottom. Global navigation
+        # still makes every other topic easy to reach.
+        text = re.sub(r'<section class="related">.*?</section>', '', text, count=1, flags=re.S)
 
         if 'FINAL-SIMPLIFY-CSS-START' in text:
             text = re.sub(
@@ -158,6 +182,8 @@ def simplify_about():
         'Pastor and author helping people find biblical hope when life hurts.'
     )
 
+    # The story already establishes pastoral experience, biblical conviction,
+    # and help-first intent. Do not explain the same credibility twice.
     text = re.sub(
         r'<!-- TRUST-CREDIBILITY-START -->.*?<!-- TRUST-CREDIBILITY-END -->',
         '', text, count=1, flags=re.S
@@ -176,6 +202,8 @@ def simplify_book():
         'Twenty-four honest questions. Biblical answers. A pastoral voice that does not rush past the hurt.'
     )
 
+    # On the Book page, sell/explain the book rather than re-explaining the
+    # entire site's help-first philosophy.
     text = re.sub(r'<div class="bookHeroTrust">.*?</div>', '', text, count=1, flags=re.S)
 
     text = text.replace(
