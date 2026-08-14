@@ -1,7 +1,13 @@
 # Site QA Report
 
 HTML files scanned: 50
-Errors: 0
+Errors: 6
 Warnings: 0
 
-No issues found by the automated checks.
+## Findings
+- **ERROR** `help-someone.html` — Missing canonical homepage-derived header shell
+- **ERROR** `help-someone.html` — Missing canonical homepage-derived footer shell
+- **ERROR** `unsafe.html` — Missing canonical homepage-derived header shell
+- **ERROR** `unsafe.html` — Missing canonical homepage-derived footer shell
+- **ERROR** `2am-guide.html` — Missing canonical homepage-derived header shell
+- **ERROR** `2am-guide.html` — Missing canonical homepage-derived footer shell
