@@ -274,6 +274,7 @@ body.page-church-resources .intro{padding-top:44px!important}
 
 <!-- PREMIUM-SHELL-FOOTER-START --><footer class="siteShellFooter"><div class="siteShellWrap siteShellFooterGrid"><div><div class="siteShellFooterBrand">Answers<small>for a Broken Heart</small></div><div class="siteShellFooterTag">Biblical hope for grief, suffering, doubt, unanswered prayer, and the questions pain asks.</div></div><nav class="siteShellFooterLinks" aria-label="Footer navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Resources</a><a href="/church-resources">Church Resources</a><a href="/book">The Book</a><a href="/about">About</a><a href="/contact">Contact</a></nav><div class="siteShellCopyright">© 2026 Tate Throndson · Psalm 34:18 · Resources are pastoral and educational and are not a substitute for emergency, medical, or mental-health care.</div></div></footer><!-- PREMIUM-SHELL-FOOTER-END -->
 
+
 <!-- CONVERSION-ANALYTICS-START -->
 <script>
 (function(){
@@ -303,8 +304,8 @@ body.page-church-resources .intro{padding-top:44px!important}
     if(href==='/what-hurts-today') track('What Hurts Today Click',{page:current,label:label});
     if(href==='/church-resources') track('Church Resources Click',{page:current,label:label});
 
-    if(href==='/2am-guide'){
-      track('2AM Guide Opened',{page:current,label:label});
+    if(href==='/2am-guide' || href==='/2am-guide-access'){
+      track('2AM Guide Opened',{page:current,label:label,direct:href==='/2am-guide-access'});
       track('Free Guide Click',{page:current,guide:'2am-guide'});
     }
     if(href==='/can-christians-be-depressed') track('Free Guide Click',{page:current,guide:'depression'});
@@ -359,6 +360,7 @@ body.page-church-resources .intro{padding-top:44px!important}
     var value=interest ? interest.value : '';
     var lower=value.toLowerCase();
     if(lower.indexOf('2:00 a.m. guide')!==-1) track('2AM Guide Signup',{page:page()});
+    else if(lower.indexOf('pastoral encouragement')!==-1) track('Pastoral Notes Signup',{page:page()});
     else if(lower.indexOf('book launch list')!==-1 || lower.indexOf('release notification')!==-1) track('Book Launch Signup',{page:page()});
     else if(lower.indexOf('church and pastor resources')!==-1) track('Church Resources Signup',{page:page()});
   },true);
