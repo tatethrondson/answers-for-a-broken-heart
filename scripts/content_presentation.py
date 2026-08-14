@@ -248,7 +248,6 @@ if path.exists():
         updates, uend = balanced_div(text, ustart)
         sales, send = balanced_div(text, sstart)
         if updates and sales:
-            # Remove updates from its original position. Locate sales again after removal.
             text = text[:ustart] + text[uend:]
             sstart2 = text.find('<div class="salesGrid">')
             sales2, send2 = balanced_div(text, sstart2)
@@ -277,5 +276,58 @@ if path.exists():
         if future:
             text = text[:future_start] + text[future_end:]
     write_if_changed(path, text, original, 'Moved church resources before explanation')
+
+
+# Targeted presentation styles. These are intentionally small and tied to the
+# structural edits above rather than becoming another global design system.
+PRESENTATION_CSS = '''<!-- CONTENT-PRESENTATION-CSS-START --><style>
+body.page-begin-here .startMore,body.page-start-here .startMore{margin:34px 0 0;padding-top:28px;border-top:1px solid #ded8cd}
+body.page-begin-here .startMoreHead h2,body.page-start-here .startMoreHead h2{font:400 1.85rem/1.1 Georgia,"Times New Roman",serif;color:#183024;margin:0 0 18px}
+body.page-begin-here .secondaryChoiceGrid,body.page-start-here .secondaryChoiceGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+body.page-begin-here .choiceSecondary,body.page-start-here .choiceSecondary{min-height:0!important;padding:20px!important;background:#faf8f3!important}
+body.page-begin-here .choiceSecondary strong,body.page-start-here .choiceSecondary strong{font-size:1.18rem!important}
+body.page-begin-here .choiceSecondary span,body.page-start-here .choiceSecondary span{font-size:.8rem!important}
+body.page-all-answers .intro{padding:25px 0!important;border-bottom:1px solid #ebe5da}
+body.page-all-answers .introGrid{grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr)!important;gap:30px!important}
+body.page-all-answers .intro h2{font-size:1.75rem!important;margin-bottom:7px!important}
+body.page-all-answers .anchor{padding:20px 23px!important;font-size:1rem!important}
+body.page-grief-and-loss .answerHead,body.page-why-god-allows-suffering .answerHead,body.page-god-feels-far-away .answerHead,body.page-anger-and-unanswered-prayer .answerHead,body.page-forgiveness-and-relational-hurt .answerHead,body.page-doubt-and-church-hurt .answerHead{margin-top:0!important;padding-top:0!important;border-top:0!important}
+body.page-grief-and-loss .answerGrid,body.page-why-god-allows-suffering .answerGrid,body.page-god-feels-far-away .answerGrid,body.page-anger-and-unanswered-prayer .answerGrid,body.page-forgiveness-and-relational-hurt .answerGrid,body.page-doubt-and-church-hurt .answerGrid{margin-bottom:34px!important}
+body .topicIntro{padding-top:30px!important;border-top:1px solid #ded8cd;max-width:820px!important}
+body .short{margin-bottom:0!important;padding-bottom:25px!important}
+body .short + .minuteHelp{margin-top:0!important;border-top:0!important}
+body .minuteGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+body[class*="page-answer-"] .hero .meta{display:inline-block!important;margin:18px 10px 0 0!important}
+body[class*="page-answer-"] .hero .answerByline{display:inline-block!important;margin-top:18px!important}
+body.page-can-christians-be-depressed .keyline + h2{margin-top:34px!important}
+body.page-can-christians-be-depressed .steps{margin-top:18px!important;margin-bottom:44px!important}
+body.page-book .salesGrid{margin-bottom:22px!important}
+body.page-book .bookUpdates{margin-top:0!important}
+body.page-church-resources .gridSec{padding-top:46px!important}
+body.page-church-resources .intro{padding-top:44px!important}
+@media(max-width:820px){
+ body.page-begin-here .secondaryChoiceGrid,body.page-start-here .secondaryChoiceGrid{grid-template-columns:1fr!important}
+ body.page-all-answers .introGrid{grid-template-columns:1fr!important}
+ body .minuteGrid{grid-template-columns:1fr!important}
+ body[class*="page-answer-"] .hero .meta,body[class*="page-answer-"] .hero .answerByline{display:block!important;margin-top:9px!important}
+}
+</style><!-- CONTENT-PRESENTATION-CSS-END -->'''
+
+STYLE_FILES = set(TOPIC_HUBS) | {
+    'begin-here.html','start-here.html','all-answers.html','can-christians-be-depressed.html',
+    'about.html','book.html','church-resources.html'
+} | {p.name for p in ROOT.glob('answer-??.html')}
+
+for filename in STYLE_FILES:
+    path = ROOT / filename
+    if not path.exists():
+        continue
+    text = path.read_text(encoding='utf-8')
+    if 'CONTENT-PRESENTATION-CSS-START' in text:
+        continue
+    if '</head>' in text:
+        text = text.replace('</head>', PRESENTATION_CSS + '\n</head>', 1)
+        path.write_text(text, encoding='utf-8')
+        print('Added presentation styles:', filename)
 
 print('Content presentation pass complete.')
