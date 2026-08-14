@@ -14,6 +14,7 @@ on:
       - 'scripts/answer_journey.py'
       - 'scripts/content_presentation.py'
       - 'scripts/answer_presentation_cleanup.py'
+      - 'scripts/persona_flow.py'
       - 'scripts/design_normalize.py'
       - 'site-cohesive.css'
       - 'site-interior-v3.css'
@@ -81,6 +82,9 @@ jobs:
 
       - name: Give answers a clear stopping point
         run: python scripts/answer_presentation_cleanup.py
+
+      - name: Test the site through hurting-reader journeys
+        run: python scripts/persona_flow.py
 
       - name: Normalize interior design system
         run: python scripts/design_normalize.py
