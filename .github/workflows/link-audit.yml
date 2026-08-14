@@ -5,7 +5,9 @@ on:
     branches: [main]
     paths:
       - '*.html'
+      - 'vercel.json'
       - 'scripts/link_audit.py'
+      - 'scripts/link_fixes.py'
       - '.github/workflows/link-audit.yml'
   workflow_dispatch:
 
@@ -26,22 +28,24 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.x'
+      - name: Apply known link corrections
+        run: python scripts/link_fixes.py
       - name: Check every link
         id: audit
         continue-on-error: true
         run: python scripts/link_audit.py
-      - name: Commit link report
+      - name: Commit link fixes and report
         run: |
-          if [ -z "$(git status --porcelain -- LINK-AUDIT.md)" ]; then
-            echo "Link report is current"
+          if [ -z "$(git status --porcelain -- '*.html' vercel.json LINK-AUDIT.md)" ]; then
+            echo "Links and report are current"
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add LINK-AUDIT.md
-            git commit -m "Update full-site link audit"
+            git add '*.html' vercel.json LINK-AUDIT.md
+            git commit -m "Fix and verify site links"
             git pull --rebase origin main
             git push
           fi
-      - name: Fail on internal broken links
+      - name: Fail on broken internal links
         if: steps.audit.outcome == 'failure'
         run: exit 1
