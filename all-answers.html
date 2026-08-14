@@ -77,6 +77,11 @@
 
 
 
+
+
+
+
+
 <!-- HELP-FIRST-ANSWERS-START --><style>
 body{background:#fffefb!important;color:#242a26!important}.hero{background:linear-gradient(120deg,#f7f2e9,#e8efe8)!important}.hero h1,.intro h2,.groupHead h2{color:#183024!important}.hero .lead,.intro p,.groupHead p,.card p{color:#656d67!important}.eyebrow,.num,.count{color:#8b6939!important}.intro{background:#fffefb!important}.anchor{background:#183024!important;color:#fff!important}.tools{background:#f8f5ef!important;border-top:1px solid #ebe5da!important;border-bottom:1px solid #ded8cd!important;padding:18px 0!important}.search,.filter,.card{border-color:#ded8cd!important;background:#fff!important}.filter.active{background:#294533!important;color:#fff!important;border-color:#294533!important}.library{background:#faf8f3!important}.card{border-radius:0!important;box-shadow:none!important}.card h3{color:#25382d!important}.read{color:#294533!important}.bookCta{background:#183024!important;color:#fff!important}.bookCta h2{color:#fff!important}.bookCta p{color:rgba(255,255,255,.8)!important}.bookCta .btn{background:#fff!important;color:#183024!important;border-radius:0!important}
 </style><!-- HELP-FIRST-ANSWERS-END -->
@@ -87,10 +92,12 @@ body{background:#fffefb!important;color:#242a26!important}.hero{background:linea
 </style><!-- MOBILE-RESILIENCE-END -->
 
 <link rel="stylesheet" href="/site-interior-v3.css?v=3">
-<link rel="stylesheet" href="/site-polish-v4.css?v=2">
+<link rel="stylesheet" href="/site-polish-v4.css?v=3">
 </head>
-<body>
+<body class="page-all-answers">
 <!-- PREMIUM-SHELL-HEADER-START --><header class="siteShellHeader"><div class="siteShellWrap siteShellNav"><a class="siteShellBrand" href="/" aria-label="Answers for a Broken Heart home"><span class="siteShellBrandWords">Answers<small>for a Broken Heart</small></span><span class="siteShellHeart">♡</span></a><nav class="siteShellLinks" aria-label="Main navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Resources</a><a href="/book">The Book</a><a href="/about">About</a></nav><details class="siteShellMobile"><summary>Menu</summary><nav class="siteShellMobileMenu" aria-label="Mobile navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Resources</a><a href="/book">The Book</a><a href="/about">About</a></nav></details></div></header><!-- PREMIUM-SHELL-HEADER-END -->
+
+
 
 
 
@@ -156,6 +163,9 @@ body{background:#fffefb!important;color:#242a26!important}.hero{background:linea
 (()=>{const search=document.getElementById('answerSearch'),groups=[...document.querySelectorAll('.group')],buttons=[...document.querySelectorAll('.filter')],empty=document.getElementById('empty');let active='all';function draw(){const term=(search.value||'').trim().toLowerCase();let shown=0;groups.forEach(g=>{const category=active==='all'||g.dataset.group===active;let groupShown=0;g.querySelectorAll('.card').forEach(c=>{const match=category&&(!term||c.textContent.toLowerCase().includes(term));c.classList.toggle('hidden',!match);if(match){groupShown++;shown++;}});g.classList.toggle('hidden',groupShown===0)});empty.classList.toggle('show',shown===0)}buttons.forEach(b=>b.addEventListener('click',()=>{active=b.dataset.filter;buttons.forEach(x=>x.classList.toggle('active',x===b));draw()}));search.addEventListener('input',draw);draw()})();
 </script>
 <script src="/portrait-inline.js?v=1"></script>
+
+
+
 
 
 
