@@ -1,0 +1,48 @@
+--- women-approved: files=2 indexes=[0, 1] b64chars=27890
+women-approved: base64 ERROR Incorrect padding
+--- women: files=3 indexes=[0, 1, 2] b64chars=85782
+women [raw]: bytes=64335 sha256=733151b678bddef2c517d4597032f3ca36edbea8002660a3da48055cf442393f pages_hint=0 sig=b'%PDF-1.4'
+--- women-v3: files=1 indexes=[0] b64chars=13000
+women-v3: gzip ERROR Compressed file ended before the end-of-stream marker was reached; compressed=9750 sha=060977eefec214edf86c35138987ace782a5dc0ca21f16191f3d154e6b281069
+--- women-v4: files=9 indexes=[0, 1, 2, 3, 4, 5, 6, 7, 8] b64chars=90251
+women-v4: base64 ERROR Incorrect padding
+--- women-gz: files=12 indexes=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] b64chars=104339
+women-gz: base64 ERROR Incorrect padding
+--- women-ec: files=0 indexes=[] b64chars=0
+women-ec [raw]: bytes=0 sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 pages_hint=-1 sig=b''
+--- women-tail: files=1 indexes=[0] b64chars=12436
+women-tail [raw]: bytes=9327 sha256=4cb91f5e93415672ec517168e3721405099444c59037d6b88e71485b3f1e3b1f pages_hint=-1 sig=b'\xcd\xcf\x1c\xfbhWr\xc1'
+--- women-tail15: files=1 indexes=[0] b64chars=12406
+women-tail15: base64 ERROR Incorrect padding
+--- women-tail3: files=2 indexes=[0, 1] b64chars=5999
+women-tail3: base64 ERROR Incorrect padding
+--- women-tail3pairs: files=1 indexes=[1] b64chars=2999
+women-tail3pairs: base64 ERROR Incorrect padding
+--- women-tail4: files=1 indexes=[0] b64chars=4000
+women-tail4 [raw]: bytes=3000 sha256=f777d7252ff651241d023922479378fab3c7cd1cba9d576354d0ca1c956f5e27 pages_hint=-1 sig=b'\xcd\xcf\x1c\xfbhWr\xc1'
+--- women-tail6: files=1 indexes=[0] b64chars=5999
+women-tail6: base64 ERROR Incorrect padding
+--- combo women-gz+women-tail
+women-gz+women-tail: base64 ERROR Incorrect padding
+--- combo women-gz+women-tail15
+women-gz+women-tail15: base64 ERROR Invalid base64-encoded string: number of data characters (116745) cannot be 1 more than a multiple of 4
+--- combo women-gz+women-tail3
+women-gz+women-tail3: base64 ERROR Incorrect padding
+--- combo women-gz+women-tail3pairs
+women-gz+women-tail3pairs: base64 ERROR Incorrect padding
+--- combo women-gz+women-tail4
+women-gz+women-tail4: base64 ERROR Incorrect padding
+--- combo women-gz+women-tail6
+women-gz+women-tail6: base64 ERROR Incorrect padding
+--- combo women-v4+women-tail
+women-v4+women-tail: base64 ERROR Incorrect padding
+--- combo women-v4+women-tail15
+women-v4+women-tail15: base64 ERROR Invalid base64-encoded string: number of data characters (102657) cannot be 1 more than a multiple of 4
+--- combo women-v4+women-tail3
+women-v4+women-tail3: base64 ERROR Incorrect padding
+--- combo women-v4+women-tail3pairs
+women-v4+women-tail3pairs: base64 ERROR Incorrect padding
+--- combo women-v4+women-tail4
+women-v4+women-tail4: base64 ERROR Incorrect padding
+--- combo women-v4+women-tail6
+women-v4+women-tail6: base64 ERROR Incorrect padding
