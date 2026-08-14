@@ -13,9 +13,16 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: women-journal-exact-upload
-      - name: Package all historical journal assets
-        run: tar -czf journal-assets-history.tgz journal-assets
+      - name: Download historical Filebin candidate
+        run: |
+          curl -fL --retry 3 'https://filebin.net/afabh-women-20260814/Faith_and_Feelings_30_Day_Journal_for_Women.pdf' -o filebin-women.pdf || true
+          if [ -f filebin-women.pdf ]; then
+            sha256sum filebin-women.pdf
+            file filebin-women.pdf
+            pdfinfo filebin-women.pdf || true
+          fi
       - uses: actions/upload-artifact@v4
+        if: ${{ hashFiles('filebin-women.pdf') != '' }}
         with:
-          name: journal-assets-history
-          path: journal-assets-history.tgz
+          name: filebin-women
+          path: filebin-women.pdf
