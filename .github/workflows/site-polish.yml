@@ -15,6 +15,7 @@ on:
       - 'scripts/design_normalize.py'
       - 'site-cohesive.css'
       - 'site-interior-v3.css'
+      - 'site-polish-v4.css'
       - '.github/workflows/site-polish.yml'
   workflow_dispatch:
 
