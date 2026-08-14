@@ -103,8 +103,7 @@ def simplify_start_here():
     )
     text = re.sub(r'<p class="reassure">.*?</p>', '', text, count=1, flags=re.S)
 
-    compact = '''<div class="startMore"><div class="startMoreHead"><p class="eyebrow">Other ways to begin</p><h2>Not one of those six?</h2></div><div class="secondaryChoiceGrid"><a class="choice choiceSecondary" href="/can-christians-be-depressed"><small>I feel low, numb, or worn down</small><strong>I’m struggling emotionally.</strong><span>Start with a gentle pastoral note about depression and emotional heaviness.</span></a><a class="choice choiceSecondary" href="/help-someone"><small>I’m here for someone else</small><strong>Someone I love is hurting.</strong><span>Learn what to say, what not to say, and how to be present.</span></a><a class="choice choiceSecondary" href="/all-answers"><small>I already know my question</small><strong>I’d rather browse.</strong><span>Search the complete library of 24 answers.</span></a></div></div><div class="night"><div><p class="eyebrow" style="color:#d8bd87">For the hardest hour</p><h3>You do not have to solve your whole life tonight.</h3><p>Read one passage, pray one honest sentence, and take the next hour as it comes.</p></div><a class="btn light" href="/2am-guide-access">Open the 2:00 A.M. Guide</a></div></div></section>
-'''
+    compact = '''<div class="startMore"><div class="startMoreHead"><p class="eyebrow">Other ways to begin</p><h2>Not one of those six?</h2></div><div class="secondaryChoiceGrid"><a class="choice choiceSecondary" href="/can-christians-be-depressed"><small>I feel low, numb, or worn down</small><strong>I’m struggling emotionally.</strong><span>Start with a gentle pastoral note about depression and emotional heaviness.</span></a><a class="choice choiceSecondary" href="/help-someone"><small>I’m here for someone else</small><strong>Someone I love is hurting.</strong><span>Learn what to say, what not to say, and how to be present.</span></a><a class="choice choiceSecondary" href="/all-answers"><small>I already know my question</small><strong>I’d rather browse.</strong><span>Search the complete library of 24 answers.</span></a></div></div><div class="night"><div><p class="eyebrow" style="color:#d8bd87">For the hardest hour</p><h3>You do not have to solve your whole life tonight.</h3><p>Read one passage, pray one honest sentence, and take the next hour as it comes.</p></div><a class="btn light" href="/2am-guide-access">Open the 2:00 A.M. Guide</a></div></div></section>\n'''
     text = re.sub(
         r'<!-- PERSONA-FLOW-START-SUPPORT -->.*?(?=<section class="safety">)',
         compact,
@@ -123,6 +122,15 @@ def simplify_topic_hubs():
 
         # The cards themselves tell the reader how to begin.
         text = re.sub(r'<section class="quick">.*?</section>', '', text, count=1, flags=re.S)
+
+        # The question is the hook. Remove the explanatory subtitle beneath it
+        # so each card scans as one clean decision instead of a mini article.
+        text = re.sub(
+            r'(<a class="answerCard"[^>]*>.*?<h3>.*?</h3>)<p>.*?</p>(</a>)',
+            r'\1\2',
+            text,
+            flags=re.S,
+        )
 
         # Keep substantial teaching available, but only when the visitor asks
         # for more. The hub's primary job is helping them choose one question.
