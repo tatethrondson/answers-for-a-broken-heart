@@ -1,0 +1,1 @@
+Approved Faith & Feelings women’s journal download assets.
