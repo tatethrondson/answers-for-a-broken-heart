@@ -1,75 +1,18 @@
---- women-approved: payloads=2 indexes=[0, 1] lens=[18000, 9890]
-women-approved-joinedB64 [raw]: bytes=20917 sha256=a1975bd9ee25db749a9a43d37267ed012beebc63681999fc3e09f3a2deeb7314 pages_hint=0 eof_at=-1 sig=b'%PDF-1.4'
-women-approved-decodedParts [raw]: bytes=20917 sha256=a1975bd9ee25db749a9a43d37267ed012beebc63681999fc3e09f3a2deeb7314 pages_hint=0 eof_at=-1 sig=b'%PDF-1.4'
---- women: payloads=3 indexes=[0, 1, 2] lens=[18000, 14320, 53462]
-women-joinedB64 [raw]: bytes=64335 sha256=733151b678bddef2c517d4597032f3ca36edbea8002660a3da48055cf442393f pages_hint=0 eof_at=-1 sig=b'%PDF-1.4'
-women-decodedParts [raw]: bytes=64335 sha256=733151b678bddef2c517d4597032f3ca36edbea8002660a3da48055cf442393f pages_hint=0 eof_at=-1 sig=b'%PDF-1.4'
---- women-v3: payloads=1 indexes=[0] lens=[13000]
-women-v3-joinedB64: gzip ERROR Compressed file ended before the end-of-stream marker was reached; compressed=9750 sha=060977eefec214edf86c35138987ace782a5dc0ca21f16191f3d154e6b281069
-women-v3-joinedB64 [raw]: bytes=9750 sha256=060977eefec214edf86c35138987ace782a5dc0ca21f16191f3d154e6b281069 pages_hint=-1 eof_at=-1 sig=b'\x1f\x8b\x08\x00\x00\x00\x00\x00'
-women-v3-decodedParts: gzip ERROR Compressed file ended before the end-of-stream marker was reached; compressed=9750 sha=060977eefec214edf86c35138987ace782a5dc0ca21f16191f3d154e6b281069
-women-v3-decodedParts [raw]: bytes=9750 sha256=060977eefec214edf86c35138987ace782a5dc0ca21f16191f3d154e6b281069 pages_hint=-1 eof_at=-1 sig=b'\x1f\x8b\x08\x00\x00\x00\x00\x00'
---- women-v4: payloads=9 indexes=[0, 1, 2, 3, 4, 5, 6, 7, 8] lens=[8000, 8000, 8000, 6427, 16000, 12606, 8001, 8218, 14999]
-women-v4-joinedB64: gzip ERROR Error -3 while decompressing data: invalid distance too far back; compressed=67688 sha=c154dfdd5df05fd94802679497c6ee61c5bb8aa6daf059520d56d7d2b8faef29
-women-v4-joinedB64 [raw]: bytes=67688 sha256=c154dfdd5df05fd94802679497c6ee61c5bb8aa6daf059520d56d7d2b8faef29 pages_hint=-1 eof_at=-1 sig=b'\x1f\x8b\x08\x00\x00\x00\x00\x00'
-women-v4 part idx=6 part-06.js: decode ERROR Invalid base64-encoded string: number of data characters (8001) cannot be 1 more than a multiple of 4
---- women-gz: payloads=12 indexes=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] lens=[8000, 8000, 8000, 8000, 8000, 8000, 8000, 8000, 8000, 12435, 9904, 10000]
-women-gz-joinedB64: gzip ERROR Error -3 while decompressing data: invalid code lengths set; compressed=78254 sha=03bb1120f22c59e1c70982e726bb216b309ed4618f05cf692c169db16113fc17
-women-gz-joinedB64 [raw]: bytes=78254 sha256=03bb1120f22c59e1c70982e726bb216b309ed4618f05cf692c169db16113fc17 pages_hint=-1 eof_at=-1 sig=b'\x1f\x8b\x08\x00&\xaa~j'
-women-gz-decodedParts: gzip ERROR Error -3 while decompressing data: invalid distance code; compressed=78254 sha=f288e2342780e165105a5e3ad692847c69c8bc32f3f837fa00570dd417f8472a
-women-gz-decodedParts [raw]: bytes=78254 sha256=f288e2342780e165105a5e3ad692847c69c8bc32f3f837fa00570dd417f8472a pages_hint=-1 eof_at=-1 sig=b'\x1f\x8b\x08\x00&\xaa~j'
---- women-ec: payloads=357 indexes=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356] lens=[250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 258, 250, 245, 237, 248, 257, 239, 240, 240, 238, 238, 237, 246, 232, 239, 243, 237, 242, 242, 244, 241, 240, 245, 235, 243, 247, 240, 229, 238, 244, 233, 240, 237, 238, 236, 243, 243, 236, 235, 237, 241, 246, 247, 241, 227, 231, 239, 236, 236, 242, 258, 250, 245, 237, 248, 257, 239, 240, 240, 238, 238, 237, 246, 232, 239, 243, 237, 242, 242, 244, 241, 240, 245, 235, 243, 247, 240, 229, 238, 244]
-women-ec-joinedB64 [raw]: bytes=66391 sha256=5342219db08ece656afe1b9838c953f8850444782fa2b04709b864a5ef80e6d7 pages_hint=-1 eof_at=-1 sig=b'\xcd\xcf\x1c\xfbhWr\xc1'
-women-ec part idx=279 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (245) cannot be 1 more than a multiple of 4
-women-ec part idx=280 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (237) cannot be 1 more than a multiple of 4
-women-ec part idx=282 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (257) cannot be 1 more than a multiple of 4
-women-ec part idx=288 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (237) cannot be 1 more than a multiple of 4
-women-ec part idx=293 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (237) cannot be 1 more than a multiple of 4
-women-ec part idx=297 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (241) cannot be 1 more than a multiple of 4
-women-ec part idx=299 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (245) cannot be 1 more than a multiple of 4
-women-ec part idx=304 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (229) cannot be 1 more than a multiple of 4
-women-ec part idx=307 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (233) cannot be 1 more than a multiple of 4
-women-ec part idx=309 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (237) cannot be 1 more than a multiple of 4
-women-ec part idx=316 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (237) cannot be 1 more than a multiple of 4
-women-ec part idx=317 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (241) cannot be 1 more than a multiple of 4
-women-ec part idx=320 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (241) cannot be 1 more than a multiple of 4
-women-ec part idx=329 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (245) cannot be 1 more than a multiple of 4
-women-ec part idx=330 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (237) cannot be 1 more than a multiple of 4
-women-ec part idx=332 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (257) cannot be 1 more than a multiple of 4
-women-ec part idx=338 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (237) cannot be 1 more than a multiple of 4
-women-ec part idx=343 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (237) cannot be 1 more than a multiple of 4
-women-ec part idx=347 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (241) cannot be 1 more than a multiple of 4
-women-ec part idx=349 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (245) cannot be 1 more than a multiple of 4
-women-ec part idx=354 part-08.js: decode ERROR Invalid base64-encoded string: number of data characters (229) cannot be 1 more than a multiple of 4
---- women-tail: payloads=1 indexes=[0] lens=[12436]
-women-tail-joinedB64 [raw]: bytes=9327 sha256=4cb91f5e93415672ec517168e3721405099444c59037d6b88e71485b3f1e3b1f pages_hint=-1 eof_at=-1 sig=b'\xcd\xcf\x1c\xfbhWr\xc1'
-women-tail-decodedParts [raw]: bytes=9327 sha256=4cb91f5e93415672ec517168e3721405099444c59037d6b88e71485b3f1e3b1f pages_hint=-1 eof_at=-1 sig=b'\xcd\xcf\x1c\xfbhWr\xc1'
---- women-tail15: payloads=1 indexes=[0] lens=[12406]
-women-tail15-joinedB64 [raw]: bytes=9304 sha256=340231294f11e6badc4616baad2adb8f3166092a11f4a60bc1d054898929fea8 pages_hint=-1 eof_at=-1 sig=b'\xcc\xc3\xd6s\xb9\xf4\xed\xa6'
-women-tail15-decodedParts [raw]: bytes=9304 sha256=340231294f11e6badc4616baad2adb8f3166092a11f4a60bc1d054898929fea8 pages_hint=-1 eof_at=-1 sig=b'\xcc\xc3\xd6s\xb9\xf4\xed\xa6'
---- women-tail3: payloads=2 indexes=[0, 1] lens=[3000, 2999]
-women-tail3-joinedB64 [raw]: bytes=4499 sha256=c8b64b347fbf69bf8b0c2cb378449a48295098ce72525448af2ff0142d9e1eeb pages_hint=-1 eof_at=-1 sig=b'\xcd\xcf\x1c\xfbhWr\xc1'
-women-tail3-decodedParts [raw]: bytes=4499 sha256=c8b64b347fbf69bf8b0c2cb378449a48295098ce72525448af2ff0142d9e1eeb pages_hint=-1 eof_at=-1 sig=b'\xcd\xcf\x1c\xfbhWr\xc1'
---- women-tail3pairs: payloads=2 indexes=[1, 2] lens=[2999, 3000]
-women-tail3pairs-joinedB64 [raw]: bytes=4499 sha256=a6f50a72457367c610c106e9f98ed376c574a8088626c610fe7b1d4a9e92a18f pages_hint=-1 eof_at=-1 sig=b'\x91\x92\x94\xe5$k>\xe1'
-women-tail3pairs-decodedParts [raw]: bytes=4499 sha256=05ba173196c33659848166df82f9661235aa81e5d65dd42297ced8e27b2e82a8 pages_hint=-1 eof_at=-1 sig=b'\x91\x92\x94\xe5$k>\xe1'
---- women-tail4: payloads=2 indexes=[0, 1] lens=[4000, 3999]
-women-tail4-joinedB64 [raw]: bytes=5999 sha256=63fc2cb370aadc173a6a04418e895b70234b385bc3acb0dd07004ffec1bc6725 pages_hint=-1 eof_at=-1 sig=b'\xcd\xcf\x1c\xfbhWr\xc1'
-women-tail4-decodedParts [raw]: bytes=5999 sha256=63fc2cb370aadc173a6a04418e895b70234b385bc3acb0dd07004ffec1bc6725 pages_hint=-1 eof_at=-1 sig=b'\xcd\xcf\x1c\xfbhWr\xc1'
---- women-tail6: payloads=1 indexes=[0] lens=[5999]
-women-tail6-joinedB64 [raw]: bytes=4499 sha256=c8b64b347fbf69bf8b0c2cb378449a48295098ce72525448af2ff0142d9e1eeb pages_hint=-1 eof_at=-1 sig=b'\xcd\xcf\x1c\xfbhWr\xc1'
-women-tail6-decodedParts [raw]: bytes=4499 sha256=c8b64b347fbf69bf8b0c2cb378449a48295098ce72525448af2ff0142d9e1eeb pages_hint=-1 eof_at=-1 sig=b'\xcd\xcf\x1c\xfbhWr\xc1'
-women-gz+women-tail-decodedParts: gzip ERROR Error -3 while decompressing data: invalid distance code; compressed=87581 sha=dc544cac2a30ad2a4dd2ef05c6f1e3c08cbd82b65f2624d7dfcf9e3f53c38ccc
-women-gz+women-tail-decodedParts [raw]: bytes=87581 sha256=dc544cac2a30ad2a4dd2ef05c6f1e3c08cbd82b65f2624d7dfcf9e3f53c38ccc pages_hint=-1 eof_at=-1 sig=b'\x1f\x8b\x08\x00&\xaa~j'
-women-gz+women-tail15-decodedParts: gzip ERROR Error -3 while decompressing data: invalid distance code; compressed=87558 sha=812352441fd018e8fdf249f9fdf1a6a310e8a34ec1cd9b53545ce632da632d2f
-women-gz+women-tail15-decodedParts [raw]: bytes=87558 sha256=812352441fd018e8fdf249f9fdf1a6a310e8a34ec1cd9b53545ce632da632d2f pages_hint=-1 eof_at=-1 sig=b'\x1f\x8b\x08\x00&\xaa~j'
-women-gz+women-tail3-decodedParts: gzip ERROR Error -3 while decompressing data: invalid distance code; compressed=82753 sha=02659daa93fc6079627cf1dc7119fa3925c22523c42b1b6bf7e3e897cfa29709
-women-gz+women-tail3-decodedParts [raw]: bytes=82753 sha256=02659daa93fc6079627cf1dc7119fa3925c22523c42b1b6bf7e3e897cfa29709 pages_hint=-1 eof_at=-1 sig=b'\x1f\x8b\x08\x00&\xaa~j'
-women-gz+women-tail3pairs-decodedParts: gzip ERROR Error -3 while decompressing data: invalid distance code; compressed=82753 sha=8f03af9c34ad51b409956710e71692dbd0cd388cb2cba90d8a8abd008bc3d31d
-women-gz+women-tail3pairs-decodedParts [raw]: bytes=82753 sha256=8f03af9c34ad51b409956710e71692dbd0cd388cb2cba90d8a8abd008bc3d31d pages_hint=-1 eof_at=-1 sig=b'\x1f\x8b\x08\x00&\xaa~j'
-women-gz+women-tail4-decodedParts: gzip ERROR Error -3 while decompressing data: invalid distance code; compressed=84253 sha=05576731cace4450a460f76cd6750cc2905fa50d91baaa6c94c9b57a7e558fef
-women-gz+women-tail4-decodedParts [raw]: bytes=84253 sha256=05576731cace4450a460f76cd6750cc2905fa50d91baaa6c94c9b57a7e558fef pages_hint=-1 eof_at=-1 sig=b'\x1f\x8b\x08\x00&\xaa~j'
-women-gz+women-tail6-decodedParts: gzip ERROR Error -3 while decompressing data: invalid distance code; compressed=82753 sha=02659daa93fc6079627cf1dc7119fa3925c22523c42b1b6bf7e3e897cfa29709
-women-gz+women-tail6-decodedParts [raw]: bytes=82753 sha256=02659daa93fc6079627cf1dc7119fa3925c22523c42b1b6bf7e3e897cfa29709 pages_hint=-1 eof_at=-1 sig=b'\x1f\x8b\x08\x00&\xaa~j'
-women+women-v3-decodedParts [raw]: bytes=74085 sha256=6432f001fda2d2da3294b40b9d6aa5bbc22849166fdc993d46e47c6196eadcf4 pages_hint=0 eof_at=-1 sig=b'%PDF-1.4'
-women+women-gz-decodedParts [raw]: bytes=142589 sha256=b3e01108f7519d3fddc17d89b7d782e89432c43805887201a2021604a5363302 pages_hint=0 eof_at=-1 sig=b'%PDF-1.4'
+EC indexes=0..289 good=277 bad_variants=80 missing=[243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255] conflicts=[]
+EC chars=69250 first=zc8c+2hXcsENfwjiE2Tdplgv1WH8Oaw3GiM4IUoGK6nQqZO+ftl7UpLKlPmt last=Oy3teRmvvdqLIw/14PIyq7ofmghba6q4rV9xRUiDSO3gHi2zkzSrdEUMXisd
+women-v3: chars=13000 first=H4sIAAAAAAAC/5S7Y7AgTdauvW3btq last=t2D+nUcE2HdrY3z0qgrgAvzCPsh4J7 overlap_to_EC=0
+women-v3+EC: b64chars=82250 raw=61687 rawsha=f551500af93079afb1f88f91dab4641ba0c6d71a8dc01355718f318d64c6eb6e sig=b'\x1f\x8b\x08\x00\x00\x00\x00\x00'
+women-v3+EC: gzip ERROR Error -3 while decompressing data: invalid distance too far back
+women-v4: chars=90251 first=H4sIAAAAAAAC/5S7Y7AgTdauvW3btq last=4AbgOyNZLb2dn2/gJNK+C82j/r23IR overlap_to_EC=0
+women-v4+EC: base64 ERROR Invalid base64-encoded string: number of data characters (159501) cannot be 1 more than a multiple of 4
+women-gz: chars=104339 first=H4sIACaqfmoC/5S7Y7AgTdauvW3btq last=V8sqFjW2PqaHr8MMORBfxSqvHIG1a1 overlap_to_EC=0
+women-gz+EC: base64 ERROR Invalid base64-encoded string: number of data characters (173589) cannot be 1 more than a multiple of 4
+women-v3 best boundary overlap=1 trim=7250
+women-v3-trim7250+EC: b64chars=74999 raw=56249 rawsha=ec8cea552650bafca9f1d722679bef890a8693e63f550d6401dbe37020c7fcd6 sig=b'\x1f\x8b\x08\x00\x00\x00\x00\x00'
+women-v3-trim7250+EC: gzip ERROR Error -3 while decompressing data: invalid distance too far back
+women-v4 best boundary overlap=4499 trim=2500
+women-v4-trim2500+EC: b64chars=152502 raw=114376 rawsha=596730f5477c1eb72187bbe8118d0c53898877c38c9b509de9cb87de17a9b322 sig=b'\x1f\x8b\x08\x00\x00\x00\x00\x00'
+women-v4-trim2500+EC: gzip ERROR Error -3 while decompressing data: invalid distance too far back
+women-gz best boundary overlap=1 trim=8000
+women-gz-trim8000+EC: b64chars=165588 raw=124191 rawsha=91da37a8a6e24cd291187c5af6b8019e97d8472db9a2212fdeee9b444040cf1f sig=b'\x1f\x8b\x08\x00&\xaa~j'
+women-gz-trim8000+EC: gzip ERROR Error -3 while decompressing data: invalid block type
