@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - '*.html'
+      - 'site-shell.js'
       - 'scripts/premium_polish.py'
       - 'scripts/premium_polish_refine.py'
       - 'scripts/premium_polish_repair.py'
