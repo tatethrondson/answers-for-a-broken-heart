@@ -89,7 +89,7 @@ for path in pages:
                 positions.append(styles.index(css))
         if len(positions)==len(INTERIOR_STYLES) and positions != sorted(positions):
             issues.append('interior styles are out of order')
-        if positions and styles.index(SHELL_STYLE) < positions[-1]:
+        if positions and SHELL_STYLE in styles and styles.index(SHELL_STYLE) < positions[-1]:
             issues.append('shared shell CSS loads before interior design layers')
 
     legacy=sorted(set(LEGACY_LINK_RE.findall(text)))
@@ -120,21 +120,18 @@ for path in pages:
         if mobile != CANONICAL:
             issues.append('mobile top nav is not the exact five canonical links')
 
-    # There must be no second main/site navigation outside the canonical header.
+    # Strip the approved header and footer, then make sure no other site navigation survives anywhere.
+    outside=text
+    outside=re.sub(r'<header\b[^>]*class=["\'][^"\']*siteShellHeader[^"\']*["\'][^>]*>.*?</header>','',outside,flags=re.I|re.S)
+    outside=re.sub(r'<footer\b[^>]*class=["\'][^"\']*siteShellFooter[^"\']*["\'][^>]*>.*?</footer>','',outside,flags=re.I|re.S)
     site_labels={'Home','Start Here','24 Answers','Free Guides','Free Resources','The Book','About','Contact'}
-    all_navs=re.findall(r'<nav\b[^>]*>(.*?)</nav>', text, re.I|re.S)
     extra_site_navs=0
-    for frag in all_navs:
+    for frag in re.findall(r'<nav\b[^>]*>(.*?)</nav>', outside, re.I|re.S):
         sig=nav_signature(frag)
         if any(label in site_labels for label,_ in sig):
-            if sig not in (CANONICAL,):
-                # Footer navigation is allowed; only flag navs before the first main element.
-                pos=text.find(frag)
-                mainpos=text.lower().find('<main')
-                if mainpos < 0 or pos < mainpos:
-                    extra_site_navs += 1
+            extra_site_navs += 1
     if extra_site_navs:
-        issues.append(f'extra/legacy site navigation before main={extra_site_navs}')
+        issues.append(f'extra/legacy site navigation outside shared shell={extra_site_navs}')
 
     status='PASS' if not issues else 'FAIL'
     rows.append((path.name,family(path.name),len(re.findall(r'<style\b',text,re.I)),status,'; '.join(issues)))
@@ -157,4 +154,6 @@ else:
     report += ['', '**Result: all 50 root pages use the same canonical shared shell and exact five-option top navigation.**']
 Path('STYLE-AUDIT.md').write_text('\n'.join(report)+'\n',encoding='utf-8')
 print(f'Audited {len(pages)} pages; failures: {len(errors)}')
+for name,issues in errors:
+    print('FAIL',name,':','; '.join(issues))
 sys.exit(1 if errors else 0)
