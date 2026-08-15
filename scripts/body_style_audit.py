@@ -1,7 +1,7 @@
 from pathlib import Path
 import re
 
-LOCK = '\n'.join(Path(p).read_text(encoding='utf-8') for p in ['site-homepage-lock.css','site-body-lock-v2.css','site-body-lock-v3.css'])
+LOCK = '\n'.join(Path(p).read_text(encoding='utf-8') for p in ['site-homepage-lock.css','site-body-lock-v2.css','site-body-lock-v3.css','site-body-lock-v4.css'])
 LOCK_CLASSES = set(re.findall(r'\.([A-Za-z_][\w-]*)', LOCK))
 STRUCTURAL={'wrap','grid','row','heroGrid','introGrid','storyGrid','ctaGrid','bookHeroGrid','bookIntroGrid','bookAudienceGrid','bookInsideGrid','bookReleaseGrid','resourceGrid','resourcesGrid','journalGrid','journalsGrid','choiceGrid','answerGrid','relatedGrid','questionGrid','cards','useGrid','kitGrid','minuteGrid','launchGrid','newsGrid','footerGrid','homeNoteForm','bookBridgeInner','bookBridgeActions','articleWrap','layout','heroCopy','bookHeroCopy','bookIntroCopy','bookVisual','bookStage','bookPhoto','authorInner','sampleInner','footer','nav','links','navlinks','actions','buttons','bottom','filters','signup','form','field','formRow','reason','step','entry','pair','pairs','features','feature','page','article','story','main','section','inside','resources','journals','library','tools','related','relatedAnswers','truthGrid','tonightGrid','quickGrid','searchIntent','allHelp','breadcrumb','meta','byline','answerByline'}
 VISUAL_PROP=re.compile(r'(^|;)\s*(background(?:-image|-color)?|color|border(?:-[\w-]+)?|border-radius|box-shadow|font(?:-family|-size|-weight|-style)?|outline)\s*:',re.I)
@@ -45,8 +45,8 @@ for path in sorted(Path('.').glob('*.html')):
 rows.sort(reverse=True)
 report=['# Body Visual Consistency Audit','','This audit checks only page-specific visual CSS selectors that are **actually used by elements in the current page markup** and are not explicitly governed by the final homepage/body design locks. Dead/unused legacy CSS is ignored.','',f'- Interior pages inspected: **{len(rows)}**','', '| Page | Risk score | Used visual rules | Used uncovered selectors | Noncanonical colors | Unusual radii | Shadows | Fonts |','|---|---:|---:|---:|---:|---:|---:|---:|']
 for score,name,rules,nuncovered,colors,radii,shadows,fonts in rows: report.append(f'| `{name}` | {score} | {rules} | {nuncovered} | {len(colors)} | {len(radii)} | {len(shadows)} | {len(fonts)} |')
-report+=['','## Highest-risk pages and used selectors']
-for score,name,rules,nuncovered,colors,radii,shadows,fonts in rows[:20]:
+report+=['','## Remaining pages and used selectors']
+for score,name,rules,nuncovered,colors,radii,shadows,fonts in rows:
     if score==0: continue
     report+=['',f'### `{name}` — score {score}']
     if colors: report.append('- Noncanonical colors: '+', '.join(colors))
@@ -55,5 +55,5 @@ for score,name,rules,nuncovered,colors,radii,shadows,fonts in rows[:20]:
     if fonts: report.append('- Fonts: '+'; '.join(f'`{s}` → `{v}`' for s,v in fonts[:4]))
     if page_details[name]:
         report.append('- Used visual selectors not governed by the final locks:')
-        for sel in page_details[name][:12]: report.append(f'  - `{sel}`')
+        for sel in page_details[name][:20]: report.append(f'  - `{sel}`')
 zero=sum(1 for r in rows if r[0]==0); report+=['',f'- Pages with no used visual escape selectors: **{zero}/{len(rows)}**']; Path('BODY-STYLE-AUDIT.md').write_text('\n'.join(report)+'\n',encoding='utf-8'); print('Used-body visual audit complete. Highest risk:'); [print(r[1],r[0],'uncovered',r[3]) for r in rows[:18]]

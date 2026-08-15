@@ -27,6 +27,7 @@ on:
       - 'site-homepage-lock.css'
       - 'site-body-lock-v2.css'
       - 'site-body-lock-v3.css'
+      - 'site-body-lock-v4.css'
       - 'site-shell.css'
       - 'site-shell.js'
       - '.github/workflows/site-polish.yml'

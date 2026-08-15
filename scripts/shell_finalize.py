@@ -14,7 +14,7 @@ HEADER=f'''{HEADER_START}<header class="siteShellHeader"><div class="siteShellWr
 
 FOOTER=f'''{FOOTER_START}<footer class="siteShellFooter"><div class="siteShellWrap siteShellFooterGrid"><div><div class="siteShellFooterBrand">Answers<small>for a Broken Heart</small></div><div class="siteShellFooterTag">Biblical hope for grief, suffering, doubt, unanswered prayer, and the questions pain asks.</div></div><nav class="siteShellFooterLinks" aria-label="Footer navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Resources</a><a href="/church-resources">Church Resources</a><a href="/book">The Book</a><a href="/about">About</a><a href="/contact">Contact</a></nav><div class="siteShellCopyright">© 2026 Tate Throndson · Psalm 34:18 · Resources are pastoral and educational and are not a substitute for emergency, medical, or mental-health care.</div></div></footer>{FOOTER_END}'''
 
-ASSETS='''<link rel="stylesheet" href="/site-body-lock-v2.css?v=2">\n<link rel="stylesheet" href="/site-body-lock-v3.css?v=3">\n<link rel="stylesheet" href="/site-shell.css?v=2">\n<!-- SITE-SHELL-RUNTIME-START --><script defer src="/site-shell.js?v=2"></script><!-- SITE-SHELL-RUNTIME-END -->'''
+ASSETS='''<link rel="stylesheet" href="/site-body-lock-v2.css?v=2">\n<link rel="stylesheet" href="/site-body-lock-v3.css?v=3">\n<link rel="stylesheet" href="/site-body-lock-v4.css?v=4">\n<link rel="stylesheet" href="/site-shell.css?v=2">\n<!-- SITE-SHELL-RUNTIME-START --><script defer src="/site-shell.js?v=2"></script><!-- SITE-SHELL-RUNTIME-END -->'''
 
 
 def strip_marked(text,start,end): return re.sub(re.escape(start)+r'.*?'+re.escape(end),'',text,flags=re.S)
@@ -32,7 +32,7 @@ def remove_premain_headers(text):
 for path in sorted(Path('.').glob('*.html')):
     text=path.read_text(encoding='utf-8'); original=text
     for start,end in [(CSS_START,CSS_END),(HEADER_START,HEADER_END),(FOOTER_START,FOOTER_END),(RUNTIME_START,RUNTIME_END)]: text=strip_marked(text,start,end)
-    for css in ['site-shell','site-body-lock-v2','site-body-lock-v3']:
+    for css in ['site-shell','site-body-lock-v2','site-body-lock-v3','site-body-lock-v4']:
         text=re.sub(r'<link\s+rel=["\']stylesheet["\']\s+href=["\']/'+re.escape(css)+r'\.css(?:\?[^"\']*)?["\']\s*/?>','',text,flags=re.I)
     text=re.sub(r'<script\b[^>]*src=["\']/site-shell\.js(?:\?[^"\']*)?["\'][^>]*></script>','',text,flags=re.I)
     text=remove_premain_headers(text)

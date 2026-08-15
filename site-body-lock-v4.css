@@ -1,0 +1,59 @@
+/* Answers for a Broken Heart — body component lock v4
+   Normalizes the remaining shared Answer-page guide-capture and continuation
+   components. Homepage and journal artwork/content remain untouched. */
+
+body[class*="page-answer-"] .copyStatus{
+  color:var(--ab-muted,#656d67)!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+}
+body[class*="page-answer-"] .guideCapture{
+  background:var(--ab-cream,#f5f0e7)!important;
+  color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-top:3px solid var(--ab-gold,#ad823d)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-answer-"] .guideCapture small{
+  color:var(--ab-gold,#ad823d)!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-weight:800!important;
+}
+body[class*="page-answer-"] .guideCapture strong{
+  color:var(--ab-deep,#183024)!important;
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-weight:400!important;
+}
+body[class*="page-answer-"] .guideCapture p{
+  color:var(--ab-muted,#656d67)!important;
+}
+body[class*="page-answer-"] .guideForm input[type="email"]{
+  background:#fff!important;
+  color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-radius:2px!important;
+  box-shadow:none!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+}
+body[class*="page-answer-"] .guideForm button{
+  background:var(--ab-pine,#294533)!important;
+  color:#fff!important;
+  border:1px solid var(--ab-pine,#294533)!important;
+  border-radius:2px!important;
+  box-shadow:none!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-weight:800!important;
+}
+body[class*="page-answer-"] .guideForm button:hover{
+  background:var(--ab-deep,#183024)!important;
+  border-color:var(--ab-deep,#183024)!important;
+}
+body[class*="page-answer-"] .journeyAfter{
+  color:var(--ab-muted,#656d67)!important;
+  border-color:var(--ab-line,#ded8cd)!important;
+}
+body[class*="page-answer-"] .journeyAfter a{
+  color:var(--ab-pine,#294533)!important;
+  font-weight:800!important;
+  text-decoration:none!important;
+}

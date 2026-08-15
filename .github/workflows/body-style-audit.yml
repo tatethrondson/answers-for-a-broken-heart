@@ -6,6 +6,9 @@ on:
     paths:
       - 'scripts/body_style_audit.py'
       - 'site-homepage-lock.css'
+      - 'site-body-lock-v2.css'
+      - 'site-body-lock-v3.css'
+      - 'site-body-lock-v4.css'
       - '*.html'
       - '.github/workflows/body-style-audit.yml'
   workflow_dispatch:
@@ -32,10 +35,7 @@ jobs:
         run: python scripts/body_style_audit.py
       - name: Commit audit report
         run: |
-          if [ -z "$(git status --porcelain -- BODY-STYLE-AUDIT.md)" ]; then
-            echo "Body visual audit is already current"
-            exit 0
-          fi
+          if [ -z "$(git status --porcelain -- BODY-STYLE-AUDIT.md)" ]; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add BODY-STYLE-AUDIT.md
