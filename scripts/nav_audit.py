@@ -1,157 +1,95 @@
 from pathlib import Path
 from html.parser import HTMLParser
+from urllib.parse import urljoin, urlparse
 from urllib.request import Request, urlopen
-from urllib.error import HTTPError
-from urllib.parse import urljoin
+import re
 
-ROOT = Path('.')
-LIVE_BASE = 'https://answersforabrokenheart.com'
-REPORT = ROOT / 'NAV-AUDIT.md'
-CANONICAL = [
-    ('Start Here', '/start-here'),
-    ('24 Answers', '/all-answers'),
-    ('Free Resources', '/free-guides'),
-    ('The Book', '/book'),
-    ('About', '/about'),
-]
+BASE='https://answersforabrokenheart.com/'
+EXPECTED=[('Start Here','/start-here'),('24 Answers','/all-answers'),('Free Resources','/free-guides'),('The Book','/book'),('About','/about')]
 
-class NavParser(HTMLParser):
+
+def norm(href):
+    if not href: return ''
+    if href.startswith('http'):
+        p=urlparse(href).path
+    else: p=href.split('#')[0].split('?')[0]
+    p=re.sub(r'\.html$','',p)
+    return p.rstrip('/') or '/'
+
+class Parser(HTMLParser):
     def __init__(self):
-        super().__init__()
-        self.in_header = 0
-        self.nav_stack = []
-        self.navs = []
-        self.current_link = None
-        self.capture_text = False
-        self.text_buf = []
-
-    def handle_starttag(self, tag, attrs):
-        a = dict(attrs)
-        if tag == 'header':
-            self.in_header += 1
-        if tag == 'nav' and self.in_header:
-            cls = a.get('class','')
-            aria = a.get('aria-label','')
-            self.nav_stack.append({'class':cls,'aria':aria,'links':[]})
-        if tag == 'a' and self.nav_stack:
-            self.current_link = {'href':a.get('href',''),'text':''}
-            self.capture_text = True
-            self.text_buf = []
-
-    def handle_data(self, data):
-        if self.capture_text:
-            self.text_buf.append(data)
-
-    def handle_endtag(self, tag):
-        if tag == 'a' and self.current_link is not None and self.nav_stack:
-            self.current_link['text'] = ' '.join(''.join(self.text_buf).split())
-            self.nav_stack[-1]['links'].append(self.current_link)
-            self.current_link = None
-            self.capture_text = False
-            self.text_buf = []
-        elif tag == 'nav' and self.nav_stack:
-            self.navs.append(self.nav_stack.pop())
-        elif tag == 'header' and self.in_header:
-            self.in_header -= 1
+        super().__init__(); self.headers=0; self.in_shell=False; self.in_desktop=False; self.in_mobile=False; self.link=None; self.text=[]; self.desktop=[]; self.mobile=[]; self.before_main=True; self.site_nav_before_main=0; self.nav_depth=[]; self.current_nav=[]
+    def handle_starttag(self,tag,attrs):
+        d=dict(attrs); classes=set(d.get('class','').split())
+        if tag=='main': self.before_main=False
+        if tag=='header':
+            self.headers+=1
+            if 'siteShellHeader' in classes: self.in_shell=True
+        if tag=='nav':
+            self.nav_depth.append((self.before_main,[]))
+            if self.in_shell and 'siteShellLinks' in classes: self.in_desktop=True
+            if self.in_shell and 'siteShellMobileMenu' in classes: self.in_mobile=True
+        if tag=='a': self.link=d.get('href'); self.text=[]
+    def handle_data(self,data):
+        if self.link is not None: self.text.append(data)
+    def handle_endtag(self,tag):
+        if tag=='a' and self.link is not None:
+            item=(' '.join(''.join(self.text).split()),norm(self.link))
+            if self.in_desktop: self.desktop.append(item)
+            if self.in_mobile: self.mobile.append(item)
+            if self.nav_depth: self.nav_depth[-1][1].append(item)
+            self.link=None; self.text=[]
+        elif tag=='nav' and self.nav_depth:
+            before,items=self.nav_depth.pop()
+            site_names={'Home','Start Here','24 Answers','Free Guides','Free Resources','The Book','About','Contact'}
+            if before and any(label in site_names for label,_ in items) and items not in (EXPECTED,): self.site_nav_before_main+=1
+            self.in_desktop=False; self.in_mobile=False
+        elif tag=='header': self.in_shell=False
 
 
-def parse(html):
-    p = NavParser(); p.feed(html); return p
+def inspect(text):
+    p=Parser(); p.feed(text)
+    issues=[]
+    if p.headers!=1: issues.append(f'header count={p.headers}')
+    if p.desktop!=EXPECTED: issues.append('desktop nav mismatch')
+    if p.mobile!=EXPECTED: issues.append('mobile nav mismatch')
+    if p.site_nav_before_main: issues.append(f'extra legacy site navs before main={p.site_nav_before_main}')
+    return issues,p.desktop,p.mobile
 
-def primary_nav(p):
-    # Prefer the explicit desktop main navigation.
-    for nav in p.navs:
-        if nav['aria'].lower() == 'main navigation' and 'Mobile' not in nav['class']:
-            return nav['links']
-    for nav in p.navs:
-        if 'siteShellLinks' in nav['class'] or 'navlinks' in nav['class']:
-            return nav['links']
-    return p.navs[0]['links'] if p.navs else []
+pages=sorted(Path('.').glob('*.html'))
+repo=[]
+for path in pages:
+    text=path.read_text(encoding='utf-8')
+    issues,d,m=inspect(text)
+    repo.append((path.name,issues,d,m))
 
-def signature(links):
-    return tuple((x['text'], x['href']) for x in links)
-
-def route_for(path):
-    if path.name == 'index.html': return '/'
-    if path.name == 'photo-test.html': return None
-    return '/' + path.stem
-
-def fetch(url):
-    req = Request(url, headers={'User-Agent':'Mozilla/5.0 NavAudit/1.0'})
+# Live audit is diagnostic rather than build-blocking because production can briefly lag a source commit.
+live=[]
+for path in pages:
+    route='/' if path.name=='index.html' else '/'+path.stem
+    url=urljoin(BASE,route)
     try:
-        with urlopen(req, timeout=15) as r:
-            return r.read().decode('utf-8','ignore'), getattr(r,'status',200), r.geturl()
-    except HTTPError as e:
-        return '', e.code, url
+        req=Request(url,headers={'User-Agent':'Mozilla/5.0 AnswersForABrokenHeartNavAudit/2.0'})
+        with urlopen(req,timeout=12) as r: text=r.read().decode('utf-8','replace')
+        issues,d,m=inspect(text)
+        live.append((route,issues,d,m,''))
     except Exception as e:
-        return '', None, f'{url} ({type(e).__name__}: {e})'
+        live.append((route,['fetch failed'],[],[],str(e)))
 
-pages = [p for p in sorted(ROOT.glob('*.html')) if p.name != 'photo-test.html']
-repo_groups = {}
-repo_bad = []
-for path in pages:
-    html = path.read_text(encoding='utf-8', errors='ignore')
-    links = primary_nav(parse(html))
-    sig = signature(links)
-    repo_groups.setdefault(sig, []).append(path.name)
-    if sig != tuple(CANONICAL):
-        repo_bad.append((path.name, sig))
-
-live_groups = {}
-live_bad = []
-live_fail = []
-for path in pages:
-    route = route_for(path)
-    if not route: continue
-    html, status, final = fetch(LIVE_BASE + route)
-    if status is None or status >= 400:
-        live_fail.append((route,status,final)); continue
-    sig = signature(primary_nav(parse(html)))
-    live_groups.setdefault(sig, []).append(route)
-    if sig != tuple(CANONICAL):
-        live_bad.append((route,sig,final))
-
-lines = ['# Navigation Consistency Audit','',
-         'Canonical primary navigation: `Start Here | 24 Answers | Free Resources | The Book | About`','',
-         f'Repository pages checked: {len(pages)}',
-         f'Repository pages with noncanonical navigation: {len(repo_bad)}',
-         f'Live pages checked: {len(pages)-len(live_fail)}',
-         f'Live pages with noncanonical navigation: {len(live_bad)}',
-         f'Live pages that failed to load: {len(live_fail)}','']
-
-lines += ['## Repository navigation variants','']
-for sig, names in sorted(repo_groups.items(), key=lambda x:(-len(x[1]), str(x[0]))):
-    label = ' | '.join(t or '(blank)' for t,h in sig) if sig else '(no primary nav found)'
-    lines.append(f'- **{len(names)} pages** — `{label}`')
-    lines.append('  - ' + ', '.join(f'`{n}`' for n in names))
-lines.append('')
-
-lines += ['## Live navigation variants','']
-for sig, routes in sorted(live_groups.items(), key=lambda x:(-len(x[1]), str(x[0]))):
-    label = ' | '.join(t or '(blank)' for t,h in sig) if sig else '(no primary nav found)'
-    lines.append(f'- **{len(routes)} pages** — `{label}`')
-    lines.append('  - ' + ', '.join(f'`{r}`' for r in routes))
-lines.append('')
-
-lines += ['## Noncanonical repository pages','']
+repo_bad=[x for x in repo if x[1]]
+live_bad=[x for x in live if x[1]]
+lines=['# Navigation Consistency Audit','',
+       'Canonical top navigation: **Start Here | 24 Answers | Free Resources | The Book | About**. The logo is Home; Contact and Church Resources remain in the footer.','',
+       f'- Repository pages checked: **{len(repo)}**',f'- Repository pages with mismatches: **{len(repo_bad)}**',
+       f'- Live routes checked: **{len(live)}**',f'- Live routes with mismatches/fetch failures: **{len(live_bad)}**','']
 if repo_bad:
-    for name,sig in repo_bad:
-        lines.append(f'- `{name}` — ' + ' | '.join(f'{t} ({h})' for t,h in sig))
-else: lines.append('None.')
-lines.append('')
-
-lines += ['## Noncanonical live pages','']
+    lines+=['## Repository failures']
+    for name,issues,_,_ in repo_bad: lines.append(f'- `{name}`: '+', '.join(issues))
+else: lines+=['**Repository result: every root page has one header and the exact same five desktop/mobile options.**']
 if live_bad:
-    for route,sig,final in live_bad:
-        lines.append(f'- `{route}` — ' + ' | '.join(f'{t} ({h})' for t,h in sig) + f' — final `{final}`')
-else: lines.append('None.')
-lines.append('')
-
-lines += ['## Live fetch failures','']
-if live_fail:
-    for route,status,note in live_fail: lines.append(f'- `{route}` — status `{status}` — {note}')
-else: lines.append('None.')
-lines.append('')
-
-REPORT.write_text('\n'.join(lines), encoding='utf-8')
-print('\n'.join(lines[:9]))
+    lines+=['','## Live differences (diagnostic)']
+    for route,issues,_,_,err in live_bad: lines.append(f'- `{route}`: '+', '.join(issues)+(f' — {err}' if err else ''))
+else: lines+=['','**Live result: every checked route currently exposes the same five-option header.**']
+Path('NAV-AUDIT.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+print(f'Repository mismatches: {len(repo_bad)}; live differences: {len(live_bad)}')
+raise SystemExit(1 if repo_bad else 0)
