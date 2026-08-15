@@ -6,30 +6,6 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 
 | Page | Risk score | Used visual rules | Used uncovered selectors | Noncanonical colors | Unusual radii | Shadows | Fonts |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| `answer-24.html` | 13 | 89 | 9 | 2 | 0 | 0 | 0 |
-| `answer-23.html` | 13 | 88 | 9 | 2 | 0 | 0 | 0 |
-| `answer-22.html` | 13 | 91 | 9 | 2 | 0 | 0 | 0 |
-| `answer-21.html` | 13 | 89 | 9 | 2 | 0 | 0 | 0 |
-| `answer-20.html` | 13 | 88 | 9 | 2 | 0 | 0 | 0 |
-| `answer-19.html` | 13 | 88 | 9 | 2 | 0 | 0 | 0 |
-| `answer-18.html` | 13 | 89 | 9 | 2 | 0 | 0 | 0 |
-| `answer-17.html` | 13 | 88 | 9 | 2 | 0 | 0 | 0 |
-| `answer-16.html` | 13 | 88 | 9 | 2 | 0 | 0 | 0 |
-| `answer-15.html` | 13 | 89 | 9 | 2 | 0 | 0 | 0 |
-| `answer-14.html` | 13 | 89 | 9 | 2 | 0 | 0 | 0 |
-| `answer-13.html` | 13 | 90 | 9 | 2 | 0 | 0 | 0 |
-| `answer-12.html` | 13 | 90 | 9 | 2 | 0 | 0 | 0 |
-| `answer-11.html` | 13 | 89 | 9 | 2 | 0 | 0 | 0 |
-| `answer-10.html` | 13 | 89 | 9 | 2 | 0 | 0 | 0 |
-| `answer-09.html` | 13 | 87 | 9 | 2 | 0 | 0 | 0 |
-| `answer-08.html` | 13 | 97 | 9 | 2 | 0 | 0 | 0 |
-| `answer-07.html` | 13 | 89 | 9 | 2 | 0 | 0 | 0 |
-| `answer-06.html` | 13 | 89 | 9 | 2 | 0 | 0 | 0 |
-| `answer-05.html` | 13 | 95 | 9 | 2 | 0 | 0 | 0 |
-| `answer-04.html` | 13 | 90 | 9 | 2 | 0 | 0 | 0 |
-| `answer-03.html` | 13 | 88 | 9 | 2 | 0 | 0 | 0 |
-| `answer-02.html` | 13 | 88 | 9 | 2 | 0 | 0 | 0 |
-| `answer-01.html` | 13 | 88 | 9 | 2 | 0 | 0 | 0 |
 | `why-god-allows-suffering.html` | 9 | 57 | 7 | 1 | 0 | 0 | 0 |
 | `what-hurts-today.html` | 9 | 42 | 8 | 0 | 0 | 1 | 0 |
 | `grief-and-loss.html` | 9 | 57 | 7 | 1 | 0 | 0 | 0 |
@@ -51,271 +27,127 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `doubt-and-church-hurt.html` | 0 | 35 | 0 | 0 | 0 | 0 | 0 |
 | `contact-thanks.html` | 0 | 4 | 0 | 0 | 0 | 0 | 0 |
 | `begin-here.html` | 0 | 29 | 0 | 0 | 0 | 0 | 0 |
+| `answer-24.html` | 0 | 89 | 0 | 0 | 0 | 0 | 0 |
+| `answer-23.html` | 0 | 88 | 0 | 0 | 0 | 0 | 0 |
+| `answer-22.html` | 0 | 91 | 0 | 0 | 0 | 0 | 0 |
+| `answer-21.html` | 0 | 89 | 0 | 0 | 0 | 0 | 0 |
+| `answer-20.html` | 0 | 88 | 0 | 0 | 0 | 0 | 0 |
+| `answer-19.html` | 0 | 88 | 0 | 0 | 0 | 0 | 0 |
+| `answer-18.html` | 0 | 89 | 0 | 0 | 0 | 0 | 0 |
+| `answer-17.html` | 0 | 88 | 0 | 0 | 0 | 0 | 0 |
+| `answer-16.html` | 0 | 88 | 0 | 0 | 0 | 0 | 0 |
+| `answer-15.html` | 0 | 89 | 0 | 0 | 0 | 0 | 0 |
+| `answer-14.html` | 0 | 89 | 0 | 0 | 0 | 0 | 0 |
+| `answer-13.html` | 0 | 90 | 0 | 0 | 0 | 0 | 0 |
+| `answer-12.html` | 0 | 90 | 0 | 0 | 0 | 0 | 0 |
+| `answer-11.html` | 0 | 89 | 0 | 0 | 0 | 0 | 0 |
+| `answer-10.html` | 0 | 89 | 0 | 0 | 0 | 0 | 0 |
+| `answer-09.html` | 0 | 87 | 0 | 0 | 0 | 0 | 0 |
+| `answer-08.html` | 0 | 97 | 0 | 0 | 0 | 0 | 0 |
+| `answer-07.html` | 0 | 89 | 0 | 0 | 0 | 0 | 0 |
+| `answer-06.html` | 0 | 89 | 0 | 0 | 0 | 0 | 0 |
+| `answer-05.html` | 0 | 95 | 0 | 0 | 0 | 0 | 0 |
+| `answer-04.html` | 0 | 90 | 0 | 0 | 0 | 0 | 0 |
+| `answer-03.html` | 0 | 88 | 0 | 0 | 0 | 0 | 0 |
+| `answer-02.html` | 0 | 88 | 0 | 0 | 0 | 0 | 0 |
+| `answer-01.html` | 0 | 88 | 0 | 0 | 0 | 0 | 0 |
 | `anger-and-unanswered-prayer.html` | 0 | 35 | 0 | 0 | 0 | 0 | 0 |
 | `all-answers.html` | 0 | 32 | 0 | 0 | 0 | 0 | 0 |
 | `about.html` | 0 | 22 | 0 | 0 | 0 | 0 | 0 |
 | `404.html` | 0 | 9 | 0 | 0 | 0 | 0 | 0 |
 
-## Highest-risk pages and used selectors
+## Remaining pages and used selectors
 
-### `answer-24.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
+### `why-god-allows-suffering.html` — score 9
+- Noncanonical colors: #87683a
 - Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
+  - `.deepScripture`
+  - `.deepScripture small`
+  - `.scriptureItem`
+  - `.scriptureItem strong`
+  - `.scriptureItem p`
+  - `.podcastButton`
+  - `.podcastButton:hover`
 
-### `answer-23.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
+### `what-hurts-today.html` — score 9
+- Shadows: `.topicHubCard:hover`
 - Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
+  - `.topicHubs`
+  - `.topicHubs h2`
+  - `.topicHubs p`
+  - `.topicHubCard`
+  - `.topicHubCard:hover`
+  - `.topicHubCard small`
+  - `.topicHubCard strong`
+  - `.topicHubCard span`
 
-### `answer-22.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
+### `grief-and-loss.html` — score 9
+- Noncanonical colors: #87683a
 - Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
+  - `.deepScripture`
+  - `.deepScripture small`
+  - `.scriptureItem`
+  - `.scriptureItem strong`
+  - `.scriptureItem p`
+  - `.podcastButton`
+  - `.podcastButton:hover`
 
-### `answer-21.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
+### `hope-thanks.html` — score 7
+- Noncanonical colors: #e0d9cd, #f5f1e8
+- Unusual radii: `.resource` → `15px`
 - Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
+  - `.resource`
+  - `.resource h2`
 
-### `answer-20.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
+### `can-christians-be-depressed.html` — score 5
 - Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
+  - `.signature`
+  - `.depFaq`
+  - `.depFaqItem`
+  - `.depNote`
+  - `.depLinks a`
 
-### `answer-19.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
+### `book-updates-thanks.html` — score 3
+- Noncanonical colors: #777d55
 - Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
+  - `.check`
 
-### `answer-18.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
+### `2am-guide.html` — score 3
 - Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
+  - `.promise`
+  - `.insideHead h2`
+  - `.insideHead p`
 
-### `answer-17.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
+### `god-feels-far-away.html` — score 2
 - Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
+  - `.podcastButton`
+  - `.podcastButton:hover`
 
-### `answer-16.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
+### `free-guides.html` — score 2
 - Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
+  - `.noGate`
+  - `.noGate strong`
 
-### `answer-15.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
+### `forgiveness-and-relational-hurt.html` — score 2
 - Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
+  - `.podcastButton`
+  - `.podcastButton:hover`
 
-### `answer-14.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
+### `church-resources.html` — score 2
 - Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
+  - `.gridHead h2`
+  - `.kitItem`
 
-### `answer-13.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
+### `contact.html` — score 1
 - Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
+  - `.formIntro`
 
-### `answer-12.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
+### `book.html` — score 1
 - Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
+  - `.bookInsideHead p`
 
-### `answer-11.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
+### `2am-guide-access.html` — score 1
 - Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
+  - `.remember`
 
-### `answer-10.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
-- Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
-
-### `answer-09.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
-- Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
-
-### `answer-08.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
-- Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
-
-### `answer-07.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
-- Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
-
-### `answer-06.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
-- Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
-
-### `answer-05.html` — score 13
-- Noncanonical colors: #24312b, #5e6861
-- Used visual selectors not governed by the final locks:
-  - `.copyStatus`
-  - `.guideCapture`
-  - `.guideCapture small`
-  - `.guideCapture strong`
-  - `.guideCapture p`
-  - `.guideForm input[type="email"]`
-  - `.guideForm button`
-  - `.journeyAfter`
-  - `.journeyAfter a`
-
-- Pages with no used visual escape selectors: **11/49**
+- Pages with no used visual escape selectors: **35/49**
