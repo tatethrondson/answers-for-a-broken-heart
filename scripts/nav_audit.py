@@ -18,15 +18,20 @@ def norm(href):
 
 class Parser(HTMLParser):
     def __init__(self):
-        super().__init__(); self.headers=0; self.in_shell=False; self.in_desktop=False; self.in_mobile=False; self.link=None; self.text=[]; self.desktop=[]; self.mobile=[]; self.before_main=True; self.site_nav_before_main=0; self.nav_depth=[]; self.current_nav=[]
+        super().__init__()
+        self.headers=0; self.footers=0; self.in_shell=False; self.in_footer=False
+        self.in_desktop=False; self.in_mobile=False; self.link=None; self.text=[]
+        self.desktop=[]; self.mobile=[]; self.extra_site_navs=0; self.nav_depth=[]
     def handle_starttag(self,tag,attrs):
         d=dict(attrs); classes=set(d.get('class','').split())
-        if tag=='main': self.before_main=False
         if tag=='header':
             self.headers+=1
             if 'siteShellHeader' in classes: self.in_shell=True
+        elif tag=='footer':
+            self.footers+=1
+            if 'siteShellFooter' in classes: self.in_footer=True
         if tag=='nav':
-            self.nav_depth.append((self.before_main,[]))
+            self.nav_depth.append((self.in_shell,self.in_footer,[]))
             if self.in_shell and 'siteShellLinks' in classes: self.in_desktop=True
             if self.in_shell and 'siteShellMobileMenu' in classes: self.in_mobile=True
         if tag=='a': self.link=d.get('href'); self.text=[]
@@ -37,23 +42,26 @@ class Parser(HTMLParser):
             item=(' '.join(''.join(self.text).split()),norm(self.link))
             if self.in_desktop: self.desktop.append(item)
             if self.in_mobile: self.mobile.append(item)
-            if self.nav_depth: self.nav_depth[-1][1].append(item)
+            if self.nav_depth: self.nav_depth[-1][2].append(item)
             self.link=None; self.text=[]
         elif tag=='nav' and self.nav_depth:
-            before,items=self.nav_depth.pop()
+            in_shell,in_footer,items=self.nav_depth.pop()
             site_names={'Home','Start Here','24 Answers','Free Guides','Free Resources','The Book','About','Contact'}
-            if before and any(label in site_names for label,_ in items) and items not in (EXPECTED,): self.site_nav_before_main+=1
+            if not in_shell and not in_footer and any(label in site_names for label,_ in items):
+                self.extra_site_navs+=1
             self.in_desktop=False; self.in_mobile=False
         elif tag=='header': self.in_shell=False
+        elif tag=='footer': self.in_footer=False
 
 
 def inspect(text):
     p=Parser(); p.feed(text)
     issues=[]
     if p.headers!=1: issues.append(f'header count={p.headers}')
+    if p.footers!=1: issues.append(f'footer count={p.footers}')
     if p.desktop!=EXPECTED: issues.append('desktop nav mismatch')
     if p.mobile!=EXPECTED: issues.append('mobile nav mismatch')
-    if p.site_nav_before_main: issues.append(f'extra legacy site navs before main={p.site_nav_before_main}')
+    if p.extra_site_navs: issues.append(f'extra legacy site navs outside shared shell={p.extra_site_navs}')
     return issues,p.desktop,p.mobile
 
 pages=sorted(Path('.').glob('*.html'))
@@ -69,7 +77,7 @@ for path in pages:
     route='/' if path.name=='index.html' else '/'+path.stem
     url=urljoin(BASE,route)
     try:
-        req=Request(url,headers={'User-Agent':'Mozilla/5.0 AnswersForABrokenHeartNavAudit/2.0'})
+        req=Request(url,headers={'User-Agent':'Mozilla/5.0 AnswersForABrokenHeartNavAudit/3.0'})
         with urlopen(req,timeout=12) as r: text=r.read().decode('utf-8','replace')
         issues,d,m=inspect(text)
         live.append((route,issues,d,m,''))
@@ -92,4 +100,6 @@ if live_bad:
 else: lines+=['','**Live result: every checked route currently exposes the same five-option header.**']
 Path('NAV-AUDIT.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
 print(f'Repository mismatches: {len(repo_bad)}; live differences: {len(live_bad)}')
+for name,issues,_,_ in repo_bad:
+    print('FAIL',name,':',', '.join(issues))
 raise SystemExit(1 if repo_bad else 0)
