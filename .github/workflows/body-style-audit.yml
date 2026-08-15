@@ -1,38 +1,21 @@
 name: Body Visual Consistency Audit
-
 on:
   push:
     branches: [main]
-    paths:
-      - 'scripts/body_style_audit.py'
-      - 'site-homepage-lock.css'
-      - 'site-body-lock-v2.css'
-      - 'site-body-lock-v3.css'
-      - 'site-body-lock-v4.css'
-      - '*.html'
-      - '.github/workflows/body-style-audit.yml'
+    paths: ['scripts/body_style_audit.py','site-homepage-lock.css','site-body-lock-v2.css','site-body-lock-v3.css','site-body-lock-v4.css','site-body-lock-v5.css','*.html','.github/workflows/body-style-audit.yml']
   workflow_dispatch:
-
-permissions:
-  contents: write
-
-concurrency:
-  group: body-visual-audit
-  cancel-in-progress: true
-
+permissions: {contents: write}
+concurrency: {group: body-visual-audit, cancel-in-progress: true}
 jobs:
   audit:
     if: github.event_name == 'workflow_dispatch' || github.event.head_commit.message != 'Update body visual consistency audit'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        with: {fetch-depth: 0}
       - uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-      - name: Audit page-specific body styling
-        run: python scripts/body_style_audit.py
+        with: {python-version: '3.x'}
+      - {name: Audit page-specific body styling, run: 'python scripts/body_style_audit.py'}
       - name: Commit audit report
         run: |
           if [ -z "$(git status --porcelain -- BODY-STYLE-AUDIT.md)" ]; then exit 0; fi

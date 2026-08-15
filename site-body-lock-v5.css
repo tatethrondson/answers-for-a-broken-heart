@@ -1,0 +1,83 @@
+/* Answers for a Broken Heart — final live-selector cleanup v5
+   Covers the remaining used visual selectors found by BODY-STYLE-AUDIT.md.
+   Homepage and journal artwork/content remain untouched. */
+
+/* Topic hubs: scripture/support buttons */
+body.page-why-god-allows-suffering .deepScripture,
+body.page-grief-and-loss .deepScripture{
+  background:var(--ab-cream,#f5f0e7)!important;color:var(--ab-deep,#183024)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;border-left:4px solid var(--ab-gold,#ad823d)!important;
+  border-radius:0!important;box-shadow:none!important;
+}
+body.page-why-god-allows-suffering .deepScripture small,
+body.page-grief-and-loss .deepScripture small{color:var(--ab-gold,#ad823d)!important}
+body.page-why-god-allows-suffering .scriptureItem,
+body.page-grief-and-loss .scriptureItem{
+  background:var(--ab-warm,#fbf8f2)!important;color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;border-radius:0!important;box-shadow:none!important;
+}
+body.page-why-god-allows-suffering .scriptureItem strong,
+body.page-grief-and-loss .scriptureItem strong{color:var(--ab-deep,#183024)!important}
+body.page-why-god-allows-suffering .scriptureItem p,
+body.page-grief-and-loss .scriptureItem p{color:var(--ab-muted,#656d67)!important}
+body[class*="page-"] .podcastButton{
+  background:var(--ab-pine,#294533)!important;color:#fff!important;border:1px solid var(--ab-pine,#294533)!important;
+  border-radius:2px!important;box-shadow:none!important;font-family:Arial,Helvetica,sans-serif!important;font-weight:800!important;
+}
+body[class*="page-"] .podcastButton:hover{background:var(--ab-deep,#183024)!important;border-color:var(--ab-deep,#183024)!important}
+
+/* What Hurts Today topic cards */
+body.page-what-hurts-today .topicHubs{background:var(--ab-warm,#fbf8f2)!important;border-color:var(--ab-line,#ded8cd)!important}
+body.page-what-hurts-today .topicHubs h2{color:var(--ab-deep,#183024)!important}
+body.page-what-hurts-today .topicHubs p{color:var(--ab-muted,#656d67)!important}
+body.page-what-hurts-today .topicHubCard{
+  background:#fff!important;color:var(--ab-ink,#242a26)!important;border:1px solid var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;box-shadow:none!important;
+}
+body.page-what-hurts-today .topicHubCard:hover{border-color:#cfc6b7!important;box-shadow:0 12px 28px rgba(30,44,35,.08)!important}
+body.page-what-hurts-today .topicHubCard small{color:var(--ab-gold,#ad823d)!important}
+body.page-what-hurts-today .topicHubCard strong{color:var(--ab-deep,#183024)!important;font-family:Georgia,"Times New Roman",serif!important;font-weight:400!important}
+body.page-what-hurts-today .topicHubCard span{color:var(--ab-muted,#656d67)!important}
+
+/* Confirmation resources */
+body.page-hope-thanks .resource{
+  background:var(--ab-cream,#f5f0e7)!important;color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;border-radius:0!important;box-shadow:none!important;
+}
+body.page-hope-thanks .resource h2{color:var(--ab-deep,#183024)!important}
+body.page-book-updates-thanks .check{color:var(--ab-pine,#294533)!important;background:transparent!important;border-color:var(--ab-line,#ded8cd)!important}
+
+/* Depression guide */
+body.page-can-christians-be-depressed .signature{color:var(--ab-muted,#656d67)!important;font-family:Georgia,"Times New Roman",serif!important}
+body.page-can-christians-be-depressed .depFaq{
+  background:var(--ab-warm,#fbf8f2)!important;border-color:var(--ab-line,#ded8cd)!important;border-radius:0!important;box-shadow:none!important;
+}
+body.page-can-christians-be-depressed .depFaqItem{
+  background:#fff!important;color:var(--ab-ink,#242a26)!important;border:1px solid var(--ab-line,#ded8cd)!important;border-radius:0!important;box-shadow:none!important;
+}
+body.page-can-christians-be-depressed .depNote{background:var(--ab-cream,#f5f0e7)!important;color:var(--ab-muted,#656d67)!important;border-color:var(--ab-line,#ded8cd)!important}
+body.page-can-christians-be-depressed .depLinks a{color:var(--ab-pine,#294533)!important}
+
+/* 2 A.M. pages */
+body.page-2am-guide .promise{color:var(--ab-deep,#183024)!important;font-family:Georgia,"Times New Roman",serif!important}
+body.page-2am-guide .insideHead h2{color:var(--ab-deep,#183024)!important}
+body.page-2am-guide .insideHead p{color:var(--ab-muted,#656d67)!important}
+body.page-2am-guide-access .remember{
+  background:var(--ab-cream,#f5f0e7)!important;color:var(--ab-deep,#183024)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;border-left:4px solid var(--ab-gold,#ad823d)!important;border-radius:0!important;box-shadow:none!important;
+}
+
+/* Free Guides — status line only; journal visual/content stays untouched */
+body.page-free-guides .noGate{color:var(--ab-muted,#656d67)!important}
+body.page-free-guides .noGate strong{color:var(--ab-pine,#294533)!important}
+
+/* Church resources */
+body.page-church-resources .gridHead h2{color:var(--ab-deep,#183024)!important}
+body.page-church-resources .kitItem{
+  background:var(--ab-warm,#fbf8f2)!important;color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;border-radius:0!important;box-shadow:none!important;
+}
+
+/* Isolated text tones */
+body.page-contact .formIntro,
+body.page-book .bookInsideHead p{color:var(--ab-muted,#656d67)!important}

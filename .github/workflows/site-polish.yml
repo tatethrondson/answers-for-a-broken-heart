@@ -1,42 +1,11 @@
 name: Publish Site Audit Cleanup
-
 on:
   push:
     branches: [main]
-    paths:
-      - 'scripts/site_polish.py'
-      - 'scripts/guide_cta_fix.py'
-      - 'scripts/analytics_events.py'
-      - 'scripts/email_segments.py'
-      - 'scripts/site_qa.py'
-      - 'scripts/care_paths.py'
-      - 'scripts/answer_journey.py'
-      - 'scripts/content_presentation.py'
-      - 'scripts/answer_presentation_cleanup.py'
-      - 'scripts/persona_flow.py'
-      - 'scripts/persona_flow_finalize.py'
-      - 'scripts/final_simplify.py'
-      - 'scripts/design_normalize.py'
-      - 'scripts/shell_finalize.py'
-      - 'scripts/style_audit.py'
-      - 'scripts/nav_audit.py'
-      - 'scripts/body_style_audit.py'
-      - 'site-cohesive.css'
-      - 'site-interior-v3.css'
-      - 'site-polish-v4.css'
-      - 'site-homepage-lock.css'
-      - 'site-body-lock-v2.css'
-      - 'site-body-lock-v3.css'
-      - 'site-body-lock-v4.css'
-      - 'site-shell.css'
-      - 'site-shell.js'
-      - '.github/workflows/site-polish.yml'
+    paths: ['scripts/site_polish.py','scripts/guide_cta_fix.py','scripts/analytics_events.py','scripts/email_segments.py','scripts/site_qa.py','scripts/care_paths.py','scripts/answer_journey.py','scripts/content_presentation.py','scripts/answer_presentation_cleanup.py','scripts/persona_flow.py','scripts/persona_flow_finalize.py','scripts/final_simplify.py','scripts/design_normalize.py','scripts/shell_finalize.py','scripts/style_audit.py','scripts/nav_audit.py','scripts/body_style_audit.py','site-cohesive.css','site-interior-v3.css','site-polish-v4.css','site-homepage-lock.css','site-body-lock-v2.css','site-body-lock-v3.css','site-body-lock-v4.css','site-body-lock-v5.css','site-shell.css','site-shell.js','.github/workflows/site-polish.yml']
   workflow_dispatch:
-permissions:
-  contents: write
-concurrency:
-  group: site-audit-polish
-  cancel-in-progress: true
+permissions: {contents: write}
+concurrency: {group: site-audit-polish, cancel-in-progress: true}
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -47,14 +16,10 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with: {python-version: '3.x'}
-      - name: Apply final audit cleanup
-        run: python scripts/site_polish.py
-      - name: Refresh care components
-        run: python scripts/care_paths.py
-      - name: Regenerate answer journeys
-        run: python scripts/answer_journey.py
-      - name: Keep guides and canonical routes current
-        run: python scripts/guide_cta_fix.py
+      - {name: Apply final audit cleanup, run: 'python scripts/site_polish.py'}
+      - {name: Refresh care components, run: 'python scripts/care_paths.py'}
+      - {name: Regenerate answer journeys, run: 'python scripts/answer_journey.py'}
+      - {name: Keep guides and canonical routes current, run: 'python scripts/guide_cta_fix.py'}
       - name: Repair missing author bylines
         run: |
           python - <<'PY'
@@ -65,34 +30,21 @@ jobs:
               text=path.read_text(encoding='utf-8')
               if 'AUTHOR-BYLINE-START' in text: continue
               text,count=re.subn(r'(<div class="meta">.*?</div>)',r'\1'+byline,text,count=1,flags=re.S)
-              if count: path.write_text(text,encoding='utf-8')
+              if count:path.write_text(text,encoding='utf-8')
           PY
-      - name: Tag email signup audiences
-        run: python scripts/email_segments.py
-      - name: Instrument the help-first funnel
-        run: python scripts/analytics_events.py
-      - name: Prioritize content presentation
-        run: python scripts/content_presentation.py
-      - name: Give answers a clear stopping point
-        run: python scripts/answer_presentation_cleanup.py
-      - name: Test the site through hurting-reader journeys
-        run: python scripts/persona_flow.py
-      - name: Remove final persona funnel friction
-        run: python scripts/persona_flow_finalize.py
-      - name: Reduce visible information load
-        run: python scripts/final_simplify.py
-      - name: Normalize interior design system
-        run: python scripts/design_normalize.py
-      - name: Finalize shared header, footer, and body locks
-        run: python scripts/shell_finalize.py
-      - name: Audit homepage design consistency
-        run: python scripts/style_audit.py
-      - name: Audit navigation consistency
-        run: python scripts/nav_audit.py
-      - name: Audit used body visual consistency
-        run: python scripts/body_style_audit.py
-      - name: QA the generated pages
-        run: python scripts/site_qa.py
+      - {name: Tag email signup audiences, run: 'python scripts/email_segments.py'}
+      - {name: Instrument the help-first funnel, run: 'python scripts/analytics_events.py'}
+      - {name: Prioritize content presentation, run: 'python scripts/content_presentation.py'}
+      - {name: Give answers a clear stopping point, run: 'python scripts/answer_presentation_cleanup.py'}
+      - {name: Test the site through hurting-reader journeys, run: 'python scripts/persona_flow.py'}
+      - {name: Remove final persona funnel friction, run: 'python scripts/persona_flow_finalize.py'}
+      - {name: Reduce visible information load, run: 'python scripts/final_simplify.py'}
+      - {name: Normalize interior design system, run: 'python scripts/design_normalize.py'}
+      - {name: Finalize shared header, footer, and body locks, run: 'python scripts/shell_finalize.py'}
+      - {name: Audit homepage design consistency, run: 'python scripts/style_audit.py'}
+      - {name: Audit navigation consistency, run: 'python scripts/nav_audit.py'}
+      - {name: Audit used body visual consistency, run: 'python scripts/body_style_audit.py'}
+      - {name: QA the generated pages, run: 'python scripts/site_qa.py'}
       - name: Commit polished pages
         run: |
           if [ -z "$(git status --porcelain -- '*.html' 'SITE-QA.md' 'STYLE-AUDIT.md' 'NAV-AUDIT.md' 'BODY-STYLE-AUDIT.md')" ]; then exit 0; fi
@@ -100,9 +52,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add '*.html' SITE-QA.md STYLE-AUDIT.md NAV-AUDIT.md BODY-STYLE-AUDIT.md
           git commit -m "Publish final site audit cleanup"
-          for attempt in 1 2 3; do
-            git pull --rebase origin main
-            if git push; then exit 0; fi
-            sleep 2
-          done
+          for attempt in 1 2 3; do git pull --rebase origin main; if git push; then exit 0; fi; sleep 2; done
           exit 1
