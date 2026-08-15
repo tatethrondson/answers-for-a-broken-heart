@@ -1,0 +1,213 @@
+/* Answers for a Broken Heart — body component lock v3
+   Finishes the remaining live legacy component families discovered by the
+   used-selector audit. Homepage and journal artwork/content remain untouched. */
+
+/* ---------- Answer deep-content components ---------- */
+body[class*="page-answer-"] .exactScripture,
+body[class*="page-answer-"] .exactScripture2,
+body[class*="page-answer-"] .exactScripture3,
+body[class*="page-answer-"] .exactScripture4,
+body[class*="page-answer-"] .exactScripture5{
+  background:var(--ab-cream,#f5f0e7)!important;
+  color:var(--ab-deep,#183024)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-left:4px solid var(--ab-gold,#ad823d)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  font-family:Georgia,"Times New Roman",serif!important;
+}
+body[class*="page-answer-"] .exactScripture small,
+body[class*="page-answer-"] .exactScripture2 small,
+body[class*="page-answer-"] .exactScripture3 small,
+body[class*="page-answer-"] .exactScripture4 small,
+body[class*="page-answer-"] .exactScripture5 small{
+  color:var(--ab-gold,#ad823d)!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-weight:800!important;
+}
+body[class*="page-answer-"] .exactQuestion,
+body[class*="page-answer-"] .exactQuestion2,
+body[class*="page-answer-"] .exactQuestion3,
+body[class*="page-answer-"] .exactQuestion4,
+body[class*="page-answer-"] .exactQuestion5{
+  background:var(--ab-warm,#fbf8f2)!important;
+  color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-answer-"] .exactQuestion strong,
+body[class*="page-answer-"] .exactQuestion2 strong,
+body[class*="page-answer-"] .exactQuestion3 strong,
+body[class*="page-answer-"] .exactQuestion4 strong,
+body[class*="page-answer-"] .exactQuestion5 strong{
+  color:var(--ab-deep,#183024)!important;
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-weight:400!important;
+}
+body[class*="page-answer-"] .exactQuestion span,
+body[class*="page-answer-"] .exactQuestion2 span,
+body[class*="page-answer-"] .exactQuestion3 span,
+body[class*="page-answer-"] .exactQuestion4 span,
+body[class*="page-answer-"] .exactQuestion5 span{
+  color:var(--ab-muted,#656d67)!important;
+}
+body[class*="page-answer-"] .exactPastoral,
+body[class*="page-answer-"] .exactPastoral2,
+body[class*="page-answer-"] .exactPastoral3,
+body[class*="page-answer-"] .exactPastoral4,
+body[class*="page-answer-"] .exactPastoral5{
+  background:#eef2ed!important;
+  color:var(--ab-ink,#242a26)!important;
+  border:0!important;
+  border-top:3px solid var(--ab-sage,#738371)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-answer-"] .exactPastoral strong,
+body[class*="page-answer-"] .exactPastoral2 strong,
+body[class*="page-answer-"] .exactPastoral3 strong,
+body[class*="page-answer-"] .exactPastoral4 strong,
+body[class*="page-answer-"] .exactPastoral5 strong{
+  color:var(--ab-deep,#183024)!important;
+}
+
+/* ---------- Answer journey/share finish ---------- */
+body[class*="page-answer-"] .journeyThumb{
+  background:var(--ab-cream,#f5f0e7)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-answer-"] .journeyBookLink{
+  background:#eef2ed!important;
+  color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-answer-"] .journeyBookLink a{
+  color:var(--ab-pine,#294533)!important;
+  font-weight:800!important;
+}
+body[class*="page-answer-"] .shareHelp{
+  background:var(--ab-warm,#fbf8f2)!important;
+  color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-answer-"] .shareHelp strong{color:var(--ab-deep,#183024)!important}
+body[class*="page-answer-"] .shareHelp p{color:var(--ab-muted,#656d67)!important}
+body[class*="page-answer-"] .shareHelp a{color:var(--ab-pine,#294533)!important}
+
+/* ---------- Topic-hub deep-help variants ---------- */
+body[class*="page-"] .deepHelp1,
+body[class*="page-"] .deepHelp2,
+body[class*="page-"] .deepHelp3,
+body[class*="page-"] .deepHelp4,
+body[class*="page-"] .deepHelp5{
+  background:var(--ab-paper,#fffefb)!important;
+  color:var(--ab-ink,#242a26)!important;
+  border-color:var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-"] .deepHelp1 h2,
+body[class*="page-"] .deepHelp2 h2,
+body[class*="page-"] .deepHelp3 h2,
+body[class*="page-"] .deepHelp4 h2,
+body[class*="page-"] .deepHelp5 h2{
+  color:var(--ab-deep,#183024)!important;
+}
+body[class*="page-"] .deepHelp1 p,
+body[class*="page-"] .deepHelp2 p,
+body[class*="page-"] .deepHelp3 p,
+body[class*="page-"] .deepHelp4 p,
+body[class*="page-"] .deepHelp5 p{
+  color:var(--ab-muted,#656d67)!important;
+}
+body[class*="page-"] .deepHelp1 a,
+body[class*="page-"] .deepHelp2 a,
+body[class*="page-"] .deepHelp3 a,
+body[class*="page-"] .deepHelp4 a,
+body[class*="page-"] .deepHelp5 a{
+  color:var(--ab-pine,#294533)!important;
+}
+body[class*="page-"] .deepScripture1,
+body[class*="page-"] .deepScripture2,
+body[class*="page-"] .deepScripture3,
+body[class*="page-"] .deepScripture4,
+body[class*="page-"] .deepScripture5{
+  background:var(--ab-cream,#f5f0e7)!important;
+  color:var(--ab-deep,#183024)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-left:4px solid var(--ab-gold,#ad823d)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-"] .deepScripture1 small,
+body[class*="page-"] .deepScripture2 small,
+body[class*="page-"] .deepScripture3 small,
+body[class*="page-"] .deepScripture4 small,
+body[class*="page-"] .deepScripture5 small{
+  color:var(--ab-gold,#ad823d)!important;
+}
+body[class*="page-"] .scriptureItem1,
+body[class*="page-"] .scriptureItem2,
+body[class*="page-"] .scriptureItem3,
+body[class*="page-"] .scriptureItem4,
+body[class*="page-"] .scriptureItem5{
+  background:var(--ab-warm,#fbf8f2)!important;
+  color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-"] .scriptureItem1 strong,
+body[class*="page-"] .scriptureItem2 strong,
+body[class*="page-"] .scriptureItem3 strong,
+body[class*="page-"] .scriptureItem4 strong,
+body[class*="page-"] .scriptureItem5 strong{
+  color:var(--ab-deep,#183024)!important;
+}
+body[class*="page-"] .scriptureItem1 p,
+body[class*="page-"] .scriptureItem2 p,
+body[class*="page-"] .scriptureItem3 p,
+body[class*="page-"] .scriptureItem4 p,
+body[class*="page-"] .scriptureItem5 p{
+  color:var(--ab-muted,#656d67)!important;
+}
+
+/* ---------- Topic podcast card ---------- */
+body[class*="page-"] .podcastEpisode{
+  background:var(--ab-paper,#fffefb)!important;
+  color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-"] .podcastThumb{
+  background:var(--ab-cream,#f5f0e7)!important;
+  border-color:var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-"] .podcastPlay{
+  background:var(--ab-pine,#294533)!important;
+  color:#fff!important;
+  border-color:var(--ab-pine,#294533)!important;
+  box-shadow:none!important;
+}
+
+/* ---------- A few shared legacy text tones ---------- */
+body[class*="page-"] .deepHelp1,
+body[class*="page-"] .deepHelp2,
+body[class*="page-"] .deepHelp3,
+body[class*="page-"] .deepHelp4,
+body[class*="page-"] .deepHelp5,
+body[class*="page-"] .shareHelp,
+body[class*="page-"] .journeyBookLink{
+  --legacy-ink:var(--ab-ink,#242a26);
+  --legacy-muted:var(--ab-muted,#656d67);
+}

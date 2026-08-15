@@ -2,8 +2,7 @@ name: Publish Site Audit Cleanup
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - 'scripts/site_polish.py'
       - 'scripts/guide_cta_fix.py'
@@ -27,30 +26,26 @@ on:
       - 'site-polish-v4.css'
       - 'site-homepage-lock.css'
       - 'site-body-lock-v2.css'
+      - 'site-body-lock-v3.css'
       - 'site-shell.css'
       - 'site-shell.js'
       - '.github/workflows/site-polish.yml'
   workflow_dispatch:
-
 permissions:
   contents: write
-
 concurrency:
   group: site-audit-polish
   cancel-in-progress: true
-
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        with: {fetch-depth: 0}
       - name: Setup Python
         uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
+        with: {python-version: '3.x'}
       - name: Apply final audit cleanup
         run: python scripts/site_polish.py
       - name: Refresh care components
@@ -69,8 +64,7 @@ jobs:
               text=path.read_text(encoding='utf-8')
               if 'AUTHOR-BYLINE-START' in text: continue
               text,count=re.subn(r'(<div class="meta">.*?</div>)',r'\1'+byline,text,count=1,flags=re.S)
-              if count:
-                  path.write_text(text,encoding='utf-8'); print('Restored byline in',path.name)
+              if count: path.write_text(text,encoding='utf-8')
           PY
       - name: Tag email signup audiences
         run: python scripts/email_segments.py
@@ -88,7 +82,7 @@ jobs:
         run: python scripts/final_simplify.py
       - name: Normalize interior design system
         run: python scripts/design_normalize.py
-      - name: Finalize one shared header, footer, and body lock
+      - name: Finalize shared header, footer, and body locks
         run: python scripts/shell_finalize.py
       - name: Audit homepage design consistency
         run: python scripts/style_audit.py
@@ -100,10 +94,7 @@ jobs:
         run: python scripts/site_qa.py
       - name: Commit polished pages
         run: |
-          if [ -z "$(git status --porcelain -- '*.html' 'SITE-QA.md' 'STYLE-AUDIT.md' 'NAV-AUDIT.md' 'BODY-STYLE-AUDIT.md')" ]; then
-            echo "Site audit cleanup is already current"
-            exit 0
-          fi
+          if [ -z "$(git status --porcelain -- '*.html' 'SITE-QA.md' 'STYLE-AUDIT.md' 'NAV-AUDIT.md' 'BODY-STYLE-AUDIT.md')" ]; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add '*.html' SITE-QA.md STYLE-AUDIT.md NAV-AUDIT.md BODY-STYLE-AUDIT.md
@@ -111,6 +102,6 @@ jobs:
           for attempt in 1 2 3; do
             git pull --rebase origin main
             if git push; then exit 0; fi
-            echo "Push raced another workflow; retrying ($attempt/3)"; sleep 2
+            sleep 2
           done
-          echo "Unable to publish after 3 attempts"; exit 1
+          exit 1
