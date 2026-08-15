@@ -1,12 +1,10 @@
-# Homepage Design Consistency Audit
+# Homepage Design & Header Audit
 
-The homepage is the visual source of truth. Every root interior HTML page must load the canonical interior base, polish layer, and final homepage design lock in that order; use one canonical header/footer; and avoid older linked shared design systems.
+The homepage and every public root HTML page are tested against one shared site shell. The top navigation must contain exactly five options: **Start Here | 24 Answers | Free Resources | The Book | About**. Home is reached through the logo; Contact and Church Resources belong in the footer.
 
-Page-specific inline CSS is allowed because some pages have unique content layouts. The final homepage lock loads last and is authoritative for the visible brand language.
-
-- Interior pages audited: **49**
-- Pages passing structural design checks: **49**
-- Pages with hard design-system issues: **0**
+- Pages audited: **50**
+- Pages passing: **50**
+- Pages failing: **0**
 
 | Page | Family | Inline style blocks | Status | Issue |
 |---|---|---:|---|---|
@@ -54,10 +52,11 @@ Page-specific inline CSS is allowed because some pages have unique content layou
 | `grief-and-loss.html` | Topic hub | 6 | **PASS** | — |
 | `help-someone.html` | Care / guide | 2 | **PASS** | — |
 | `hope-thanks.html` | Utility | 2 | **PASS** | — |
+| `index.html` | Homepage | 4 | **PASS** | — |
 | `photo-test.html` | Other | 2 | **PASS** | — |
 | `start-here.html` | Discovery | 4 | **PASS** | — |
 | `unsafe.html` | Care / guide | 2 | **PASS** | — |
 | `what-hurts-today.html` | Discovery | 3 | **PASS** | — |
 | `why-god-allows-suffering.html` | Topic hub | 6 | **PASS** | — |
 
-**Result: all interior pages are structurally locked to the homepage design system.**
+**Result: all 50 root pages use the same canonical shared shell and exact five-option top navigation.**
