@@ -1,28 +1,29 @@
-name: Publish Premium Site Polish
+name: Enforce Shared Site Design
 
 on:
   push:
     branches: [main]
     paths:
       - '*.html'
-      - 'site-shell.js'
-      - 'scripts/premium_polish.py'
-      - 'scripts/premium_polish_refine.py'
-      - 'scripts/premium_polish_repair.py'
-      - 'scripts/unify_design.py'
-      - 'scripts/final_simplify.py'
+      - 'site-interior-v3.css'
+      - 'site-polish-v4.css'
+      - 'site-homepage-lock.css'
+      - 'scripts/design_normalize.py'
+      - 'scripts/shell_finalize.py'
+      - 'scripts/style_audit.py'
+      - 'scripts/nav_audit.py'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: premium-site-polish
+  group: shared-site-design
   cancel-in-progress: true
 
 jobs:
-  polish:
-    if: github.event_name == 'workflow_dispatch' || github.event.head_commit.message != 'Publish premium site polish'
+  normalize:
+    if: github.event_name == 'workflow_dispatch' || (github.event.head_commit.message != 'Publish final site audit cleanup' && github.event.head_commit.message != 'Publish shared site design')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -31,29 +32,31 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.x'
-      - name: Apply premium polish layer
-        run: python scripts/premium_polish.py
-      - name: Apply final polish refinements
-        run: python scripts/premium_polish_refine.py
-      - name: Guarantee repeatable premium shell
-        run: python scripts/premium_polish_repair.py
-      - name: Enforce homepage design across every page
-        run: python scripts/unify_design.py
-      - name: Preserve simplified visitor flow
-        run: python scripts/final_simplify.py
-      - name: Reapply authoritative homepage design
+
+      - name: Normalize interior design system
         run: python scripts/design_normalize.py
+
+      - name: Finalize one shared header and footer
+        run: python scripts/shell_finalize.py
+
       - name: Audit homepage design consistency
         run: python scripts/style_audit.py
-      - name: Commit polished site
+
+      - name: Audit navigation consistency
+        run: python scripts/nav_audit.py
+
+      - name: QA generated pages
+        run: python scripts/site_qa.py
+
+      - name: Commit normalized site
         run: |
-          if [ -z "$(git status --porcelain -- '*.html' 'STYLE-AUDIT.md')" ]; then
-            echo "Premium polish is already current"
+          if [ -z "$(git status --porcelain -- '*.html' 'SITE-QA.md' 'STYLE-AUDIT.md' 'NAV-AUDIT.md')" ]; then
+            echo "Shared design is already current"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add '*.html' STYLE-AUDIT.md
-          git commit -m "Publish premium site polish"
+          git add '*.html' SITE-QA.md STYLE-AUDIT.md NAV-AUDIT.md
+          git commit -m "Publish shared site design"
           git pull --rebase origin main
           git push
