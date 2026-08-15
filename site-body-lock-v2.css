@@ -1,0 +1,422 @@
+/* Answers for a Broken Heart — final interior body design lock v2
+   The homepage remains untouched and is the visual source of truth.
+   This layer loads after legacy/page-specific CSS and before the shared shell.
+   It normalizes only visible interior components, preserving each page's content
+   and structural purpose. Journal artwork/content is intentionally untouched. */
+
+/* ---------- Universal interior visual language ---------- */
+body[class*="page-"]{
+  background:var(--ab-paper,#fffefb)!important;
+  color:var(--ab-ink,#242a26)!important;
+}
+body[class*="page-"] main{background:var(--ab-paper,#fffefb)!important}
+body[class*="page-"] main h1,
+body[class*="page-"] main h2,
+body[class*="page-"] main h3{
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-weight:400!important;
+  letter-spacing:-.025em!important;
+}
+body[class*="page-"] .eyebrow,
+body[class*="page-"] .count,
+body[class*="page-"] .num,
+body[class*="page-"] .qnum{
+  color:var(--ab-gold,#ad823d)!important;
+}
+
+/* ---------- Answer pages: one editorial component family ---------- */
+body[class*="page-answer-"] .warning{
+  background:var(--ab-cream,#f5f0e7)!important;
+  color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-left:4px solid var(--ab-gold,#ad823d)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-answer-"] .warning strong{color:var(--ab-deep,#183024)!important}
+body[class*="page-answer-"] .side .book,
+body[class*="page-answer-"] .book{
+  background:var(--ab-cream,#f5f0e7)!important;
+  color:var(--ab-ink,#242a26)!important;
+  border-color:var(--ab-line,#ded8cd)!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+}
+body[class*="page-answer-"] .minuteScripture{
+  color:var(--ab-deep,#183024)!important;
+  font-family:Georgia,"Times New Roman",serif!important;
+}
+body[class*="page-answer-"] .minutePrayer{
+  color:#4b5850!important;
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-style:italic!important;
+}
+body[class*="page-answer-"] .answerTopicHub{
+  color:var(--ab-muted,#656d67)!important;
+}
+body[class*="page-answer-"] .answerTopicHub a{
+  color:var(--ab-pine,#294533)!important;
+  font-weight:800!important;
+  text-decoration:none!important;
+}
+body[class*="page-answer-"] .quote{
+  color:var(--ab-deep,#183024)!important;
+  border-left-color:var(--ab-gold,#ad823d)!important;
+}
+body[class*="page-answer-"] .relatedAnswers .relatedLead{
+  color:var(--ab-muted,#656d67)!important;
+}
+
+body[class*="page-answer-"] .answerDeepDive{
+  margin:34px 0 42px!important;
+  background:var(--ab-warm,#fbf8f2)!important;
+  color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-answer-"] .answerDeepDive summary{
+  color:var(--ab-deep,#183024)!important;
+  background:transparent!important;
+  padding:20px 22px!important;
+}
+body[class*="page-answer-"] .answerDeepDive summary strong{
+  color:var(--ab-deep,#183024)!important;
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-weight:400!important;
+}
+body[class*="page-answer-"] .answerDeepDive summary small{
+  color:var(--ab-muted,#656d67)!important;
+}
+body[class*="page-answer-"] .answerDeepDiveMark{
+  color:var(--ab-gold,#ad823d)!important;
+  text-shadow:none!important;
+}
+body[class*="page-answer-"] .answerDeepDiveBody{
+  background:var(--ab-paper,#fffefb)!important;
+  color:var(--ab-ink,#242a26)!important;
+  border-top:1px solid var(--ab-line,#ded8cd)!important;
+}
+body[class*="page-answer-"] .answerDeepDiveBody .exactDepth,
+body[class*="page-answer-"] .answerDeepDiveBody .exactDepth2,
+body[class*="page-answer-"] .answerDeepDiveBody .exactDepth3,
+body[class*="page-answer-"] .answerDeepDiveBody .exactDepth4,
+body[class*="page-answer-"] .answerDeepDiveBody .exactDepth5,
+body[class*="page-answer-"] .exactDepth,
+body[class*="page-answer-"] .exactDepth2,
+body[class*="page-answer-"] .exactDepth3,
+body[class*="page-answer-"] .exactDepth4,
+body[class*="page-answer-"] .exactDepth5{
+  background:transparent!important;
+  color:var(--ab-ink,#242a26)!important;
+  border-color:var(--ab-line,#ded8cd)!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+}
+body[class*="page-answer-"] .exactDepth h2,
+body[class*="page-answer-"] .exactDepth2 h2,
+body[class*="page-answer-"] .exactDepth3 h2,
+body[class*="page-answer-"] .exactDepth4 h2,
+body[class*="page-answer-"] .exactDepth5 h2,
+body[class*="page-answer-"] .exactDepth h3,
+body[class*="page-answer-"] .exactDepth2 h3,
+body[class*="page-answer-"] .exactDepth3 h3,
+body[class*="page-answer-"] .exactDepth4 h3,
+body[class*="page-answer-"] .exactDepth5 h3{
+  color:var(--ab-deep,#183024)!important;
+}
+body[class*="page-answer-"] .exactDepth p,
+body[class*="page-answer-"] .exactDepth2 p,
+body[class*="page-answer-"] .exactDepth3 p,
+body[class*="page-answer-"] .exactDepth4 p,
+body[class*="page-answer-"] .exactDepth5 p{
+  color:var(--ab-ink,#242a26)!important;
+}
+body[class*="page-answer-"] .journeyPlay{
+  background:var(--ab-pine,#294533)!important;
+  color:#fff!important;
+  border-color:var(--ab-pine,#294533)!important;
+  box-shadow:none!important;
+}
+body[class*="page-answer-"] .journeyPlay:hover{
+  background:var(--ab-deep,#183024)!important;
+  border-color:var(--ab-deep,#183024)!important;
+}
+
+/* ---------- Topic hubs ---------- */
+body.page-grief-and-loss .topicIntro,
+body.page-why-god-allows-suffering .topicIntro,
+body.page-god-feels-far-away .topicIntro,
+body.page-anger-and-unanswered-prayer .topicIntro,
+body.page-forgiveness-and-relational-hurt .topicIntro,
+body.page-doubt-and-church-hurt .topicIntro{
+  color:var(--ab-ink,#242a26)!important;
+  border-top-color:var(--ab-line,#ded8cd)!important;
+}
+body.page-grief-and-loss .answerHead h2,
+body.page-why-god-allows-suffering .answerHead h2,
+body.page-god-feels-far-away .answerHead h2,
+body.page-anger-and-unanswered-prayer .answerHead h2,
+body.page-forgiveness-and-relational-hurt .answerHead h2,
+body.page-doubt-and-church-hurt .answerHead h2{
+  color:var(--ab-deep,#183024)!important;
+}
+body.page-grief-and-loss .answerHead p,
+body.page-why-god-allows-suffering .answerHead p,
+body.page-god-feels-far-away .answerHead p,
+body.page-anger-and-unanswered-prayer .answerHead p,
+body.page-forgiveness-and-relational-hurt .answerHead p,
+body.page-doubt-and-church-hurt .answerHead p{
+  color:var(--ab-muted,#656d67)!important;
+}
+body.page-grief-and-loss .deepHelp,
+body.page-why-god-allows-suffering .deepHelp,
+body.page-god-feels-far-away .deepHelp,
+body.page-anger-and-unanswered-prayer .deepHelp,
+body.page-forgiveness-and-relational-hurt .deepHelp,
+body.page-doubt-and-church-hurt .deepHelp,
+body.page-grief-and-loss .podcastResource,
+body.page-why-god-allows-suffering .podcastResource,
+body.page-god-feels-far-away .podcastResource,
+body.page-anger-and-unanswered-prayer .podcastResource,
+body.page-forgiveness-and-relational-hurt .podcastResource,
+body.page-doubt-and-church-hurt .podcastResource{
+  background:var(--ab-paper,#fffefb)!important;
+  color:var(--ab-ink,#242a26)!important;
+  border-color:var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-"] .deepHelpHead h2,
+body[class*="page-"] .deepHelpCard h3,
+body[class*="page-"] .podcastCopy h2,
+body[class*="page-"] .podcastCopy h3{
+  color:var(--ab-deep,#183024)!important;
+}
+body[class*="page-"] .deepHelpHead p,
+body[class*="page-"] .deepHelpCard p,
+body[class*="page-"] .podcastCopy p{
+  color:var(--ab-muted,#656d67)!important;
+}
+body[class*="page-"] .deepHelpCard{
+  background:var(--ab-warm,#fbf8f2)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-"] .podcastAction{
+  color:var(--ab-pine,#294533)!important;
+  border-color:var(--ab-pine,#294533)!important;
+  border-radius:2px!important;
+  box-shadow:none!important;
+}
+body[class*="page-"] .deepHelpDisclosure,
+body[class*="page-"] .podcastDisclosure{
+  background:var(--ab-warm,#fbf8f2)!important;
+  border-color:var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-"] .deepHelpDisclosure>summary,
+body[class*="page-"] .podcastDisclosure>summary{
+  color:var(--ab-deep,#183024)!important;
+}
+
+/* ---------- Start Here / discovery ---------- */
+body.page-start-here .guide,
+body.page-begin-here .guide{
+  background:var(--ab-warm,#fbf8f2)!important;
+}
+body.page-start-here .guideHead h2,
+body.page-begin-here .guideHead h2,
+body.page-start-here .startMoreHead h2,
+body.page-begin-here .startMoreHead h2,
+body.page-start-here .startSupportCopy h2{
+  color:var(--ab-deep,#183024)!important;
+}
+body.page-start-here .guideHead p,
+body.page-begin-here .guideHead p,
+body.page-start-here .startSupportCopy p{
+  color:var(--ab-muted,#656d67)!important;
+}
+body.page-start-here .startSupport{
+  background:#eef2ed!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body.page-start-here .choiceSupport,
+body.page-start-here .choiceSecondary,
+body.page-begin-here .choiceSecondary{
+  background:var(--ab-paper,#fffefb)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body.page-start-here .startMore,
+body.page-begin-here .startMore{
+  border-top-color:var(--ab-line,#ded8cd)!important;
+}
+body.page-start-here .all,
+body.page-start-here .helping{
+  border-color:var(--ab-line,#ded8cd)!important;
+}
+body.page-start-here .all{background:var(--ab-paper,#fffefb)!important}
+body.page-start-here .helping{background:#eef2ed!important}
+body.page-start-here .all h2,
+body.page-start-here .helping h2{color:var(--ab-deep,#183024)!important}
+body.page-start-here .all p,
+body.page-start-here .helping p{color:var(--ab-muted,#656d67)!important}
+body.page-start-here .safety{
+  background:var(--ab-cream,#f5f0e7)!important;
+  color:var(--ab-muted,#656d67)!important;
+  border-color:var(--ab-line,#ded8cd)!important;
+}
+
+body.page-what-hurts-today .intro{
+  background:var(--ab-paper,#fffefb)!important;
+}
+body.page-what-hurts-today .intro h2,
+body.page-what-hurts-today .groupHead h2{color:var(--ab-deep,#183024)!important}
+body.page-what-hurts-today .intro p,
+body.page-what-hurts-today .groupHead p{color:var(--ab-muted,#656d67)!important}
+body.page-what-hurts-today .anchor{
+  background:var(--ab-deep,#183024)!important;
+  color:#fff!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body.page-what-hurts-today .toolRow{color:var(--ab-ink,#242a26)!important}
+body.page-what-hurts-today .groupHead{border-color:var(--ab-line,#ded8cd)!important}
+body.page-what-hurts-today .empty{
+  background:var(--ab-paper,#fffefb)!important;
+  border-color:var(--ab-line,#ded8cd)!important;
+  box-shadow:none!important;
+}
+body.page-what-hurts-today .bookCta{
+  background:#244833!important;
+  color:#fff!important;
+}
+body.page-what-hurts-today .bookCta h2{color:#fff!important}
+
+/* ---------- Book: preserve the bespoke layout, normalize its finish ---------- */
+body.page-book .bookPage{background:var(--ab-paper,#fffefb)!important;color:var(--ab-ink,#242a26)!important}
+body.page-book .bookHero{background:linear-gradient(120deg,var(--ab-cream,#f5f0e7),#eef2ed)!important;border-color:#ebe5da!important}
+body.page-book .bookHeroLead{color:#525c56!important}
+body.page-book .bookHeroActions a,
+body.page-book .bookSampleLink{
+  border-radius:2px!important;
+  box-shadow:none!important;
+}
+body.page-book .bookHeroActions .primary,
+body.page-book .bookSampleLink{background:var(--ab-pine,#294533)!important;color:#fff!important;border-color:var(--ab-pine,#294533)!important}
+body.page-book .bookHeroActions .secondary{background:transparent!important;color:var(--ab-pine,#294533)!important;border-color:var(--ab-pine,#294533)!important}
+body.page-book .bookMock{
+  background:#fbf9f3!important;
+  border-color:#dad4c8!important;
+  box-shadow:14px 20px 35px rgba(20,32,25,.18)!important;
+}
+body.page-book .bookMockTitle{color:#2b5540!important}
+body.page-book .bookMockHeart{color:var(--ab-gold,#ad823d)!important}
+body.page-book .bookMockHeart:after{background:var(--ab-gold,#ad823d)!important}
+body.page-book .bookMockSub{color:#393b39!important}
+body.page-book .bookMockAuthor{color:#264b39!important}
+body.page-book .bookComing{
+  background:#2c503a!important;
+  color:#fff!important;
+  border-color:rgba(255,255,255,.84)!important;
+  box-shadow:none!important;
+}
+body.page-book .bookIntroCopy p,
+body.page-book .bookAudienceLead,
+body.page-book .bookInsideItem p,
+body.page-book .bookSampleCopy p{color:var(--ab-muted,#656d67)!important}
+body.page-book .bookSticky{
+  color:var(--ab-deep,#183024)!important;
+  border-left-color:var(--ab-gold,#ad823d)!important;
+}
+body.page-book .bookAudience{
+  background:var(--ab-cream,#f5f0e7)!important;
+  border-color:var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body.page-book .bookAudienceItem{color:#344239!important;border-color:var(--ab-line,#ded8cd)!important}
+body.page-book .bookAudienceItem strong{color:var(--ab-deep,#183024)!important}
+body.page-book .bookInside{background:var(--ab-warm,#fbf8f2)!important;border-color:var(--ab-line,#ded8cd)!important}
+body.page-book .bookInsideItem{border-color:var(--ab-line,#ded8cd)!important}
+body.page-book .bookInsideNum{color:var(--ab-gold,#ad823d)!important}
+body.page-book .bookInsideItem h3{color:#25382d!important}
+body.page-book .bookQuote,
+body.page-book .bookRelease,
+body.page-book .bookHelpFirst{background:var(--ab-deep,#183024)!important;color:#fff!important;box-shadow:none!important;border-radius:0!important}
+body.page-book .bookQuote p,
+body.page-book .bookReleaseCopy p,
+body.page-book .bookHelpFirst p{color:rgba(255,255,255,.82)!important}
+body.page-book .bookQuote small,
+body.page-book .bookRelease .eyebrow{color:#d8bd87!important}
+body.page-book .bookReleaseForm input,
+body.page-book .bookReleaseForm button{border-radius:2px!important;box-shadow:none!important}
+body.page-book .bookReleasePrivacy{color:rgba(255,255,255,.7)!important}
+
+/* ---------- Depression / care pages ---------- */
+body.page-can-christians-be-depressed .opening{color:var(--ab-ink,#242a26)!important}
+body.page-can-christians-be-depressed .steps{border-color:var(--ab-line,#ded8cd)!important}
+body.page-can-christians-be-depressed .stepNum{color:var(--ab-gold,#ad823d)!important}
+body.page-can-christians-be-depressed .prayer{
+  background:#eef2ed!important;
+  color:var(--ab-ink,#242a26)!important;
+  border-color:var(--ab-sage,#738371)!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+}
+body.page-can-christians-be-depressed .gentle,
+body.page-can-christians-be-depressed .ps{
+  background:var(--ab-cream,#f5f0e7)!important;
+  color:var(--ab-ink,#242a26)!important;
+  border-color:var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+
+/* ---------- Confirmation and lightweight utility surfaces ---------- */
+body.page-hope-thanks .card,
+body.page-book-updates-thanks .card,
+body.page-contact-thanks .card,
+body.page-hope-thanks .success,
+body.page-book-updates-thanks .success,
+body.page-contact-thanks .success,
+body.page-hope-thanks .message,
+body.page-book-updates-thanks .message,
+body.page-contact-thanks .message{
+  background:var(--ab-cream,#f5f0e7)!important;
+  color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+
+/* ---------- Shared final cleanup ---------- */
+body[class*="page-"] .card,
+body[class*="page-"] .choice,
+body[class*="page-"] .answerCard,
+body[class*="page-"] .relatedCard,
+body[class*="page-"] .resourceCard,
+body[class*="page-"] .guideCard,
+body[class*="page-"] .formCard,
+body[class*="page-"] .sideCard{
+  border-radius:0!important;
+}
+body[class*="page-"] .card:hover,
+body[class*="page-"] .choice:hover,
+body[class*="page-"] .answerCard:hover,
+body[class*="page-"] .relatedCard:hover,
+body[class*="page-"] .resourceCard:hover,
+body[class*="page-"] .guideCard:hover{
+  box-shadow:0 12px 28px rgba(30,44,35,.08)!important;
+}
+
+@media(max-width:760px){
+  body[class*="page-answer-"] .answerDeepDive summary{padding:18px!important}
+  body[class*="page-answer-"] .answerDeepDiveBody{padding-left:18px!important;padding-right:18px!important}
+}

@@ -14,7 +14,7 @@ HEADER=f'''{HEADER_START}<header class="siteShellHeader"><div class="siteShellWr
 
 FOOTER=f'''{FOOTER_START}<footer class="siteShellFooter"><div class="siteShellWrap siteShellFooterGrid"><div><div class="siteShellFooterBrand">Answers<small>for a Broken Heart</small></div><div class="siteShellFooterTag">Biblical hope for grief, suffering, doubt, unanswered prayer, and the questions pain asks.</div></div><nav class="siteShellFooterLinks" aria-label="Footer navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Resources</a><a href="/church-resources">Church Resources</a><a href="/book">The Book</a><a href="/about">About</a><a href="/contact">Contact</a></nav><div class="siteShellCopyright">© 2026 Tate Throndson · Psalm 34:18 · Resources are pastoral and educational and are not a substitute for emergency, medical, or mental-health care.</div></div></footer>{FOOTER_END}'''
 
-ASSETS='''<link rel="stylesheet" href="/site-shell.css?v=2">\n<!-- SITE-SHELL-RUNTIME-START --><script defer src="/site-shell.js?v=2"></script><!-- SITE-SHELL-RUNTIME-END -->'''
+ASSETS='''<link rel="stylesheet" href="/site-body-lock-v2.css?v=2">\n<link rel="stylesheet" href="/site-shell.css?v=2">\n<!-- SITE-SHELL-RUNTIME-START --><script defer src="/site-shell.js?v=2"></script><!-- SITE-SHELL-RUNTIME-END -->'''
 
 
 def strip_marked(text,start,end):
@@ -30,7 +30,6 @@ def remove_premain_headers(text):
     prefix=text[:end]
     suffix=text[end:]
     prefix=re.sub(r'<header\b[^>]*>.*?</header>','',prefix,flags=re.S|re.I)
-    # Remove orphaned site navigation that an old template may have placed before main.
     prefix=re.sub(r'<nav\b[^>]*aria-label=["\'](?:Main navigation|Mobile navigation)["\'][^>]*>.*?</nav>','',prefix,flags=re.S|re.I)
     return prefix+suffix
 
@@ -45,6 +44,7 @@ for path in sorted(Path('.').glob('*.html')):
     text=strip_marked(text,RUNTIME_START,RUNTIME_END)
 
     text=re.sub(r'<link\s+rel=["\']stylesheet["\']\s+href=["\']/site-shell\.css(?:\?[^"\']*)?["\']\s*/?>','',text,flags=re.I)
+    text=re.sub(r'<link\s+rel=["\']stylesheet["\']\s+href=["\']/site-body-lock-v2\.css(?:\?[^"\']*)?["\']\s*/?>','',text,flags=re.I)
     text=re.sub(r'<script\b[^>]*src=["\']/site-shell\.js(?:\?[^"\']*)?["\'][^>]*></script>','',text,flags=re.I)
 
     text=remove_premain_headers(text)
