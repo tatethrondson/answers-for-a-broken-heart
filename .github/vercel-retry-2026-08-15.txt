@@ -1,0 +1,2 @@
+Fresh Vercel deployment retry marker created 2026-08-15.
+This file exists only to trigger a new deployment attempt and does not change the public site.
