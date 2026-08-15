@@ -11,7 +11,6 @@ on:
       - 'scripts/premium_polish_repair.py'
       - 'scripts/unify_design.py'
       - 'scripts/final_simplify.py'
-      - '.github/workflows/premium-polish.yml'
   workflow_dispatch:
 
 permissions:
@@ -42,15 +41,19 @@ jobs:
         run: python scripts/unify_design.py
       - name: Preserve simplified visitor flow
         run: python scripts/final_simplify.py
+      - name: Reapply authoritative homepage design
+        run: python scripts/design_normalize.py
+      - name: Audit homepage design consistency
+        run: python scripts/style_audit.py
       - name: Commit polished site
         run: |
-          if [ -z "$(git status --porcelain -- '*.html')" ]; then
+          if [ -z "$(git status --porcelain -- '*.html' 'STYLE-AUDIT.md')" ]; then
             echo "Premium polish is already current"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add '*.html'
+          git add '*.html' STYLE-AUDIT.md
           git commit -m "Publish premium site polish"
           git pull --rebase origin main
           git push

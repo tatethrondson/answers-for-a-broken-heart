@@ -3,7 +3,8 @@ import re
 
 STYLE_LINKS = (
     '<link rel="stylesheet" href="/site-interior-v3.css?v=3">\n'
-    '<link rel="stylesheet" href="/site-polish-v4.css?v=3">'
+    '<link rel="stylesheet" href="/site-polish-v4.css?v=3">\n'
+    '<link rel="stylesheet" href="/site-homepage-lock.css?v=1">'
 )
 
 HEADER = '''<!-- PREMIUM-SHELL-HEADER-START --><header class="siteShellHeader"><div class="siteShellWrap siteShellNav"><a class="siteShellBrand" href="/" aria-label="Answers for a Broken Heart home"><span class="siteShellBrandWords">Answers<small>for a Broken Heart</small></span><span class="siteShellHeart">♡</span></a><nav class="siteShellLinks" aria-label="Main navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Resources</a><a href="/book">The Book</a><a href="/about">About</a></nav><details class="siteShellMobile"><summary>Menu</summary><nav class="siteShellMobileMenu" aria-label="Mobile navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Resources</a><a href="/book">The Book</a><a href="/about">About</a></nav></details></div></header><!-- PREMIUM-SHELL-HEADER-END -->'''
@@ -12,38 +13,37 @@ FOOTER = '''<!-- PREMIUM-SHELL-FOOTER-START --><footer class="siteShellFooter"><
 
 SKIP = {'index.html'}
 
+LEGACY_SHARED_CSS = re.compile(
+    r'<link\s+rel=["\']stylesheet["\']\s+href=["\']/'
+    r'(?:site-cohesive|site-theme|site-unified|site-finish|site-phase[1-5])'
+    r'\.css(?:\?v=[^"\']+)?["\']\s*/?>',
+    flags=re.I,
+)
+
 for path in Path('.').glob('*.html'):
     if path.name in SKIP:
-        # The homepage is the source of truth and keeps its own design untouched.
         continue
 
     text = path.read_text(encoding='utf-8')
     original = text
 
-    # Remove older shared-design links and duplicated inline shell CSS.
     text = re.sub(
         r'<!-- HOMEPAGE-DESIGN-SYSTEM-START -->.*?<!-- HOMEPAGE-DESIGN-SYSTEM-END -->',
         '', text, flags=re.S,
     )
-    text = re.sub(
-        r'<link\s+rel=["\']stylesheet["\']\s+href=["\']/site-cohesive\.css(?:\?v=\d+)?["\']\s*/?>',
-        '', text, flags=re.I,
-    )
-    text = re.sub(
-        r'<link\s+rel=["\']stylesheet["\']\s+href=["\']/site-interior-v3\.css(?:\?v=\d+)?["\']\s*/?>',
-        '', text, flags=re.I,
-    )
-    text = re.sub(
-        r'<link\s+rel=["\']stylesheet["\']\s+href=["\']/site-polish-v4\.css(?:\?v=\d+)?["\']\s*/?>',
-        '', text, flags=re.I,
-    )
+    text = LEGACY_SHARED_CSS.sub('', text)
+
+    for stylesheet in ('site-interior-v3.css', 'site-polish-v4.css', 'site-homepage-lock.css'):
+        text = re.sub(
+            rf'<link\s+rel=["\']stylesheet["\']\s+href=["\']/{re.escape(stylesheet)}'
+            rf'(?:\?v=[^"\']+)?["\']\s*/?>',
+            '', text, flags=re.I,
+        )
+
     text = re.sub(
         r'<!-- PREMIUM-SHELL-CSS-START -->.*?<!-- PREMIUM-SHELL-CSS-END -->',
         '', text, flags=re.S,
     )
-
-    # Remove any previously generated homepage shell so it can be written from one
-    # canonical source. Then remove one remaining legacy page header/footer.
     text = re.sub(
         r'<!-- PREMIUM-SHELL-HEADER-START -->.*?<!-- PREMIUM-SHELL-HEADER-END -->',
         '', text, flags=re.S,
@@ -55,13 +55,11 @@ for path in Path('.').glob('*.html'):
     text = re.sub(r'<header\b[^>]*>.*?</header>', '', text, count=1, flags=re.S | re.I)
     text = re.sub(r'<footer\b[^>]*>.*?</footer>', '', text, count=1, flags=re.S | re.I)
 
-    # Shared brand CSS loads after legacy page CSS so it owns the visible design.
     if '</head>' in text:
         text = text.replace('</head>', STYLE_LINKS + '\n</head>', 1)
 
-    # Give each page a stable class so one-off legacy layouts can be polished safely
-    # without creating broad selectors that disturb the rest of the site.
     page_class = 'page-' + re.sub(r'[^a-z0-9-]+', '-', path.stem.lower()).strip('-')
+
     def add_page_class(match):
         tag = match.group(0)
         cm = re.search(r'class=(["\'])(.*?)\1', tag, flags=re.I | re.S)
@@ -72,14 +70,12 @@ for path in Path('.').glob('*.html'):
             replacement = 'class=' + cm.group(1) + ' '.join(classes) + cm.group(1)
             return tag[:cm.start()] + replacement + tag[cm.end():]
         return tag[:-1] + f' class="{page_class}">'
-    text, class_count = re.subn(r'<body\b[^>]*>', add_page_class, text, count=1, flags=re.I)
 
-    # Every interior page gets the exact same visible shell as the homepage family.
+    text, _ = re.subn(r'<body\b[^>]*>', add_page_class, text, count=1, flags=re.I)
     text, body_count = re.subn(r'(<body\b[^>]*>)', r'\1\n' + HEADER + '\n', text, count=1, flags=re.I)
     if body_count == 0:
         print('WARNING: no <body> found:', path.name)
 
-    # Put the shared footer before analytics when possible, otherwise before </body>.
     analytics_marker = '<!-- CONVERSION-ANALYTICS-START -->'
     if analytics_marker in text:
         text = text.replace(analytics_marker, FOOTER + '\n\n' + analytics_marker, 1)

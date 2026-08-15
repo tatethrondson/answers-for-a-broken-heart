@@ -18,9 +18,11 @@ on:
       - 'scripts/persona_flow_finalize.py'
       - 'scripts/final_simplify.py'
       - 'scripts/design_normalize.py'
+      - 'scripts/style_audit.py'
       - 'site-cohesive.css'
       - 'site-interior-v3.css'
       - 'site-polish-v4.css'
+      - 'site-homepage-lock.css'
       - '.github/workflows/site-polish.yml'
   workflow_dispatch:
 
@@ -97,18 +99,21 @@ jobs:
       - name: Normalize interior design system
         run: python scripts/design_normalize.py
 
+      - name: Audit homepage design consistency
+        run: python scripts/style_audit.py
+
       - name: QA the generated pages
         run: python scripts/site_qa.py
 
       - name: Commit polished pages
         run: |
-          if [ -z "$(git status --porcelain -- '*.html' 'SITE-QA.md')" ]; then
+          if [ -z "$(git status --porcelain -- '*.html' 'SITE-QA.md' 'STYLE-AUDIT.md')" ]; then
             echo "Site audit cleanup is already current"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add '*.html' SITE-QA.md
+          git add '*.html' SITE-QA.md STYLE-AUDIT.md
           git commit -m "Publish final site audit cleanup"
           for attempt in 1 2 3; do
             git pull --rebase origin main
