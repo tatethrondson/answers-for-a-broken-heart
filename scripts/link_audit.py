@@ -7,7 +7,7 @@ import json
 
 ROOT=Path('.')
 REPORT=ROOT/'LINK-AUDIT.md'
-LIVE_BASE='https://answersforabrokenheart.com'
+LIVE_BASE='https://www.answersforabrokenheart.com'
 SITE_HOSTS={'answersforabrokenheart.com','www.answersforabrokenheart.com'}
 SKIP_SCHEMES=('mailto:','tel:','sms:','data:')
 RUNTIME_PREFIXES=('_vercel/','api/')
@@ -22,6 +22,8 @@ class PageParser(HTMLParser):
         if tag=='a' and a.get('href') is not None: self.links.append(('anchor',a.get('href','')))
         elif tag=='link' and a.get('href'): self.links.append(('resource',a['href']))
         elif tag in ('script','img','iframe','source') and a.get('src'): self.links.append(('resource',a['src']))
+        elif tag=='meta' and (a.get('property') in ('og:image','og:image:secure_url') or a.get('name')=='twitter:image') and a.get('content'):
+            self.links.append(('social-image',a['content']))
         elif tag=='form' and a.get('action'): self.links.append(('form',a['action']))
 
 def parse_text(text):
@@ -32,7 +34,7 @@ def parse_page(path): return parse_text(path.read_text(encoding='utf-8',errors='
 def check_http(url,want_body=False):
     status=None; note=''; final=url; body=''
     try:
-        req=Request(url,method='GET' if want_body else 'HEAD',headers={'User-Agent':'Mozilla/5.0 LinkAudit/5.0'})
+        req=Request(url,method='GET' if want_body else 'HEAD',headers={'User-Agent':'Mozilla/5.0 LinkAudit/6.0'})
         with urlopen(req,timeout=12) as r:
             status=getattr(r,'status',200); final=r.geturl()
             if want_body: body=r.read(2_000_000).decode('utf-8','ignore')
@@ -40,7 +42,7 @@ def check_http(url,want_body=False):
         status=e.code; note=str(e)
         if not want_body and status in (403,405,429):
             try:
-                req=Request(url,headers={'User-Agent':'Mozilla/5.0 LinkAudit/5.0','Range':'bytes=0-0'})
+                req=Request(url,headers={'User-Agent':'Mozilla/5.0 LinkAudit/6.0','Range':'bytes=0-0'})
                 with urlopen(req,timeout=12) as r:
                     status=getattr(r,'status',200); final=r.geturl(); note=''
             except Exception as e2: note=f'blocked/limited: {type(e2).__name__}'
@@ -131,7 +133,7 @@ for url,refs in sorted(live_markup_sources.items()):
     status,final,note,_=check_http(url); live_markup_results.append((url,status,final,note,refs))
 live_markup_broken=[r for r in live_markup_results if r[1] is None or r[1]>=400]
 
-lines=['# Full Site Link Audit','',f'HTML pages scanned in repository: {len(pages)}',f'Clickable/resource/form occurrences checked: {checked_occurrences}',f'Unique repo-derived live destinations checked: {len(repo_live_results)}',f'Live HTML pages fetched: {live_pages_fetched}',f'Unique destinations found in live page markup: {len(live_markup_results)}',f'Unique external URLs checked: {len(external_results)}','',f'Broken internal page links: {len(internal_broken)}',f'Broken page fragments: {len(fragment_broken)}',f'Missing linked repository resources: {len(resource_broken)}',f'Placeholder/dead anchor links: {len(placeholder_links)}',f'Links still using redirect aliases: {len(redirect_alias_links)}',f'Broken production destinations: {len(repo_live_broken)}',f'Live pages that failed to load: {len(live_page_failures)}',f'Broken destinations found in live markup: {len(live_markup_broken)}',f'Broken/unreachable external URLs: {len(external_broken)}',f'Externally blocked/rate-limited checks: {len(external_warnings)}','']
+lines=['# Full Site Link Audit','',f'HTML pages scanned in repository: {len(pages)}',f'Clickable/resource/form/social-image occurrences checked: {checked_occurrences}',f'Unique repo-derived live destinations checked: {len(repo_live_results)}',f'Live HTML pages fetched: {live_pages_fetched}',f'Unique destinations found in live page markup: {len(live_markup_results)}',f'Unique external URLs checked: {len(external_results)}','',f'Broken internal page links: {len(internal_broken)}',f'Broken page fragments: {len(fragment_broken)}',f'Missing linked repository resources: {len(resource_broken)}',f'Placeholder/dead anchor links: {len(placeholder_links)}',f'Links still using redirect aliases: {len(redirect_alias_links)}',f'Broken production destinations: {len(repo_live_broken)}',f'Live pages that failed to load: {len(live_page_failures)}',f'Broken destinations found in live markup: {len(live_markup_broken)}',f'Broken/unreachable external URLs: {len(external_broken)}',f'Externally blocked/rate-limited checks: {len(external_warnings)}','']
 
 def section(title,rows,formatter):
     lines.extend([f'## {title}',''])
