@@ -14,11 +14,6 @@
       "permanent": true
     },
     {
-      "source": "/what-hurts-today.html",
-      "destination": "/start-here",
-      "permanent": true
-    },
-    {
       "source": "/begin-here",
       "destination": "/start-here",
       "permanent": true
@@ -29,17 +24,7 @@
       "permanent": true
     },
     {
-      "source": "/free-resources.html",
-      "destination": "/free-guides",
-      "permanent": true
-    },
-    {
       "source": "/answer-01",
-      "destination": "/why-does-god-feel-far-away",
-      "permanent": true
-    },
-    {
-      "source": "/answer-01.html",
       "destination": "/why-does-god-feel-far-away",
       "permanent": true
     },
@@ -49,17 +34,7 @@
       "permanent": true
     },
     {
-      "source": "/answer-02.html",
-      "destination": "/why-doesnt-god-show-himself",
-      "permanent": true
-    },
-    {
       "source": "/answer-03",
-      "destination": "/why-cant-i-see-what-god-is-doing",
-      "permanent": true
-    },
-    {
-      "source": "/answer-03.html",
       "destination": "/why-cant-i-see-what-god-is-doing",
       "permanent": true
     },
@@ -69,17 +44,7 @@
       "permanent": true
     },
     {
-      "source": "/answer-04.html",
-      "destination": "/why-did-god-make-a-world-with-suffering",
-      "permanent": true
-    },
-    {
       "source": "/answer-05",
-      "destination": "/is-it-wrong-to-ask-god-why",
-      "permanent": true
-    },
-    {
-      "source": "/answer-05.html",
       "destination": "/is-it-wrong-to-ask-god-why",
       "permanent": true
     },
@@ -89,17 +54,7 @@
       "permanent": true
     },
     {
-      "source": "/answer-06.html",
-      "destination": "/why-wont-god-tell-me-why",
-      "permanent": true
-    },
-    {
       "source": "/answer-07",
-      "destination": "/can-anything-good-come-from-suffering",
-      "permanent": true
-    },
-    {
-      "source": "/answer-07.html",
       "destination": "/can-anything-good-come-from-suffering",
       "permanent": true
     },
@@ -109,17 +64,7 @@
       "permanent": true
     },
     {
-      "source": "/answer-08.html",
-      "destination": "/what-if-the-explanation-never-comes",
-      "permanent": true
-    },
-    {
       "source": "/answer-09",
-      "destination": "/does-god-know-what-this-feels-like",
-      "permanent": true
-    },
-    {
-      "source": "/answer-09.html",
       "destination": "/does-god-know-what-this-feels-like",
       "permanent": true
     },
@@ -129,17 +74,7 @@
       "permanent": true
     },
     {
-      "source": "/answer-10.html",
-      "destination": "/is-sympathy-all-god-offers",
-      "permanent": true
-    },
-    {
       "source": "/answer-11",
-      "destination": "/does-god-care-about-injustice",
-      "permanent": true
-    },
-    {
-      "source": "/answer-11.html",
       "destination": "/does-god-care-about-injustice",
       "permanent": true
     },
@@ -149,17 +84,7 @@
       "permanent": true
     },
     {
-      "source": "/answer-12.html",
-      "destination": "/am-i-as-guilty-as-the-person-who-hurt-me",
-      "permanent": true
-    },
-    {
       "source": "/answer-13",
-      "destination": "/what-do-i-do-when-god-says-no",
-      "permanent": true
-    },
-    {
-      "source": "/answer-13.html",
       "destination": "/what-do-i-do-when-god-says-no",
       "permanent": true
     },
@@ -169,17 +94,7 @@
       "permanent": true
     },
     {
-      "source": "/answer-14.html",
-      "destination": "/is-death-really-the-end",
-      "permanent": true
-    },
-    {
       "source": "/answer-15",
-      "destination": "/how-long-am-i-allowed-to-grieve",
-      "permanent": true
-    },
-    {
-      "source": "/answer-15.html",
       "destination": "/how-long-am-i-allowed-to-grieve",
       "permanent": true
     },
@@ -189,17 +104,7 @@
       "permanent": true
     },
     {
-      "source": "/answer-16.html",
-      "destination": "/why-did-this-happen-to-me",
-      "permanent": true
-    },
-    {
       "source": "/answer-17",
-      "destination": "/why-does-grief-feel-worse",
-      "permanent": true
-    },
-    {
-      "source": "/answer-17.html",
       "destination": "/why-does-grief-feel-worse",
       "permanent": true
     },
@@ -209,17 +114,7 @@
       "permanent": true
     },
     {
-      "source": "/answer-18.html",
-      "destination": "/am-i-allowed-to-be-angry-with-god",
-      "permanent": true
-    },
-    {
       "source": "/answer-19",
-      "destination": "/what-do-i-say-to-god-right-now",
-      "permanent": true
-    },
-    {
-      "source": "/answer-19.html",
       "destination": "/what-do-i-say-to-god-right-now",
       "permanent": true
     },
@@ -229,17 +124,7 @@
       "permanent": true
     },
     {
-      "source": "/answer-20.html",
-      "destination": "/why-does-loving-people-hurt",
-      "permanent": true
-    },
-    {
       "source": "/answer-21",
-      "destination": "/how-do-i-forgive-someone-who-isnt-sorry",
-      "permanent": true
-    },
-    {
-      "source": "/answer-21.html",
       "destination": "/how-do-i-forgive-someone-who-isnt-sorry",
       "permanent": true
     },
@@ -249,17 +134,7 @@
       "permanent": true
     },
     {
-      "source": "/answer-22.html",
-      "destination": "/does-forgiveness-mean-reconciliation",
-      "permanent": true
-    },
-    {
       "source": "/answer-23",
-      "destination": "/am-i-walking-away-from-god-or-church-hurt",
-      "permanent": true
-    },
-    {
-      "source": "/answer-23.html",
       "destination": "/am-i-walking-away-from-god-or-church-hurt",
       "permanent": true
     },
@@ -267,121 +142,104 @@
       "source": "/answer-24",
       "destination": "/does-doubt-mean-i-was-never-a-believer",
       "permanent": true
-    },
-    {
-      "source": "/answer-24.html",
-      "destination": "/does-doubt-mean-i-was-never-a-believer",
-      "permanent": true
     }
   ],
   "rewrites": [
     {
-      "source": "/start-here",
-      "destination": "/start-here.html"
-    },
-    {
-      "source": "/all-answers",
-      "destination": "/all-answers.html"
-    },
-    {
-      "source": "/book",
-      "destination": "/book.html"
-    },
-    {
       "source": "/why-does-god-feel-far-away",
-      "destination": "/answer-01.html"
+      "destination": "/answer-01"
     },
     {
       "source": "/why-doesnt-god-show-himself",
-      "destination": "/answer-02.html"
+      "destination": "/answer-02"
     },
     {
       "source": "/why-cant-i-see-what-god-is-doing",
-      "destination": "/answer-03.html"
+      "destination": "/answer-03"
     },
     {
       "source": "/why-did-god-make-a-world-with-suffering",
-      "destination": "/answer-04.html"
+      "destination": "/answer-04"
     },
     {
       "source": "/is-it-wrong-to-ask-god-why",
-      "destination": "/answer-05.html"
+      "destination": "/answer-05"
     },
     {
       "source": "/why-wont-god-tell-me-why",
-      "destination": "/answer-06.html"
+      "destination": "/answer-06"
     },
     {
       "source": "/can-anything-good-come-from-suffering",
-      "destination": "/answer-07.html"
+      "destination": "/answer-07"
     },
     {
       "source": "/what-if-the-explanation-never-comes",
-      "destination": "/answer-08.html"
+      "destination": "/answer-08"
     },
     {
       "source": "/does-god-know-what-this-feels-like",
-      "destination": "/answer-09.html"
+      "destination": "/answer-09"
     },
     {
       "source": "/is-sympathy-all-god-offers",
-      "destination": "/answer-10.html"
+      "destination": "/answer-10"
     },
     {
       "source": "/does-god-care-about-injustice",
-      "destination": "/answer-11.html"
+      "destination": "/answer-11"
     },
     {
       "source": "/am-i-as-guilty-as-the-person-who-hurt-me",
-      "destination": "/answer-12.html"
+      "destination": "/answer-12"
     },
     {
       "source": "/what-do-i-do-when-god-says-no",
-      "destination": "/answer-13.html"
+      "destination": "/answer-13"
     },
     {
       "source": "/is-death-really-the-end",
-      "destination": "/answer-14.html"
+      "destination": "/answer-14"
     },
     {
       "source": "/how-long-am-i-allowed-to-grieve",
-      "destination": "/answer-15.html"
+      "destination": "/answer-15"
     },
     {
       "source": "/why-did-this-happen-to-me",
-      "destination": "/answer-16.html"
+      "destination": "/answer-16"
     },
     {
       "source": "/why-does-grief-feel-worse",
-      "destination": "/answer-17.html"
+      "destination": "/answer-17"
     },
     {
       "source": "/am-i-allowed-to-be-angry-with-god",
-      "destination": "/answer-18.html"
+      "destination": "/answer-18"
     },
     {
       "source": "/what-do-i-say-to-god-right-now",
-      "destination": "/answer-19.html"
+      "destination": "/answer-19"
     },
     {
       "source": "/why-does-loving-people-hurt",
-      "destination": "/answer-20.html"
+      "destination": "/answer-20"
     },
     {
       "source": "/how-do-i-forgive-someone-who-isnt-sorry",
-      "destination": "/answer-21.html"
+      "destination": "/answer-21"
     },
     {
       "source": "/does-forgiveness-mean-reconciliation",
-      "destination": "/answer-22.html"
+      "destination": "/answer-22"
     },
     {
       "source": "/am-i-walking-away-from-god-or-church-hurt",
-      "destination": "/answer-23.html"
+      "destination": "/answer-23"
     },
     {
       "source": "/does-doubt-mean-i-was-never-a-believer",
-      "destination": "/answer-24.html"
+      "destination": "/answer-24"
     }
   ],
   "headers": [
