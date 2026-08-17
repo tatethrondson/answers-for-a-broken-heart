@@ -91,7 +91,7 @@ for route,file in [('/start-here','begin-here.html'),('/all-answers','all-answer
 start=Path('begin-here.html')
 if start.exists():
     t=start.read_text(encoding='utf-8',errors='ignore')
-    if 'https://answersforabrokenheart.com/start-here' not in t: add('ERROR',start.name,'Start Here canonical missing or incorrect')
+    if 'https://www.answersforabrokenheart.com/start-here' not in t: add('ERROR',start.name,'Start Here canonical missing or incorrect')
     if '/can-christians-be-depressed' not in t: add('WARN',start.name,'No direct depression pathway')
 
 idx=Path('index.html')
