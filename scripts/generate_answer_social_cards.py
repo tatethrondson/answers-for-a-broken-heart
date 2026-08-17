@@ -14,7 +14,6 @@ PINE = '#294533'
 DEEP = '#183024'
 GOLD = '#ad823d'
 MUTED = '#667068'
-WHITE = '#fffefb'
 
 SERIF = '/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf'
 SERIF_BOLD = '/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf'
@@ -71,8 +70,7 @@ def fit_question(draw, text, max_width=930, max_height=330):
     return fnt, wrap(draw, text, fnt, max_width), 10
 
 
-def meta_replace(head, attr, value, new_value):
-    # attr is property or name. Match tags regardless of attribute order.
+def meta_replace(head, value, new_value):
     pattern = re.compile(r'<meta\s+([^>]*?(?:property|name)=["\']'+re.escape(value)+r'["\'][^>]*)>', re.I)
     m = pattern.search(head)
     if not m:
@@ -85,17 +83,10 @@ def meta_replace(head, attr, value, new_value):
     return head[:m.start()] + tag2 + head[m.end():]
 
 
-def ensure_meta(head, tag):
-    if tag in head:
-        return head
-    return head + '\n' + tag + '\n'
-
-
-def render_card(number, slug, question, category):
+def render_card(slug, question, category):
     img = Image.new('RGB', (W, H), PAPER)
     d = ImageDraw.Draw(img)
 
-    # Quiet editorial frame.
     d.rectangle((0, 0, W, 12), fill=PINE)
     d.rectangle((0, H-12, W, H), fill=PINE)
     d.line((90, 118, 260, 118), fill=GOLD, width=4)
@@ -108,7 +99,7 @@ def render_card(number, slug, question, category):
     heart = font(SERIF, 46)
 
     d.text((90, 56), 'Answers', font=brand, fill=DEEP)
-    d.text((214, 70), 'FOR A BROKEN HEART', font=brand_small, fill=PINE)
+    d.text((260, 70), 'FOR A BROKEN HEART', font=brand_small, fill=PINE)
     d.text((1054, 54), '♡', font=heart, fill=GOLD)
 
     cat = category.upper() if category else 'BIBLICAL HOPE FOR HARD PLACES'
@@ -131,19 +122,18 @@ def render_card(number, slug, question, category):
     return out
 
 
-def update_head(page, slug, question, image_url):
+def update_head(page, question, image_url):
     text = page.read_text(encoding='utf-8', errors='ignore')
     if '</head>' not in text:
         return False
     head, rest = text.split('</head>', 1)
 
-    head = meta_replace(head, 'property', 'og:image', image_url)
-    head = meta_replace(head, 'name', 'twitter:image', image_url)
+    head = meta_replace(head, 'og:image', image_url)
+    head = meta_replace(head, 'twitter:image', image_url)
     alt = f'{question} — Answers for a Broken Heart'
-    head = meta_replace(head, 'property', 'og:image:alt', alt)
-    head = meta_replace(head, 'name', 'twitter:image:alt', alt)
+    head = meta_replace(head, 'og:image:alt', alt)
+    head = meta_replace(head, 'twitter:image:alt', alt)
 
-    # If an image URL exists in Article JSON-LD, point it to the same card.
     head = re.sub(r'("image"\s*:\s*)"[^"]+"', r'\1"'+image_url+'"', head, count=1)
 
     if 'property="og:image:width"' not in head:
@@ -178,10 +168,10 @@ for i in range(1, 25):
     if not question:
         raise SystemExit(f'Could not find question for {page}')
 
-    out = render_card(i, slug, question, category)
+    out = render_card(slug, question, category)
     created.append(str(out))
     image_url = f'https://www.answersforabrokenheart.com/social/{slug}.png'
-    if update_head(page, slug, question, image_url):
+    if update_head(page, question, image_url):
         changed.append(page.name)
 
 print(f'Generated {len(created)} social cards.')
