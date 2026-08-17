@@ -15,7 +15,7 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `help-someone.html` | 0 | 26 | 0 | 0 | 0 | 0 | 0 |
 | `grief-and-loss.html` | 0 | 57 | 0 | 0 | 0 | 0 | 0 |
 | `god-feels-far-away.html` | 0 | 55 | 0 | 0 | 0 | 0 | 0 |
-| `free-guides.html` | 0 | 60 | 0 | 0 | 0 | 0 | 0 |
+| `free-guides.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `forgiveness-and-relational-hurt.html` | 0 | 55 | 0 | 0 | 0 | 0 | 0 |
 | `doubt-and-church-hurt.html` | 0 | 35 | 0 | 0 | 0 | 0 | 0 |
 | `contact.html` | 0 | 25 | 0 | 0 | 0 | 0 | 0 |
