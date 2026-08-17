@@ -1,5 +1,6 @@
 name: Normalize Production Host
 
+# One-time normalization pass; remove after successful publish.
 on:
   push:
     branches: [main]
