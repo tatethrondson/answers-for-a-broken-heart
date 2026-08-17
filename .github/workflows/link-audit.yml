@@ -30,6 +30,8 @@ jobs:
           python-version: '3.x'
       - name: Apply known link corrections
         run: python scripts/link_fixes.py
+      - name: Allow Vercel production deployment to settle
+        run: sleep 45
       - name: Check every link
         id: audit
         continue-on-error: true
