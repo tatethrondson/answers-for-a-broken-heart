@@ -2,8 +2,8 @@
 
 The homepage and every public root HTML page are tested against one shared site shell. The top navigation must contain exactly five options: **Start Here | 24 Answers | Free Resources | The Book | About**. Home is reached through the logo; Contact and Church Resources belong in the footer.
 
-- Pages audited: **51**
-- Pages passing: **51**
+- Pages audited: **52**
+- Pages passing: **52**
 - Pages failing: **0**
 
 | Page | Family | Inline style blocks | Status | Issue |
@@ -42,6 +42,7 @@ The homepage and every public root HTML page are tested against one shared site 
 | `book-updates-thanks.html` | Utility | 2 | **PASS** | — |
 | `book.html` | Core page | 4 | **PASS** | — |
 | `can-christians-be-depressed.html` | Care / guide | 4 | **PASS** | — |
+| `can-christians-go-to-counseling.html` | Other | 0 | **PASS** | — |
 | `church-resources.html` | Core page | 3 | **PASS** | — |
 | `contact-thanks.html` | Utility | 2 | **PASS** | — |
 | `contact.html` | Core page | 2 | **PASS** | — |
