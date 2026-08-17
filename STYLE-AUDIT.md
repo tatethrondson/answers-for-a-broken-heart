@@ -2,8 +2,8 @@
 
 The homepage and every public root HTML page are tested against one shared site shell. The top navigation must contain exactly five options: **Start Here | 24 Answers | Free Resources | The Book | About**. Home is reached through the logo; Contact and Church Resources belong in the footer.
 
-- Pages audited: **55**
-- Pages passing: **55**
+- Pages audited: **56**
+- Pages passing: **56**
 - Pages failing: **0**
 
 | Page | Family | Inline style blocks | Status | Issue |
@@ -56,6 +56,7 @@ The homepage and every public root HTML page are tested against one shared site 
 | `how-to-pray-when-angry-with-god.html` | Other | 0 | **PASS** | — |
 | `index.html` | Homepage | 4 | **PASS** | — |
 | `photo-test.html` | Other | 2 | **PASS** | — |
+| `scriptures-when-god-feels-far-away.html` | Other | 0 | **PASS** | — |
 | `start-here.html` | Discovery | 4 | **PASS** | — |
 | `unsafe.html` | Care / guide | 2 | **PASS** | — |
 | `what-forgiveness-does-not-mean.html` | Other | 0 | **PASS** | — |
