@@ -2,11 +2,12 @@
 
 This audit checks only page-specific visual CSS selectors that are **actually used by elements in the current page markup** and are not explicitly governed by the final homepage/body design locks. Dead/unused legacy CSS is ignored.
 
-- Interior pages inspected: **49**
+- Interior pages inspected: **50**
 
 | Page | Risk score | Used visual rules | Used uncovered selectors | Noncanonical colors | Unusual radii | Shadows | Fonts |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | `why-god-allows-suffering.html` | 0 | 57 | 0 | 0 | 0 | 0 | 0 |
+| `what-not-to-say-to-someone-grieving.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `what-hurts-today.html` | 0 | 42 | 0 | 0 | 0 | 0 | 0 |
 | `unsafe.html` | 0 | 17 | 0 | 0 | 0 | 0 | 0 |
 | `start-here.html` | 0 | 37 | 0 | 0 | 0 | 0 | 0 |
@@ -58,4 +59,4 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 
 ## Remaining pages and used selectors
 
-- Pages with no used visual escape selectors: **49/49**
+- Pages with no used visual escape selectors: **50/50**
