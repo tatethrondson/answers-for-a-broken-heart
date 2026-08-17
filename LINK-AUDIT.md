@@ -1,7 +1,7 @@
 # Full Site Link Audit
 
 HTML pages scanned in repository: 53
-Clickable/resource/form occurrences checked: 2443
+Clickable/resource/form occurrences checked: 2451
 Unique repo-derived live destinations checked: 87
 Live HTML pages fetched: 53
 Unique destinations found in live page markup: 62
