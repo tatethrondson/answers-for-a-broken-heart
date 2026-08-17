@@ -2,10 +2,14 @@
 
 This audit checks only page-specific visual CSS selectors that are **actually used by elements in the current page markup** and are not explicitly governed by the final homepage/body design locks. Dead/unused legacy CSS is ignored.
 
-- Interior pages inspected: **52**
+- Interior pages inspected: **53**
 
 | Page | Risk score | Used visual rules | Used uncovered selectors | Noncanonical colors | Unusual radii | Shadows | Fonts |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| `grief-and-loss.html` | 16 | 66 | 9 | 3 | 0 | 1 | 0 |
+| `forgiveness-and-relational-hurt.html` | 16 | 64 | 9 | 3 | 0 | 1 | 0 |
+| `doubt-and-church-hurt.html` | 16 | 44 | 9 | 3 | 0 | 1 | 0 |
+| `can-christians-be-depressed.html` | 16 | 46 | 9 | 3 | 0 | 1 | 0 |
 | `why-god-allows-suffering.html` | 0 | 57 | 0 | 0 | 0 | 0 | 0 |
 | `what-not-to-say-to-someone-grieving.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `what-hurts-today.html` | 0 | 42 | 0 | 0 | 0 | 0 | 0 |
@@ -13,18 +17,15 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `unsafe.html` | 0 | 17 | 0 | 0 | 0 | 0 | 0 |
 | `start-here.html` | 0 | 37 | 0 | 0 | 0 | 0 | 0 |
 | `photo-test.html` | 0 | 3 | 0 | 0 | 0 | 0 | 0 |
+| `how-to-pray-when-angry-with-god.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `hope-thanks.html` | 0 | 12 | 0 | 0 | 0 | 0 | 0 |
 | `help-someone.html` | 0 | 26 | 0 | 0 | 0 | 0 | 0 |
-| `grief-and-loss.html` | 0 | 57 | 0 | 0 | 0 | 0 | 0 |
 | `god-feels-far-away.html` | 0 | 55 | 0 | 0 | 0 | 0 | 0 |
 | `free-guides.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| `forgiveness-and-relational-hurt.html` | 0 | 55 | 0 | 0 | 0 | 0 | 0 |
-| `doubt-and-church-hurt.html` | 0 | 35 | 0 | 0 | 0 | 0 | 0 |
 | `contact.html` | 0 | 25 | 0 | 0 | 0 | 0 | 0 |
 | `contact-thanks.html` | 0 | 4 | 0 | 0 | 0 | 0 | 0 |
 | `church-resources.html` | 0 | 38 | 0 | 0 | 0 | 0 | 0 |
 | `can-christians-go-to-counseling.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| `can-christians-be-depressed.html` | 0 | 37 | 0 | 0 | 0 | 0 | 0 |
 | `book.html` | 0 | 53 | 0 | 0 | 0 | 0 | 0 |
 | `book-updates-thanks.html` | 0 | 10 | 0 | 0 | 0 | 0 | 0 |
 | `begin-here.html` | 0 | 29 | 0 | 0 | 0 | 0 | 0 |
@@ -61,4 +62,60 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 
 ## Remaining pages and used selectors
 
-- Pages with no used visual escape selectors: **52/52**
+### `grief-and-loss.html` — score 16
+- Noncanonical colors: #626b65, #87683a, #e8e1d7
+- Shadows: `.supportingLinks .supportingCard:hover`
+- Used visual selectors not governed by the final locks:
+  - `.supportingLinks`
+  - `.supportingLinks .supportingEyebrow`
+  - `.supportingLinks h2`
+  - `.supportingLinks .supportingIntro`
+  - `.supportingLinks .supportingCard`
+  - `.supportingLinks .supportingCard:hover`
+  - `.supportingLinks .supportingCard small`
+  - `.supportingLinks .supportingCard strong`
+  - `.supportingLinks .supportingCard span`
+
+### `forgiveness-and-relational-hurt.html` — score 16
+- Noncanonical colors: #626b65, #87683a, #e8e1d7
+- Shadows: `.supportingLinks .supportingCard:hover`
+- Used visual selectors not governed by the final locks:
+  - `.supportingLinks`
+  - `.supportingLinks .supportingEyebrow`
+  - `.supportingLinks h2`
+  - `.supportingLinks .supportingIntro`
+  - `.supportingLinks .supportingCard`
+  - `.supportingLinks .supportingCard:hover`
+  - `.supportingLinks .supportingCard small`
+  - `.supportingLinks .supportingCard strong`
+  - `.supportingLinks .supportingCard span`
+
+### `doubt-and-church-hurt.html` — score 16
+- Noncanonical colors: #626b65, #87683a, #e8e1d7
+- Shadows: `.supportingLinks .supportingCard:hover`
+- Used visual selectors not governed by the final locks:
+  - `.supportingLinks`
+  - `.supportingLinks .supportingEyebrow`
+  - `.supportingLinks h2`
+  - `.supportingLinks .supportingIntro`
+  - `.supportingLinks .supportingCard`
+  - `.supportingLinks .supportingCard:hover`
+  - `.supportingLinks .supportingCard small`
+  - `.supportingLinks .supportingCard strong`
+  - `.supportingLinks .supportingCard span`
+
+### `can-christians-be-depressed.html` — score 16
+- Noncanonical colors: #626b65, #87683a, #e8e1d7
+- Shadows: `.supportingLinks .supportingCard:hover`
+- Used visual selectors not governed by the final locks:
+  - `.supportingLinks`
+  - `.supportingLinks .supportingEyebrow`
+  - `.supportingLinks h2`
+  - `.supportingLinks .supportingIntro`
+  - `.supportingLinks .supportingCard`
+  - `.supportingLinks .supportingCard:hover`
+  - `.supportingLinks .supportingCard small`
+  - `.supportingLinks .supportingCard strong`
+  - `.supportingLinks .supportingCard span`
+
+- Pages with no used visual escape selectors: **49/53**
