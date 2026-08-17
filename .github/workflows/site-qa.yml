@@ -17,7 +17,6 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          import re
           files=list(Path('.').glob('*.html'))
           assert files, 'No HTML files found'
           bad=[]
