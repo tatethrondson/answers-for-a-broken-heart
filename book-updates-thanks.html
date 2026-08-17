@@ -149,6 +149,13 @@
 <link rel="stylesheet" href="/site-body-lock-v5.css?v=5">
 <link rel="stylesheet" href="/site-shell.css?v=2">
 <!-- SITE-SHELL-RUNTIME-START --><script defer src="/site-shell.js?v=2"></script><!-- SITE-SHELL-RUNTIME-END -->
+<!-- SOCIAL-SHARE-IMAGE-START -->
+<meta property="og:image" content="https://answersforabrokenheart.com/tate-throndson-portrait-2026.jpg">
+<meta property="og:image:alt" content="Answers for a Broken Heart — biblical hope for hard places">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://answersforabrokenheart.com/tate-throndson-portrait-2026.jpg">
+<meta name="twitter:image:alt" content="Answers for a Broken Heart — biblical hope for hard places">
+<!-- SOCIAL-SHARE-IMAGE-END -->
 </head>
 <body class="page-book-updates-thanks">
 <!-- PREMIUM-SHELL-HEADER-START --><header class="siteShellHeader"><div class="siteShellWrap siteShellNav"><a class="siteShellBrand" href="/" aria-label="Answers for a Broken Heart home"><span class="siteShellBrandWords">Answers<small>for a Broken Heart</small></span><span class="siteShellHeart">♡</span></a><nav class="siteShellLinks" aria-label="Main navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Resources</a><a href="/book">The Book</a><a href="/about">About</a></nav><details class="siteShellMobile"><summary>Menu</summary><nav class="siteShellMobileMenu" aria-label="Mobile navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Resources</a><a href="/book">The Book</a><a href="/about">About</a></nav></details></div></header><!-- PREMIUM-SHELL-HEADER-END -->
@@ -340,13 +347,13 @@
     if(current==='/start-here' && a.closest && a.closest('.choice')){
       track('Start Here Choice',{page:current,destination:href,label:destinationLabel(a)});
     }
-    if(current==='/all-answers' && /^\/answer-\d{2}$/.test(href) && a.closest && a.closest('.card')){
+    if(current==='/all-answers' && /^\\/(?:why\-does\-god\-feel\-far\-away|why\-doesnt\-god\-show\-himself|why\-cant\-i\-see\-what\-god\-is\-doing|why\-did\-god\-make\-a\-world\-with\-suffering|is\-it\-wrong\-to\-ask\-god\-why|why\-wont\-god\-tell\-me\-why|can\-anything\-good\-come\-from\-suffering|what\-if\-the\-explanation\-never\-comes|does\-god\-know\-what\-this\-feels\-like|is\-sympathy\-all\-god\-offers|does\-god\-care\-about\-injustice|am\-i\-as\-guilty\-as\-the\-person\-who\-hurt\-me|what\-do\-i\-do\-when\-god\-says\-no|is\-death\-really\-the\-end|how\-long\-am\-i\-allowed\-to\-grieve|why\-did\-this\-happen\-to\-me|why\-does\-grief\-feel\-worse|am\-i\-allowed\-to\-be\-angry\-with\-god|what\-do\-i\-say\-to\-god\-right\-now|why\-does\-loving\-people\-hurt|how\-do\-i\-forgive\-someone\-who\-isnt\-sorry|does\-forgiveness\-mean\-reconciliation|am\-i\-walking\-away\-from\-god\-or\-church\-hurt|does\-doubt\-mean\-i\-was\-never\-a\-believer|answer-\d{2})$/.test(href) && a.closest && a.closest('.card')){
       track('Answer Opened',{page:current,answer:href,label:destinationLabel(a)});
     }
     if(current==='/all-answers' && a.classList && a.classList.contains('filter')){
       track('Answers Filter',{page:current,label:label});
     }
-    if(/^\/answer-\d{2}$/.test(current) && a.closest && a.closest('.journeyCard')){
+    if(/^\\/(?:why\-does\-god\-feel\-far\-away|why\-doesnt\-god\-show\-himself|why\-cant\-i\-see\-what\-god\-is\-doing|why\-did\-god\-make\-a\-world\-with\-suffering|is\-it\-wrong\-to\-ask\-god\-why|why\-wont\-god\-tell\-me\-why|can\-anything\-good\-come\-from\-suffering|what\-if\-the\-explanation\-never\-comes|does\-god\-know\-what\-this\-feels\-like|is\-sympathy\-all\-god\-offers|does\-god\-care\-about\-injustice|am\-i\-as\-guilty\-as\-the\-person\-who\-hurt\-me|what\-do\-i\-do\-when\-god\-says\-no|is\-death\-really\-the\-end|how\-long\-am\-i\-allowed\-to\-grieve|why\-did\-this\-happen\-to\-me|why\-does\-grief\-feel\-worse|am\-i\-allowed\-to\-be\-angry\-with\-god|what\-do\-i\-say\-to\-god\-right\-now|why\-does\-loving\-people\-hurt|how\-do\-i\-forgive\-someone\-who\-isnt\-sorry|does\-forgiveness\-mean\-reconciliation|am\-i\-walking\-away\-from\-god\-or\-church\-hurt|does\-doubt\-mean\-i\-was\-never\-a\-believer|answer-\d{2})$/.test(current) && a.closest && a.closest('.journeyCard')){
       track('Answer Next Step',{page:current,destination:href,label:destinationLabel(a)});
     }
 
@@ -384,7 +391,7 @@
     else if(lower.indexOf('church and pastor resources')!==-1) track('Church Resources Signup',{page:page()});
   },true);
 
-  if(/^\/answer-\d{2}$/.test(page())){
+  if(/^\\/(?:why\-does\-god\-feel\-far\-away|why\-doesnt\-god\-show\-himself|why\-cant\-i\-see\-what\-god\-is\-doing|why\-did\-god\-make\-a\-world\-with\-suffering|is\-it\-wrong\-to\-ask\-god\-why|why\-wont\-god\-tell\-me\-why|can\-anything\-good\-come\-from\-suffering|what\-if\-the\-explanation\-never\-comes|does\-god\-know\-what\-this\-feels\-like|is\-sympathy\-all\-god\-offers|does\-god\-care\-about\-injustice|am\-i\-as\-guilty\-as\-the\-person\-who\-hurt\-me|what\-do\-i\-do\-when\-god\-says\-no|is\-death\-really\-the\-end|how\-long\-am\-i\-allowed\-to\-grieve|why\-did\-this\-happen\-to\-me|why\-does\-grief\-feel\-worse|am\-i\-allowed\-to\-be\-angry\-with\-god|what\-do\-i\-say\-to\-god\-right\-now|why\-does\-loving\-people\-hurt|how\-do\-i\-forgive\-someone\-who\-isnt\-sorry|does\-forgiveness\-mean\-reconciliation|am\-i\-walking\-away\-from\-god\-or\-church\-hurt|does\-doubt\-mean\-i\-was\-never\-a\-believer|answer-\d{2})$/.test(page())){
     var sent=false;
     window.addEventListener('scroll',function(){
       if(sent) return;
