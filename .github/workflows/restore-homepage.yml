@@ -1,0 +1,39 @@
+name: Restore Homepage Exactly
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/restore-homepage.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore exact pre-upgrade homepage
+        run: git show 557bc3a4c11cb518a645efe5d6ba9c35baaf33c9:index.html > index.html
+
+      - name: Run site QA
+        run: python scripts/site_qa.py
+
+      - name: Commit restored homepage
+        run: |
+          if [ -n "$(git status --porcelain -- index.html)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "Restore homepage to pre-upgrade version"
+            git push
+          else
+            echo "Homepage already matches the pre-upgrade version"
+          fi
