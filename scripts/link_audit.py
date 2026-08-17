@@ -32,7 +32,7 @@ def parse_page(path): return parse_text(path.read_text(encoding='utf-8',errors='
 def check_http(url,want_body=False):
     status=None; note=''; final=url; body=''
     try:
-        req=Request(url,method='GET' if want_body else 'HEAD',headers={'User-Agent':'Mozilla/5.0 LinkAudit/4.0'})
+        req=Request(url,method='GET' if want_body else 'HEAD',headers={'User-Agent':'Mozilla/5.0 LinkAudit/5.0'})
         with urlopen(req,timeout=12) as r:
             status=getattr(r,'status',200); final=r.geturl()
             if want_body: body=r.read(2_000_000).decode('utf-8','ignore')
@@ -40,7 +40,7 @@ def check_http(url,want_body=False):
         status=e.code; note=str(e)
         if not want_body and status in (403,405,429):
             try:
-                req=Request(url,headers={'User-Agent':'Mozilla/5.0 LinkAudit/4.0','Range':'bytes=0-0'})
+                req=Request(url,headers={'User-Agent':'Mozilla/5.0 LinkAudit/5.0','Range':'bytes=0-0'})
                 with urlopen(req,timeout=12) as r:
                     status=getattr(r,'status',200); final=r.geturl(); note=''
             except Exception as e2: note=f'blocked/limited: {type(e2).__name__}'
@@ -51,11 +51,18 @@ pages={p.name:p for p in ROOT.glob('*.html')}
 parsed={name:parse_page(path) for name,path in pages.items()}
 config=json.loads((ROOT/'vercel.json').read_text()) if (ROOT/'vercel.json').exists() else {}
 redirects={r.get('source'):r.get('destination') for r in config.get('redirects',[]) if r.get('source') and r.get('destination')}
+rewrites={r.get('source'):r.get('destination') for r in config.get('rewrites',[]) if r.get('source') and r.get('destination')}
 
 def resolve_internal(raw,source):
     u=urlparse(raw); path=unquote(u.path or ''); frag=unquote(u.fragment or '')
-    if not path: target=source
-    elif path=='/': target='index.html'
+    if not path:
+        target=source
+    elif path=='/':
+        target='index.html'
+    elif path in rewrites:
+        target=unquote(urlparse(rewrites[path]).path).lstrip('/')
+        if target and not Path(target).suffix:
+            target += '.html'
     else:
         clean=path.lstrip('/')
         if clean.endswith('/'): clean+='index.html'
