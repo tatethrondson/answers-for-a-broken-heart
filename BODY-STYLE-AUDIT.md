@@ -2,7 +2,7 @@
 
 This audit checks only page-specific visual CSS selectors that are **actually used by elements in the current page markup** and are not explicitly governed by the final homepage/body design locks. Dead/unused legacy CSS is ignored.
 
-- Interior pages inspected: **53**
+- Interior pages inspected: **54**
 
 | Page | Risk score | Used visual rules | Used uncovered selectors | Noncanonical colors | Unusual radii | Shadows | Fonts |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -11,6 +11,7 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `doubt-and-church-hurt.html` | 16 | 44 | 9 | 3 | 0 | 1 | 0 |
 | `can-christians-be-depressed.html` | 16 | 46 | 9 | 3 | 0 | 1 | 0 |
 | `why-god-allows-suffering.html` | 0 | 57 | 0 | 0 | 0 | 0 | 0 |
+| `what-to-say-to-someone-grieving.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `what-not-to-say-to-someone-grieving.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `what-hurts-today.html` | 0 | 42 | 0 | 0 | 0 | 0 | 0 |
 | `what-forgiveness-does-not-mean.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
@@ -118,4 +119,4 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.supportingLinks .supportingCard strong`
   - `.supportingLinks .supportingCard span`
 
-- Pages with no used visual escape selectors: **49/53**
+- Pages with no used visual escape selectors: **50/54**
