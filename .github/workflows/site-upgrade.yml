@@ -1,0 +1,42 @@
+name: Publish Five-Part Site Upgrade
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/site_upgrade.py'
+      - '.github/workflows/site-upgrade.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: five-part-site-upgrade
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Apply site upgrade
+        run: python scripts/site_upgrade.py
+
+      - name: Run existing site QA
+        run: python scripts/site_qa.py
+
+      - name: Commit upgraded site
+        run: |
+          if [ -n "$(git status --porcelain -- '*.html' vercel.json sitemap.xml)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -- '*.html' vercel.json sitemap.xml
+            git commit -m "Publish static home, featured resources, descriptive URLs and social metadata"
+            git push
+          else
+            echo "Five-part site upgrade is already current"
+          fi
