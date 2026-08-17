@@ -5,7 +5,9 @@ on:
     branches: [main]
     paths:
       - '*.html'
+      - '*.css'
       - 'vercel.json'
+      - 'sitemap.xml'
       - 'scripts/link_audit.py'
       - 'scripts/link_fixes.py'
       - '.github/workflows/link-audit.yml'
