@@ -1,6 +1,6 @@
 # Site QA Report
 
-HTML files scanned: 50
+HTML files scanned: 51
 Errors: 0
 Warnings: 0
 
