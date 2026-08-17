@@ -1,4 +1,5 @@
 from pathlib import Path
+import json
 import re
 
 ROOT=Path('.')
@@ -10,6 +11,19 @@ aliases={
 }
 existing |= aliases
 existing |= {f'/answer-{i:02d}' for i in range(1,25)}
+
+# A clean URL can be backed by a different physical HTML filename in Vercel.
+# Treat rewrite sources as real internal routes so QA validates the deployed
+# routing model rather than assuming URL path == repository filename.
+vercel=Path('vercel.json')
+if vercel.exists():
+    try:
+        config=json.loads(vercel.read_text(encoding='utf-8'))
+        existing |= {r.get('source') for r in config.get('rewrites',[]) if r.get('source')}
+        existing |= {r.get('source') for r in config.get('redirects',[]) if r.get('source')}
+    except Exception as exc:
+        print(f'WARN: could not parse vercel.json for route-aware QA: {exc}')
+
 issues=[]
 
 def add(level,file,msg): issues.append((level,file,msg))
