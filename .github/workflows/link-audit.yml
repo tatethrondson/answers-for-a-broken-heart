@@ -6,6 +6,7 @@ on:
     paths:
       - '*.html'
       - '*.css'
+      - 'answer-audio.js'
       - 'vercel.json'
       - 'sitemap.xml'
       - 'scripts/link_audit.py'
