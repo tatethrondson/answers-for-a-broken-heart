@@ -47,7 +47,7 @@ The homepage and every public root HTML page are tested against one shared site 
 | `contact.html` | Core page | 2 | **PASS** | — |
 | `doubt-and-church-hurt.html` | Topic hub | 5 | **PASS** | — |
 | `forgiveness-and-relational-hurt.html` | Topic hub | 6 | **PASS** | — |
-| `free-guides.html` | Core page | 2 | **PASS** | — |
+| `free-guides.html` | Core page | 1 | **PASS** | — |
 | `god-feels-far-away.html` | Topic hub | 6 | **PASS** | — |
 | `grief-and-loss.html` | Topic hub | 6 | **PASS** | — |
 | `help-someone.html` | Care / guide | 2 | **PASS** | — |
