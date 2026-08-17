@@ -1,0 +1,40 @@
+name: Publish Supporting Articles
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/publish_supporting_articles.py'
+      - '.github/workflows/publish-supporting-articles.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-supporting-articles
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Integrate supporting articles
+        run: python scripts/publish_supporting_articles.py
+      - name: Run site QA
+        run: python scripts/site_qa.py
+      - name: Commit care-path integration
+        run: |
+          if [ -n "$(git status --porcelain -- grief-and-loss.html forgiveness-and-relational-hurt.html doubt-and-church-hurt.html can-christians-be-depressed.html sitemap.xml SITE-QA.md)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add grief-and-loss.html forgiveness-and-relational-hurt.html doubt-and-church-hurt.html can-christians-be-depressed.html sitemap.xml SITE-QA.md
+            git commit -m "Integrate practical supporting articles"
+            git pull --rebase origin main
+            git push
+          else
+            echo "Supporting article paths are already current"
+          fi
