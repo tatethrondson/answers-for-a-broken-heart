@@ -1,0 +1,31 @@
+name: Extract Audio Batch 1
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/extract_audio_batch1.py'
+      - '.github/workflows/extract-audio-batch1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract published Answer source material
+        run: python scripts/extract_audio_batch1.py
+      - name: Commit source extract
+        run: |
+          if [ -n "$(git status --porcelain -- AUDIO-BATCH1-SOURCE.md)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add AUDIO-BATCH1-SOURCE.md
+            git commit -m "Extract first audio batch source material"
+            git push
+          else
+            echo "Audio source extract is current"
+          fi
