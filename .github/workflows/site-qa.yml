@@ -1,8 +1,9 @@
 name: Site QA
 
+# The Publish Site Audit Cleanup workflow is the authoritative automated QA path.
+# Keep this workflow available for an explicit manual audit without racing the
+# normalization/polish workflow and writing a stale report to main.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -13,18 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check HTML files
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          files=list(Path('.').glob('*.html'))
-          assert files, 'No HTML files found'
-          bad=[]
-          for p in files:
-              text=p.read_text(encoding='utf-8')
-              if '<html' not in text.lower() or '</html>' not in text.lower():
-                  bad.append(str(p))
-          if bad:
-              raise SystemExit('Malformed HTML files: '+', '.join(bad))
-          print(f'Checked {len(files)} HTML files')
-          PY
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Run site QA
+        run: python scripts/site_qa.py
