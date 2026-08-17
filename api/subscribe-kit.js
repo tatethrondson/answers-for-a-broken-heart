@@ -20,6 +20,24 @@ function isEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
 }
 
+function safeReferrer(req) {
+  const raw = String(req.headers.referer || '').trim();
+  if (!raw) return null;
+  try {
+    const url = new URL(raw);
+    const allowed = new Set([
+      'answersforabrokenheart.com',
+      'www.answersforabrokenheart.com'
+    ]);
+    if (!allowed.has(url.hostname.toLowerCase())) return null;
+    // Keep useful source attribution without retaining query strings or fragments,
+    // which can contain sensitive hurt-related search terms or campaign data.
+    return `${url.origin}${url.pathname}`.slice(0, 1000);
+  } catch (_) {
+    return null;
+  }
+}
+
 async function kitRequest(path, options = {}) {
   const apiKey = process.env.KIT_API_KEY;
   if (!apiKey) throw new Error('KIT_API_KEY is not configured');
@@ -33,11 +51,10 @@ async function kitRequest(path, options = {}) {
   });
   const text = await response.text();
   let data = {};
-  try { data = text ? JSON.parse(text) : {}; } catch (_) { data = { raw: text }; }
+  try { data = text ? JSON.parse(text) : {}; } catch (_) { data = {}; }
   if (!response.ok) {
     const error = new Error(`Kit request failed with ${response.status}`);
     error.status = response.status;
-    error.data = data;
     throw error;
   }
   return data;
@@ -88,6 +105,8 @@ module.exports = async (req, res) => {
   }
 
   try {
+    // Kit API v4 documents this as an upsert: create the subscriber if new,
+    // or update the first name when the email address already exists.
     await kitRequest('/subscribers', {
       method: 'POST',
       body: JSON.stringify({
@@ -96,7 +115,8 @@ module.exports = async (req, res) => {
       })
     });
 
-    const referrer = String(req.headers.referer || '').slice(0, 1000) || null;
+    const referrer = safeReferrer(req);
+    // Kit requires the subscriber to exist before adding that email to a form.
     await kitRequest(`/forms/${encodeURIComponent(formId)}/subscribers`, {
       method: 'POST',
       body: JSON.stringify({
@@ -108,7 +128,8 @@ module.exports = async (req, res) => {
     res.statusCode = 200;
     return res.end(JSON.stringify({ ok: true, segment }));
   } catch (err) {
-    console.error('Kit subscription error', err && err.status, err && err.data ? err.data : err);
+    // Never log the submitted email address or Kit's raw response body.
+    console.error('Kit subscription request failed', err && err.status ? err.status : 'unknown');
     res.statusCode = 502;
     return res.end(JSON.stringify({ ok: false, error: 'We could not save your signup right now.' }));
   }
