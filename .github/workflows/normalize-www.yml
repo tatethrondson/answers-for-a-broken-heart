@@ -1,0 +1,47 @@
+name: Normalize Production Host
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/normalize-www.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Normalize canonical host in public site files
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          old='https://answersforabrokenheart.com'
+          new='https://www.answersforabrokenheart.com'
+          files=list(Path('.').glob('*.html'))+[Path('sitemap.xml'),Path('robots.txt')]
+          changed=[]
+          for p in files:
+              if not p.exists(): continue
+              text=p.read_text(encoding='utf-8',errors='ignore')
+              updated=text.replace(old,new)
+              if updated!=text:
+                  p.write_text(updated,encoding='utf-8')
+                  changed.append(str(p))
+          print('Normalized:', ', '.join(changed) if changed else 'already current')
+          PY
+      - name: Run site QA
+        run: python scripts/site_qa.py
+      - name: Commit normalized host references
+        run: |
+          if [ -n "$(git status --porcelain -- '*.html' sitemap.xml robots.txt)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -- '*.html' sitemap.xml robots.txt
+            git commit -m "Align canonical URLs and sitemap with www production host"
+            git push
+          else
+            echo "Production host references are already normalized"
+          fi
