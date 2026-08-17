@@ -11,7 +11,16 @@
     if(!match) return;
 
     var number=match[1];
-    var src='/audio/answer-'+number+'.mp3';
+    var canonical=document.querySelector('link[rel="canonical"]');
+    var slug='';
+    try{
+      var canonicalUrl=canonical && canonical.href ? new URL(canonical.href,window.location.origin) : null;
+      slug=canonicalUrl ? canonicalUrl.pathname.replace(/^\/+|\/+$/g,'') : '';
+    }catch(e){}
+    if(!slug) slug=(window.location.pathname||'').replace(/^\/+|\/+$/g,'');
+    if(!slug || /^answer-\d{2}$/.test(slug)) return;
+
+    var src='/audio/'+slug+'.mp3';
 
     fetch(src,{method:'HEAD',cache:'no-store'}).then(function(r){
       if(!r.ok) return;
