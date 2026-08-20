@@ -67,7 +67,124 @@ body.page-2am-guide-access .remember{
   border:1px solid var(--ab-line,#ded8cd)!important;border-left:4px solid var(--ab-gold,#ad823d)!important;border-radius:0!important;box-shadow:none!important;
 }
 
-/* Free Guides — status line only; journal visual/content stays untouched */
+/* Book + Free Resources — force both pages into the canonical homepage-derived system. */
+body.page-book .currentHero,
+body.page-free-guides .currentHero{
+  background:linear-gradient(120deg,var(--ab-cream,#f5f0e7),#eef2ed)!important;
+  color:var(--ab-ink,#242a26)!important;
+  border:0!important;border-bottom:1px solid var(--ab-line,#ded8cd)!important;
+  padding:56px 0 50px!important;box-shadow:none!important;
+}
+body.page-book .currentHero h1,
+body.page-free-guides .currentHero h1{
+  color:#244432!important;font-size:clamp(2.85rem,4.8vw,4.6rem)!important;
+  line-height:1.01!important;max-width:900px!important;margin:0 0 16px!important;
+}
+body.page-book .sectionWarm,
+body.page-free-guides .sectionWarm{
+  background:var(--ab-warm,#fbf8f2)!important;
+  border-top:1px solid var(--ab-line,#ded8cd)!important;
+  border-bottom:1px solid var(--ab-line,#ded8cd)!important;
+  box-shadow:none!important;
+}
+body.page-book .sectionHead h2,
+body.page-free-guides .sectionHead h2{color:var(--ab-deep,#183024)!important}
+body.page-book .sectionHead p,
+body.page-free-guides .sectionHead p{color:var(--ab-muted,#656d67)!important}
+body.page-book .darkBand,
+body.page-free-guides .darkBand{
+  background:var(--ab-deep,#183024)!important;color:#fff!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+}
+body.page-book .darkBand h2,
+body.page-free-guides .darkBand h2{color:#fff!important}
+body.page-book .darkBand p,
+body.page-free-guides .darkBand p{color:rgba(255,255,255,.80)!important}
+body.page-book .darkBand .eyebrow,
+body.page-free-guides .darkBand .eyebrow{color:#d8bd87!important}
+
+/* Book page — remove the remaining legacy landing-page visual language. */
+body.page-book .bookTrust{
+  color:var(--ab-muted,#656d67)!important;
+  border-top:1px solid var(--ab-line,#ded8cd)!important;
+}
+body.page-book .bookCover{
+  background:var(--ab-paper,#fffefb)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;box-shadow:none!important;
+}
+body.page-book .bookCoverTitle,
+body.page-book .bookCoverAuthor{color:var(--ab-pine,#294533)!important}
+body.page-book .bookCoverTitle span{color:var(--ab-pine,#294533)!important}
+body.page-book .bookCoverHeart{color:var(--ab-gold,#ad823d)!important}
+body.page-book .bookCoverSub{color:var(--ab-ink,#242a26)!important}
+body.page-book .comingTag{
+  background:var(--ab-pine,#294533)!important;color:#fff!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+}
+body.page-book .whyCopy h2,
+body.page-book .audience h2{color:var(--ab-deep,#183024)!important}
+body.page-book .whyCopy p,
+body.page-book .audienceLead{color:var(--ab-muted,#656d67)!important}
+body.page-book .audience{
+  background:var(--ab-cream,#f5f0e7)!important;color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;border-radius:0!important;box-shadow:none!important;
+}
+body.page-book .audienceItem{
+  color:var(--ab-muted,#656d67)!important;
+  border-top:1px solid var(--ab-line,#ded8cd)!important;
+}
+body.page-book .audienceItem strong{color:var(--ab-deep,#183024)!important}
+body.page-book .sampleCopy h2{color:var(--ab-deep,#183024)!important}
+body.page-book .sampleCopy p{color:var(--ab-muted,#656d67)!important}
+body.page-book .scriptureBox{
+  background:var(--ab-deep,#183024)!important;color:#fff!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+}
+body.page-book .scriptureBox p{color:rgba(255,255,255,.90)!important}
+body.page-book .scriptureBox small{color:#d8bd87!important}
+body.page-book .releaseForm input[type="email"]{
+  background:#fff!important;color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;border-radius:0!important;box-shadow:none!important;
+}
+body.page-book .releaseForm button{
+  background:#d8bd87!important;color:var(--ab-deep,#183024)!important;
+  border:1px solid #d8bd87!important;border-radius:0!important;box-shadow:none!important;
+}
+body.page-book .releasePrivacy{color:rgba(255,255,255,.62)!important}
+
+/* Free Resources page — same surfaces, controls, and typography as the core site. */
+body.page-free-guides .freeHeroNote{color:var(--ab-muted,#656d67)!important}
+body.page-free-guides .freeHeroNote strong{color:var(--ab-pine,#294533)!important}
+body.page-free-guides .tonightCard{
+  background:var(--ab-deep,#183024)!important;color:#fff!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+}
+body.page-free-guides .tonightCard small{color:#d8bd87!important}
+body.page-free-guides .tonightCard h2{color:#fff!important}
+body.page-free-guides .tonightCard p{color:rgba(255,255,255,.80)!important}
+body.page-free-guides .resourceIcon{
+  background:var(--ab-cream,#f5f0e7)!important;color:var(--ab-pine,#294533)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;border-radius:0!important;box-shadow:none!important;
+}
+body.page-free-guides .pills span{
+  background:var(--ab-warm,#fbf8f2)!important;color:var(--ab-muted,#656d67)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;border-radius:0!important;box-shadow:none!important;
+}
+body.page-free-guides .serveGrid h2{color:var(--ab-deep,#183024)!important}
+body.page-free-guides .serveCopy{
+  color:var(--ab-muted,#656d67)!important;
+  border-left:2px solid var(--ab-gold,#ad823d)!important;
+}
+body.page-free-guides .signupForm input[type="email"]{
+  background:#fff!important;color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;border-radius:0!important;box-shadow:none!important;
+}
+body.page-free-guides .signupForm button{
+  background:#d8bd87!important;color:var(--ab-deep,#183024)!important;
+  border:1px solid #d8bd87!important;border-radius:0!important;box-shadow:none!important;
+}
+body.page-free-guides .signupPrivacy{color:rgba(255,255,255,.62)!important}
 body.page-free-guides .noGate{color:var(--ab-muted,#656d67)!important}
 body.page-free-guides .noGate strong{color:var(--ab-pine,#294533)!important}
 
