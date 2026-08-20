@@ -13,7 +13,7 @@ The homepage and every public root HTML page are tested against one shared site 
 | `404.html` | Utility | 2 | **PASS** | — |
 | `about.html` | Core page | 3 | **PASS** | — |
 | `all-answers.html` | Discovery | 4 | **PASS** | — |
-| `anger-and-unanswered-prayer.html` | Topic hub | 5 | **PASS** | — |
+| `anger-and-unanswered-prayer.html` | Topic hub | 6 | **PASS** | — |
 | `answer-01.html` | Answer article | 7 | **PASS** | — |
 | `answer-02.html` | Answer article | 7 | **PASS** | — |
 | `answer-03.html` | Answer article | 7 | **PASS** | — |
@@ -49,9 +49,9 @@ The homepage and every public root HTML page are tested against one shared site 
 | `doubt-and-church-hurt.html` | Topic hub | 6 | **PASS** | — |
 | `forgiveness-and-relational-hurt.html` | Topic hub | 7 | **PASS** | — |
 | `free-guides.html` | Core page | 1 | **PASS** | — |
-| `god-feels-far-away.html` | Topic hub | 6 | **PASS** | — |
-| `grief-and-loss.html` | Topic hub | 7 | **PASS** | — |
-| `help-someone.html` | Care / guide | 2 | **PASS** | — |
+| `god-feels-far-away.html` | Topic hub | 7 | **PASS** | — |
+| `grief-and-loss.html` | Topic hub | 8 | **PASS** | — |
+| `help-someone.html` | Care / guide | 3 | **PASS** | — |
 | `hope-thanks.html` | Utility | 2 | **PASS** | — |
 | `how-to-pray-when-angry-with-god.html` | Other | 0 | **PASS** | — |
 | `index.html` | Homepage | 4 | **PASS** | — |
