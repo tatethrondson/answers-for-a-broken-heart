@@ -40,7 +40,7 @@ The homepage and every public root HTML page are tested against one shared site 
 | `answer-24.html` | Answer article | 7 | **PASS** | — |
 | `begin-here.html` | Discovery | 3 | **PASS** | — |
 | `book-updates-thanks.html` | Utility | 2 | **PASS** | — |
-| `book.html` | Core page | 4 | **PASS** | — |
+| `book.html` | Core page | 1 | **PASS** | — |
 | `can-christians-be-depressed.html` | Care / guide | 5 | **PASS** | — |
 | `can-christians-go-to-counseling.html` | Other | 0 | **PASS** | — |
 | `church-resources.html` | Core page | 3 | **PASS** | — |
