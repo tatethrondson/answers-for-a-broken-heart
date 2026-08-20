@@ -6,6 +6,7 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 
 | Page | Risk score | Used visual rules | Used uncovered selectors | Noncanonical colors | Unusual radii | Shadows | Fonts |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| `book.html` | 47 | 43 | 30 | 8 | 0 | 1 | 0 |
 | `grief-and-loss.html` | 28 | 76 | 18 | 4 | 0 | 2 | 0 |
 | `free-guides.html` | 23 | 42 | 21 | 1 | 0 | 0 | 0 |
 | `forgiveness-and-relational-hurt.html` | 16 | 64 | 9 | 3 | 0 | 1 | 0 |
@@ -14,7 +15,6 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `help-someone.html` | 12 | 36 | 9 | 1 | 0 | 1 | 0 |
 | `god-feels-far-away.html` | 12 | 65 | 9 | 1 | 0 | 1 | 0 |
 | `anger-and-unanswered-prayer.html` | 12 | 45 | 9 | 1 | 0 | 1 | 0 |
-| `book.html` | 4 | 55 | 2 | 1 | 0 | 0 | 0 |
 | `why-god-allows-suffering.html` | 0 | 57 | 0 | 0 | 0 | 0 | 0 |
 | `what-to-say-to-someone-grieving.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `what-not-to-say-to-someone-grieving.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
@@ -63,6 +63,31 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `2am-guide-access.html` | 0 | 30 | 0 | 0 | 0 | 0 | 0 |
 
 ## Remaining pages and used selectors
+
+### `book.html` — score 47
+- Noncanonical colors: #343936, #414a44, #465149, #5f6861, #b5832f, #d8d1c5, #d9d1c5, #fbf9f3
+- Shadows: `.bookCover`
+- Used visual selectors not governed by the final locks:
+  - `.currentHero`
+  - `.currentHero h1`
+  - `.sectionWarm`
+  - `.sectionHead h2`
+  - `.sectionHead p`
+  - `.darkBand`
+  - `.darkBand h2`
+  - `.darkBand p`
+  - `.bookTrust`
+  - `.bookCover`
+  - `.bookCoverTitle`
+  - `.bookCoverTitle span`
+  - `.bookCoverHeart`
+  - `.bookCoverSub`
+  - `.bookCoverAuthor`
+  - `.comingTag`
+  - `.whyCopy h2,.audience h2`
+  - `.whyCopy p`
+  - `.audience`
+  - `.audienceLead`
 
 ### `grief-and-loss.html` — score 28
 - Noncanonical colors: #626b65, #87683a, #e7e0d6, #e8e1d7
@@ -194,11 +219,5 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.supportingLinksWave2 .waveCard small`
   - `.supportingLinksWave2 .waveCard strong`
   - `.supportingLinksWave2 .waveCard span`
-
-### `book.html` — score 4
-- Noncanonical colors: #5c675f
-- Used visual selectors not governed by the final locks:
-  - `.bookHeroTrust`
-  - `.bookHeroTrust strong`
 
 - Pages with no used visual escape selectors: **46/55**
