@@ -1,128 +1,143 @@
+/* Answers for a Broken Heart — Free Resources design alignment
+   Updated to match the current homepage/interior visual system. */
 :root{
-  --fr-deep:#183024;
-  --fr-green:#294533;
-  --fr-cream:#f5f0e7;
-  --fr-paper:#fffefb;
-  --fr-warm:#fbf8f2;
-  --fr-ink:#24312b;
-  --fr-muted:#667068;
-  --fr-gold:#ad823d;
-  --fr-line:#ded8cd;
-  --fr-rose:#b87389;
-  --fr-rose-pale:#f7e8ed;
-  --fr-shadow:0 20px 55px rgba(25,45,35,.10);
+  --fr-deep:var(--ab-deep,#183024);
+  --fr-green:var(--ab-pine,#294533);
+  --fr-cream:var(--ab-cream,#f5f0e7);
+  --fr-paper:var(--ab-paper,#fffefb);
+  --fr-warm:var(--ab-warm,#fbf8f2);
+  --fr-ink:var(--ab-ink,#242a26);
+  --fr-muted:var(--ab-muted,#656d67);
+  --fr-gold:var(--ab-gold,#ad823d);
+  --fr-line:var(--ab-line,#ded8cd);
+  --fr-shadow:var(--ab-shadow,0 12px 28px rgba(30,44,35,.08));
+  --fr-rose:#a56579;
+  --fr-rose-pale:#f8edf0;
 }
 *{box-sizing:border-box}
-body.page-free-guides{margin:0;background:var(--fr-paper);color:var(--fr-ink);font-family:Arial,Helvetica,sans-serif;line-height:1.66}
+body.page-free-guides{margin:0;background:var(--fr-paper);color:var(--fr-ink);font-family:Arial,Helvetica,sans-serif;line-height:1.65}
 body.page-free-guides main{overflow:hidden}
-body.page-free-guides .frWrap{width:min(1120px,calc(100% - 44px));margin:auto}
-body.page-free-guides .frEyebrow{margin:0 0 12px;text-transform:uppercase;letter-spacing:.17em;font-size:.67rem;font-weight:800;color:#87683a}
+body.page-free-guides .frWrap{width:min(1160px,calc(100% - 48px));margin:auto}
+body.page-free-guides .frEyebrow{margin:0 0 12px;text-transform:uppercase;letter-spacing:.18em;font-size:.67rem;line-height:1.3;font-weight:800;color:var(--fr-gold)}
 body.page-free-guides h1,
 body.page-free-guides h2,
 body.page-free-guides h3,
-body.page-free-guides h4{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.03em}
-body.page-free-guides .frHero{position:relative;background:linear-gradient(115deg,#f7f2e9 0%,#fbf8f2 58%,#edf2ec 100%);border-bottom:1px solid #e6e0d7}
-body.page-free-guides .frHeroGrid{min-height:455px;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(310px,.88fr);gap:56px;align-items:center;padding:66px 0}
-body.page-free-guides .frHero h1{font-size:clamp(3.35rem,6.4vw,5.65rem);line-height:.98;color:var(--fr-deep);margin:0 0 20px;max-width:760px}
-body.page-free-guides .frHeroLead{font:1.18rem/1.58 Georgia,"Times New Roman",serif;color:#48564d;max-width:690px;margin:0 0 20px}
-body.page-free-guides .frHeroNote{max-width:610px;margin:0;color:#657068;font-size:.83rem}
+body.page-free-guides h4{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.025em;color:var(--fr-deep)}
+
+/* Hero — same language as the current interior pages */
+body.page-free-guides .frHero{background:linear-gradient(120deg,#f7f2e9,#eaf0e8);border-bottom:1px solid #ebe5da}
+body.page-free-guides .frHeroGrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:58px;align-items:center;padding:56px 0 50px}
+body.page-free-guides .frHero h1{max-width:900px;margin:0 0 16px;font-size:clamp(2.85rem,4.8vw,4.6rem);line-height:1.01;color:#244432}
+body.page-free-guides .frHeroLead{max-width:760px;margin:0 0 18px;font:1.1rem/1.6 Georgia,"Times New Roman",serif;color:#525c56}
+body.page-free-guides .frHeroNote{max-width:650px;margin:0;color:var(--fr-muted);font-size:.8rem}
 body.page-free-guides .frHeroNote strong{color:var(--fr-green)}
-body.page-free-guides .frHeroCard{background:var(--fr-deep);color:#fff;padding:34px 34px 32px;box-shadow:var(--fr-shadow);position:relative}
-body.page-free-guides .frHeroCard:before{content:"♡";position:absolute;right:22px;top:8px;color:rgba(216,189,135,.32);font:5rem Georgia,serif}
-body.page-free-guides .frHeroCard small{display:block;text-transform:uppercase;letter-spacing:.15em;color:#d8bd87;font-size:.65rem;font-weight:800;margin-bottom:9px}
-body.page-free-guides .frHeroCard h2{font-size:2.25rem;line-height:1.04;color:#fff;margin:0 0 12px}
-body.page-free-guides .frHeroCard p{margin:0 0 20px;color:rgba(255,255,255,.78);font-size:.88rem}
-body.page-free-guides .frHeroCard a{display:inline-flex;background:#fff;color:var(--fr-deep);text-decoration:none;padding:11px 15px;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
-body.page-free-guides .frQuick{padding:62px 0 72px;background:#fff}
-body.page-free-guides .frSectionHead{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;align-items:end;margin-bottom:28px}
-body.page-free-guides .frSectionHead h2{font-size:2.8rem;line-height:1.04;color:var(--fr-deep);margin:0}
-body.page-free-guides .frSectionHead p{margin:0;color:var(--fr-muted);max-width:650px}
-body.page-free-guides .frQuickGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-body.page-free-guides .frQuickCard{display:block;text-decoration:none;background:#fff;border:1px solid var(--fr-line);padding:27px 26px 25px;min-height:260px;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
-body.page-free-guides .frQuickCard:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(28,43,34,.08);border-color:#cfc7ba}
-body.page-free-guides .frQuickCard .frIcon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--fr-cream);color:var(--fr-green);font:1.06rem Georgia,serif;margin-bottom:18px}
-body.page-free-guides .frQuickCard small{display:block;text-transform:uppercase;letter-spacing:.12em;color:#88683b;font-size:.63rem;font-weight:800;margin-bottom:8px}
-body.page-free-guides .frQuickCard h3{font-size:1.67rem;line-height:1.09;color:var(--fr-deep);margin:0 0 10px}
-body.page-free-guides .frQuickCard p{margin:0 0 17px;color:#5e6861;font-size:.84rem}
-body.page-free-guides .frQuickCard b{font-size:.72rem;color:var(--fr-green);text-transform:uppercase;letter-spacing:.045em}
-body.page-free-guides .frJournals{padding:72px 0 76px;background:var(--fr-warm);border-top:1px solid #ebe5da;border-bottom:1px solid #e7e0d5}
-body.page-free-guides .frJournalIntro{max-width:780px;margin-bottom:32px}
-body.page-free-guides .frJournalIntro h2{font-size:3rem;line-height:1.02;color:var(--fr-deep);margin:0 0 12px}
-body.page-free-guides .frJournalIntro p{margin:0;color:var(--fr-muted)}
-body.page-free-guides .frWomenFeature{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(380px,.98fr);background:#fff;border:1px solid var(--fr-line);box-shadow:0 18px 48px rgba(48,41,43,.06);overflow:hidden}
-body.page-free-guides .frWomenCopy{padding:46px 46px 42px}
-body.page-free-guides .frWomenCopy small{display:block;text-transform:uppercase;letter-spacing:.14em;color:#a45f75;font-size:.64rem;font-weight:800}
-body.page-free-guides .frWomenCopy h3{font-size:2.58rem;line-height:1.02;color:#5e454e;margin:11px 0 16px;max-width:580px}
-body.page-free-guides .frWomenCopy>p{color:#5c6560;margin:0 0 18px}
-body.page-free-guides .frPromise{margin:21px 0 20px;border-left:3px solid var(--fr-rose);padding:4px 0 4px 18px;font:italic 1.12rem/1.55 Georgia,"Times New Roman",serif;color:#664b54}
-body.page-free-guides .frPills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px}
-body.page-free-guides .frPills span{border:1px solid #dfcfd4;background:#fff8fa;color:#72515c;padding:6px 9px;font-size:.66rem;font-weight:800}
-body.page-free-guides .frDownload{appearance:none;border:0;background:var(--fr-green);color:#fff;padding:12px 17px;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.055em;cursor:pointer}
-body.page-free-guides .frDownload:hover{background:var(--fr-deep)}
+body.page-free-guides .frHeroCard{position:relative;background:var(--fr-deep);color:#fff;padding:29px 30px;border-radius:2px;border:0;box-shadow:none}
+body.page-free-guides .frHeroCard:before{content:"♡";position:absolute;right:18px;top:4px;color:rgba(216,189,135,.23);font:4.4rem Georgia,serif}
+body.page-free-guides .frHeroCard small{display:block;margin-bottom:8px;text-transform:uppercase;letter-spacing:.15em;color:#d8bd87;font-size:.63rem;font-weight:800}
+body.page-free-guides .frHeroCard h2{position:relative;margin:0 0 10px;font-size:1.9rem;line-height:1.06;color:#fff}
+body.page-free-guides .frHeroCard p{position:relative;margin:0 0 18px;color:rgba(255,255,255,.8);font-size:.83rem;line-height:1.58}
+body.page-free-guides .frHeroCard a{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:11px 16px;border:1px solid #fff;border-radius:2px;background:#fff;color:var(--fr-deep);text-decoration:none;text-transform:uppercase;letter-spacing:.055em;font-size:.7rem;font-weight:800}
+
+/* Primary resources */
+body.page-free-guides .frQuick{padding:58px 0 66px;background:var(--fr-paper)}
+body.page-free-guides .frSectionHead{display:grid;grid-template-columns:.9fr 1.1fr;gap:54px;align-items:end;margin-bottom:26px}
+body.page-free-guides .frSectionHead h2{margin:0;font-size:2.45rem;line-height:1.07;color:var(--fr-deep)}
+body.page-free-guides .frSectionHead p{max-width:660px;margin:0;color:var(--fr-muted);font-size:.92rem}
+body.page-free-guides .frQuickGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+body.page-free-guides .frQuickCard{display:block;min-height:250px;padding:25px 25px 23px;background:#fff;border:1px solid var(--fr-line);border-radius:2px;color:var(--fr-ink);text-decoration:none;box-shadow:none;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+body.page-free-guides .frQuickCard:hover{transform:translateY(-2px);border-color:#cfc6b7;box-shadow:var(--fr-shadow)}
+body.page-free-guides .frQuickCard .frIcon{width:43px;height:43px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;background:var(--fr-cream);color:var(--fr-green);font:1rem Georgia,serif;border-radius:2px}
+body.page-free-guides .frQuickCard small{display:block;margin-bottom:7px;text-transform:uppercase;letter-spacing:.13em;color:var(--fr-gold);font-size:.62rem;font-weight:800}
+body.page-free-guides .frQuickCard h3{margin:0 0 9px;font-size:1.55rem;line-height:1.12;color:#25382d}
+body.page-free-guides .frQuickCard p{margin:0 0 16px;color:var(--fr-muted);font-size:.82rem;line-height:1.58}
+body.page-free-guides .frQuickCard b{color:var(--fr-green);font-size:.71rem;text-transform:uppercase;letter-spacing:.045em}
+
+/* Journals — integrated into the current site, not a separate mini-brand */
+body.page-free-guides .frJournals{padding:64px 0 70px;background:var(--fr-warm);border-top:1px solid #ebe5da;border-bottom:1px solid #ebe5da}
+body.page-free-guides .frJournalIntro{max-width:760px;margin-bottom:28px}
+body.page-free-guides .frJournalIntro h2{margin:0 0 10px;font-size:2.55rem;line-height:1.05;color:var(--fr-deep)}
+body.page-free-guides .frJournalIntro p{margin:0;color:var(--fr-muted);font-size:.92rem}
+body.page-free-guides .frWomenFeature{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr);overflow:hidden;background:#fff;border:1px solid var(--fr-line);border-radius:2px;box-shadow:none}
+body.page-free-guides .frWomenCopy{padding:39px 40px 37px}
+body.page-free-guides .frWomenCopy small{display:block;text-transform:uppercase;letter-spacing:.14em;color:var(--fr-rose);font-size:.62rem;font-weight:800}
+body.page-free-guides .frWomenCopy h3{max-width:590px;margin:10px 0 14px;font-size:2.18rem;line-height:1.06;color:#3d493f}
+body.page-free-guides .frWomenCopy>p{margin:0 0 17px;color:var(--fr-muted);font-size:.88rem}
+body.page-free-guides .frPromise{margin:19px 0;padding:2px 0 2px 17px;border-left:2px solid var(--fr-gold);font:italic 1.03rem/1.5 Georgia,"Times New Roman",serif;color:#4f5b53}
+body.page-free-guides .frPills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:22px}
+body.page-free-guides .frPills span{padding:5px 9px;border:1px solid var(--fr-line);border-radius:2px;background:var(--fr-warm);color:#5f6862;font-size:.64rem;font-weight:800}
+body.page-free-guides .frDownload{appearance:none;display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border:1px solid var(--fr-green);border-radius:2px;background:var(--fr-green);color:#fff;text-transform:uppercase;letter-spacing:.055em;font-size:.72rem;font-weight:800;cursor:pointer}
+body.page-free-guides .frDownload:hover{background:var(--fr-deep);border-color:var(--fr-deep)}
 body.page-free-guides .frDownload:disabled{opacity:.65;cursor:wait}
-body.page-free-guides .frNoGate{font-size:.72rem;color:#69726c;margin:12px 0 0}
+body.page-free-guides .frNoGate{margin:11px 0 0;color:var(--fr-muted);font-size:.7rem}
 body.page-free-guides .frNoGate strong{color:var(--fr-green)}
-body.page-free-guides .frWomenVisual{min-height:465px;background:linear-gradient(145deg,#f4dfe6,#fff8fa);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+body.page-free-guides .frWomenVisual{position:relative;min-height:420px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(145deg,#f7ecef,#fbf8f2)}
 body.page-free-guides .frWomenVisual:before,
-body.page-free-guides .frWomenVisual:after{content:"✿";position:absolute;color:rgba(180,102,127,.25);font-family:Georgia,serif}
-body.page-free-guides .frWomenVisual:before{font-size:5rem;top:18px;right:26px}
-body.page-free-guides .frWomenVisual:after{font-size:3rem;left:22px;bottom:20px}
-body.page-free-guides .frPaper{width:255px;min-height:350px;background:#fffdfb;border:1px solid #e0d2d6;box-shadow:0 20px 42px rgba(83,55,65,.15);padding:34px 28px;position:relative;z-index:3;transform:rotate(-1deg);color:#654c55}
+body.page-free-guides .frWomenVisual:after{content:"✿";position:absolute;color:rgba(165,101,121,.18);font-family:Georgia,serif}
+body.page-free-guides .frWomenVisual:before{right:25px;top:17px;font-size:4rem}
+body.page-free-guides .frWomenVisual:after{left:20px;bottom:18px;font-size:2.6rem}
+body.page-free-guides .frPaper{position:relative;z-index:3;width:240px;min-height:325px;padding:31px 27px;background:#fffefb;border:1px solid #dfd7d2;border-radius:2px;box-shadow:0 16px 35px rgba(50,43,45,.1);color:#5b514f;transform:rotate(-.5deg)}
 body.page-free-guides .frPaper:before,
-body.page-free-guides .frPaper:after{content:"";position:absolute;inset:12px -28px -14px 18px;background:#fff8fa;border:1px solid #e4d8dc;z-index:-1;transform:rotate(5deg)}
-body.page-free-guides .frPaper:after{inset:8px 20px -18px -28px;transform:rotate(-5deg);background:#fdf5f8}
-body.page-free-guides .frPaper small{display:block;text-transform:uppercase;letter-spacing:.14em;font-size:.57rem;font-weight:800;color:#a45f75}
-body.page-free-guides .frPaper h4{font-size:2.2rem;line-height:.98;margin:13px 0 30px}
-body.page-free-guides .frTruth{border-top:1px solid #dfcdd2;padding-top:10px;margin-top:15px}
-body.page-free-guides .frTruth strong{display:block;text-transform:uppercase;letter-spacing:.09em;font-size:.6rem;color:#a45f75;margin-bottom:10px}
-body.page-free-guides .frLine{height:1px;background:#eadfe2;margin:11px 0}
-body.page-free-guides .frMenBar{margin-top:16px;background:var(--fr-deep);color:#fff;padding:28px 30px;display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center}
-body.page-free-guides .frMenBar small{display:block;text-transform:uppercase;letter-spacing:.13em;color:#d8bd87;font-size:.63rem;font-weight:800}
-body.page-free-guides .frMenBar h3{font-size:1.85rem;color:#fff;margin:5px 0 7px}
-body.page-free-guides .frMenBar p{margin:0;color:rgba(255,255,255,.76);font-size:.84rem;max-width:720px}
-body.page-free-guides .frMenBar .frDownload{background:#d8bd87;color:var(--fr-deep);white-space:nowrap}
-body.page-free-guides .frServe{padding:60px 0;background:#fff}
-body.page-free-guides .frServeGrid{display:grid;grid-template-columns:.78fr 1.22fr;gap:58px;align-items:center}
-body.page-free-guides .frServe h2{font-size:2.55rem;line-height:1.04;color:var(--fr-deep);margin:0}
-body.page-free-guides .frServeText{border-left:2px solid var(--fr-gold);padding-left:25px;color:#58635c}
-body.page-free-guides .frServeText p{margin:0 0 10px}
+body.page-free-guides .frPaper:after{content:"";position:absolute;z-index:-1;background:#fffaf9;border:1px solid #e5ddd9}
+body.page-free-guides .frPaper:before{inset:10px -22px -12px 16px;transform:rotate(4deg)}
+body.page-free-guides .frPaper:after{inset:7px 18px -15px -22px;transform:rotate(-4deg);background:#faf7f2}
+body.page-free-guides .frPaper small{display:block;color:var(--fr-rose);text-transform:uppercase;letter-spacing:.14em;font-size:.56rem;font-weight:800}
+body.page-free-guides .frPaper h4{margin:12px 0 27px;font-size:1.95rem;line-height:1;color:#53494b}
+body.page-free-guides .frTruth{margin-top:14px;padding-top:9px;border-top:1px solid #e3ddd8}
+body.page-free-guides .frTruth strong{display:block;margin-bottom:9px;color:var(--fr-rose);text-transform:uppercase;letter-spacing:.08em;font-size:.58rem}
+body.page-free-guides .frLine{height:1px;margin:10px 0;background:#e9e3df}
+body.page-free-guides .frMenBar{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;margin-top:14px;padding:26px 28px;background:var(--fr-deep);color:#fff;border-radius:2px}
+body.page-free-guides .frMenBar small{display:block;color:#d8bd87;text-transform:uppercase;letter-spacing:.13em;font-size:.61rem;font-weight:800}
+body.page-free-guides .frMenBar h3{margin:4px 0 6px;color:#fff;font-size:1.65rem}
+body.page-free-guides .frMenBar p{max-width:760px;margin:0;color:rgba(255,255,255,.77);font-size:.82rem}
+body.page-free-guides .frMenBar .frDownload{background:#fff;color:var(--fr-deep);border-color:#fff;white-space:nowrap}
+
+/* Why free */
+body.page-free-guides .frServe{padding:54px 0;background:#fff}
+body.page-free-guides .frServeGrid{display:grid;grid-template-columns:.82fr 1.18fr;gap:58px;align-items:center}
+body.page-free-guides .frServe h2{margin:0;font-size:2.3rem;line-height:1.06;color:var(--fr-deep)}
+body.page-free-guides .frServeText{padding:4px 0 4px 24px;border-left:2px solid var(--fr-gold);color:#58635c}
+body.page-free-guides .frServeText p{margin:0 0 9px;font-size:.9rem}
 body.page-free-guides .frServeText p:last-child{margin-bottom:0}
-body.page-free-guides .frSignup{background:var(--fr-deep);color:#fff;padding:54px 0}
-body.page-free-guides .frSignupGrid{display:grid;grid-template-columns:1fr .9fr;gap:54px;align-items:center}
-body.page-free-guides .frSignup h2{font-size:2.45rem;line-height:1.05;color:#fff;margin:0 0 10px}
-body.page-free-guides .frSignup p{margin:0;color:rgba(255,255,255,.76)}
-body.page-free-guides .frForm{display:grid;grid-template-columns:1fr 150px;gap:8px}
-body.page-free-guides .frForm input[type=email]{border:0;background:#fff;padding:14px 15px;min-height:50px;font-size:.9rem}
-body.page-free-guides .frForm button{border:0;background:#d8bd87;color:var(--fr-deep);font-weight:800;font-size:.7rem;text-transform:uppercase;letter-spacing:.055em;cursor:pointer}
-body.page-free-guides .frPrivacy{grid-column:1/-1;color:rgba(255,255,255,.62);font-size:.65rem}
+
+/* Optional email */
+body.page-free-guides .frSignup{padding:48px 0;background:var(--fr-deep);color:#fff}
+body.page-free-guides .frSignupGrid{display:grid;grid-template-columns:1fr .9fr;gap:52px;align-items:center}
+body.page-free-guides .frSignup h2{margin:0 0 9px;color:#fff;font-size:2.15rem;line-height:1.07}
+body.page-free-guides .frSignup p{margin:0;color:rgba(255,255,255,.76);font-size:.88rem}
+body.page-free-guides .frForm{display:grid;grid-template-columns:1fr 165px;gap:8px}
+body.page-free-guides .frForm input[type=email]{min-height:48px;padding:13px 14px;border:1px solid rgba(255,255,255,.34);border-radius:2px;background:#fff;color:#26342c;font-size:.88rem}
+body.page-free-guides .frForm button{min-height:48px;padding:11px 14px;border:1px solid #fff;border-radius:2px;background:#fff;color:var(--fr-deep);text-transform:uppercase;letter-spacing:.055em;font-size:.68rem;font-weight:800;cursor:pointer}
+body.page-free-guides .frPrivacy{grid-column:1/-1;color:rgba(255,255,255,.61);font-size:.64rem}
 body.page-free-guides .frHoney{position:absolute!important;left:-5000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+
 @media(max-width:900px){
-  body.page-free-guides .frHeroGrid{grid-template-columns:1fr;gap:28px;min-height:0}
-  body.page-free-guides .frHeroCard{max-width:650px}
+  body.page-free-guides .frHeroGrid{grid-template-columns:1fr;gap:26px}
+  body.page-free-guides .frHeroCard{max-width:660px}
   body.page-free-guides .frQuickGrid{grid-template-columns:1fr 1fr}
   body.page-free-guides .frWomenFeature{grid-template-columns:1fr}
-  body.page-free-guides .frWomenVisual{min-height:410px}
+  body.page-free-guides .frWomenVisual{min-height:385px}
 }
 @media(max-width:760px){
-  body.page-free-guides .frWrap{width:min(100% - 32px,1120px)}
-  body.page-free-guides .frHeroGrid{padding:52px 0}
-  body.page-free-guides .frHero h1{font-size:3.55rem}
+  body.page-free-guides .frWrap{width:min(100% - 32px,1160px)}
+  body.page-free-guides .frHeroGrid{padding:49px 0 46px}
+  body.page-free-guides .frHero h1{font-size:clamp(2.8rem,13vw,3.55rem)}
   body.page-free-guides .frSectionHead,
   body.page-free-guides .frQuickGrid,
   body.page-free-guides .frServeGrid,
   body.page-free-guides .frSignupGrid{grid-template-columns:1fr}
-  body.page-free-guides .frSectionHead{gap:12px}
+  body.page-free-guides .frSectionHead{gap:10px}
   body.page-free-guides .frQuickCard{min-height:0}
-  body.page-free-guides .frWomenCopy{padding:34px 28px}
-  body.page-free-guides .frWomenCopy h3{font-size:2.2rem}
+  body.page-free-guides .frWomenCopy{padding:32px 26px}
+  body.page-free-guides .frWomenCopy h3{font-size:1.95rem}
   body.page-free-guides .frMenBar{grid-template-columns:1fr}
   body.page-free-guides .frMenBar .frDownload{justify-self:start}
   body.page-free-guides .frForm{grid-template-columns:1fr}
   body.page-free-guides .frForm button{min-height:48px}
 }
 @media(max-width:430px){
-  body.page-free-guides .frHero h1{font-size:3.05rem}
-  body.page-free-guides .frWomenVisual{min-height:360px}
-  body.page-free-guides .frPaper{width:218px;min-height:315px;padding:28px 23px}
-  body.page-free-guides .frPaper h4{font-size:1.85rem}
+  body.page-free-guides .frHero h1{font-size:2.75rem}
+  body.page-free-guides .frHeroCard{padding:25px 23px}
+  body.page-free-guides .frWomenVisual{min-height:345px}
+  body.page-free-guides .frPaper{width:210px;min-height:300px;padding:27px 22px}
+  body.page-free-guides .frPaper h4{font-size:1.72rem}
 }
