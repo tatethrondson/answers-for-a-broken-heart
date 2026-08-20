@@ -6,10 +6,15 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 
 | Page | Risk score | Used visual rules | Used uncovered selectors | Noncanonical colors | Unusual radii | Shadows | Fonts |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| `grief-and-loss.html` | 16 | 66 | 9 | 3 | 0 | 1 | 0 |
+| `grief-and-loss.html` | 28 | 76 | 18 | 4 | 0 | 2 | 0 |
+| `free-guides.html` | 23 | 42 | 21 | 1 | 0 | 0 | 0 |
 | `forgiveness-and-relational-hurt.html` | 16 | 64 | 9 | 3 | 0 | 1 | 0 |
 | `doubt-and-church-hurt.html` | 16 | 44 | 9 | 3 | 0 | 1 | 0 |
 | `can-christians-be-depressed.html` | 16 | 46 | 9 | 3 | 0 | 1 | 0 |
+| `help-someone.html` | 12 | 36 | 9 | 1 | 0 | 1 | 0 |
+| `god-feels-far-away.html` | 12 | 65 | 9 | 1 | 0 | 1 | 0 |
+| `anger-and-unanswered-prayer.html` | 12 | 45 | 9 | 1 | 0 | 1 | 0 |
+| `book.html` | 4 | 55 | 2 | 1 | 0 | 0 | 0 |
 | `why-god-allows-suffering.html` | 0 | 57 | 0 | 0 | 0 | 0 | 0 |
 | `what-to-say-to-someone-grieving.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `what-not-to-say-to-someone-grieving.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
@@ -21,14 +26,10 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `photo-test.html` | 0 | 3 | 0 | 0 | 0 | 0 | 0 |
 | `how-to-pray-when-angry-with-god.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `hope-thanks.html` | 0 | 12 | 0 | 0 | 0 | 0 | 0 |
-| `help-someone.html` | 0 | 26 | 0 | 0 | 0 | 0 | 0 |
-| `god-feels-far-away.html` | 0 | 55 | 0 | 0 | 0 | 0 | 0 |
-| `free-guides.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `contact.html` | 0 | 25 | 0 | 0 | 0 | 0 | 0 |
 | `contact-thanks.html` | 0 | 4 | 0 | 0 | 0 | 0 | 0 |
 | `church-resources.html` | 0 | 38 | 0 | 0 | 0 | 0 | 0 |
 | `can-christians-go-to-counseling.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| `book.html` | 0 | 53 | 0 | 0 | 0 | 0 | 0 |
 | `book-updates-thanks.html` | 0 | 10 | 0 | 0 | 0 | 0 | 0 |
 | `begin-here.html` | 0 | 29 | 0 | 0 | 0 | 0 | 0 |
 | `answer-24.html` | 0 | 89 | 0 | 0 | 0 | 0 | 0 |
@@ -55,7 +56,6 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `answer-03.html` | 0 | 88 | 0 | 0 | 0 | 0 | 0 |
 | `answer-02.html` | 0 | 88 | 0 | 0 | 0 | 0 | 0 |
 | `answer-01.html` | 0 | 88 | 0 | 0 | 0 | 0 | 0 |
-| `anger-and-unanswered-prayer.html` | 0 | 35 | 0 | 0 | 0 | 0 | 0 |
 | `all-answers.html` | 0 | 32 | 0 | 0 | 0 | 0 | 0 |
 | `about.html` | 0 | 22 | 0 | 0 | 0 | 0 | 0 |
 | `404.html` | 0 | 9 | 0 | 0 | 0 | 0 | 0 |
@@ -64,9 +64,9 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 
 ## Remaining pages and used selectors
 
-### `grief-and-loss.html` — score 16
-- Noncanonical colors: #626b65, #87683a, #e8e1d7
-- Shadows: `.supportingLinks .supportingCard:hover`
+### `grief-and-loss.html` — score 28
+- Noncanonical colors: #626b65, #87683a, #e7e0d6, #e8e1d7
+- Shadows: `.supportingLinks .supportingCard:hover`; `.supportingLinksWave2 .waveCard:hover`
 - Used visual selectors not governed by the final locks:
   - `.supportingLinks`
   - `.supportingLinks .supportingEyebrow`
@@ -77,6 +77,39 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.supportingLinks .supportingCard small`
   - `.supportingLinks .supportingCard strong`
   - `.supportingLinks .supportingCard span`
+  - `.supportingLinksWave2`
+  - `.supportingLinksWave2 .waveEyebrow`
+  - `.supportingLinksWave2 h2`
+  - `.supportingLinksWave2 .waveLead`
+  - `.supportingLinksWave2 .waveCard`
+  - `.supportingLinksWave2 .waveCard:hover`
+  - `.supportingLinksWave2 .waveCard small`
+  - `.supportingLinksWave2 .waveCard strong`
+  - `.supportingLinksWave2 .waveCard span`
+
+### `free-guides.html` — score 23
+- Noncanonical colors: #58635c
+- Used visual selectors not governed by the final locks:
+  - `.currentHero`
+  - `.currentHero h1`
+  - `.sectionWarm`
+  - `.sectionHead h2`
+  - `.sectionHead p`
+  - `.darkBand`
+  - `.darkBand h2`
+  - `.darkBand p`
+  - `.freeHeroNote`
+  - `.freeHeroNote strong`
+  - `.tonightCard`
+  - `.tonightCard small`
+  - `.tonightCard h2`
+  - `.tonightCard p`
+  - `.resourceIcon`
+  - `.pills span`
+  - `.serveGrid h2`
+  - `.serveCopy`
+  - `.signupForm input[type=email]`
+  - `.signupForm button`
 
 ### `forgiveness-and-relational-hurt.html` — score 16
 - Noncanonical colors: #626b65, #87683a, #e8e1d7
@@ -120,4 +153,52 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.supportingLinks .supportingCard strong`
   - `.supportingLinks .supportingCard span`
 
-- Pages with no used visual escape selectors: **51/55**
+### `help-someone.html` — score 12
+- Noncanonical colors: #e7e0d6
+- Shadows: `.supportingLinksWave2 .waveCard:hover`
+- Used visual selectors not governed by the final locks:
+  - `.supportingLinksWave2`
+  - `.supportingLinksWave2 .waveEyebrow`
+  - `.supportingLinksWave2 h2`
+  - `.supportingLinksWave2 .waveLead`
+  - `.supportingLinksWave2 .waveCard`
+  - `.supportingLinksWave2 .waveCard:hover`
+  - `.supportingLinksWave2 .waveCard small`
+  - `.supportingLinksWave2 .waveCard strong`
+  - `.supportingLinksWave2 .waveCard span`
+
+### `god-feels-far-away.html` — score 12
+- Noncanonical colors: #e7e0d6
+- Shadows: `.supportingLinksWave2 .waveCard:hover`
+- Used visual selectors not governed by the final locks:
+  - `.supportingLinksWave2`
+  - `.supportingLinksWave2 .waveEyebrow`
+  - `.supportingLinksWave2 h2`
+  - `.supportingLinksWave2 .waveLead`
+  - `.supportingLinksWave2 .waveCard`
+  - `.supportingLinksWave2 .waveCard:hover`
+  - `.supportingLinksWave2 .waveCard small`
+  - `.supportingLinksWave2 .waveCard strong`
+  - `.supportingLinksWave2 .waveCard span`
+
+### `anger-and-unanswered-prayer.html` — score 12
+- Noncanonical colors: #e7e0d6
+- Shadows: `.supportingLinksWave2 .waveCard:hover`
+- Used visual selectors not governed by the final locks:
+  - `.supportingLinksWave2`
+  - `.supportingLinksWave2 .waveEyebrow`
+  - `.supportingLinksWave2 h2`
+  - `.supportingLinksWave2 .waveLead`
+  - `.supportingLinksWave2 .waveCard`
+  - `.supportingLinksWave2 .waveCard:hover`
+  - `.supportingLinksWave2 .waveCard small`
+  - `.supportingLinksWave2 .waveCard strong`
+  - `.supportingLinksWave2 .waveCard span`
+
+### `book.html` — score 4
+- Noncanonical colors: #5c675f
+- Used visual selectors not governed by the final locks:
+  - `.bookHeroTrust`
+  - `.bookHeroTrust strong`
+
+- Pages with no used visual escape selectors: **46/55**
