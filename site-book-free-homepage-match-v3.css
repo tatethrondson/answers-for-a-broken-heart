@@ -1,0 +1,94 @@
+/* Book + Free Resources — homepage visual match v3.
+   Uses the homepage hero art direction instead of the interior green-wash hero. */
+
+body.page-book .currentHero,
+body.page-free-guides .currentHero{
+  position:relative!important;
+  overflow:hidden!important;
+  background-image:
+    linear-gradient(90deg,rgba(248,244,236,.97) 0%,rgba(248,244,236,.88) 36%,rgba(248,244,236,.24) 62%,rgba(248,244,236,0) 100%),
+    url("https://images.unsplash.com/photo-1774284590552-598a2d613768?auto=format&fit=crop&fm=jpg&q=82&w=2400")!important;
+  background-size:cover!important;
+  background-position:center 52%!important;
+  background-color:#f8f4ec!important;
+  border:0!important;
+  border-bottom:1px solid #e6e0d7!important;
+  box-shadow:none!important;
+}
+body.page-book .currentHero:after,
+body.page-free-guides .currentHero:after{
+  content:""!important;
+  position:absolute!important;
+  left:0!important;right:0!important;bottom:0!important;
+  height:85px!important;
+  background:linear-gradient(transparent,rgba(22,33,27,.08))!important;
+  pointer-events:none!important;
+}
+body.page-book .currentHero>.wrap,
+body.page-free-guides .currentHero>.wrap{
+  position:relative!important;
+  z-index:1!important;
+}
+body.page-book .currentHero h1,
+body.page-free-guides .currentHero h1{
+  color:#244432!important;
+}
+body.page-book .currentHero .lead,
+body.page-free-guides .currentHero .lead{
+  color:#29332d!important;
+}
+
+/* Let the book float over the hero just as it does on the homepage. */
+body.page-book .bookStage{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+body.page-book .bookCover{
+  background:#fbf9f3!important;
+  border:1px solid #dad4c8!important;
+  box-shadow:14px 20px 35px rgba(20,32,25,.22)!important;
+}
+
+/* Homepage-like warm paper surfaces, without the pale green wash. */
+body.page-book .sectionWarm,
+body.page-free-guides .sectionWarm{
+  background:#f5f1e9!important;
+  border-top:1px solid #eee8df!important;
+  border-bottom:1px solid #e6e0d7!important;
+}
+body.page-book .audience,
+body.page-free-guides .tonightCard{
+  background:#fffefb!important;
+  border-color:#ded8cd!important;
+}
+body.page-free-guides .tonightCard{
+  border-top:4px solid #ad823d!important;
+}
+
+/* Keep action color in the same role as the homepage: buttons/accents, not page-sized surfaces. */
+body.page-book .darkBand,
+body.page-free-guides .darkBand{
+  background:#f5f1e9!important;
+  color:#242a26!important;
+  border-top:1px solid #e6e0d7!important;
+  border-bottom:1px solid #e6e0d7!important;
+}
+body.page-book .darkBand h2,
+body.page-free-guides .darkBand h2{color:#183024!important}
+body.page-book .darkBand p,
+body.page-free-guides .darkBand p{color:#656d67!important}
+body.page-book .darkBand .eyebrow,
+body.page-free-guides .darkBand .eyebrow{color:#ad823d!important}
+
+body.page-book .scriptureBox{
+  background:#fffefb!important;
+  color:#242a26!important;
+  border:1px solid #ded8cd!important;
+  border-top:4px solid #ad823d!important;
+}
+body.page-book .scriptureBox p{color:#656d67!important}
+body.page-book .scriptureBox small{color:#ad823d!important}
+
+body.page-book .releasePrivacy,
+body.page-free-guides .signupPrivacy{color:#656d67!important}
