@@ -9,7 +9,6 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `help-someone.html` | 36 | 45 | 18 | 8 | 0 | 2 | 0 |
 | `grief-and-loss.html` | 28 | 76 | 18 | 4 | 0 | 2 | 0 |
 | `what-not-to-say-to-someone-grieving.html` | 24 | 9 | 9 | 7 | 0 | 1 | 0 |
-| `free-guides.html` | 24 | 51 | 9 | 7 | 0 | 1 | 0 |
 | `forgiveness-and-relational-hurt.html` | 16 | 64 | 9 | 3 | 0 | 1 | 0 |
 | `doubt-and-church-hurt.html` | 16 | 44 | 9 | 3 | 0 | 1 | 0 |
 | `can-christians-be-depressed.html` | 16 | 46 | 9 | 3 | 0 | 1 | 0 |
@@ -25,6 +24,7 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `photo-test.html` | 0 | 3 | 0 | 0 | 0 | 0 | 0 |
 | `how-to-pray-when-angry-with-god.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `hope-thanks.html` | 0 | 12 | 0 | 0 | 0 | 0 | 0 |
+| `free-guides.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `contact.html` | 0 | 25 | 0 | 0 | 0 | 0 | 0 |
 | `contact-thanks.html` | 0 | 4 | 0 | 0 | 0 | 0 | 0 |
 | `church-resources.html` | 0 | 38 | 0 | 0 | 0 | 0 | 0 |
@@ -124,20 +124,6 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.hurtingPodcastButton`
   - `.hurtingPodcastButton:hover`
 
-### `free-guides.html` — score 24
-- Noncanonical colors: #111, #20372a, #4f5a53, #b69258, #ddd6c9, #f6f1e8, #fffdf9
-- Shadows: `.hurtingPodcastPlay`
-- Used visual selectors not governed by the final locks:
-  - `.hurtingPodcastResource`
-  - `.hurtingPodcastEyebrow`
-  - `.hurtingPodcastEpisode`
-  - `.hurtingPodcastThumb`
-  - `.hurtingPodcastPlay`
-  - `.hurtingPodcastCopy h2`
-  - `.hurtingPodcastCopy p`
-  - `.hurtingPodcastButton`
-  - `.hurtingPodcastButton:hover`
-
 ### `forgiveness-and-relational-hurt.html` — score 16
 - Noncanonical colors: #626b65, #87683a, #e8e1d7
 - Shadows: `.supportingLinks .supportingCard:hover`
@@ -208,4 +194,4 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.supportingLinksWave2 .waveCard strong`
   - `.supportingLinksWave2 .waveCard span`
 
-- Pages with no used visual escape selectors: **46/55**
+- Pages with no used visual escape selectors: **47/55**
