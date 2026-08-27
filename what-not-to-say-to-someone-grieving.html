@@ -148,22 +148,22 @@
 <style>
 .hurtingPodcastResource{margin:40px 0;padding:28px 30px;background:#f6f1e8;border:1px solid #ddd6c9;border-top:4px solid #b69258}
 .hurtingPodcastEyebrow{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#88683b;margin-bottom:10px}
-.hurtingPodcastEpisode{background:#fffdf9;border:1px solid #ded8cd;display:grid;grid-template-columns:minmax(240px,.9fr) 1.1fr;overflow:hidden}
-.hurtingPodcastThumb{position:relative;display:block;min-height:220px;background:#d8d2c8;overflow:hidden}
-.hurtingPodcastThumb img{display:block;width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.hurtingPodcastEpisode{background:#fffdf9;border:1px solid #ded8cd;overflow:hidden}
+.hurtingPodcastThumb{position:relative;display:block;width:100%;aspect-ratio:16/9;background:#111;overflow:hidden}
+.hurtingPodcastThumb img{display:block;width:100%;height:100%;object-fit:contain;position:absolute;inset:0}
 .hurtingPodcastPlay{position:absolute;left:18px;bottom:16px;width:48px;height:48px;border-radius:50%;background:rgba(24,48,36,.94);color:white;display:flex;align-items:center;justify-content:center;font-size:1.05rem;box-shadow:0 7px 18px rgba(0,0,0,.22)}
-.hurtingPodcastCopy{padding:24px;display:flex;flex-direction:column;justify-content:center}
+.hurtingPodcastCopy{padding:24px 26px}
 .hurtingPodcastCopy h2{font:400 1.7rem/1.15 Georgia,'Times New Roman',serif;color:#20372a;margin:0 0 10px}
 .hurtingPodcastCopy p{margin:0 0 18px!important;color:#4f5a53;font-size:.93rem;line-height:1.6}
-.hurtingPodcastButton{display:inline-block;align-self:flex-start;background:#294533;color:#fff!important;text-decoration:none!important;padding:10px 15px;font-size:.76rem;font-weight:800;letter-spacing:.03em}
+.hurtingPodcastButton{display:inline-block;background:#294533;color:#fff!important;text-decoration:none!important;padding:10px 15px;font-size:.76rem;font-weight:800;letter-spacing:.03em}
 .hurtingPodcastButton:hover{background:#183024}
-@media(max-width:700px){.hurtingPodcastResource{padding:24px 21px}.hurtingPodcastEpisode{grid-template-columns:1fr}.hurtingPodcastThumb{min-height:0;aspect-ratio:16/9}}
+@media(max-width:700px){.hurtingPodcastResource{padding:24px 21px}.hurtingPodcastCopy{padding:21px}}
 </style>
 <section class="hurtingPodcastResource" aria-label="Featured podcast: What NOT to Say to a Hurting Person">
   <div class="hurtingPodcastEyebrow">Featured podcast</div>
   <div class="hurtingPodcastEpisode">
     <a class="hurtingPodcastThumb" href="https://www.youtube.com/watch?v=PQAcaj6SER0" target="_blank" rel="noopener noreferrer" aria-label="Watch What NOT to Say to a Hurting Person on YouTube">
-      <img src="https://i.ytimg.com/vi/PQAcaj6SER0/hqdefault.jpg" alt="What NOT to Say to a Hurting Person podcast thumbnail" loading="lazy" decoding="async">
+      <img src="https://i.ytimg.com/vi/PQAcaj6SER0/maxresdefault.jpg" alt="What NOT to Say to a Hurting Person podcast thumbnail" loading="lazy" decoding="async">
       <span class="hurtingPodcastPlay" aria-hidden="true">▶</span>
     </a>
     <div class="hurtingPodcastCopy">
