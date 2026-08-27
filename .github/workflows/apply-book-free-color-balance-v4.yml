@@ -1,0 +1,33 @@
+name: Apply Book and Free Resources color balance v4
+
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-book-free-color-balance-v4.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Point Book and Free Resources to neutral-first stylesheet
+        shell: python
+        run: |
+          from pathlib import Path
+          for filename in ['book.html','free-guides.html']:
+              p=Path(filename)
+              text=p.read_text()
+              text=text.replace('/site-book-free-homepage-match-v3.css?v=3','/site-book-free-color-balance-v4.css?v=4')
+              p.write_text(text)
+      - name: Commit v4 color balance
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add book.html free-guides.html
+          git commit -m "Use neutral-first colors on Book and Free Resources" || exit 0
+          git push origin main
