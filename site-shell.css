@@ -269,6 +269,72 @@ body[class*="page-"] .hurtingPodcastButton:hover{
   border-color:var(--ab-deep)!important;
 }
 
+/* Book + Free Resources: green is an accent, not a dominant surface.
+   These large panels now follow the homepage's warm neutral section language. */
+body.page-book .scriptureBox,
+body.page-free-guides .tonightCard{
+  background:var(--ab-cream)!important;
+  color:var(--ab-ink)!important;
+  border:1px solid var(--ab-line)!important;
+  border-top:4px solid var(--ab-gold)!important;
+  box-shadow:none!important;
+}
+body.page-book .scriptureBox p,
+body.page-free-guides .tonightCard p{
+  color:var(--ab-muted)!important;
+}
+body.page-book .scriptureBox small,
+body.page-free-guides .tonightCard small{
+  color:var(--ab-gold)!important;
+}
+body.page-free-guides .tonightCard h2{
+  color:var(--ab-deep)!important;
+}
+body.page-free-guides .tonightCard .btn{
+  background:var(--ab-pine)!important;
+  color:#fff!important;
+  border-color:var(--ab-pine)!important;
+}
+body.page-free-guides .tonightCard .btn:hover{
+  background:var(--ab-deep)!important;
+  border-color:var(--ab-deep)!important;
+}
+body.page-book .darkBand,
+body.page-free-guides .darkBand{
+  background:#faf8f3!important;
+  color:var(--ab-ink)!important;
+  border-top:1px solid var(--ab-line)!important;
+  border-bottom:1px solid var(--ab-line)!important;
+}
+body.page-book .darkBand h2,
+body.page-free-guides .darkBand h2{
+  color:var(--ab-deep)!important;
+}
+body.page-book .darkBand p,
+body.page-free-guides .darkBand p{
+  color:var(--ab-muted)!important;
+}
+body.page-book .darkBand .eyebrow,
+body.page-free-guides .darkBand .eyebrow{
+  color:var(--ab-gold)!important;
+}
+body.page-book .releaseForm input[type="email"],
+body.page-free-guides .signupForm input[type="email"]{
+  border:1px solid var(--ab-line)!important;
+  background:#fff!important;
+  color:var(--ab-ink)!important;
+}
+body.page-book .releaseForm button,
+body.page-free-guides .signupForm button{
+  background:var(--ab-pine)!important;
+  color:#fff!important;
+  border:1px solid var(--ab-pine)!important;
+}
+body.page-book .releasePrivacy,
+body.page-free-guides .signupPrivacy{
+  color:var(--ab-muted)!important;
+}
+
 @media(max-width:900px){
   .siteShellLinks{gap:16px!important;font-size:.72rem!important}
 }
