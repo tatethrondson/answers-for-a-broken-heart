@@ -26,6 +26,11 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Preserve standalone rebuilt pages
+        run: |
+          cp book.html /tmp/book.html
+          cp free-guides.html /tmp/free-guides.html
+
       - name: Normalize interior design system
         run: python scripts/design_normalize.py
 
@@ -40,6 +45,11 @@ jobs:
 
       - name: QA generated pages
         run: python scripts/site_qa.py
+
+      - name: Restore standalone rebuilt pages
+        run: |
+          cp /tmp/book.html book.html
+          cp /tmp/free-guides.html free-guides.html
 
       - name: Commit normalized site
         run: |
