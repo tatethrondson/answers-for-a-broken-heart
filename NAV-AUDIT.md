@@ -10,4 +10,4 @@ Canonical top navigation: **Start Here | 24 Answers | Free Resources | The Book 
 **Repository result: every root page has one header and the exact same five desktop/mobile options.**
 
 ## Live differences (diagnostic)
-- `/book`: desktop nav mismatch, mobile nav mismatch, extra legacy site navs outside shared shell=3
+- `/free-guides`: desktop nav mismatch, mobile nav mismatch, extra legacy site navs outside shared shell=3
