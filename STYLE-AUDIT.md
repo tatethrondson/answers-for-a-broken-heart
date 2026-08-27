@@ -40,7 +40,7 @@ The homepage and every public root HTML page are tested against one shared site 
 | `answer-24.html` | Answer article | 7 | **PASS** | — |
 | `begin-here.html` | Discovery | 3 | **PASS** | — |
 | `book-updates-thanks.html` | Utility | 2 | **PASS** | — |
-| `book.html` | Core page | 1 | **PASS** | — |
+| `book.html` | Core page | 0 | **PASS** | — |
 | `can-christians-be-depressed.html` | Care / guide | 5 | **PASS** | — |
 | `can-christians-go-to-counseling.html` | Other | 0 | **PASS** | — |
 | `church-resources.html` | Core page | 3 | **PASS** | — |
@@ -48,10 +48,10 @@ The homepage and every public root HTML page are tested against one shared site 
 | `contact.html` | Core page | 2 | **PASS** | — |
 | `doubt-and-church-hurt.html` | Topic hub | 6 | **PASS** | — |
 | `forgiveness-and-relational-hurt.html` | Topic hub | 7 | **PASS** | — |
-| `free-guides.html` | Core page | 1 | **PASS** | — |
+| `free-guides.html` | Core page | 0 | **PASS** | — |
 | `god-feels-far-away.html` | Topic hub | 7 | **PASS** | — |
 | `grief-and-loss.html` | Topic hub | 8 | **PASS** | — |
-| `help-someone.html` | Care / guide | 3 | **PASS** | — |
+| `help-someone.html` | Care / guide | 4 | **PASS** | — |
 | `hope-thanks.html` | Utility | 2 | **PASS** | — |
 | `how-to-pray-when-angry-with-god.html` | Other | 0 | **PASS** | — |
 | `index.html` | Homepage | 4 | **PASS** | — |
@@ -61,7 +61,7 @@ The homepage and every public root HTML page are tested against one shared site 
 | `unsafe.html` | Care / guide | 2 | **PASS** | — |
 | `what-forgiveness-does-not-mean.html` | Other | 0 | **PASS** | — |
 | `what-hurts-today.html` | Discovery | 3 | **PASS** | — |
-| `what-not-to-say-to-someone-grieving.html` | Other | 0 | **PASS** | — |
+| `what-not-to-say-to-someone-grieving.html` | Other | 1 | **PASS** | — |
 | `what-to-say-to-someone-grieving.html` | Other | 0 | **PASS** | — |
 | `why-god-allows-suffering.html` | Topic hub | 6 | **PASS** | — |
 

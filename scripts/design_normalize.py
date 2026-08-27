@@ -11,7 +11,9 @@ HEADER = '''<!-- PREMIUM-SHELL-HEADER-START --><header class="siteShellHeader"><
 
 FOOTER = '''<!-- PREMIUM-SHELL-FOOTER-START --><footer class="siteShellFooter"><div class="siteShellWrap siteShellFooterGrid"><div><div class="siteShellFooterBrand">Answers<small>for a Broken Heart</small></div><div class="siteShellFooterTag">Biblical hope for grief, suffering, doubt, unanswered prayer, and the questions pain asks.</div></div><nav class="siteShellFooterLinks" aria-label="Footer navigation"><a href="/start-here">Start Here</a><a href="/all-answers">24 Answers</a><a href="/free-guides">Free Resources</a><a href="/church-resources">Church Resources</a><a href="/book">The Book</a><a href="/about">About</a><a href="/contact">Contact</a></nav><div class="siteShellCopyright">© 2026 Tate Throndson · Psalm 34:18 · Resources are pastoral and educational and are not a substitute for emergency, medical, or mental-health care.</div></div></footer><!-- PREMIUM-SHELL-FOOTER-END -->'''
 
-SKIP = {'index.html'}
+# These two core pages are now clean, standalone rebuilds that intentionally use
+# clean-pages-v1.css and their own homepage-derived shell. Do not re-normalize them.
+SKIP = {'index.html', 'book.html', 'free-guides.html'}
 
 LEGACY_SHARED_CSS = re.compile(
     r'<link\s+rel=["\']stylesheet["\']\s+href=["\']/'
