@@ -1,0 +1,46 @@
+/* Book + Free Resources neutral palette lock v2.
+   New filename intentionally busts all prior browser/CDN cache. */
+
+body.page-book .darkBand,
+body.page-free-guides .darkBand{
+  background:#fbf8f2!important;
+  color:#242a26!important;
+  border-top:1px solid #ded8cd!important;
+  border-bottom:1px solid #ded8cd!important;
+  box-shadow:none!important;
+}
+body.page-book .darkBand h2,
+body.page-free-guides .darkBand h2{color:#183024!important}
+body.page-book .darkBand p,
+body.page-free-guides .darkBand p{color:#656d67!important}
+body.page-book .darkBand .eyebrow,
+body.page-free-guides .darkBand .eyebrow{color:#ad823d!important}
+
+body.page-book .scriptureBox{
+  background:#f5f0e7!important;
+  color:#242a26!important;
+  border:1px solid #ded8cd!important;
+  border-top:4px solid #ad823d!important;
+  box-shadow:none!important;
+}
+body.page-book .scriptureBox p{color:#656d67!important}
+body.page-book .scriptureBox small{color:#ad823d!important}
+
+body.page-free-guides .tonightCard{
+  background:#f5f0e7!important;
+  color:#242a26!important;
+  border:1px solid #ded8cd!important;
+  border-top:4px solid #ad823d!important;
+  box-shadow:none!important;
+}
+body.page-free-guides .tonightCard h2{color:#183024!important}
+body.page-free-guides .tonightCard p{color:#656d67!important}
+body.page-free-guides .tonightCard small{color:#ad823d!important}
+body.page-free-guides .tonightCard .btn{
+  background:#294533!important;
+  color:#fff!important;
+  border-color:#294533!important;
+}
+
+body.page-book .releasePrivacy,
+body.page-free-guides .signupPrivacy{color:#656d67!important}
