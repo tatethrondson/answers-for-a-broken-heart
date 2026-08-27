@@ -15,84 +15,66 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
-      - name: Insert podcast resources
+      - name: Update hurting-person podcast cards
         shell: python
         run: |
           from pathlib import Path
+          import re
 
-          restoration = '''<!-- PODCAST-RESOURCE-RESTORATION-START -->
-          <section aria-label="Listen deeper: From Brokenness to Restoration" style="margin:40px 0;padding:28px 30px;background:#f6f1e8;border:1px solid #ddd6c9;border-top:4px solid #b69258;">
-            <div style="font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#88683b;margin-bottom:8px;">Listen deeper</div>
-            <h2 style="font:400 2rem/1.1 Georgia,'Times New Roman',serif;color:#20372a;margin:0 0 10px;">From Brokenness to Restoration</h2>
-            <p style="margin:0 0 18px;">When life feels shattered, it can help to hear a real conversation about how God meets people in broken places and begins the work of restoration.</p>
-            <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000;">
-              <iframe src="https://www.youtube-nocookie.com/embed/opc26tntVRc" title="From Brokenness to Restoration podcast episode" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>
-            </div>
-            <p style="margin:14px 0 0;font-size:.82rem;"><a href="https://youtu.be/opc26tntVRc" target="_blank" rel="noopener" style="font-weight:800;color:#294533;">Watch on YouTube →</a></p>
-          </section>
-          <!-- PODCAST-RESOURCE-RESTORATION-END -->'''
-
-          bitterness = '''<!-- PODCAST-RESOURCE-BITTERNESS-START -->
-          <section aria-label="Listen deeper: Building Bridges and Battling Bitterness" style="margin:40px 0;padding:28px 30px;background:#f6f1e8;border:1px solid #ddd6c9;border-top:4px solid #b69258;">
-            <div style="font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#88683b;margin-bottom:8px;">Listen deeper</div>
-            <h2 style="font:400 2rem/1.1 Georgia,'Times New Roman',serif;color:#20372a;margin:0 0 10px;">Building Bridges and Battling Bitterness</h2>
-            <p style="margin:0 0 18px;">If hurt has started hardening into resentment, this conversation goes deeper on forgiveness, relationships, and how to keep bitterness from owning your heart.</p>
-            <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000;">
-              <iframe src="https://www.youtube-nocookie.com/embed/2KjUVqldTNU" title="Building Bridges and Battling Bitterness podcast episode" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>
-            </div>
-            <p style="margin:14px 0 0;font-size:.82rem;"><a href="https://youtu.be/2KjUVqldTNU" target="_blank" rel="noopener" style="font-weight:800;color:#294533;">Watch on YouTube →</a></p>
-          </section>
-          <!-- PODCAST-RESOURCE-BITTERNESS-END -->'''
-
-          youtube_podcast = 'https://www.youtube.com/playlist?list=PL_tyhsZalk-LnXzMu5r3vVIcbVn_vZdCu'
-          spotify_podcast = 'https://open.spotify.com/show/5VtQ2iAyL2anF0OMXH1l9f'
+          youtube_url = 'https://www.youtube.com/watch?v=PQAcaj6SER0'
+          thumbnail_url = 'https://i.ytimg.com/vi/PQAcaj6SER0/hqdefault.jpg'
 
           hurting = f'''<!-- PODCAST-RESOURCE-HURTING-START -->
-          <section aria-label="Featured podcast: What NOT to Say to a Hurting Person" style="margin:40px 0;padding:28px 30px;background:#f6f1e8;border:1px solid #ddd6c9;border-top:4px solid #b69258;">
-            <div style="font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#88683b;margin-bottom:8px;">Featured podcast</div>
-            <h2 style="font:400 2rem/1.1 Georgia,'Times New Roman',serif;color:#20372a;margin:0 0 10px;">What NOT to Say to a Hurting Person</h2>
-            <p style="margin:0 0 18px;">Good intentions do not always land as comfort. In this episode, Pastor Tate talks through common things Christians say to people in pain, why some well-meant phrases can make the hurt heavier, and what loving presence can sound like instead.</p>
-            <p style="margin:0;"><a href="{youtube_podcast}" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#294533;color:#fff;text-decoration:none;padding:11px 16px;font-size:.78rem;font-weight:800;letter-spacing:.03em;">Watch on YouTube →</a></p>
+          <style>
+          .hurtingPodcastResource{{margin:40px 0;padding:28px 30px;background:#f6f1e8;border:1px solid #ddd6c9;border-top:4px solid #b69258}}
+          .hurtingPodcastEyebrow{{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#88683b;margin-bottom:10px}}
+          .hurtingPodcastEpisode{{background:#fffdf9;border:1px solid #ded8cd;display:grid;grid-template-columns:minmax(240px,.9fr) 1.1fr;overflow:hidden}}
+          .hurtingPodcastThumb{{position:relative;display:block;min-height:220px;background:#d8d2c8;overflow:hidden}}
+          .hurtingPodcastThumb img{{display:block;width:100%;height:100%;object-fit:cover;position:absolute;inset:0}}
+          .hurtingPodcastPlay{{position:absolute;left:18px;bottom:16px;width:48px;height:48px;border-radius:50%;background:rgba(24,48,36,.94);color:white;display:flex;align-items:center;justify-content:center;font-size:1.05rem;box-shadow:0 7px 18px rgba(0,0,0,.22)}}
+          .hurtingPodcastCopy{{padding:24px;display:flex;flex-direction:column;justify-content:center}}
+          .hurtingPodcastCopy h2{{font:400 1.7rem/1.15 Georgia,'Times New Roman',serif;color:#20372a;margin:0 0 10px}}
+          .hurtingPodcastCopy p{{margin:0 0 18px!important;color:#4f5a53;font-size:.93rem;line-height:1.6}}
+          .hurtingPodcastButton{{display:inline-block;align-self:flex-start;background:#294533;color:#fff!important;text-decoration:none!important;padding:10px 15px;font-size:.76rem;font-weight:800;letter-spacing:.03em}}
+          .hurtingPodcastButton:hover{{background:#183024}}
+          @media(max-width:700px){{.hurtingPodcastResource{{padding:24px 21px}}.hurtingPodcastEpisode{{grid-template-columns:1fr}}.hurtingPodcastThumb{{min-height:0;aspect-ratio:16/9}}}}
+          </style>
+          <section class="hurtingPodcastResource" aria-label="Featured podcast: What NOT to Say to a Hurting Person">
+            <div class="hurtingPodcastEyebrow">Featured podcast</div>
+            <div class="hurtingPodcastEpisode">
+              <a class="hurtingPodcastThumb" href="{youtube_url}" target="_blank" rel="noopener noreferrer" aria-label="Watch What NOT to Say to a Hurting Person on YouTube">
+                <img src="{thumbnail_url}" alt="What NOT to Say to a Hurting Person podcast thumbnail" loading="lazy" decoding="async">
+                <span class="hurtingPodcastPlay" aria-hidden="true">▶</span>
+              </a>
+              <div class="hurtingPodcastCopy">
+                <h2>What NOT to Say to a Hurting Person</h2>
+                <p>Good intentions do not always land as comfort. In this episode, Pastor Tate talks through common things Christians say to people in pain, why some well-meant phrases can make the hurt heavier, and what loving presence can sound like instead.</p>
+                <a class="hurtingPodcastButton" href="{youtube_url}" target="_blank" rel="noopener noreferrer">Watch on YouTube →</a>
+              </div>
+            </div>
           </section>
           <!-- PODCAST-RESOURCE-HURTING-END -->'''
 
-          placements = {
-              'answer-07.html': ('PODCAST-RESOURCE-RESTORATION-START', restoration, None),
-              'answer-17.html': ('PODCAST-RESOURCE-BITTERNESS-START', bitterness, None),
-              'answer-21.html': ('PODCAST-RESOURCE-BITTERNESS-START', bitterness, None),
-              'answer-22.html': ('PODCAST-RESOURCE-BITTERNESS-START', bitterness, None),
-              'help-someone.html': ('PODCAST-RESOURCE-HURTING-START', hurting, '<h2>What helpful love looks like.</h2>'),
-              'what-not-to-say-to-someone-grieving.html': ('PODCAST-RESOURCE-HURTING-START', hurting, None),
-              'free-guides.html': ('PODCAST-RESOURCE-HURTING-START', hurting, None),
-          }
+          targets = [
+              'help-someone.html',
+              'what-not-to-say-to-someone-grieving.html',
+              'free-guides.html',
+          ]
 
+          pattern = re.compile(r'<!-- PODCAST-RESOURCE-HURTING-START -->.*?<!-- PODCAST-RESOURCE-HURTING-END -->', re.S)
           changed = []
-          for filename, (marker, snippet, preferred_anchor) in placements.items():
+          for filename in targets:
               path = Path(filename)
               text = path.read_text()
-
-              if marker == 'PODCAST-RESOURCE-HURTING-START' and marker in text:
-                  new_text = text.replace(spotify_podcast, youtube_podcast).replace('Listen to the podcast →', 'Watch on YouTube →')
-                  if new_text != text:
-                      path.write_text(new_text)
-                      changed.append(filename)
-                  continue
-
-              if marker in text:
-                  continue
-
-              if preferred_anchor and preferred_anchor in text:
-                  anchor = preferred_anchor
-              else:
-                  anchor = '</article>' if '</article>' in text else '</main>'
-              if anchor not in text:
-                  raise SystemExit(f'No safe insertion point found in {filename}')
-              text = text.replace(anchor, snippet + '\n' + anchor, 1)
-              path.write_text(text)
-              changed.append(filename)
+              if not pattern.search(text):
+                  raise SystemExit(f'Podcast marker not found in {filename}')
+              new_text = pattern.sub(hurting, text, count=1)
+              if new_text != text:
+                  path.write_text(new_text)
+                  changed.append(filename)
 
           print('Updated:', ', '.join(changed) if changed else 'none')
-      - name: Commit podcast placements
+      - name: Commit podcast thumbnail updates
         run: |
           if git diff --quiet; then
             echo "No changes needed"
@@ -100,6 +82,6 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add answer-07.html answer-17.html answer-21.html answer-22.html help-someone.html what-not-to-say-to-someone-grieving.html free-guides.html
-          git commit -m "Point hurting-person podcast cards to YouTube"
+          git add help-someone.html what-not-to-say-to-someone-grieving.html free-guides.html
+          git commit -m "Show exact YouTube thumbnail for hurting-person podcast"
           git push origin main
