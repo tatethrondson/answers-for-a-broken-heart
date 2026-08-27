@@ -170,6 +170,105 @@
   font-size:.67rem!important;
 }
 
+/* Final homepage-palette pass for interior content.
+   site-shell.css loads last, so these rules intentionally neutralize the
+   handful of legacy page-level colors that survived earlier design locks. */
+body[class*="page-"]{
+  --ab-pine:#294533;
+  --ab-deep:#183024;
+  --ab-sage:#738371;
+  --ab-cream:#f5f0e7;
+  --ab-warm:#fbf8f2;
+  --ab-paper:#fffefb;
+  --ab-ink:#242a26;
+  --ab-muted:#656d67;
+  --ab-gold:#ad823d;
+  --ab-line:#ded8cd;
+}
+
+body[class*="page-"] .supportingLinks,
+body[class*="page-"] .supportingLinksWave2{
+  background:#faf8f3!important;
+  border-top:1px solid var(--ab-line)!important;
+  border-bottom-color:var(--ab-line)!important;
+}
+body[class*="page-"] .supportingLinks .supportingEyebrow,
+body[class*="page-"] .supportingLinksWave2 .waveEyebrow{
+  color:var(--ab-gold)!important;
+}
+body[class*="page-"] .supportingLinks h2,
+body[class*="page-"] .supportingLinksWave2 h2{
+  color:var(--ab-deep)!important;
+}
+body[class*="page-"] .supportingLinks .supportingIntro,
+body[class*="page-"] .supportingLinksWave2 .waveLead{
+  color:var(--ab-muted)!important;
+}
+body[class*="page-"] .supportingLinks .supportingCard,
+body[class*="page-"] .supportingLinksWave2 .waveCard{
+  background:#fff!important;
+  border:1px solid var(--ab-line)!important;
+  border-radius:2px!important;
+  box-shadow:none!important;
+}
+body[class*="page-"] .supportingLinks .supportingCard:hover,
+body[class*="page-"] .supportingLinksWave2 .waveCard:hover{
+  border-color:#cfc6b7!important;
+  box-shadow:0 12px 28px rgba(30,44,35,.08)!important;
+}
+body[class*="page-"] .supportingLinks .supportingCard small,
+body[class*="page-"] .supportingLinksWave2 .waveCard small{
+  color:var(--ab-gold)!important;
+}
+body[class*="page-"] .supportingLinks .supportingCard strong,
+body[class*="page-"] .supportingLinksWave2 .waveCard strong{
+  color:#25382d!important;
+}
+body[class*="page-"] .supportingLinks .supportingCard span,
+body[class*="page-"] .supportingLinksWave2 .waveCard span{
+  color:var(--ab-muted)!important;
+}
+
+/* Podcast resources use the same cream / white / pine / gold language as home. */
+body[class*="page-"] .podcastResource,
+body[class*="page-"] .hurtingPodcastResource{
+  background:var(--ab-cream)!important;
+  border:1px solid var(--ab-line)!important;
+  border-top:4px solid var(--ab-gold)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[class*="page-"] .podcastEpisode,
+body[class*="page-"] .hurtingPodcastEpisode{
+  background:#fffefb!important;
+  border:1px solid var(--ab-line)!important;
+}
+body[class*="page-"] .podcastResource .podcastEyebrow,
+body[class*="page-"] .hurtingPodcastEyebrow{
+  color:var(--ab-gold)!important;
+}
+body[class*="page-"] .podcastResource h2,
+body[class*="page-"] .podcastEpisode h3,
+body[class*="page-"] .hurtingPodcastCopy h2{
+  color:var(--ab-deep)!important;
+}
+body[class*="page-"] .podcastResource .podcastIntro,
+body[class*="page-"] .podcastEpisode p,
+body[class*="page-"] .hurtingPodcastCopy p{
+  color:var(--ab-muted)!important;
+}
+body[class*="page-"] .podcastButton,
+body[class*="page-"] .hurtingPodcastButton{
+  background:var(--ab-pine)!important;
+  color:#fff!important;
+  border:1px solid var(--ab-pine)!important;
+}
+body[class*="page-"] .podcastButton:hover,
+body[class*="page-"] .hurtingPodcastButton:hover{
+  background:var(--ab-deep)!important;
+  border-color:var(--ab-deep)!important;
+}
+
 @media(max-width:900px){
   .siteShellLinks{gap:16px!important;font-size:.72rem!important}
 }
