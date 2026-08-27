@@ -1,0 +1,38 @@
+name: Cache bust Book and Free Resources CSS
+
+on:
+  push:
+    paths:
+      - '.github/workflows/cache-bust-book-free.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  cache-bust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Point Book and Free Resources to fresh CSS assets
+        shell: python
+        run: |
+          from pathlib import Path
+          for filename in ['book.html', 'free-guides.html']:
+              p = Path(filename)
+              text = p.read_text()
+              text = text.replace('/site-body-lock-v5.css?v=5', '/site-body-lock-v5.css?v=6')
+              text = text.replace('/site-book-free-neutral-v1.css?v=1', '/site-book-free-neutral-v2.css?v=2')
+              p.write_text(text)
+      - name: Commit cache-busted asset links
+        run: |
+          if git diff --quiet; then
+            echo "No changes needed"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add book.html free-guides.html
+          git commit -m "Force fresh CSS on Book and Free Resources"
+          git push origin main
