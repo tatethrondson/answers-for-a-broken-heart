@@ -29,7 +29,7 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `contact-thanks.html` | 0 | 4 | 0 | 0 | 0 | 0 | 0 |
 | `church-resources.html` | 0 | 38 | 0 | 0 | 0 | 0 | 0 |
 | `can-christians-go-to-counseling.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| `book.html` | 0 | 43 | 0 | 0 | 0 | 0 | 0 |
+| `book.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `book-updates-thanks.html` | 0 | 10 | 0 | 0 | 0 | 0 | 0 |
 | `begin-here.html` | 0 | 29 | 0 | 0 | 0 | 0 | 0 |
 | `answer-24.html` | 0 | 89 | 0 | 0 | 0 | 0 | 0 |
