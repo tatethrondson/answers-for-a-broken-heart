@@ -93,15 +93,17 @@ body.page-book .sectionHead p,
 body.page-free-guides .sectionHead p{color:var(--ab-muted,#656d67)!important}
 body.page-book .darkBand,
 body.page-free-guides .darkBand{
-  background:var(--ab-deep,#183024)!important;color:#fff!important;
-  border:0!important;border-radius:0!important;box-shadow:none!important;
+  background:var(--ab-warm,#fbf8f2)!important;color:var(--ab-ink,#242a26)!important;
+  border-top:1px solid var(--ab-line,#ded8cd)!important;
+  border-bottom:1px solid var(--ab-line,#ded8cd)!important;
+  border-radius:0!important;box-shadow:none!important;
 }
 body.page-book .darkBand h2,
-body.page-free-guides .darkBand h2{color:#fff!important}
+body.page-free-guides .darkBand h2{color:var(--ab-deep,#183024)!important}
 body.page-book .darkBand p,
-body.page-free-guides .darkBand p{color:rgba(255,255,255,.80)!important}
+body.page-free-guides .darkBand p{color:var(--ab-muted,#656d67)!important}
 body.page-book .darkBand .eyebrow,
-body.page-free-guides .darkBand .eyebrow{color:#d8bd87!important}
+body.page-free-guides .darkBand .eyebrow{color:var(--ab-gold,#ad823d)!important}
 
 /* Book page — remove the remaining legacy landing-page visual language. */
 body.page-book .bookTrust{
@@ -138,11 +140,13 @@ body.page-book .audienceItem strong{color:var(--ab-deep,#183024)!important}
 body.page-book .sampleCopy h2{color:var(--ab-deep,#183024)!important}
 body.page-book .sampleCopy p{color:var(--ab-muted,#656d67)!important}
 body.page-book .scriptureBox{
-  background:var(--ab-deep,#183024)!important;color:#fff!important;
-  border:0!important;border-radius:0!important;box-shadow:none!important;
+  background:var(--ab-cream,#f5f0e7)!important;color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-top:4px solid var(--ab-gold,#ad823d)!important;
+  border-radius:0!important;box-shadow:none!important;
 }
-body.page-book .scriptureBox p{color:rgba(255,255,255,.90)!important}
-body.page-book .scriptureBox small{color:#d8bd87!important}
+body.page-book .scriptureBox p{color:var(--ab-muted,#656d67)!important}
+body.page-book .scriptureBox small{color:var(--ab-gold,#ad823d)!important}
 body.page-book .releaseForm input[type="email"]{
   background:#fff!important;color:var(--ab-ink,#242a26)!important;
   border:1px solid var(--ab-line,#ded8cd)!important;border-radius:0!important;box-shadow:none!important;
@@ -151,18 +155,20 @@ body.page-book .releaseForm button{
   background:#d8bd87!important;color:var(--ab-deep,#183024)!important;
   border:1px solid #d8bd87!important;border-radius:0!important;box-shadow:none!important;
 }
-body.page-book .releasePrivacy{color:rgba(255,255,255,.62)!important}
+body.page-book .releasePrivacy{color:var(--ab-muted,#656d67)!important}
 
 /* Free Resources page — same surfaces, controls, and typography as the core site. */
 body.page-free-guides .freeHeroNote{color:var(--ab-muted,#656d67)!important}
 body.page-free-guides .freeHeroNote strong{color:var(--ab-pine,#294533)!important}
 body.page-free-guides .tonightCard{
-  background:var(--ab-deep,#183024)!important;color:#fff!important;
-  border:0!important;border-radius:0!important;box-shadow:none!important;
+  background:var(--ab-cream,#f5f0e7)!important;color:var(--ab-ink,#242a26)!important;
+  border:1px solid var(--ab-line,#ded8cd)!important;
+  border-top:4px solid var(--ab-gold,#ad823d)!important;
+  border-radius:0!important;box-shadow:none!important;
 }
-body.page-free-guides .tonightCard small{color:#d8bd87!important}
-body.page-free-guides .tonightCard h2{color:#fff!important}
-body.page-free-guides .tonightCard p{color:rgba(255,255,255,.80)!important}
+body.page-free-guides .tonightCard small{color:var(--ab-gold,#ad823d)!important}
+body.page-free-guides .tonightCard h2{color:var(--ab-deep,#183024)!important}
+body.page-free-guides .tonightCard p{color:var(--ab-muted,#656d67)!important}
 body.page-free-guides .resourceIcon{
   background:var(--ab-cream,#f5f0e7)!important;color:var(--ab-pine,#294533)!important;
   border:1px solid var(--ab-line,#ded8cd)!important;border-radius:0!important;box-shadow:none!important;
@@ -184,7 +190,7 @@ body.page-free-guides .signupForm button{
   background:#d8bd87!important;color:var(--ab-deep,#183024)!important;
   border:1px solid #d8bd87!important;border-radius:0!important;box-shadow:none!important;
 }
-body.page-free-guides .signupPrivacy{color:rgba(255,255,255,.62)!important}
+body.page-free-guides .signupPrivacy{color:var(--ab-muted,#656d67)!important}
 body.page-free-guides .noGate{color:var(--ab-muted,#656d67)!important}
 body.page-free-guides .noGate strong{color:var(--ab-pine,#294533)!important}
 
