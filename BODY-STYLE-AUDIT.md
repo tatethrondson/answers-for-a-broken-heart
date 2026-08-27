@@ -6,16 +6,17 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 
 | Page | Risk score | Used visual rules | Used uncovered selectors | Noncanonical colors | Unusual radii | Shadows | Fonts |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| `help-someone.html` | 36 | 45 | 18 | 8 | 0 | 2 | 0 |
 | `grief-and-loss.html` | 28 | 76 | 18 | 4 | 0 | 2 | 0 |
+| `what-not-to-say-to-someone-grieving.html` | 24 | 9 | 9 | 7 | 0 | 1 | 0 |
+| `free-guides.html` | 24 | 51 | 9 | 7 | 0 | 1 | 0 |
 | `forgiveness-and-relational-hurt.html` | 16 | 64 | 9 | 3 | 0 | 1 | 0 |
 | `doubt-and-church-hurt.html` | 16 | 44 | 9 | 3 | 0 | 1 | 0 |
 | `can-christians-be-depressed.html` | 16 | 46 | 9 | 3 | 0 | 1 | 0 |
-| `help-someone.html` | 12 | 36 | 9 | 1 | 0 | 1 | 0 |
 | `god-feels-far-away.html` | 12 | 65 | 9 | 1 | 0 | 1 | 0 |
 | `anger-and-unanswered-prayer.html` | 12 | 45 | 9 | 1 | 0 | 1 | 0 |
 | `why-god-allows-suffering.html` | 0 | 57 | 0 | 0 | 0 | 0 | 0 |
 | `what-to-say-to-someone-grieving.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| `what-not-to-say-to-someone-grieving.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `what-hurts-today.html` | 0 | 42 | 0 | 0 | 0 | 0 | 0 |
 | `what-forgiveness-does-not-mean.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `unsafe.html` | 0 | 17 | 0 | 0 | 0 | 0 | 0 |
@@ -24,7 +25,6 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `photo-test.html` | 0 | 3 | 0 | 0 | 0 | 0 | 0 |
 | `how-to-pray-when-angry-with-god.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `hope-thanks.html` | 0 | 12 | 0 | 0 | 0 | 0 | 0 |
-| `free-guides.html` | 0 | 42 | 0 | 0 | 0 | 0 | 0 |
 | `contact.html` | 0 | 25 | 0 | 0 | 0 | 0 | 0 |
 | `contact-thanks.html` | 0 | 4 | 0 | 0 | 0 | 0 | 0 |
 | `church-resources.html` | 0 | 38 | 0 | 0 | 0 | 0 | 0 |
@@ -64,6 +64,29 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 
 ## Remaining pages and used selectors
 
+### `help-someone.html` — score 36
+- Noncanonical colors: #111, #20372a, #4f5a53, #b69258, #ddd6c9, #e7e0d6, #f6f1e8, #fffdf9
+- Shadows: `.hurtingPodcastPlay`; `.supportingLinksWave2 .waveCard:hover`
+- Used visual selectors not governed by the final locks:
+  - `.hurtingPodcastResource`
+  - `.hurtingPodcastEyebrow`
+  - `.hurtingPodcastEpisode`
+  - `.hurtingPodcastThumb`
+  - `.hurtingPodcastPlay`
+  - `.hurtingPodcastCopy h2`
+  - `.hurtingPodcastCopy p`
+  - `.hurtingPodcastButton`
+  - `.hurtingPodcastButton:hover`
+  - `.supportingLinksWave2`
+  - `.supportingLinksWave2 .waveEyebrow`
+  - `.supportingLinksWave2 h2`
+  - `.supportingLinksWave2 .waveLead`
+  - `.supportingLinksWave2 .waveCard`
+  - `.supportingLinksWave2 .waveCard:hover`
+  - `.supportingLinksWave2 .waveCard small`
+  - `.supportingLinksWave2 .waveCard strong`
+  - `.supportingLinksWave2 .waveCard span`
+
 ### `grief-and-loss.html` — score 28
 - Noncanonical colors: #626b65, #87683a, #e7e0d6, #e8e1d7
 - Shadows: `.supportingLinks .supportingCard:hover`; `.supportingLinksWave2 .waveCard:hover`
@@ -86,6 +109,34 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.supportingLinksWave2 .waveCard small`
   - `.supportingLinksWave2 .waveCard strong`
   - `.supportingLinksWave2 .waveCard span`
+
+### `what-not-to-say-to-someone-grieving.html` — score 24
+- Noncanonical colors: #111, #20372a, #4f5a53, #b69258, #ddd6c9, #f6f1e8, #fffdf9
+- Shadows: `.hurtingPodcastPlay`
+- Used visual selectors not governed by the final locks:
+  - `.hurtingPodcastResource`
+  - `.hurtingPodcastEyebrow`
+  - `.hurtingPodcastEpisode`
+  - `.hurtingPodcastThumb`
+  - `.hurtingPodcastPlay`
+  - `.hurtingPodcastCopy h2`
+  - `.hurtingPodcastCopy p`
+  - `.hurtingPodcastButton`
+  - `.hurtingPodcastButton:hover`
+
+### `free-guides.html` — score 24
+- Noncanonical colors: #111, #20372a, #4f5a53, #b69258, #ddd6c9, #f6f1e8, #fffdf9
+- Shadows: `.hurtingPodcastPlay`
+- Used visual selectors not governed by the final locks:
+  - `.hurtingPodcastResource`
+  - `.hurtingPodcastEyebrow`
+  - `.hurtingPodcastEpisode`
+  - `.hurtingPodcastThumb`
+  - `.hurtingPodcastPlay`
+  - `.hurtingPodcastCopy h2`
+  - `.hurtingPodcastCopy p`
+  - `.hurtingPodcastButton`
+  - `.hurtingPodcastButton:hover`
 
 ### `forgiveness-and-relational-hurt.html` — score 16
 - Noncanonical colors: #626b65, #87683a, #e8e1d7
@@ -129,20 +180,6 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.supportingLinks .supportingCard strong`
   - `.supportingLinks .supportingCard span`
 
-### `help-someone.html` — score 12
-- Noncanonical colors: #e7e0d6
-- Shadows: `.supportingLinksWave2 .waveCard:hover`
-- Used visual selectors not governed by the final locks:
-  - `.supportingLinksWave2`
-  - `.supportingLinksWave2 .waveEyebrow`
-  - `.supportingLinksWave2 h2`
-  - `.supportingLinksWave2 .waveLead`
-  - `.supportingLinksWave2 .waveCard`
-  - `.supportingLinksWave2 .waveCard:hover`
-  - `.supportingLinksWave2 .waveCard small`
-  - `.supportingLinksWave2 .waveCard strong`
-  - `.supportingLinksWave2 .waveCard span`
-
 ### `god-feels-far-away.html` — score 12
 - Noncanonical colors: #e7e0d6
 - Shadows: `.supportingLinksWave2 .waveCard:hover`
@@ -171,4 +208,4 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.supportingLinksWave2 .waveCard strong`
   - `.supportingLinksWave2 .waveCard span`
 
-- Pages with no used visual escape selectors: **48/55**
+- Pages with no used visual escape selectors: **46/55**
