@@ -56,6 +56,11 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Preserve standalone rebuilt pages
+        run: |
+          cp book.html /tmp/book.html
+          cp free-guides.html /tmp/free-guides.html
+
       - name: Apply final audit cleanup
         run: python scripts/site_polish.py
 
@@ -122,6 +127,11 @@ jobs:
 
       - name: QA the generated pages
         run: python scripts/site_qa.py
+
+      - name: Restore standalone rebuilt pages
+        run: |
+          cp /tmp/book.html book.html
+          cp /tmp/free-guides.html free-guides.html
 
       - name: Commit polished pages
         run: |
