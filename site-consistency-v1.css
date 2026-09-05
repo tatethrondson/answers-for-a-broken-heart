@@ -1,0 +1,246 @@
+/* Answers for a Broken Heart — interior consistency layer
+   Homepage is the visual source of truth. This file intentionally keeps
+   interior pages calmer, warmer, and visually consistent without forcing
+   every page into the same layout. */
+
+:root{
+  --ab-pine:#294533;
+  --ab-deep:#183024;
+  --ab-sage:#738371;
+  --ab-cream:#f5f0e7;
+  --ab-warm:#fbf8f2;
+  --ab-paper:#fffefb;
+  --ab-ink:#242a26;
+  --ab-muted:#656d67;
+  --ab-gold:#ad823d;
+  --ab-line:#ded8cd;
+  --ab-soft:#eef2ed;
+}
+
+body[class*="page-"]{
+  background:var(--ab-paper)!important;
+  color:var(--ab-ink)!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+}
+body[class*="page-"] h1,
+body[class*="page-"] h2,
+body[class*="page-"] h3{
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-weight:400!important;
+  letter-spacing:-.025em!important;
+}
+body[class*="page-"] .eyebrow{
+  color:var(--ab-gold)!important;
+  text-transform:uppercase!important;
+  letter-spacing:.18em!important;
+  font-size:.67rem!important;
+  font-weight:800!important;
+}
+
+/* Interior heroes should feel like the homepage's warm sub-hero, not a new brand. */
+body[class*="page-"] .hero,
+body[class*="page-"] .subHero{
+  background:linear-gradient(120deg,#f7f2e9,#eaf0e8)!important;
+  border-color:var(--ab-line)!important;
+  box-shadow:none!important;
+}
+body[class*="page-"] .hero h1,
+body[class*="page-"] .subHero h1{
+  color:#244432!important;
+}
+body[class*="page-"] .heroLead,
+body[class*="page-"] .hero .lead,
+body[class*="page-"] .subHero .lead,
+body[class*="page-"] .dek{
+  color:#4b5850!important;
+}
+
+/* Buttons: same green, square editorial treatment used on home. */
+body[class*="page-"] .btn,
+body[class*="page-"] button.btn,
+body[class*="page-"] .openNow,
+body[class*="page-"] .journalButton{
+  background:var(--ab-pine)!important;
+  color:#fff!important;
+  border:1px solid var(--ab-pine)!important;
+  border-radius:2px!important;
+  box-shadow:none!important;
+  text-transform:uppercase!important;
+  letter-spacing:.06em!important;
+  font-weight:800!important;
+}
+body[class*="page-"] .btn:hover,
+body[class*="page-"] button.btn:hover,
+body[class*="page-"] .openNow:hover,
+body[class*="page-"] .journalButton:hover{
+  background:var(--ab-deep)!important;
+  border-color:var(--ab-deep)!important;
+}
+body[class*="page-"] .btn.secondary,
+body[class*="page-"] .btn.outline,
+body[class*="page-"] .btn.light{
+  background:#fff!important;
+  color:var(--ab-pine)!important;
+  border:1px solid var(--ab-pine)!important;
+}
+
+/* Cards and panels: white + quiet border, not a patchwork of rounded styles. */
+body[class*="page-"] .card,
+body[class*="page-"] .answerCard,
+body[class*="page-"] .relatedCard,
+body[class*="page-"] .choice,
+body[class*="page-"] .truth,
+body[class*="page-"] .item,
+body[class*="page-"] .journalCard,
+body[class*="page-"] .audience,
+body[class*="page-"] .tonightCard,
+body[class*="page-"] .podcast,
+body[class*="page-"] .sideCard,
+body[class*="page-"] .pastoral,
+body[class*="page-"] .scripture,
+body[class*="page-"] .scriptureBox{
+  border-color:var(--ab-line)!important;
+  border-radius:2px!important;
+  box-shadow:none!important;
+}
+body[class*="page-"] .card,
+body[class*="page-"] .answerCard,
+body[class*="page-"] .choice,
+body[class*="page-"] .truth,
+body[class*="page-"] .item{
+  background:#fff!important;
+}
+body[class*="page-"] .card:hover,
+body[class*="page-"] .answerCard:hover,
+body[class*="page-"] .choice:hover,
+body[class*="page-"] .relatedCard:hover{
+  box-shadow:0 12px 28px rgba(30,44,35,.08)!important;
+  border-color:#cfc6b7!important;
+}
+
+/* Warm sections and supporting surfaces. */
+body[class*="page-"] .sectionWarm,
+body[class*="page-"] .truthSection,
+body[class*="page-"] .library,
+body[class*="page-"] .tools,
+body[class*="page-"] .guide,
+body[class*="page-"] .related{
+  background:#faf8f3!important;
+  border-color:var(--ab-line)!important;
+}
+body[class*="page-"] .audience,
+body[class*="page-"] .pastoral,
+body[class*="page-"] .helping,
+body[class*="page-"] .future,
+body[class*="page-"] .podcast{
+  background:var(--ab-soft)!important;
+}
+body[class*="page-"] .scripture,
+body[class*="page-"] .scriptureBox,
+body[class*="page-"] .relatedCard,
+body[class*="page-"] .use,
+body[class*="page-"] .tonightCard{
+  background:var(--ab-cream)!important;
+}
+
+/* Keep deep green as one intentional accent, not several competing greens. */
+body[class*="page-"] .quick,
+body[class*="page-"] .night,
+body[class*="page-"] .tonight,
+body[class*="page-"] .churchKit,
+body[class*="page-"] .bookCta,
+body[class*="page-"] .cta,
+body[class*="page-"] .short,
+body[class*="page-"] .shortAnswer,
+body[class*="page-"] .formBand{
+  background:var(--ab-deep)!important;
+  color:#fff!important;
+}
+body[class*="page-"] .quick h2,
+body[class*="page-"] .night h2,
+body[class*="page-"] .tonight h2,
+body[class*="page-"] .churchKit h2,
+body[class*="page-"] .bookCta h2,
+body[class*="page-"] .cta h2,
+body[class*="page-"] .short h2,
+body[class*="page-"] .shortAnswer h2,
+body[class*="page-"] .formBand h2{
+  color:#fff!important;
+}
+
+/* Book + Free Resources were built on an older olive/rounded visual system. */
+body.page-book .hero,
+body.page-free-guides .hero{
+  padding-top:0!important;
+}
+body.page-book .heroInner,
+body.page-free-guides .heroInner{
+  border-radius:0!important;
+  border-left:0!important;
+  border-right:0!important;
+  background:transparent!important;
+}
+body.page-book .bookCover,
+body.page-free-guides .tonightCard,
+body.page-free-guides .journalCard{
+  border-radius:2px!important;
+}
+body.page-book .bookTitle,
+body.page-book .bookHeart,
+body.page-book .bookAuthor{
+  color:var(--ab-pine)!important;
+}
+body.page-book .bookHeart{color:var(--ab-gold)!important}
+body.page-book .bookSub{color:#3e4741!important;text-transform:none!important;letter-spacing:0!important;font-family:Georgia,"Times New Roman",serif!important;line-height:1.35!important}
+body.page-free-guides .resourceIcon{background:var(--ab-pine)!important}
+
+/* The all-answers page repeated the same reassurance twice. Keep the page scan-friendly. */
+body.page-all-answers .intro{display:none!important}
+body.page-all-answers .groupHead p{max-width:650px!important}
+body.page-all-answers .card p{font-size:.8rem!important;line-height:1.5!important}
+
+/* Answer pages: less visual competition above the fold. */
+body[class*="page-answer-"] .hero{padding-top:48px!important;padding-bottom:48px!important}
+body[class*="page-answer-"] .hero h1{max-width:920px!important}
+body[class*="page-answer-"] .answerTopicHub{margin-top:10px!important}
+body[class*="page-answer-"] .minuteHelp{background:#fff!important;border-color:var(--ab-line)!important;border-top:3px solid var(--ab-gold)!important}
+body[class*="page-answer-"] .minuteItem{background:var(--ab-cream)!important}
+body[class*="page-answer-"] .answerSafety{font-size:.76rem!important;line-height:1.5!important;color:var(--ab-muted)!important}
+
+/* Normalize legacy headers/footers on pages that still render them before runtime replacement. */
+body[class*="page-"] .siteHeader,
+body[class*="page-"] header.siteHeader{
+  background:rgba(255,254,251,.97)!important;
+  border-bottom:1px solid rgba(33,49,40,.08)!important;
+  box-shadow:none!important;
+}
+body[class*="page-"] .siteFooter,
+body[class*="page-"] footer.siteFooter{
+  background:#244833!important;
+  color:rgba(255,255,255,.88)!important;
+  border:0!important;
+}
+body[class*="page-"] .footerTag,
+body[class*="page-"] .copyright{
+  color:rgba(255,255,255,.68)!important;
+}
+body[class*="page-"] .footerLinks a{
+  color:rgba(255,255,255,.88)!important;
+}
+
+/* Form controls should feel like the same site. */
+body[class*="page-"] input[type="email"],
+body[class*="page-"] input[type="search"],
+body[class*="page-"] .searchBox,
+body[class*="page-"] .search{
+  background:#fff!important;
+  border:1px solid var(--ab-line)!important;
+  border-radius:2px!important;
+  color:var(--ab-ink)!important;
+  box-shadow:none!important;
+}
+
+@media(max-width:820px){
+  body.page-book .heroInner,
+  body.page-free-guides .heroInner{padding-left:0!important;padding-right:0!important}
+}
