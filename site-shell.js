@@ -50,6 +50,14 @@
     'Your Doubt Is Not Disqualifying':'You Can Trust Him With What You Still Don’t Understand'
   };
 
+  function ensureConsistencyStyles(){
+    if(document.querySelector('link[href^="/site-consistency-v1.css"]')) return;
+    const link=document.createElement('link');
+    link.rel='stylesheet';
+    link.href='/site-consistency-v1.css?v=1';
+    document.head.appendChild(link);
+  }
+
   function normalizePath(p){
     if(!p||p==='/') return '/';
     return p.replace(/\.html$/,'').replace(/\/$/,'')||'/';
@@ -77,6 +85,7 @@
   function enforce(){
     const body=document.body;
     if(!body) return;
+    ensureConsistencyStyles();
     const main=document.querySelector('main');
 
     let header=document.querySelector('header.siteShellHeader');
