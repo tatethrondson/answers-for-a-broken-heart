@@ -6,6 +6,7 @@
     ['The Book','/book'],
     ['About','/about']
   ];
+
   const SITE_HREFS=new Set(['/','/start-here','/begin-here','/what-hurts-today','/all-answers','/free-guides','/book','/about','/contact','/church-resources']);
 
   const FINAL_ANSWERS={
@@ -62,26 +63,32 @@
     if(!p||p==='/') return '/';
     return p.replace(/\.html$/,'').replace(/\/$/,'')||'/';
   }
+
   function isActive(href){
     const here=normalizePath(window.location.pathname);
     const target=normalizePath(href);
     if(target==='/start-here'&&(here==='/begin-here'||here==='/what-hurts-today')) return true;
     return here===target;
   }
+
   function links(){
     return ITEMS.map(([label,href])=>`<a href="${href}"${isActive(href)?' aria-current="page"':''}>${label}</a>`).join('');
   }
+
   function headerMarkup(){
     return `<div class="siteShellWrap siteShellNav"><a class="siteShellBrand" href="/" aria-label="Answers for a Broken Heart home"><span class="siteShellBrandWords">Answers<small>for a Broken Heart</small></span><span class="siteShellHeart">♡</span></a><nav class="siteShellLinks" aria-label="Main navigation">${links()}</nav><details class="siteShellMobile"><summary>Menu</summary><nav class="siteShellMobileMenu" aria-label="Mobile navigation">${links()}</nav></details></div>`;
   }
+
   function hasSiteLinks(el){
     return [...el.querySelectorAll('a[href]')].some(a=>SITE_HREFS.has(normalizePath(a.getAttribute('href'))));
   }
+
   function beforeMain(el,main){
     if(!main) return true;
     if(main.contains(el)) return false;
     return !!(el.compareDocumentPosition(main)&Node.DOCUMENT_POSITION_FOLLOWING);
   }
+
   function enforce(){
     const body=document.body;
     if(!body) return;
@@ -141,10 +148,9 @@
     const nodes=[];
     while(walker.nextNode()) nodes.push(walker.currentNode);
     nodes.forEach(node=>{
-      let value=node.nodeValue;
-      let next=value;
+      let next=node.nodeValue;
       Object.entries(OLD_TITLES).forEach(([oldTitle,newTitle])=>{next=next.split(oldTitle).join(newTitle)});
-      if(next!==value) node.nodeValue=next;
+      if(next!==node.nodeValue) node.nodeValue=next;
     });
   }
 
@@ -173,6 +179,26 @@
     replaceOldTitles(document.body);
   }
 
+  function findBalancedCollapseStart(start,stop){
+    let chars=0;
+    let sawSection=false;
+    let node=start.nextSibling;
+    while(node&&node!==stop){
+      if(node.nodeType===1){
+        const el=node;
+        if(el.tagName==='H2'){
+          if(sawSection&&chars>=850) return el;
+          sawSection=true;
+        }
+        chars+=(el.textContent||'').trim().length;
+      }else if(node.nodeType===3){
+        chars+=(node.nodeValue||'').trim().length;
+      }
+      node=node.nextSibling;
+    }
+    return null;
+  }
+
   function simplifyAnswerPage(){
     const n=answerNumber();
     if(!n||document.body.dataset.answerSimplified==='1') return;
@@ -182,20 +208,40 @@
 
     const start=article.querySelector('.answerSafety')||article.querySelector('.minuteHelp')||article.querySelector('.short')||article.querySelector('.shortAnswer');
     const stop=article.querySelector('.answerDeepDive')||article.querySelector('.answerJourney');
-    if(start&&stop&&start.nextSibling&&start.nextSibling!==stop){
-      const details=document.createElement('details');
-      details.className='siteFullAnswer';
-      const summary=document.createElement('summary');
-      summary.innerHTML='<span><strong>Read the fuller answer</strong><small>Take your time. Open this when you want to go a little deeper.</small></span><span aria-hidden="true">+</span>';
-      const body=document.createElement('div');
-      body.className='siteFullAnswerBody';
-      details.append(summary,body);
-      article.insertBefore(details,start.nextSibling);
-      let node=details.nextSibling;
-      while(node&&node!==stop){
-        const next=node.nextSibling;
-        body.appendChild(node);
-        node=next;
+
+    if(start&&stop){
+      const firstVisibleHeading=(()=>{
+        let node=start.nextSibling;
+        while(node&&node!==stop){
+          if(node.nodeType===1&&node.tagName==='H2') return node;
+          node=node.nextSibling;
+        }
+        return null;
+      })();
+
+      if(firstVisibleHeading&&!article.querySelector('.siteAnswerMoreLabel')){
+        const label=document.createElement('p');
+        label.className='eyebrow siteAnswerMoreLabel';
+        label.textContent='A little more';
+        article.insertBefore(label,firstVisibleHeading);
+      }
+
+      const collapseStart=findBalancedCollapseStart(start,stop);
+      if(collapseStart&&collapseStart!==stop){
+        const details=document.createElement('details');
+        details.className='siteFullAnswer';
+        const summary=document.createElement('summary');
+        summary.innerHTML='<span><strong>Read the fuller answer</strong><small>If you want to go deeper, continue with the rest of the pastoral answer.</small></span><span aria-hidden="true">+</span>';
+        const body=document.createElement('div');
+        body.className='siteFullAnswerBody';
+        details.append(summary,body);
+        article.insertBefore(details,collapseStart);
+        let node=details.nextSibling;
+        while(node&&node!==stop){
+          const next=node.nextSibling;
+          body.appendChild(node);
+          node=next;
+        }
       }
     }
 
@@ -218,8 +264,10 @@
       const style=document.createElement('style');
       style.id='answer-simplify-style';
       style.textContent=`
+        body[class*="page-answer-"] .siteAnswerMoreLabel{margin:34px 0 8px!important;color:#ad823d!important}
+        body[class*="page-answer-"] .siteAnswerMoreLabel+h2{margin-top:0!important}
         body[class*="page-answer-"] .siteFullAnswer,
-        body[class*="page-answer-"] .siteNextSteps{margin:22px 0;border:1px solid #ded8cd;background:#faf8f3}
+        body[class*="page-answer-"] .siteNextSteps{margin:30px 0 22px;border:1px solid #ded8cd;background:#faf8f3}
         body[class*="page-answer-"] .siteFullAnswer>summary,
         body[class*="page-answer-"] .siteNextSteps>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:20px 22px;color:#183024}
         body[class*="page-answer-"] .siteFullAnswer>summary::-webkit-details-marker,
@@ -227,7 +275,7 @@
         body[class*="page-answer-"] .siteFullAnswer>summary strong,
         body[class*="page-answer-"] .siteNextSteps>summary strong{display:block;font:400 1.28rem/1.2 Georgia,"Times New Roman",serif;color:#183024}
         body[class*="page-answer-"] .siteFullAnswer>summary small,
-        body[class*="page-answer-"] .siteNextSteps>summary small{display:block;margin-top:4px;font-size:.76rem;color:#657068}
+        body[class*="page-answer-"] .siteNextSteps>summary small{display:block;margin-top:4px;font-size:.76rem;line-height:1.45;color:#657068}
         body[class*="page-answer-"] .siteFullAnswerBody{padding:8px 24px 28px;border-top:1px solid #ded8cd;background:#fffefb}
         body[class*="page-answer-"] .siteNextSteps>.answerJourney{margin:0!important;border:0!important}
         body[class*="page-answer-"] .siteSimpleSide{border:1px solid #ded8cd;background:#fff;padding:22px}
