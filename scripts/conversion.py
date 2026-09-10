@@ -2,7 +2,7 @@ from pathlib import Path
 import re
 
 SITE = "https://answersforabrokenheart.com"
-EMAIL = "tatethrondson@gmail.com"
+EMAIL = "answersforabrokenheart@gmail.com"
 
 CSS_START = "/* HOPE-CONVERSION-START */"
 CSS_END = "/* HOPE-CONVERSION-END */"
