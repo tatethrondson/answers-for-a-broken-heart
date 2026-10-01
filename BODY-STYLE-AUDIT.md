@@ -14,6 +14,8 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `can-christians-be-depressed.html` | 16 | 46 | 9 | 3 | 0 | 1 | 0 |
 | `god-feels-far-away.html` | 12 | 65 | 9 | 1 | 0 | 1 | 0 |
 | `anger-and-unanswered-prayer.html` | 12 | 45 | 9 | 1 | 0 | 1 | 0 |
+| `free-guides.html` | 9 | 8 | 7 | 1 | 0 | 0 | 0 |
+| `about.html` | 9 | 30 | 7 | 1 | 0 | 0 | 0 |
 | `why-god-allows-suffering.html` | 0 | 57 | 0 | 0 | 0 | 0 | 0 |
 | `what-to-say-to-someone-grieving.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `what-hurts-today.html` | 0 | 42 | 0 | 0 | 0 | 0 | 0 |
@@ -24,7 +26,6 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `photo-test.html` | 0 | 3 | 0 | 0 | 0 | 0 | 0 |
 | `how-to-pray-when-angry-with-god.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `hope-thanks.html` | 0 | 12 | 0 | 0 | 0 | 0 | 0 |
-| `free-guides.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `contact.html` | 0 | 25 | 0 | 0 | 0 | 0 | 0 |
 | `contact-thanks.html` | 0 | 4 | 0 | 0 | 0 | 0 | 0 |
 | `church-resources.html` | 0 | 38 | 0 | 0 | 0 | 0 | 0 |
@@ -57,7 +58,6 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `answer-02.html` | 0 | 88 | 0 | 0 | 0 | 0 | 0 |
 | `answer-01.html` | 0 | 88 | 0 | 0 | 0 | 0 | 0 |
 | `all-answers.html` | 0 | 32 | 0 | 0 | 0 | 0 | 0 |
-| `about.html` | 0 | 22 | 0 | 0 | 0 | 0 | 0 |
 | `404.html` | 0 | 9 | 0 | 0 | 0 | 0 | 0 |
 | `2am-guide.html` | 0 | 31 | 0 | 0 | 0 | 0 | 0 |
 | `2am-guide-access.html` | 0 | 30 | 0 | 0 | 0 | 0 | 0 |
@@ -194,4 +194,26 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.supportingLinksWave2 .waveCard strong`
   - `.supportingLinksWave2 .waveCard span`
 
-- Pages with no used visual escape selectors: **47/55**
+### `free-guides.html` — score 9
+- Noncanonical colors: #000
+- Used visual selectors not governed by the final locks:
+  - `.fatherInterview`
+  - `.fatherInterviewThumb`
+  - `.fatherInterviewPlay`
+  - `.fatherInterview h2`
+  - `.fatherInterviewLink`
+  - `.fatherInterviewLink:hover`
+  - `.fatherInterview a:focus-visible`
+
+### `about.html` — score 9
+- Noncanonical colors: #000
+- Used visual selectors not governed by the final locks:
+  - `.fatherInterview`
+  - `.fatherInterviewThumb`
+  - `.fatherInterviewPlay`
+  - `.fatherInterview h2`
+  - `.fatherInterviewLink`
+  - `.fatherInterviewLink:hover`
+  - `.fatherInterview a:focus-visible`
+
+- Pages with no used visual escape selectors: **45/55**
