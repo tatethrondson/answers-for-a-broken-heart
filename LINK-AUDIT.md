@@ -2,10 +2,10 @@
 
 HTML pages scanned in repository: 56
 Clickable/resource/form/social-image occurrences checked: 2707
-Unique repo-derived live destinations checked: 121
+Unique repo-derived live destinations checked: 120
 Live HTML pages fetched: 56
 Unique destinations found in live page markup: 97
-Unique external URLs checked: 23
+Unique external URLs checked: 24
 
 Broken internal page links: 0
 Broken page fragments: 0
