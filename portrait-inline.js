@@ -17,6 +17,7 @@
     ['/site-finish.js?v=20260812-consolidated1','finish'],
     ['/site-trust.js?v=20260812-minimal3','trust'],
     ['/site-youtube.js?v=20260812-1','youtube'],
+    ['/book-cover-display.js?v=20261015-1','cover'],
     ['/site-editorial.js?v=20260811-2','editorial']
   ];
   scripts.forEach(([src,key])=>{
