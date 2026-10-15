@@ -1,5 +1,5 @@
 (()=>{
-  const cover='/answers-for-a-broken-heart-cover.svg?v=20261015-1';
+  const cover='/answers-for-a-broken-heart-actual.webp?v=20261015-final';
   function styles(){
     if(document.getElementById('answers-book-cover-20261015')) return;
     const s=document.createElement('style');
