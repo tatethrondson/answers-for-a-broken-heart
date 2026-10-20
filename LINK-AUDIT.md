@@ -1,10 +1,10 @@
 # Full Site Link Audit
 
 HTML pages scanned in repository: 58
-Clickable/resource/form/social-image occurrences checked: 2629
-Unique repo-derived live destinations checked: 125
+Clickable/resource/form/social-image occurrences checked: 2639
+Unique repo-derived live destinations checked: 127
 Live HTML pages fetched: 58
-Unique destinations found in live page markup: 131
+Unique destinations found in live page markup: 133
 Unique external URLs checked: 23
 
 Broken internal page links: 0
