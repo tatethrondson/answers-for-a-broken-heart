@@ -1,9 +1,9 @@
 # Full Site Link Audit
 
-HTML pages scanned in repository: 57
-Clickable/resource/form/social-image occurrences checked: 2616
+HTML pages scanned in repository: 58
+Clickable/resource/form/social-image occurrences checked: 2629
 Unique repo-derived live destinations checked: 124
-Live HTML pages fetched: 57
+Live HTML pages fetched: 58
 Unique destinations found in live page markup: 130
 Unique external URLs checked: 23
 
@@ -11,7 +11,7 @@ Broken internal page links: 0
 Broken page fragments: 0
 Missing linked repository resources: 0
 Placeholder/dead anchor links: 0
-Links still using redirect aliases: 139
+Links still using redirect aliases: 137
 Broken production destinations: 0
 Live pages that failed to load: 0
 Broken destinations found in live markup: 0
@@ -118,8 +118,6 @@ None.
 - `answer-14.html` → `/answer-15`; should link directly to `/how-long-am-i-allowed-to-grieve`
 - `answer-14.html` → `/answer-09`; should link directly to `/does-god-know-what-this-feels-like`
 - `answer-14.html` → `/answer-17`; should link directly to `/why-does-grief-feel-worse`
-- `book.html` → `/answer-04`; should link directly to `/why-did-god-make-a-world-with-suffering`
-- `book.html` → `/answer-04`; should link directly to `/why-did-god-make-a-world-with-suffering`
 - `answer-04.html` → `/answer-16`; should link directly to `/why-did-this-happen-to-me`
 - `answer-04.html` → `/answer-07`; should link directly to `/can-anything-good-come-from-suffering`
 - `answer-04.html` → `/answer-08`; should link directly to `/what-if-the-explanation-never-comes`
