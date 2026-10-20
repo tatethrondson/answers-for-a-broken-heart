@@ -6,7 +6,7 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 
 | Page | Risk score | Used visual rules | Used uncovered selectors | Noncanonical colors | Unusual radii | Shadows | Fonts |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| `answer-24.html` | 42 | 25 | 24 | 9 | 0 | 0 | 0 |
+| `answer-24.html` | 42 | 37 | 24 | 9 | 0 | 0 | 0 |
 | `help-someone.html` | 36 | 45 | 18 | 8 | 0 | 2 | 0 |
 | `start-here.html` | 34 | 22 | 17 | 8 | 0 | 1 | 0 |
 | `what-not-to-say-to-someone-grieving.html` | 24 | 9 | 9 | 7 | 0 | 1 | 0 |
