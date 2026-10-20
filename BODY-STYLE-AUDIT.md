@@ -6,6 +6,7 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 
 | Page | Risk score | Used visual rules | Used uncovered selectors | Noncanonical colors | Unusual radii | Shadows | Fonts |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| `answer-24.html` | 42 | 25 | 24 | 9 | 0 | 0 | 0 |
 | `help-someone.html` | 36 | 45 | 18 | 8 | 0 | 2 | 0 |
 | `start-here.html` | 34 | 22 | 17 | 8 | 0 | 1 | 0 |
 | `what-not-to-say-to-someone-grieving.html` | 24 | 9 | 9 | 7 | 0 | 1 | 0 |
@@ -34,7 +35,6 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `book.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `book-updates-thanks.html` | 0 | 10 | 0 | 0 | 0 | 0 | 0 |
 | `begin-here.html` | 0 | 29 | 0 | 0 | 0 | 0 | 0 |
-| `answer-24.html` | 0 | 89 | 0 | 0 | 0 | 0 | 0 |
 | `answer-23.html` | 0 | 88 | 0 | 0 | 0 | 0 | 0 |
 | `answer-22.html` | 0 | 104 | 0 | 0 | 0 | 0 | 0 |
 | `answer-21.html` | 0 | 102 | 0 | 0 | 0 | 0 | 0 |
@@ -64,6 +64,30 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `2am-guide-access.html` | 0 | 30 | 0 | 0 | 0 | 0 | 0 |
 
 ## Remaining pages and used selectors
+
+### `answer-24.html` — score 42
+- Noncanonical colors: #3e4d43, #506058, #647067, #677368, #6a726b, #90713d, #ece5da, #edf0eb, #fbf9f4
+- Used visual selectors not governed by the final locks:
+  - `.a24Hero`
+  - `.a24Eyebrow`
+  - `.a24Hero h1`
+  - `.a24Intro`
+  - `.a24Byline`
+  - `.a24Body h2`
+  - `.a24Body h3`
+  - `.a24Body p`
+  - `.a24Body .a24Answer`
+  - `.a24Answer h2`
+  - `.a24Answer p`
+  - `.a24Help`
+  - `.a24Help h2`
+  - `.a24Help p`
+  - `.a24Help strong`
+  - `.a24Scripture`
+  - `.a24Scripture cite`
+  - `.a24Quote`
+  - `.a24Body details`
+  - `.a24Body summary`
 
 ### `help-someone.html` — score 36
 - Noncanonical colors: #111, #20372a, #4f5a53, #b69258, #ddd6c9, #e7e0d6, #f6f1e8, #fffdf9
@@ -190,4 +214,4 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.brand`
   - `.brand small`
 
-- Pages with no used visual escape selectors: **44/56**
+- Pages with no used visual escape selectors: **43/56**
