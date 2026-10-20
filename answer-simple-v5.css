@@ -1,0 +1,39 @@
+
+/* Phase 5: calm, accessible first screen for the 23 standard answer pages. */
+body[class*="page-answer-"] .hero{padding-top:40px!important;padding-bottom:32px!important}
+body[class*="page-answer-"] .hero h1{font-size:clamp(2.2rem,4.2vw,3.4rem)!important;line-height:1.12!important;max-width:800px!important}
+body[class*="page-answer-"] .hero .dek{font-size:1rem!important;line-height:1.6!important;max-width:770px!important}
+body[class*="page-answer-"] .page{padding-top:34px!important}
+body[class*="page-answer-"] .layout{display:block!important;max-width:850px!important;margin-left:auto!important;margin-right:auto!important}
+body[class*="page-answer-"] .layout>.article{width:100%!important;min-width:0!important;max-width:none!important}
+body[class*="page-answer-"] .layout>.side{display:none!important}
+body[class*="page-answer-"] .short{padding:0 0 14px!important;margin:0!important;background:transparent!important;border:0!important}
+body[class*="page-answer-"] .short h2{font:400 clamp(1.65rem,3vw,2.2rem)/1.2 Georgia,serif!important;color:#183024!important;margin:0 0 12px!important}
+body[class*="page-answer-"] .short p:not(.eyebrow){font-size:1rem!important;color:#405447!important;line-height:1.7!important}
+body[class*="page-answer-"] .minuteHelp{margin:14px 0 20px!important;padding:24px!important;background:#faf8f3!important;border:1px solid #ded8cd!important;box-shadow:none!important}
+body[class*="page-answer-"] .minuteHelpHead{margin-bottom:16px!important}
+body[class*="page-answer-"] .minuteHelpHead h2{font:400 1.5rem/1.2 Georgia,serif!important;color:#183024!important}
+body[class*="page-answer-"] .minuteGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+body[class*="page-answer-"] .minuteItem{background:#fff!important;padding:16px 17px!important;border:1px solid #ebe6dd!important;min-width:0!important}
+body[class*="page-answer-"] .minuteItem strong{display:block!important;color:#294533!important;font-size:.77rem!important;margin-bottom:7px!important}
+body[class*="page-answer-"] .minuteItem p{font-size:.91rem!important;line-height:1.56!important;margin:0!important}
+body[class*="page-answer-"] .sitePrayer{margin-top:12px;border-top:1px solid #e6dfd2;padding-top:10px}
+body[class*="page-answer-"] .sitePrayer summary{cursor:pointer;font-size:.78rem;font-weight:800;color:#294533;padding:6px 0}
+body[class*="page-answer-"] .sitePrayer .minuteItem{margin-top:8px}
+body[class*="page-answer-"] .answerSafety{font-size:.78rem!important;line-height:1.55!important;margin:16px 0 20px!important;padding:11px 0!important;border:0!important;border-top:1px solid #ece7df!important;background:transparent!important;color:#5a665c!important}
+body[class*="page-answer-"] .siteFullAnswer,body[class*="page-answer-"] .siteNextSteps{margin:19px 0!important;border:1px solid #ded8cd!important;background:#faf8f3!important}
+body[class*="page-answer-"] .siteFullAnswer>summary,body[class*="page-answer-"] .siteNextSteps>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:15px;padding:19px 21px;color:#183024}
+body[class*="page-answer-"] .siteFullAnswer>summary::-webkit-details-marker,body[class*="page-answer-"] .siteNextSteps>summary::-webkit-details-marker{display:none}
+body[class*="page-answer-"] .siteFullAnswer>summary strong,body[class*="page-answer-"] .siteNextSteps>summary strong{display:block;font:400 1.24rem/1.25 Georgia,serif;color:#183024}
+body[class*="page-answer-"] .siteFullAnswer>summary small,body[class*="page-answer-"] .siteNextSteps>summary small{display:block;margin-top:4px;font:.78rem/1.5 Arial,sans-serif;color:#68736b}
+body[class*="page-answer-"] .siteFullAnswerBody{background:#fffefb!important;border-top:1px solid #ded8cd!important;padding:24px 25px 30px!important}
+body[class*="page-answer-"] .siteNextStepsBody{border-top:1px solid #ded8cd;padding:16px;background:#fffefb}
+body[class*="page-answer-"] .siteNextStepsBody>.answerJourney{margin:0!important}
+body[class*="page-answer-"] .siteNextStepsBody>.podcastResource{margin-top:18px!important}
+@media(max-width:700px){
+ body[class*="page-answer-"] .minuteHelp{padding:17px!important}
+ body[class*="page-answer-"] .minuteGrid{grid-template-columns:1fr!important}
+ body[class*="page-answer-"] .siteFullAnswerBody{padding:18px!important}
+ body[class*="page-answer-"] .siteNextStepsBody{padding:10px!important}
+ body[class*="page-answer-"] .hero{padding-top:32px!important;padding-bottom:28px!important}
+}
