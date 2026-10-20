@@ -1,17 +1,17 @@
 # Full Site Link Audit
 
-HTML pages scanned in repository: 56
-Clickable/resource/form/social-image occurrences checked: 2596
-Unique repo-derived live destinations checked: 123
-Live HTML pages fetched: 56
-Unique destinations found in live page markup: 129
+HTML pages scanned in repository: 57
+Clickable/resource/form/social-image occurrences checked: 2655
+Unique repo-derived live destinations checked: 124
+Live HTML pages fetched: 57
+Unique destinations found in live page markup: 130
 Unique external URLs checked: 24
 
 Broken internal page links: 0
 Broken page fragments: 0
 Missing linked repository resources: 0
 Placeholder/dead anchor links: 0
-Links still using redirect aliases: 136
+Links still using redirect aliases: 139
 Broken production destinations: 0
 Live pages that failed to load: 0
 Broken destinations found in live markup: 0
@@ -149,6 +149,9 @@ None.
 - `answer-12.html` → `/answer-11`; should link directly to `/does-god-care-about-injustice`
 - `answer-12.html` → `/answer-21`; should link directly to `/how-do-i-forgive-someone-who-isnt-sorry`
 - `answer-12.html` → `/answer-22`; should link directly to `/does-forgiveness-mean-reconciliation`
+- `doubt-faith-resource.html` → `/answer-23`; should link directly to `/am-i-walking-away-from-god-or-church-hurt`
+- `doubt-faith-resource.html` → `/answer-23`; should link directly to `/am-i-walking-away-from-god-or-church-hurt`
+- `doubt-faith-resource.html` → `/answer-05`; should link directly to `/is-it-wrong-to-ask-god-why`
 - `answer-18.html` → `/answer-19`; should link directly to `/what-do-i-say-to-god-right-now`
 - `answer-18.html` → `/answer-13`; should link directly to `/what-do-i-do-when-god-says-no`
 - `answer-18.html` → `/answer-11`; should link directly to `/does-god-care-about-injustice`
