@@ -346,3 +346,26 @@ body.page-free-guides .signupPrivacy{
   .siteShellCopyright{grid-column:1!important}
   .siteShellWrap{width:min(100% - 30px,var(--shell-wide))!important}
 }
+
+
+/* Supplied Answers wordmark — use consistently in every site header. */
+.siteShellHeader .siteShellBrandLogo{
+ display:block!important;
+ width:226px!important;
+ height:auto!important;
+ max-height:70px!important;
+ object-fit:contain!important;
+ object-position:left center!important;
+ flex-shrink:0!important;
+}
+.siteShellHeader .siteShellHeart{display:none!important}
+@media(max-width:760px){
+ .siteShellHeader .siteShellBrandLogo{
+  width:188px!important;
+  max-height:59px!important;
+ }
+ .siteShellHeader .siteShellNav{gap:12px!important}
+}
+@media(max-width:360px){
+ .siteShellHeader .siteShellBrandLogo{width:168px!important;max-height:52px!important}
+}
