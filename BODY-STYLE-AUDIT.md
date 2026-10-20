@@ -6,11 +6,11 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 
 | Page | Risk score | Used visual rules | Used uncovered selectors | Noncanonical colors | Unusual radii | Shadows | Fonts |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| `free-guides.html` | 46 | 31 | 29 | 8 | 0 | 1 | 0 |
 | `answer-24.html` | 42 | 37 | 24 | 9 | 0 | 0 | 0 |
 | `book.html` | 41 | 23 | 21 | 9 | 1 | 1 | 0 |
 | `help-someone.html` | 36 | 45 | 18 | 8 | 0 | 2 | 0 |
 | `start-here.html` | 34 | 22 | 17 | 8 | 0 | 1 | 0 |
-| `free-guides.html` | 34 | 20 | 18 | 8 | 0 | 0 | 0 |
 | `book-sample.html` | 25 | 12 | 11 | 7 | 0 | 0 | 0 |
 | `what-not-to-say-to-someone-grieving.html` | 24 | 9 | 9 | 7 | 0 | 1 | 0 |
 | `can-christians-be-depressed.html` | 16 | 46 | 9 | 3 | 0 | 1 | 0 |
@@ -65,6 +65,31 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `2am-guide-access.html` | 0 | 30 | 0 | 0 | 0 | 0 | 0 |
 
 ## Remaining pages and used selectors
+
+### `free-guides.html` — score 46
+- Noncanonical colors: #59675c, #5b685e, #626c63, #737a73, #987341, #eae3d8, #eee9df, #f7f3ec
+- Shadows: `.frVideoPlay`
+- Used visual selectors not governed by the final locks:
+  - `.frHero`
+  - `.frEyebrow,.frKicker`
+  - `.frHero h1`
+  - `.frHero p:not(.frEyebrow)`
+  - `.frResources h2`
+  - `.frCard`
+  - `.frCard h3`
+  - `.frCard p`
+  - `.frMain .frButton`
+  - `.frMain .frButton:hover`
+  - `.frMain .frOutline`
+  - `.frCard small`
+  - `.frMore`
+  - `.frMore a,.frConversations a,.frSafety a`
+  - `.frSafety`
+  - `/* Restore genuine episode thumbnails while keeping the resource page approachable. */ .frPodcasts`
+  - `.frPodcasts h2`
+  - `.frPodcastIntro`
+  - `.frVideoCard`
+  - `.frVideoArt`
 
 ### `answer-24.html` — score 42
 - Noncanonical colors: #3e4d43, #506058, #647067, #677368, #6a726b, #90713d, #ece5da, #edf0eb, #fbf9f4
@@ -160,28 +185,6 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.fhExtras a`
   - `.fhSafety`
   - `.fhSafety a`
-
-### `free-guides.html` — score 34
-- Noncanonical colors: #59675c, #5b685e, #626c63, #737a73, #987341, #eae3d8, #f7f3ec, #fbf9f4
-- Used visual selectors not governed by the final locks:
-  - `.frHero`
-  - `.frEyebrow,.frKicker`
-  - `.frHero h1`
-  - `.frHero p:not(.frEyebrow)`
-  - `.frResources h2`
-  - `.frCard`
-  - `.frCard h3`
-  - `.frCard p`
-  - `.frMain .frButton`
-  - `.frMain .frButton:hover`
-  - `.frMain .frOutline`
-  - `.frCard small`
-  - `.frMore`
-  - `.frMore a,.frConversations a,.frSafety a`
-  - `.frConversations`
-  - `.frConversations summary`
-  - `.frConversations>div`
-  - `.frSafety`
 
 ### `book-sample.html` — score 25
 - Noncanonical colors: #29382e, #2e392f, #566158, #636d63, #906c3a, #ece5da, #f7f3ec
