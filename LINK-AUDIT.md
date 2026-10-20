@@ -1,17 +1,17 @@
 # Full Site Link Audit
 
 HTML pages scanned in repository: 56
-Clickable/resource/form/social-image occurrences checked: 2708
-Unique repo-derived live destinations checked: 122
+Clickable/resource/form/social-image occurrences checked: 2716
+Unique repo-derived live destinations checked: 123
 Live HTML pages fetched: 56
-Unique destinations found in live page markup: 98
+Unique destinations found in live page markup: 129
 Unique external URLs checked: 24
 
 Broken internal page links: 0
 Broken page fragments: 0
 Missing linked repository resources: 0
 Placeholder/dead anchor links: 0
-Links still using redirect aliases: 2
+Links still using redirect aliases: 3
 Broken production destinations: 0
 Live pages that failed to load: 0
 Broken destinations found in live markup: 0
@@ -36,6 +36,7 @@ None.
 
 ## Links still using redirect aliases
 
+- `index.html` → `/answer-04`; should link directly to `/why-did-god-make-a-world-with-suffering`
 - `book.html` → `/answer-04`; should link directly to `/why-did-god-make-a-world-with-suffering`
 - `book.html` → `/answer-04`; should link directly to `/why-did-god-make-a-world-with-suffering`
 
