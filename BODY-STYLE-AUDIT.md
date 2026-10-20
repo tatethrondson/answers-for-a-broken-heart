@@ -2,7 +2,7 @@
 
 This audit checks only page-specific visual CSS selectors that are **actually used by elements in the current page markup** and are not explicitly governed by the final homepage/body design locks. Dead/unused legacy CSS is ignored.
 
-- Interior pages inspected: **55**
+- Interior pages inspected: **56**
 
 | Page | Risk score | Used visual rules | Used uncovered selectors | Noncanonical colors | Unusual radii | Shadows | Fonts |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -26,6 +26,7 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `photo-test.html` | 0 | 3 | 0 | 0 | 0 | 0 | 0 |
 | `how-to-pray-when-angry-with-god.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `hope-thanks.html` | 0 | 12 | 0 | 0 | 0 | 0 | 0 |
+| `doubt-faith-resource.html` | 0 | 89 | 0 | 0 | 0 | 0 | 0 |
 | `contact.html` | 0 | 25 | 0 | 0 | 0 | 0 | 0 |
 | `contact-thanks.html` | 0 | 4 | 0 | 0 | 0 | 0 | 0 |
 | `church-resources.html` | 0 | 38 | 0 | 0 | 0 | 0 | 0 |
@@ -189,4 +190,4 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.brand`
   - `.brand small`
 
-- Pages with no used visual escape selectors: **43/55**
+- Pages with no used visual escape selectors: **44/56**
