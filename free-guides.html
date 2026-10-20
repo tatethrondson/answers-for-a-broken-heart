@@ -65,6 +65,31 @@ body.page-free-guides .frMain{background:#fffefb;color:#273b2e;font:1rem/1.62 Ar
 .frConversations p{margin:0 0 12px}
 .frSafety{text-align:center;padding:16px 0 24px;font-size:.76rem;background:#faf8f3;border-top:1px solid #ece6dd;color:#626c63}
 @media(max-width:800px){.frHero{padding:55px 0 47px}.frResources{padding:44px 0 50px}.frGrid{grid-template-columns:1fr}.frCard{min-height:auto;padding:24px 23px}.frCard h3{font-size:1.45rem}.frCard p{margin-bottom:20px}}
+
+/* Restore genuine episode thumbnails while keeping the resource page approachable. */
+.frPodcasts{margin-top:47px;border-top:1px solid #ded8cd;padding-top:42px}
+.frPodcasts .frEyebrow{margin:0 0 11px}
+.frPodcasts h2{margin:0 0 11px;font:400 clamp(1.95rem,3vw,2.45rem)/1.18 Georgia,"Times New Roman",serif;color:#183024}
+.frPodcastIntro{margin:0 0 23px;max-width:650px;color:#5b685e;font-size:.91rem;line-height:1.7}
+.frVideoGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.frVideoCard{background:#fff;border:1px solid #ded8cd;overflow:hidden}
+.frVideoArt{display:block;position:relative;aspect-ratio:16/9;background:#eee9df;overflow:hidden}
+.frVideoArt img{display:block;width:100%;height:100%;object-fit:cover}
+.frVideoPlay{position:absolute;left:17px;bottom:15px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(24,48,36,.95);color:#fff;font-size:.97rem;padding-left:3px;box-shadow:0 3px 10px rgba(0,0,0,.17)}
+.frVideoArt:focus-visible,.frVideoLink:focus-visible{outline:3px solid #ad823d;outline-offset:3px}
+.frVideoText{padding:20px 22px 22px}
+.frVideoText h3{font:400 1.39rem/1.2 Georgia,"Times New Roman",serif;color:#183024;margin:0 0 10px}
+.frVideoText p{font:.87rem/1.63 Arial,sans-serif;color:#5b685e;margin:0 0 12px}
+.frVideoLink{font-size:.76rem;font-weight:800;color:#294533;text-decoration:underline;text-underline-offset:3px}
+.frVideoMore{margin-top:20px;border:1px solid #ded8cd;background:#faf8f3}
+.frVideoMore>summary{list-style:none;cursor:pointer;color:#294533;font-size:.87rem;font-weight:800;padding:17px 20px}
+.frVideoMore>summary::-webkit-details-marker{display:none}
+.frVideoMore>summary span{float:right}
+.frVideoMore[open]>summary{border-bottom:1px solid #ded8cd}
+.frVideoAdditional{padding:18px;gap:13px}
+.frVideoAdditional .frVideoText{padding:15px 18px 18px}
+.frVideoAdditional .frVideoText h3{font-size:1.18rem}
+@media(max-width:700px){.frPodcasts{margin-top:38px;padding-top:33px}.frVideoGrid{grid-template-columns:1fr}.frVideoAdditional{padding:12px}.frVideoText{padding:17px 19px}}
 </style></head>
 <body class="page-free-guides">
 <header class="siteHeader">
@@ -91,7 +116,83 @@ body.page-free-guides .frMain{background:#fffefb;color:#273b2e;font:1rem/1.62 Ar
 <article class="frCard"><div class="frKicker">For someone you love</div><h3>When Someone Is Hurting</h3><p>Simple, practical guidance on what to say, what not to say, and how to be present.</p><a class="frButton" href="/help-someone">Learn how to help →</a></article>
 </div>
 <div class="frMore"><p>Need something different? You can also read <a href="/can-christians-be-depressed">Can Christians Be Depressed?</a> or <a href="/all-answers">browse the 24 biblical answers</a>.</p></div>
-<details class="frConversations"><summary>More encouragement: two helpful conversations <span aria-hidden="true">+</span></summary><div><p><a href="https://www.youtube.com/watch?v=PQAcaj6SER0" target="_blank" rel="noopener noreferrer">What NOT to Say to a Hurting Person ↗</a> — practical guidance from a pastoral conversation.</p><p><a href="https://www.youtube.com/watch?v=l-f9J9bob0k" target="_blank" rel="noopener noreferrer">A Conversation With My Dad ↗</a> — a personal story about faith, family, and coming home to God.</p></div></details>
+<section class="frPodcasts" aria-labelledby="fr-podcast-title">
+  <p class="frEyebrow">Prefer to listen or watch?</p>
+  <h2 id="fr-podcast-title">Conversations for the hard days</h2>
+  <p class="frPodcastIntro">Sometimes a conversation helps in a way an article can't. These video and podcast episodes are here whenever you'd rather listen.</p>
+  <div class="frVideoGrid"><article class="frVideoCard frVideoFeatured">
+  <a class="frVideoArt" href="https://www.youtube.com/watch?v=PQAcaj6SER0" target="_blank" rel="noopener noreferrer" aria-label="Watch What NOT to Say to a Hurting Person on YouTube">
+    <img src="https://i.ytimg.com/vi/PQAcaj6SER0/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="Thumbnail for What NOT to Say to a Hurting Person">
+    <span class="frVideoPlay" aria-hidden="true">▶</span>
+  </a>
+  <div class="frVideoText"><h3>What NOT to Say to a Hurting Person</h3><p>Why well-meaning Christian phrases sometimes make suffering heavier—and what genuine compassion sounds like instead.</p><a class="frVideoLink" href="https://www.youtube.com/watch?v=PQAcaj6SER0" target="_blank" rel="noopener noreferrer">Watch on YouTube →</a></div>
+</article>
+<article class="frVideoCard frVideoFeatured">
+  <a class="frVideoArt" href="https://www.youtube.com/watch?v=l-f9J9bob0k" target="_blank" rel="noopener noreferrer" aria-label="Watch A Conversation With My Dad: Coming Home to God on YouTube">
+    <img src="https://i.ytimg.com/vi/l-f9J9bob0k/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="Thumbnail for A Conversation With My Dad: Coming Home to God">
+    <span class="frVideoPlay" aria-hidden="true">▶</span>
+  </a>
+  <div class="frVideoText"><h3>A Conversation With My Dad: Coming Home to God</h3><p>A personal conversation about faith, family, reconciliation, and the hope of coming home to God.</p><a class="frVideoLink" href="https://www.youtube.com/watch?v=l-f9J9bob0k" target="_blank" rel="noopener noreferrer">Watch on YouTube →</a></div>
+</article></div>
+  <details class="frVideoMore"><summary>Explore 8 more video conversations <span aria-hidden="true">+</span></summary>
+    <div class="frVideoGrid frVideoAdditional"><article class="frVideoCard">
+  <a class="frVideoArt" href="https://www.youtube.com/watch?v=JpQrjWxY4Ys" target="_blank" rel="noopener noreferrer" aria-label="Watch Ava's Story: How God Is Still Good in the Hardest Trials on YouTube">
+    <img src="https://i.ytimg.com/vi/JpQrjWxY4Ys/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="Thumbnail for Ava's Story: How God Is Still Good in the Hardest Trials">
+    <span class="frVideoPlay" aria-hidden="true">▶</span>
+  </a>
+  <div class="frVideoText"><h3>Ava's Story: How God Is Still Good in the Hardest Trials</h3><p>A family's honest testimony about suffering, community, and God's faithfulness.</p><a class="frVideoLink" href="https://www.youtube.com/watch?v=JpQrjWxY4Ys" target="_blank" rel="noopener noreferrer">Watch on YouTube →</a></div>
+</article>
+<article class="frVideoCard">
+  <a class="frVideoArt" href="https://www.youtube.com/watch?v=UP_nNGjbvNY" target="_blank" rel="noopener noreferrer" aria-label="Watch When Life Doesn't Let Up... Listen to This on YouTube">
+    <img src="https://i.ytimg.com/vi/UP_nNGjbvNY/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="Thumbnail for When Life Doesn't Let Up... Listen to This">
+    <span class="frVideoPlay" aria-hidden="true">▶</span>
+  </a>
+  <div class="frVideoText"><h3>When Life Doesn't Let Up... Listen to This</h3><p>Harley Snode speaks about long-term caregiving, uncertainty, and faith.</p><a class="frVideoLink" href="https://www.youtube.com/watch?v=UP_nNGjbvNY" target="_blank" rel="noopener noreferrer">Watch on YouTube →</a></div>
+</article>
+<article class="frVideoCard">
+  <a class="frVideoArt" href="https://www.youtube.com/watch?v=mOayIZ01R5w" target="_blank" rel="noopener noreferrer" aria-label="Watch When Everything Falls Apart: Ron &amp; Nancy's Story on YouTube">
+    <img src="https://i.ytimg.com/vi/mOayIZ01R5w/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="Thumbnail for When Everything Falls Apart: Ron &amp; Nancy's Story">
+    <span class="frVideoPlay" aria-hidden="true">▶</span>
+  </a>
+  <div class="frVideoText"><h3>When Everything Falls Apart: Ron &amp; Nancy's Story</h3><p>Trusting God through betrayal, health challenges, and unanswered questions.</p><a class="frVideoLink" href="https://www.youtube.com/watch?v=mOayIZ01R5w" target="_blank" rel="noopener noreferrer">Watch on YouTube →</a></div>
+</article>
+<article class="frVideoCard">
+  <a class="frVideoArt" href="https://www.youtube.com/watch?v=fkPXcbH79-c" target="_blank" rel="noopener noreferrer" aria-label="Watch John &amp; Carol Johnson: Faith Through a Cancer Journey on YouTube">
+    <img src="https://i.ytimg.com/vi/fkPXcbH79-c/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="Thumbnail for John &amp; Carol Johnson: Faith Through a Cancer Journey">
+    <span class="frVideoPlay" aria-hidden="true">▶</span>
+  </a>
+  <div class="frVideoText"><h3>John &amp; Carol Johnson: Faith Through a Cancer Journey</h3><p>Finding hope when health and the future feel uncertain.</p><a class="frVideoLink" href="https://www.youtube.com/watch?v=fkPXcbH79-c" target="_blank" rel="noopener noreferrer">Watch on YouTube →</a></div>
+</article>
+<article class="frVideoCard">
+  <a class="frVideoArt" href="https://www.youtube.com/watch?v=C-gKb_skcUg" target="_blank" rel="noopener noreferrer" aria-label="Watch Bitter No More: 4 Signs God's Wisdom Is Winning in You on YouTube">
+    <img src="https://i.ytimg.com/vi/C-gKb_skcUg/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="Thumbnail for Bitter No More: 4 Signs God's Wisdom Is Winning in You">
+    <span class="frVideoPlay" aria-hidden="true">▶</span>
+  </a>
+  <div class="frVideoText"><h3>Bitter No More: 4 Signs God's Wisdom Is Winning in You</h3><p>Recognizing when hurt is no longer having the final word.</p><a class="frVideoLink" href="https://www.youtube.com/watch?v=C-gKb_skcUg" target="_blank" rel="noopener noreferrer">Watch on YouTube →</a></div>
+</article>
+<article class="frVideoCard">
+  <a class="frVideoArt" href="https://www.youtube.com/watch?v=opc26tntVRc" target="_blank" rel="noopener noreferrer" aria-label="Watch Overcoming Bitterness With Pastor Tate Throndson on YouTube">
+    <img src="https://i.ytimg.com/vi/opc26tntVRc/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="Thumbnail for Overcoming Bitterness With Pastor Tate Throndson">
+    <span class="frVideoPlay" aria-hidden="true">▶</span>
+  </a>
+  <div class="frVideoText"><h3>Overcoming Bitterness With Pastor Tate Throndson</h3><p>A biblical conversation about forgiveness and releasing bitterness.</p><a class="frVideoLink" href="https://www.youtube.com/watch?v=opc26tntVRc" target="_blank" rel="noopener noreferrer">Watch on YouTube →</a></div>
+</article>
+<article class="frVideoCard">
+  <a class="frVideoArt" href="https://www.youtube.com/watch?v=-Tj-7LsEAUY" target="_blank" rel="noopener noreferrer" aria-label="Watch Turn the Other Cheek... or Protect Your Family? on YouTube">
+    <img src="https://i.ytimg.com/vi/-Tj-7LsEAUY/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="Thumbnail for Turn the Other Cheek... or Protect Your Family?">
+    <span class="frVideoPlay" aria-hidden="true">▶</span>
+  </a>
+  <div class="frVideoText"><h3>Turn the Other Cheek... or Protect Your Family?</h3><p>How forgiveness, wise boundaries, and protecting others work together.</p><a class="frVideoLink" href="https://www.youtube.com/watch?v=-Tj-7LsEAUY" target="_blank" rel="noopener noreferrer">Watch on YouTube →</a></div>
+</article>
+<article class="frVideoCard">
+  <a class="frVideoArt" href="https://www.youtube.com/watch?v=2KjUVqldTNU" target="_blank" rel="noopener noreferrer" aria-label="Watch Building Bridges and Battling Bitterness on YouTube">
+    <img src="https://i.ytimg.com/vi/2KjUVqldTNU/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="Thumbnail for Building Bridges and Battling Bitterness">
+    <span class="frVideoPlay" aria-hidden="true">▶</span>
+  </a>
+  <div class="frVideoText"><h3>Building Bridges and Battling Bitterness</h3><p>A conversation about responding to relational wounds with wisdom.</p><a class="frVideoLink" href="https://www.youtube.com/watch?v=2KjUVqldTNU" target="_blank" rel="noopener noreferrer">Watch on YouTube →</a></div>
+</article></div>
+  </details>
+</section>
 </div></section>
 <div class="frSafety"><div class="frWrap">If you are in immediate danger, thinking about harming yourself, or don't feel safe, <a href="/unsafe">find immediate help here</a>.</div></div>
 </main>
