@@ -7,6 +7,7 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | Page | Risk score | Used visual rules | Used uncovered selectors | Noncanonical colors | Unusual radii | Shadows | Fonts |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | `answer-24.html` | 42 | 37 | 24 | 9 | 0 | 0 | 0 |
+| `book.html` | 41 | 23 | 21 | 9 | 1 | 1 | 0 |
 | `help-someone.html` | 36 | 45 | 18 | 8 | 0 | 2 | 0 |
 | `start-here.html` | 34 | 22 | 17 | 8 | 0 | 1 | 0 |
 | `free-guides.html` | 34 | 20 | 18 | 8 | 0 | 0 | 0 |
@@ -33,7 +34,6 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `contact-thanks.html` | 0 | 4 | 0 | 0 | 0 | 0 | 0 |
 | `church-resources.html` | 0 | 38 | 0 | 0 | 0 | 0 | 0 |
 | `can-christians-go-to-counseling.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| `book.html` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `book-updates-thanks.html` | 0 | 10 | 0 | 0 | 0 | 0 | 0 |
 | `begin-here.html` | 0 | 29 | 0 | 0 | 0 | 0 | 0 |
 | `answer-23.html` | 0 | 88 | 0 | 0 | 0 | 0 | 0 |
@@ -89,6 +89,32 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.a24Quote`
   - `.a24Body details`
   - `.a24Body summary`
+
+### `book.html` — score 41
+- Noncanonical colors: #405648, #44574b, #526357, #5b685e, #6a756b, #777f77, #7b847b, #94713b, #e9e1d6
+- Unusual radii: `.bookClearCover img` → `3px`
+- Shadows: `.bookClearCover img`
+- Used visual selectors not governed by the final locks:
+  - `.bookClearHero`
+  - `.bookClearCover img`
+  - `.bookClearEyebrow`
+  - `.bookClearTitle`
+  - `.bookClearSubtitle`
+  - `.bookClearLead`
+  - `.bookClearButton`
+  - `.bookClearButton:hover`
+  - `.bookClearButtonSecondary`
+  - `.bookClearButtonSecondary:hover`
+  - `.bookClearFacts`
+  - `.bookClearNote`
+  - `.bookClearNote p`
+  - `.bookClearNote small`
+  - `.bookClearSignup`
+  - `.bookClearSignup h2`
+  - `.bookClearSignup p:not(.bookClearEyebrow)`
+  - `.bookClearForm input[type="email"]`
+  - `.bookClearForm .bcSubmit`
+  - `.bookClearForm .bcSubmit:hover`
 
 ### `help-someone.html` — score 36
 - Noncanonical colors: #111, #20372a, #4f5a53, #b69258, #ddd6c9, #e7e0d6, #f6f1e8, #fffdf9
@@ -241,4 +267,4 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.brand`
   - `.brand small`
 
-- Pages with no used visual escape selectors: **43/57**
+- Pages with no used visual escape selectors: **42/57**
