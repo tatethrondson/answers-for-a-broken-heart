@@ -140,7 +140,7 @@
     },
     {
       "source": "/answer-24",
-      "destination": "/does-doubt-mean-i-was-never-a-believer",
+      "destination": "/what-if-i-still-have-questions",
       "permanent": true
     }
   ],
@@ -239,6 +239,10 @@
     },
     {
       "source": "/does-doubt-mean-i-was-never-a-believer",
+      "destination": "/doubt-faith-resource"
+    },
+    {
+      "source": "/what-if-i-still-have-questions",
       "destination": "/answer-24"
     }
   ],
