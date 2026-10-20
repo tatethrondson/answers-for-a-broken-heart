@@ -2,7 +2,7 @@
 
 This audit checks only page-specific visual CSS selectors that are **actually used by elements in the current page markup** and are not explicitly governed by the final homepage/body design locks. Dead/unused legacy CSS is ignored.
 
-- Interior pages inspected: **56**
+- Interior pages inspected: **57**
 
 | Page | Risk score | Used visual rules | Used uncovered selectors | Noncanonical colors | Unusual radii | Shadows | Fonts |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -10,6 +10,7 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `help-someone.html` | 36 | 45 | 18 | 8 | 0 | 2 | 0 |
 | `start-here.html` | 34 | 22 | 17 | 8 | 0 | 1 | 0 |
 | `free-guides.html` | 34 | 20 | 18 | 8 | 0 | 0 | 0 |
+| `book-sample.html` | 25 | 12 | 11 | 7 | 0 | 0 | 0 |
 | `what-not-to-say-to-someone-grieving.html` | 24 | 9 | 9 | 7 | 0 | 1 | 0 |
 | `can-christians-be-depressed.html` | 16 | 46 | 9 | 3 | 0 | 1 | 0 |
 | `about.html` | 9 | 30 | 7 | 1 | 0 | 0 | 0 |
@@ -156,6 +157,21 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.frConversations>div`
   - `.frSafety`
 
+### `book-sample.html` — score 25
+- Noncanonical colors: #29382e, #2e392f, #566158, #636d63, #906c3a, #ece5da, #f7f3ec
+- Used visual selectors not governed by the final locks:
+  - `body.page-book-sample`
+  - `.bsHero`
+  - `.bsEyebrow`
+  - `.bsHero h1`
+  - `.bsHero p:not(.bsEyebrow)`
+  - `.bsExcerpt p`
+  - `.bsExcerpt blockquote`
+  - `.bsEnd`
+  - `.bsEnd p`
+  - `.bsButton`
+  - `.bsLink`
+
 ### `what-not-to-say-to-someone-grieving.html` — score 24
 - Noncanonical colors: #111, #20372a, #4f5a53, #b69258, #ddd6c9, #f6f1e8, #fffdf9
 - Shadows: `.hurtingPodcastPlay`
@@ -225,4 +241,4 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.brand`
   - `.brand small`
 
-- Pages with no used visual escape selectors: **43/56**
+- Pages with no used visual escape selectors: **43/57**
