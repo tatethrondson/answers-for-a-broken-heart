@@ -242,7 +242,9 @@
       if(moved===0)details.remove();
     }
 
-    const extras=[...article.querySelectorAll('.answerJourney, .podcastResource')].filter(el=>!el.closest('.siteFullAnswer'));
+    // Keep episode cards with their thumbnails visible, rather than hiding them
+    // in the general "More resources" drawer. Other extras may remain optional.
+    const extras=[...article.querySelectorAll('.answerJourney')].filter(el=>!el.closest('.siteFullAnswer'));
     if(extras.length){
       const details=document.createElement('details');
       details.className='siteNextSteps';
@@ -253,6 +255,21 @@
       details.append(summary,body);
       extras[0].parentNode.insertBefore(details,extras[0]);
       extras.forEach(el=>body.appendChild(el));
+    }
+
+    // Surface the original podcast card near the brief answer, preserving
+    // its image, title, description, and exact YouTube destination.
+    const featuredPodcasts=[...article.querySelectorAll('.podcastResource')].filter(el=>!el.closest('.siteFullAnswer')&&!el.closest('.siteNextSteps'));
+    const readingDetails=article.querySelector('.siteFullAnswer');
+    if(featuredPodcasts.length){
+      featuredPodcasts.forEach((episode,i)=>{
+        episode.classList.add('siteFeaturedPodcast');
+        if(readingDetails){
+          readingDetails.insertAdjacentElement('beforebegin',episode);
+        }else if(anchor){
+          anchor.insertAdjacentElement('afterend',episode);
+        }
+      });
     }
 
     const side=document.querySelector('.side');
