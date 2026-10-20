@@ -1,10 +1,8 @@
 (()=>{
   const ITEMS=[
-    ['Start Here','/start-here'],
-    ['24 Answers','/all-answers'],
+    ['Find Help','/start-here'],
     ['Free Resources','/free-guides'],
-    ['The Book','/book'],
-    ['About','/about']
+    ['The Book','/book']
   ];
 
   const SITE_HREFS=new Set(['/','/start-here','/begin-here','/what-hurts-today','/all-answers','/free-guides','/book','/about','/contact','/church-resources']);
