@@ -141,7 +141,7 @@
   }
 
   function replaceOldTitles(root=document.body){
-    if(!root) return;
+    if(!root || document.body?.classList.contains('page-doubt-resource')) return;
     const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
     const nodes=[];
     while(walker.nextNode()) nodes.push(walker.currentNode);
@@ -177,114 +177,85 @@
     replaceOldTitles(document.body);
   }
 
-  function findBalancedCollapseStart(start,stop){
-    let chars=0;
-    let sawSection=false;
-    let node=start.nextSibling;
-    while(node&&node!==stop){
-      if(node.nodeType===1){
-        const el=node;
-        if(el.tagName==='H2'){
-          if(sawSection&&chars>=850) return el;
-          sawSection=true;
-        }
-        chars+=(el.textContent||'').trim().length;
-      }else if(node.nodeType===3){
-        chars+=(node.nodeValue||'').trim().length;
-      }
-      node=node.nextSibling;
-    }
-    return null;
-  }
 
   function simplifyAnswerPage(){
     const n=answerNumber();
-    if(!n||document.body.dataset.answerSimplified==='1') return;
+    if(!n || document.body.dataset.answerSimplified==='5') return;
     const article=document.querySelector('article.article');
     if(!article) return;
-    document.body.dataset.answerSimplified='1';
+    document.body.dataset.answerSimplified='5';
 
-    const start=article.querySelector('.answerSafety')||article.querySelector('.minuteHelp')||article.querySelector('.short')||article.querySelector('.shortAnswer');
-    const stop=article.querySelector('.answerDeepDive')||article.querySelector('.answerJourney');
+    if(!document.querySelector('link[href^="/answer-simple-v5.css"]')){
+      const css=document.createElement('link');
+      css.rel='stylesheet';
+      css.href='/answer-simple-v5.css?v=20261020';
+      document.head.appendChild(css);
+    }
 
-    if(start&&stop){
-      const firstVisibleHeading=(()=>{
-        let node=start.nextSibling;
-        while(node&&node!==stop){
-          if(node.nodeType===1&&node.tagName==='H2') return node;
-          node=node.nextSibling;
-        }
-        return null;
-      })();
-
-      if(firstVisibleHeading&&!article.querySelector('.siteAnswerMoreLabel')){
-        const label=document.createElement('p');
-        label.className='eyebrow siteAnswerMoreLabel';
-        label.textContent='A little more';
-        article.insertBefore(label,firstVisibleHeading);
-      }
-
-      const collapseStart=findBalancedCollapseStart(start,stop);
-      if(collapseStart&&collapseStart!==stop){
-        const details=document.createElement('details');
-        details.className='siteFullAnswer';
-        const summary=document.createElement('summary');
-        summary.innerHTML='<span><strong>Read the fuller answer</strong><small>If you want to go deeper, continue with the rest of the pastoral answer.</small></span><span aria-hidden="true">+</span>';
-        const body=document.createElement('div');
-        body.className='siteFullAnswerBody';
-        details.append(summary,body);
-        article.insertBefore(details,collapseStart);
-        let node=details.nextSibling;
-        while(node&&node!==stop){
-          const next=node.nextSibling;
-          body.appendChild(node);
-          node=next;
+    const short=article.querySelector('.short, .shortAnswer');
+    const minute=article.querySelector('.minuteHelp');
+    const safety=article.querySelector('.answerSafety');
+    if(minute){
+      const h=minute.querySelector('.minuteHelpHead h2');
+      if(h)h.textContent='One Scripture. One next step.';
+      const sub=minute.querySelector('.minuteHelpHead span');
+      if(sub)sub.remove();
+      const grid=minute.querySelector('.minuteGrid');
+      if(grid){
+        const items=[...grid.children].filter(el=>el.classList.contains('minuteItem'));
+        if(items.length>=3){
+          const prayerDetails=document.createElement('details');
+          prayerDetails.className='sitePrayer';
+          const summary=document.createElement('summary');
+          summary.textContent='A short prayer for this moment +';
+          prayerDetails.append(summary,items[1]);
+          grid.insertAdjacentElement('afterend',prayerDetails);
         }
       }
     }
 
+    // The short answer, one Scripture, next step, and safety link stay visible.
+    // Other online pastoral reflections are optional, not presented as verbatim book text.
+    const anchor=safety||minute||short;
     const journey=article.querySelector('.answerJourney');
-    if(journey&&!journey.closest('.siteNextSteps')){
+    const podcast=article.querySelector('.podcastResource');
+    let stop=journey||podcast;
+    if(journey&&podcast)stop=(journey.compareDocumentPosition(podcast)&Node.DOCUMENT_POSITION_FOLLOWING)?journey:podcast;
+    if(anchor){
+      const details=document.createElement('details');
+      details.className='siteFullAnswer';
+      const summary=document.createElement('summary');
+      summary.innerHTML='<span><strong>Read more, if you would like</strong><small>Additional biblical teaching and pastoral reflection.</small></span><span aria-hidden="true">+</span>';
+      const body=document.createElement('div');
+      body.className='siteFullAnswerBody';
+      details.append(summary,body);
+      anchor.insertAdjacentElement('afterend',details);
+      let sibling=details.nextSibling;
+      let moved=0;
+      while(sibling&&sibling!==stop){
+        const next=sibling.nextSibling;
+        body.appendChild(sibling);
+        sibling=next;
+        moved++;
+      }
+      if(moved===0)details.remove();
+    }
+
+    const extras=[...article.querySelectorAll('.answerJourney, .podcastResource')].filter(el=>!el.closest('.siteFullAnswer'));
+    if(extras.length){
       const details=document.createElement('details');
       details.className='siteNextSteps';
       const summary=document.createElement('summary');
-      summary.innerHTML='<span><strong>Where should I go next?</strong><small>More help, related resources, and ways to keep going.</small></span><span aria-hidden="true">+</span>';
-      journey.parentNode.insertBefore(details,journey);
-      details.append(summary,journey);
+      summary.innerHTML='<span><strong>More resources, if you need them</strong><small>Related answers, conversations, and ways to stay connected.</small></span><span aria-hidden="true">+</span>';
+      const body=document.createElement('div');
+      body.className='siteNextStepsBody';
+      details.append(summary,body);
+      extras[0].parentNode.insertBefore(details,extras[0]);
+      extras.forEach(el=>body.appendChild(el));
     }
 
     const side=document.querySelector('.side');
-    if(side){
-      side.innerHTML='<div class="siteSimpleSide"><p class="eyebrow">Need a different starting point?</p><h3>Start where it hurts.</h3><p>You do not have to work through these answers in order.</p><a href="/start-here">Tell me where it hurts →</a><a href="/all-answers">Browse all 24 answers →</a></div>';
-    }
-
-    if(!document.getElementById('answer-simplify-style')){
-      const style=document.createElement('style');
-      style.id='answer-simplify-style';
-      style.textContent=`
-        body[class*="page-answer-"] .siteAnswerMoreLabel{margin:34px 0 8px!important;color:#ad823d!important}
-        body[class*="page-answer-"] .siteAnswerMoreLabel+h2{margin-top:0!important}
-        body[class*="page-answer-"] .siteFullAnswer,
-        body[class*="page-answer-"] .siteNextSteps{margin:30px 0 22px;border:1px solid #ded8cd;background:#faf8f3}
-        body[class*="page-answer-"] .siteFullAnswer>summary,
-        body[class*="page-answer-"] .siteNextSteps>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:20px 22px;color:#183024}
-        body[class*="page-answer-"] .siteFullAnswer>summary::-webkit-details-marker,
-        body[class*="page-answer-"] .siteNextSteps>summary::-webkit-details-marker{display:none}
-        body[class*="page-answer-"] .siteFullAnswer>summary strong,
-        body[class*="page-answer-"] .siteNextSteps>summary strong{display:block;font:400 1.28rem/1.2 Georgia,"Times New Roman",serif;color:#183024}
-        body[class*="page-answer-"] .siteFullAnswer>summary small,
-        body[class*="page-answer-"] .siteNextSteps>summary small{display:block;margin-top:4px;font-size:.76rem;line-height:1.45;color:#657068}
-        body[class*="page-answer-"] .siteFullAnswerBody{padding:8px 24px 28px;border-top:1px solid #ded8cd;background:#fffefb}
-        body[class*="page-answer-"] .siteNextSteps>.answerJourney{margin:0!important;border:0!important}
-        body[class*="page-answer-"] .siteSimpleSide{border:1px solid #ded8cd;background:#fff;padding:22px}
-        body[class*="page-answer-"] .siteSimpleSide h3{margin:4px 0 8px;font:400 1.35rem/1.2 Georgia,"Times New Roman",serif;color:#183024}
-        body[class*="page-answer-"] .siteSimpleSide p:not(.eyebrow){font-size:.82rem;line-height:1.55;color:#657068;margin:0 0 12px}
-        body[class*="page-answer-"] .siteSimpleSide a{display:block;padding:7px 0;text-decoration:none;font-size:.79rem;font-weight:800;color:#294533}
-        body[class*="page-answer-"] section.cta{display:none!important}
-        @media(max-width:820px){body[class*="page-answer-"] .siteFullAnswerBody{padding:6px 20px 24px}}
-      `;
-      document.head.appendChild(style);
-    }
+    if(side)side.setAttribute('aria-hidden','true');
   }
 
   function runContentSync(){
