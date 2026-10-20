@@ -9,9 +9,9 @@ This audit checks only page-specific visual CSS selectors that are **actually us
 | `answer-24.html` | 42 | 37 | 24 | 9 | 0 | 0 | 0 |
 | `help-someone.html` | 36 | 45 | 18 | 8 | 0 | 2 | 0 |
 | `start-here.html` | 34 | 22 | 17 | 8 | 0 | 1 | 0 |
+| `free-guides.html` | 34 | 20 | 18 | 8 | 0 | 0 | 0 |
 | `what-not-to-say-to-someone-grieving.html` | 24 | 9 | 9 | 7 | 0 | 1 | 0 |
 | `can-christians-be-depressed.html` | 16 | 46 | 9 | 3 | 0 | 1 | 0 |
-| `free-guides.html` | 9 | 8 | 7 | 1 | 0 | 0 | 0 |
 | `about.html` | 9 | 30 | 7 | 1 | 0 | 0 | 0 |
 | `why-god-allows-suffering.html` | 2 | 67 | 2 | 0 | 0 | 0 | 0 |
 | `grief-and-loss.html` | 2 | 67 | 2 | 0 | 0 | 0 | 0 |
@@ -134,6 +134,28 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.fhSafety`
   - `.fhSafety a`
 
+### `free-guides.html` — score 34
+- Noncanonical colors: #59675c, #5b685e, #626c63, #737a73, #987341, #eae3d8, #f7f3ec, #fbf9f4
+- Used visual selectors not governed by the final locks:
+  - `.frHero`
+  - `.frEyebrow,.frKicker`
+  - `.frHero h1`
+  - `.frHero p:not(.frEyebrow)`
+  - `.frResources h2`
+  - `.frCard`
+  - `.frCard h3`
+  - `.frCard p`
+  - `.frMain .frButton`
+  - `.frMain .frButton:hover`
+  - `.frMain .frOutline`
+  - `.frCard small`
+  - `.frMore`
+  - `.frMore a,.frConversations a,.frSafety a`
+  - `.frConversations`
+  - `.frConversations summary`
+  - `.frConversations>div`
+  - `.frSafety`
+
 ### `what-not-to-say-to-someone-grieving.html` — score 24
 - Noncanonical colors: #111, #20372a, #4f5a53, #b69258, #ddd6c9, #f6f1e8, #fffdf9
 - Shadows: `.hurtingPodcastPlay`
@@ -161,17 +183,6 @@ This audit checks only page-specific visual CSS selectors that are **actually us
   - `.supportingLinks .supportingCard small`
   - `.supportingLinks .supportingCard strong`
   - `.supportingLinks .supportingCard span`
-
-### `free-guides.html` — score 9
-- Noncanonical colors: #000
-- Used visual selectors not governed by the final locks:
-  - `.fatherInterview`
-  - `.fatherInterviewThumb`
-  - `.fatherInterviewPlay`
-  - `.fatherInterview h2`
-  - `.fatherInterviewLink`
-  - `.fatherInterviewLink:hover`
-  - `.fatherInterview a:focus-visible`
 
 ### `about.html` — score 9
 - Noncanonical colors: #000
