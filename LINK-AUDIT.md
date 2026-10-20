@@ -1,7 +1,7 @@
 # Full Site Link Audit
 
 HTML pages scanned in repository: 56
-Clickable/resource/form/social-image occurrences checked: 2716
+Clickable/resource/form/social-image occurrences checked: 2596
 Unique repo-derived live destinations checked: 123
 Live HTML pages fetched: 56
 Unique destinations found in live page markup: 129
@@ -11,7 +11,7 @@ Broken internal page links: 0
 Broken page fragments: 0
 Missing linked repository resources: 0
 Placeholder/dead anchor links: 0
-Links still using redirect aliases: 3
+Links still using redirect aliases: 136
 Broken production destinations: 0
 Live pages that failed to load: 0
 Broken destinations found in live markup: 0
@@ -37,8 +37,141 @@ None.
 ## Links still using redirect aliases
 
 - `index.html` → `/answer-04`; should link directly to `/why-did-god-make-a-world-with-suffering`
+- `answer-23.html` → `/answer-24`; should link directly to `/does-doubt-mean-i-was-never-a-believer`
+- `answer-23.html` → `/answer-02`; should link directly to `/why-doesnt-god-show-himself`
+- `answer-23.html` → `/answer-01`; should link directly to `/why-does-god-feel-far-away`
+- `answer-24.html` → `/answer-23`; should link directly to `/am-i-walking-away-from-god-or-church-hurt`
+- `answer-24.html` → `/answer-23`; should link directly to `/am-i-walking-away-from-god-or-church-hurt`
+- `answer-24.html` → `/answer-05`; should link directly to `/is-it-wrong-to-ask-god-why`
+- `answer-11.html` → `/answer-21`; should link directly to `/how-do-i-forgive-someone-who-isnt-sorry`
+- `answer-11.html` → `/answer-22`; should link directly to `/does-forgiveness-mean-reconciliation`
+- `answer-11.html` → `/answer-18`; should link directly to `/am-i-allowed-to-be-angry-with-god`
+- `answer-15.html` → `/answer-17`; should link directly to `/why-does-grief-feel-worse`
+- `answer-15.html` → `/answer-14`; should link directly to `/is-death-really-the-end`
+- `answer-15.html` → `/answer-17`; should link directly to `/why-does-grief-feel-worse`
+- `answer-15.html` → `/answer-16`; should link directly to `/why-did-this-happen-to-me`
 - `book.html` → `/answer-04`; should link directly to `/why-did-god-make-a-world-with-suffering`
 - `book.html` → `/answer-04`; should link directly to `/why-did-god-make-a-world-with-suffering`
+- `doubt-and-church-hurt.html` → `/what-hurts-today`; should link directly to `/start-here`
+- `doubt-and-church-hurt.html` → `/answer-23`; should link directly to `/am-i-walking-away-from-god-or-church-hurt`
+- `doubt-and-church-hurt.html` → `/answer-24`; should link directly to `/does-doubt-mean-i-was-never-a-believer`
+- `doubt-and-church-hurt.html` → `/answer-24`; should link directly to `/does-doubt-mean-i-was-never-a-believer`
+- `doubt-and-church-hurt.html` → `/answer-23`; should link directly to `/am-i-walking-away-from-god-or-church-hurt`
+- `doubt-and-church-hurt.html` → `/what-hurts-today`; should link directly to `/start-here`
+- `answer-08.html` → `/answer-05`; should link directly to `/is-it-wrong-to-ask-god-why`
+- `answer-08.html` → `/answer-07`; should link directly to `/can-anything-good-come-from-suffering`
+- `answer-08.html` → `/answer-01`; should link directly to `/why-does-god-feel-far-away`
+- `answer-04.html` → `/answer-16`; should link directly to `/why-did-this-happen-to-me`
+- `answer-04.html` → `/answer-07`; should link directly to `/can-anything-good-come-from-suffering`
+- `answer-04.html` → `/answer-08`; should link directly to `/what-if-the-explanation-never-comes`
+- `grief-and-loss.html` → `/what-hurts-today`; should link directly to `/start-here`
+- `grief-and-loss.html` → `/answer-14`; should link directly to `/is-death-really-the-end`
+- `grief-and-loss.html` → `/answer-15`; should link directly to `/how-long-am-i-allowed-to-grieve`
+- `grief-and-loss.html` → `/answer-16`; should link directly to `/why-did-this-happen-to-me`
+- `grief-and-loss.html` → `/answer-17`; should link directly to `/why-does-grief-feel-worse`
+- `grief-and-loss.html` → `/answer-14`; should link directly to `/is-death-really-the-end`
+- `grief-and-loss.html` → `/answer-15`; should link directly to `/how-long-am-i-allowed-to-grieve`
+- `grief-and-loss.html` → `/answer-17`; should link directly to `/why-does-grief-feel-worse`
+- `grief-and-loss.html` → `/what-hurts-today`; should link directly to `/start-here`
+- `why-god-allows-suffering.html` → `/what-hurts-today`; should link directly to `/start-here`
+- `why-god-allows-suffering.html` → `/answer-04`; should link directly to `/why-did-god-make-a-world-with-suffering`
+- `why-god-allows-suffering.html` → `/answer-05`; should link directly to `/is-it-wrong-to-ask-god-why`
+- `why-god-allows-suffering.html` → `/answer-06`; should link directly to `/why-wont-god-tell-me-why`
+- `why-god-allows-suffering.html` → `/answer-07`; should link directly to `/can-anything-good-come-from-suffering`
+- `why-god-allows-suffering.html` → `/answer-08`; should link directly to `/what-if-the-explanation-never-comes`
+- `why-god-allows-suffering.html` → `/answer-04`; should link directly to `/why-did-god-make-a-world-with-suffering`
+- `why-god-allows-suffering.html` → `/answer-05`; should link directly to `/is-it-wrong-to-ask-god-why`
+- `why-god-allows-suffering.html` → `/answer-06`; should link directly to `/why-wont-god-tell-me-why`
+- `why-god-allows-suffering.html` → `/answer-08`; should link directly to `/what-if-the-explanation-never-comes`
+- `why-god-allows-suffering.html` → `/answer-07`; should link directly to `/can-anything-good-come-from-suffering`
+- `why-god-allows-suffering.html` → `/what-hurts-today`; should link directly to `/start-here`
+- `answer-19.html` → `/answer-18`; should link directly to `/am-i-allowed-to-be-angry-with-god`
+- `answer-19.html` → `/answer-13`; should link directly to `/what-do-i-do-when-god-says-no`
+- `answer-19.html` → `/answer-11`; should link directly to `/does-god-care-about-injustice`
+- `forgiveness-and-relational-hurt.html` → `/what-hurts-today`; should link directly to `/start-here`
+- `forgiveness-and-relational-hurt.html` → `/answer-12`; should link directly to `/am-i-as-guilty-as-the-person-who-hurt-me`
+- `forgiveness-and-relational-hurt.html` → `/answer-20`; should link directly to `/why-does-loving-people-hurt`
+- `forgiveness-and-relational-hurt.html` → `/answer-21`; should link directly to `/how-do-i-forgive-someone-who-isnt-sorry`
+- `forgiveness-and-relational-hurt.html` → `/answer-22`; should link directly to `/does-forgiveness-mean-reconciliation`
+- `forgiveness-and-relational-hurt.html` → `/answer-21`; should link directly to `/how-do-i-forgive-someone-who-isnt-sorry`
+- `forgiveness-and-relational-hurt.html` → `/answer-22`; should link directly to `/does-forgiveness-mean-reconciliation`
+- `forgiveness-and-relational-hurt.html` → `/answer-12`; should link directly to `/am-i-as-guilty-as-the-person-who-hurt-me`
+- `forgiveness-and-relational-hurt.html` → `/what-hurts-today`; should link directly to `/start-here`
+- `answer-16.html` → `/answer-06`; should link directly to `/why-wont-god-tell-me-why`
+- `answer-16.html` → `/answer-07`; should link directly to `/can-anything-good-come-from-suffering`
+- `answer-16.html` → `/answer-17`; should link directly to `/why-does-grief-feel-worse`
+- `answer-10.html` → `/answer-09`; should link directly to `/does-god-know-what-this-feels-like`
+- `answer-10.html` → `/answer-14`; should link directly to `/is-death-really-the-end`
+- `answer-10.html` → `/answer-04`; should link directly to `/why-did-god-make-a-world-with-suffering`
+- `answer-21.html` → `/answer-22`; should link directly to `/does-forgiveness-mean-reconciliation`
+- `answer-21.html` → `/answer-12`; should link directly to `/am-i-as-guilty-as-the-person-who-hurt-me`
+- `answer-21.html` → `/answer-20`; should link directly to `/why-does-loving-people-hurt`
+- `answer-02.html` → `/answer-01`; should link directly to `/why-does-god-feel-far-away`
+- `answer-02.html` → `/answer-10`; should link directly to `/is-sympathy-all-god-offers`
+- `answer-02.html` → `/answer-24`; should link directly to `/does-doubt-mean-i-was-never-a-believer`
+- `god-feels-far-away.html` → `/what-hurts-today`; should link directly to `/start-here`
+- `god-feels-far-away.html` → `/answer-01`; should link directly to `/why-does-god-feel-far-away`
+- `god-feels-far-away.html` → `/answer-02`; should link directly to `/why-doesnt-god-show-himself`
+- `god-feels-far-away.html` → `/answer-03`; should link directly to `/why-cant-i-see-what-god-is-doing`
+- `god-feels-far-away.html` → `/answer-09`; should link directly to `/does-god-know-what-this-feels-like`
+- `god-feels-far-away.html` → `/answer-10`; should link directly to `/is-sympathy-all-god-offers`
+- `god-feels-far-away.html` → `/answer-01`; should link directly to `/why-does-god-feel-far-away`
+- `god-feels-far-away.html` → `/answer-03`; should link directly to `/why-cant-i-see-what-god-is-doing`
+- `god-feels-far-away.html` → `/answer-09`; should link directly to `/does-god-know-what-this-feels-like`
+- `god-feels-far-away.html` → `/answer-10`; should link directly to `/is-sympathy-all-god-offers`
+- `god-feels-far-away.html` → `/what-hurts-today`; should link directly to `/start-here`
+- `answer-01.html` → `/answer-03`; should link directly to `/why-cant-i-see-what-god-is-doing`
+- `answer-01.html` → `/answer-02`; should link directly to `/why-doesnt-god-show-himself`
+- `answer-01.html` → `/answer-03`; should link directly to `/why-cant-i-see-what-god-is-doing`
+- `answer-01.html` → `/answer-09`; should link directly to `/does-god-know-what-this-feels-like`
+- `answer-17.html` → `/answer-15`; should link directly to `/how-long-am-i-allowed-to-grieve`
+- `answer-17.html` → `/answer-16`; should link directly to `/why-did-this-happen-to-me`
+- `answer-17.html` → `/answer-18`; should link directly to `/am-i-allowed-to-be-angry-with-god`
+- `answer-09.html` → `/answer-10`; should link directly to `/is-sympathy-all-god-offers`
+- `answer-09.html` → `/answer-14`; should link directly to `/is-death-really-the-end`
+- `answer-09.html` → `/answer-10`; should link directly to `/is-sympathy-all-god-offers`
+- `answer-09.html` → `/answer-01`; should link directly to `/why-does-god-feel-far-away`
+- `answer-06.html` → `/answer-05`; should link directly to `/is-it-wrong-to-ask-god-why`
+- `answer-06.html` → `/answer-07`; should link directly to `/can-anything-good-come-from-suffering`
+- `answer-06.html` → `/answer-08`; should link directly to `/what-if-the-explanation-never-comes`
+- `answer-20.html` → `/answer-21`; should link directly to `/how-do-i-forgive-someone-who-isnt-sorry`
+- `answer-20.html` → `/answer-22`; should link directly to `/does-forgiveness-mean-reconciliation`
+- `answer-20.html` → `/answer-12`; should link directly to `/am-i-as-guilty-as-the-person-who-hurt-me`
+- `answer-05.html` → `/answer-06`; should link directly to `/why-wont-god-tell-me-why`
+- `answer-05.html` → `/answer-08`; should link directly to `/what-if-the-explanation-never-comes`
+- `answer-05.html` → `/answer-18`; should link directly to `/am-i-allowed-to-be-angry-with-god`
+- `answer-14.html` → `/answer-15`; should link directly to `/how-long-am-i-allowed-to-grieve`
+- `answer-14.html` → `/answer-09`; should link directly to `/does-god-know-what-this-feels-like`
+- `answer-14.html` → `/answer-17`; should link directly to `/why-does-grief-feel-worse`
+- `answer-22.html` → `/answer-21`; should link directly to `/how-do-i-forgive-someone-who-isnt-sorry`
+- `answer-22.html` → `/answer-20`; should link directly to `/why-does-loving-people-hurt`
+- `answer-22.html` → `/answer-12`; should link directly to `/am-i-as-guilty-as-the-person-who-hurt-me`
+- `answer-12.html` → `/answer-11`; should link directly to `/does-god-care-about-injustice`
+- `answer-12.html` → `/answer-21`; should link directly to `/how-do-i-forgive-someone-who-isnt-sorry`
+- `answer-12.html` → `/answer-22`; should link directly to `/does-forgiveness-mean-reconciliation`
+- `answer-18.html` → `/answer-19`; should link directly to `/what-do-i-say-to-god-right-now`
+- `answer-18.html` → `/answer-13`; should link directly to `/what-do-i-do-when-god-says-no`
+- `answer-18.html` → `/answer-11`; should link directly to `/does-god-care-about-injustice`
+- `answer-18.html` → `/answer-19`; should link directly to `/what-do-i-say-to-god-right-now`
+- `answer-13.html` → `/answer-18`; should link directly to `/am-i-allowed-to-be-angry-with-god`
+- `answer-13.html` → `/answer-19`; should link directly to `/what-do-i-say-to-god-right-now`
+- `answer-13.html` → `/answer-08`; should link directly to `/what-if-the-explanation-never-comes`
+- `answer-03.html` → `/answer-01`; should link directly to `/why-does-god-feel-far-away`
+- `answer-03.html` → `/answer-06`; should link directly to `/why-wont-god-tell-me-why`
+- `answer-03.html` → `/answer-08`; should link directly to `/what-if-the-explanation-never-comes`
+- `answer-07.html` → `/answer-04`; should link directly to `/why-did-god-make-a-world-with-suffering`
+- `answer-07.html` → `/answer-08`; should link directly to `/what-if-the-explanation-never-comes`
+- `answer-07.html` → `/answer-16`; should link directly to `/why-did-this-happen-to-me`
+- `anger-and-unanswered-prayer.html` → `/what-hurts-today`; should link directly to `/start-here`
+- `anger-and-unanswered-prayer.html` → `/answer-11`; should link directly to `/does-god-care-about-injustice`
+- `anger-and-unanswered-prayer.html` → `/answer-13`; should link directly to `/what-do-i-do-when-god-says-no`
+- `anger-and-unanswered-prayer.html` → `/answer-18`; should link directly to `/am-i-allowed-to-be-angry-with-god`
+- `anger-and-unanswered-prayer.html` → `/answer-19`; should link directly to `/what-do-i-say-to-god-right-now`
+- `anger-and-unanswered-prayer.html` → `/answer-18`; should link directly to `/am-i-allowed-to-be-angry-with-god`
+- `anger-and-unanswered-prayer.html` → `/answer-13`; should link directly to `/what-do-i-do-when-god-says-no`
+- `anger-and-unanswered-prayer.html` → `/answer-19`; should link directly to `/what-do-i-say-to-god-right-now`
+- `anger-and-unanswered-prayer.html` → `/answer-11`; should link directly to `/does-god-care-about-injustice`
+- `anger-and-unanswered-prayer.html` → `/what-hurts-today`; should link directly to `/start-here`
 
 ## Broken production destinations
 
